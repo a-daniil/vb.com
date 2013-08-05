@@ -111,7 +111,7 @@
 					</tbody>
 				</table>
 				<div class="ribbon_title_bg">
-					<h2>основная информация</h2>
+					<h2>предпочтения</h2>
 				</div>
 				<div class="additional_skils">
 					<?php echo $this->render("anketa/_show-services.phtml") ?>
@@ -125,11 +125,11 @@
 	</div>
 	<aside id="sidebar">
 		<div class="sidebox pink">
-			<div class="sidebox_header">
-				<h3>Мое видео</h3>
-			</div>
-			<div class="sidebox_content no_padding">
-				<?php if( $this->info['videolist'] ) : ?>
+			<?php if( $this->info['videolist'] ) : ?>
+				<div class="sidebox_header">
+					<h3>Мое видео</h3>
+				</div>
+				<div class="sidebox_content no_padding">
                     <?php $video=array_shift($this->info['videolist']); ?>
                     <?php $swflink = 'file='.$video['fs'].'&image=/img/videoprev.jpg&author=vipsoski.com&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
                     <span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="248" height="189" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
@@ -141,8 +141,9 @@
                         s1.addParam('flashvars','<?=$swflink;?>');
                         s1.write('video1');
                     </script>
-				<?php endif ?>
-			</div>
+				</div>
+			<?php endif ?>
+		</div>
 			<div class = "sidebox pink">
 				<div class="sidebox_header">
 					<h3>оценка пользователей</h3>
