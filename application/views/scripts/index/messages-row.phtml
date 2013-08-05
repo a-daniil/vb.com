@@ -1,0 +1,24 @@
+<?php 
+	if ( $this->viewed  ) {
+		$class = "checkbox-viewed";
+		$color = "grey";
+	} else {
+		$class = "checkbox-new";			
+	}
+?>
+<div class="user_cab_message">
+	<div class="user_cab_message_title">
+		<?= $this->getMessageFrom( $this->id ) ?>	
+	</div>
+	
+	<div class="user_cab_message_group">
+		<input type="checkbox" name="del_<?= $this->id?>" value="1" class="<?= $class ?>">
+		<a class="show-message" href="/index/show-message/id/<?= $this->id; ?>">
+			<label id="<?= $color ?>"><?= $this->subject; ?></label>
+		</a>
+	</div>
+	
+	<div class="user_cab_message_text">
+		<a href="/index/delete-message/id/<?= $this->id; ?>">Удалить</a>
+	</div>	
+</div>

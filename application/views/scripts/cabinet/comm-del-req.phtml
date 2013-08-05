@@ -1,0 +1,18 @@
+<div id="center">
+	<?if(empty($this->errors)):?>
+	<div id="cab_ankets">
+		<form id="cab_ankets_wrap" class="cab_form" action="/cabinet/comm-del/n/<?=$this->comm_id?>">
+			<div class="ca_top ca_bottom">
+				<p>Вы уверены, что хотите удалить комментарий ?</p>
+			</div>			
+			<input class="button" type="submit" value="Удалить">
+		</form>
+	</div>
+	<?else:?>
+		<div class="message">
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+		</div>
+	<?endif?>
+</div>

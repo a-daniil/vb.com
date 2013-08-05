@@ -1,0 +1,75 @@
+<div id="content-cab">
+	<div id="cab_ankets">
+	    <h2 id="cab_photo_title">Баннеры</h2>
+		<form id="cab_ankets_wrap" action="/cabinet/add-banner/n/<?//=$this->info['id']?>" method="post" enctype="multipart/form-data">
+			<div class="cab_form"><div class="cab_anketa_header">
+				<b>Максимальная ширина баннера 225px, высота любая.</b>
+				<ul><?/*?>
+					<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
+					<li><input type="submit" value="Фото для проверки" name="to_check_photo" /></li>
+
+					<?if($this->info['status']):?><li><input type="submit" value="Проверка фото" name="to_check" /></li><?endif?>
+					<?/*?><li><a href="/">Видео</a></li>
+					<li><a href="/">Карта</a></li>
+					<li><a href="/">Комментарии</a></li>*/?>
+				</ul>
+			</div></div>
+			<div class="cab_photos_form_wrap">
+			    
+			<?foreach($this->paginator as $key=>$val):?>
+			<div class="cab_anketa_photo cab_ank_photo_ed height200px" >
+				<div<?if($val['fname']):?> style="background:url('<?=$this->banners_path.'/th_'.$val['fname']?>') no-repeat top;" onclick="showPhoto('<?=$this->banners_path.'/'.$val['fname']?>')"<?endif?>>
+				<?//print_r($val);?>
+				</div>
+				<table>
+				    <tr>
+					<th>Title:<b>*</b></th>
+					<td><input type="text" name="title[<?=$val['id']?>]" title="Заголовок баннера"<?if(isset($val['title'])):?> value="<?=$val['title']?>"<?endif?> /></td>
+				    </tr>
+				    <tr>
+					<th>URL:<b>*</b></th>
+					<td><input type="text" name="url[<?=$val['id']?>]" title="Ссылка на сайт"<?if(isset($val['url'])):?> value="<?=$val['url']?>"<?endif?> /></td>
+				    </tr>
+				    <tr>
+					<th>Вид:<b>*</b></th>
+					<td align="left"><?=$this->formSelect('type['.($val['id']).']', $val['type'], '', array(1=>'Слева',2=>'Справа'))?></td>
+				    </tr>
+				</table>
+				<!--<p><b>*</b> - поля обязательные для заполнения.</p>-->
+				<p>Заменить:</p>
+				<br />
+				<input type="file" size="20" name="file_<?=$val['id']?>" />
+				<br />
+				<a href="/cabinet/del-banner/f/<?=$val['id']?>" class="cab_anketa_photo_del">Удалить</a>
+			</div>
+			<?endforeach?>
+			<?$val['title']='';$val['url']='';if(empty($val['id']))$val['id']=0;?>
+			<div class="cab_anketa_photo cab_ank_photo_ed heigth200px<?if($this->add_banner):?> cab_photo_add<?endif;?>" >
+				<div></div>
+				<table>
+				    <tr>
+					<th>Title:<b>*</b></th>
+					<td><input type="text" name="title[<?=$val['id']+1?>]" title="Заголовок баннера"<?if(isset($val['title'])):?> value="<?=$val['title']?>"<?endif?> /></td>
+				    </tr>
+				    <tr>
+					<th>URL:<b>*</b></th>
+					<td><input type="text" name="url[<?=$val['id']+1?>]" title="Ссылка на сайт"<?if(isset($val['url'])):?> value="<?=$val['url']?>"<?endif?> /></td>
+				    </tr>
+				    <tr>
+					<th>Вид:<b>*</b></th>
+					<td align="left"><?=$this->formSelect('type['.($val['id']+1).']', $val['type'], '', array(1=>'Слева',2=>'Справа'))?></td>
+				    </tr>
+				</table>
+				<p>Добавить:</p>
+				<br />
+				<input type="file" size="20" name="file_<?=$val['id']+1?>" />
+				<br />
+			</div>
+
+			<div>&nbsp;</div>
+			</div>
+			<div><input class="button" type="submit" value="Сохранить" /></div>
+		</form>
+	</div>
+    <div class="pages"><?//=$this->paginationControl($this->articles,'Sliding','pages_cab.phtml')?></div>
+</div>

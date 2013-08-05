@@ -1,0 +1,33 @@
+<tr>
+	<td>
+		<?= $this->user_login; ?>
+	</td>	
+	<td class="digits">
+		<?= $this->balance; ?>
+	</td>
+	<td class="digits">
+		<?= $this->spent; ?>
+	</td>	
+	<td class="digits">
+		<?= $this->ankets; ?>
+	</td>
+	<td class="center_content">
+		<?= $this->timestamp; ?>
+	</td>	
+	<td class="center_content">
+		<?= $this->showUserStatus($this->status); ?>
+	</td>	
+	<td class="padding_content">
+		<?php echo $this->mail; ?>
+	</td>
+	<td class="center_content">
+		<a href="/cabinet/change-user-pass/id/<?= $this->id; ?>"><img src="../img/key.png" alt="Установить пароль" title="Установить пароль" /></a>
+		<? if ( $this->status || is_null($this->status) ) :?>
+			<a class="blocking" href="/cabinet/block-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>"><img alt="Заблокировать" title="Заблокировать" src="../img/banned.png" /></a>
+		<? else : ?>
+			<a class="activating" href="/cabinet/activate-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>"><img alt="Активировать" title="Активировать" src="../img/activate.png" /></a>
+		<? endif; ?>
+		<a href="/cabinet/change-user-type/id/<?= $this->id; ?>"><img src="../img/users.png" alt="Сменить тип" title="Сменить тип" /></a>
+		<a href="/cabinet/connect<?php echo "?uid=" . $this->id . "&login=" . $this->user_login ?>"><img src="../img/messages.png" alt="Написать сообщение" title="Написать сообщение" /></a>
+	</td>
+</tr>

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/XmlRpc/Server
+END
+Fault.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/XmlRpc/Server/Fault.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/XmlRpc/Server/Exception.php
+END
+Cache.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/XmlRpc/Server/Cache.php
+END
+System.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/XmlRpc/Server/System.php
+END

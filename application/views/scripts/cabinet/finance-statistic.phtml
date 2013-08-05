@@ -1,0 +1,27 @@
+<div class="center">
+	<div id = "centerwrap-table">
+		<div class="form-buttons">
+			<a href="/cabinet/finance-statistic?filter=0" class="<?= $_GET['filter'] == 0 ? "active" : null ?>">За сегодня</a>
+			<a href="/cabinet/finance-statistic?filter=1" class="<?= $_GET['filter'] == 1 ? "active" : null ?>">Неделю</a>
+			<a href="/cabinet/finance-statistic?filter=2" class="<?= $_GET['filter'] == 2 ? "active" : null ?>">Месяц</a>
+			<a href="/cabinet/finance-statistic?filter=3" class="<?= $_GET['filter'] == 3 ? "active" : null ?>">Квартал (3 мес.)</a>
+		</div>
+		<div style="clear: both;"></div>
+		<table class='form-table' cellspacing='0' id="sorter">
+			<thead>
+				<th>Сумма</th>
+				<th>Откуда (WMR)</th>
+				<th>Откуда (WMID)</th>
+				<th>Куда (WMR)</th>
+				<th>Дата перевода</th>
+				<th>Внутренний номер покупки</th>
+				<th>Внутренний номер счета(WM)</th>
+				<th>Внутренний номер перевода(WM)</th>
+			</thead>
+			<?php	echo $this->partialLoop('cabinet/finance-statistic-row.phtml', $this->paginator);	?>
+			<tfoot>
+				<td>Итог: <?php echo $this->summ?></td>
+			</tfoot>
+		</table>
+	</div>
+</div>

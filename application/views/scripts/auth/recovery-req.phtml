@@ -1,0 +1,11 @@
+<div id="center">
+	<div class="message">
+	<?if(empty($this->errors)):?>	
+		<h2>Письмо с кодом изменения пароля выслано вам на почту.</h2>
+	<?else:?>
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+	<?endif?>
+	</div>
+</div>

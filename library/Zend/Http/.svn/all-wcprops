@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Http
+END
+Cookie.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Http/Cookie.php
+END
+Client.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Http/Client.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Http/Exception.php
+END
+Response.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Http/Response.php
+END
+CookieJar.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Http/CookieJar.php
+END

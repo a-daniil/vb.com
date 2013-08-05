@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Oauth/Token
+END
+Access.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Oauth/Token/Access.php
+END
+AuthorizedRequest.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Oauth/Token/AuthorizedRequest.php
+END
+Request.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Oauth/Token/Request.php
+END

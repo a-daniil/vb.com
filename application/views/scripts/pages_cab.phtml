@@ -1,0 +1,13 @@
+<?if($this->pageCount>1):?>
+<ul>
+	<?foreach($this->pagesInRange as $page):?>
+	<li>
+	<?if($this->current==$page):?><p><?=$page?></p><?else:?>
+	
+	
+	<a href="<?= "/cabinet" . $this->getRightUri( $_GET ) . "&p=" . $page ?>"><?=$page?></a>
+	<?endif?>
+	<?endforeach?>
+	</li>
+</ul>
+<?endif?>

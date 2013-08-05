@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Json/Server
+END
+Error.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Json/Server/Error.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Json/Server/Exception.php
+END
+Response.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Json/Server/Response.php
+END
+Cache.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Json/Server/Cache.php
+END
+Smd.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Json/Server/Smd.php
+END
+Request.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Json/Server/Request.php
+END

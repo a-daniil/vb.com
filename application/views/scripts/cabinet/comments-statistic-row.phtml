@@ -1,0 +1,16 @@
+<tr>	
+	<td class="digits">
+		<?= $this->owner_id ?>
+	</td>		
+	<td class="center_content">
+		<?= $this->text; ?>
+	</td>
+	<td class="center_content">
+		<?= $this->timestamp; ?>
+	</td>		
+	<td class="center_content">
+		<a class="activating" href="/cabinet/confirm-comment/id/<?= $this->id; ?>/uid/<?= $this->getUserIdByOwnerId($this->owner_id) ?>">
+			<img alt="Активировать" title="Активировать" src="../img/activate.png" />
+		</a>		
+	</td>
+</tr>

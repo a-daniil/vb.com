@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Application/Module
+END
+Bootstrap.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Application/Module/Bootstrap.php
+END
+Autoloader.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Application/Module/Autoloader.php
+END

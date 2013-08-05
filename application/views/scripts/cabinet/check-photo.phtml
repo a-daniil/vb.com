@@ -1,0 +1,88 @@
+<div id="center">
+	<div id="cab_ankets">
+		<h2 id="cab_photo_title">Фотография для проверки: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
+		<form id="cab_ankets_wrap" action="/cabinet/check-photo-add/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+			<div class="cab_form">
+				<div class="cab_anketa_header">
+					<ul>
+						<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
+						<li><input type="submit" value="Фото" name="to_photo" /></li>	
+						<li><input type="submit" value="Видео" name="to_video" /></li>				
+						<?/*?><li><a href="/">Видео</a></li>
+						<li><a href="/">Карта</a></li>
+						<li><a href="/">Комментарии</a></li>*/?>
+					</ul>
+				</div>
+			</div>	
+			<div class="cab_form">
+				<h3>Как пройти проверку</h3>
+				<p>Для проверки подлинности вашей анкеты и уникальности фотографий загрузите фотографию, на которой Вы держите в руках лист бумаги с датой, написанной от руки. Дата не должна отличаться более чем на 3 дня от текущей даты на момент ее загрузки. Фото должно быть в оригинальном размере, без сжатия и обработки. Не пытайтесь подделывать проверочные фотографии, иначе анкета будет заблокирована. После проверки фотографий анкета будет показываться на сайте. Проверка фото истекает через 3 месяца, после чего необходимо загрузить новую.</p>
+				<p>Эта фотография предназначена только для модератора и не будет видна посетителям сайта.</p>
+			</div>
+			<div class="cab_form">
+				<h3>Пишите только дату</h3>
+				<p>Остерегайтесь сайтов, требующих указывать на проверочном фото их названия.</p>
+				<p>Если на листке только дата Вы сможете заявить, что фото было сделано, например, для сайта знакомств и высылалось кому-то, кто просил прислать подтверждающее фото. Фото с датой (без названия сайта) не указывает на род Ваших занятий и абсолютно ничего не доказывает.</p>
+			</div>
+			<div class="cab_form">
+				<h3>Бесплатно</h3>
+				<p>Проверка выполняется бесплатно, срок выполнения: 48 часов.</p>
+				<p>Состояние проверки можно отслеживать на данной странице.</p>
+			</div>
+			<div class="cab_form">
+				<h3>Ретушь</h3>
+				<p>Если лицо на фото скрыто или заретушировано, необходимо загрузить также фото без ретуши, где видно лицо, именно с данной фотосессии, фото которой загружено в разделе фотографии.</p>				
+			</div>			
+			<div class="cab_photos_form_wrap">		
+			<?php 
+				$i = 0;
+				foreach ( $this->photo_check as $photo_check ) : 
+			 ?>		
+				<div class="cab_anketa_photo cab_ank_photo_ed">
+					<div style="background:url('<?=$this->photos_path.'/th_'.$photo_check?>') no-repeat top;" onclick="showPhoto('<?=$photo_check.'/'.$this->photo?>')"></div>
+					<?if ( $this->status == 11  ):?>
+						<p style="text-align: left; font-weight: bold;">Отклонена</p>
+						<p style="text-align: left;"><?php if ( $this->comm )echo $this->comm; ?></p>				
+					<?endif?>
+					<?if ( $this->status > 20  ):?>
+						<p style="text-align: left; font-weight: bold;">Проверка пройдена</p>				
+					<?endif?>
+					<?if ( $this->status == 20 ):?>
+						<p style="text-align: left; font-weight: bold;">На модерации</p>
+					<?endif?>						
+					<br />					
+				</div>			
+			<?php
+				 $i++; 
+				 endforeach 
+			?>	
+				<div class="cab_anketa_photo cab_ank_photo_ed">
+					<div></div>
+					<br />
+					<p>Добавить:</p>
+					<br />
+					<input type="file" size="20" name="photo_check_<?php echo $i ?>" class="photo" />
+					<br />					
+				</div>
+			</div>
+			<?php if ( $_GET['new'] ) : ?>
+				<input class="button" type="submit" value="Далее" name="next" />
+			<?php else : ?>			
+				<input class="button" type="submit" value="Сохранить"/>
+			<?php endif ?>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	function bindUnbindNewPhoto() {
+		$("input[type='file']:last").bind('change', (function () {	
+			var id = $(".cab_anketa_photo:last > .photo").attr('name');
+			id = parseInt(id.replace("photo_check_", "")) + 1;
+			$(".cab_photos_form_wrap:last").append("<div class='cab_anketa_photo cab_ank_photo_ed'><div></div><br /><p>Добавить:</p><br /><input type='file' size='20' name='photo_check_" + id + "' class='photo'><br /></div>");			
+			$(this).unbind('change');
+			bindUnbindNewPhoto();
+		}));
+	}
+
+	 window.onload = bindUnbindNewPhoto();
+</script>

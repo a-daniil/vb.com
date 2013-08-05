@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Amf/Parse
+END
+Serializer.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Amf/Parse/Serializer.php
+END
+InputStream.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Amf/Parse/InputStream.php
+END
+OutputStream.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Amf/Parse/OutputStream.php
+END
+Deserializer.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Amf/Parse/Deserializer.php
+END
+TypeLoader.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Amf/Parse/TypeLoader.php
+END

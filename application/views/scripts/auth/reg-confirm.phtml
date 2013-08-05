@@ -1,0 +1,13 @@
+<div id="center">
+	<div class="message">
+	<?if(empty($this->errors)):?>	
+		<div class="info_message">
+			<span>Ваш аккаунт был успешно активирован. Вы можете произвести вход на сайт.</span>
+		</div>
+	<?else:?>
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+	<?endif?>
+	</div>
+</div>

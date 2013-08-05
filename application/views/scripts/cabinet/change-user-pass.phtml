@@ -1,0 +1,24 @@
+<div class="center">
+	<div id = "centerwrap" >	
+		<? if ( $this->message ) :?>
+			<div class="<?= $this->color ?>">
+				<span><?= $this->message ?></span>
+			</div>
+		<? endif; ?>
+		<div class="info">
+			<span>Сменить пароль пользователя: <?= $this->login ?></span>
+		</div>
+		<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+			<div class="form">
+				<div class="form-left">					
+        			<? foreach ($this->form as $element): ?>
+        				<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
+        					<?= $element ?>
+        				<? endif ?>
+  					<? endforeach; ?>
+  				</div>  
+  				<?= $this->form->getElement('submit') ?> 				 				
+  			</div>
+  		</form>
+  	</div>
+</div>

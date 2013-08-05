@@ -1,0 +1,12 @@
+<div class="user_cab_message">
+	<div class="user_cab_message_title">
+		Анкета <a href="/anketa/<?= $this->name?>-<?= $this->ank_id ?>" target="_blank" >"<?= $this->name ?>"</a>
+	</div>
+	<div class="user_cab_message_group">
+		<input type="checkbox" name="del_<?= $this->id ?>" >			
+		<label><?= rusdate( strtotime($this->time), 'j %MONTH% Y H:i' ); ?></label>
+	</div>
+	<div class="user_cab_message_text">
+		<p><?= $this->text ?></p>
+	</div>
+</div>

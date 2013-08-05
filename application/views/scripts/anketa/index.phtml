@@ -1,0 +1,311 @@
+<div class="fix_width">
+	<div id="main">
+		<div class="side_narrow_common_holder">
+			<div class="main_title_block">
+				<h1 class="float_main_title">
+					<?=$this->info['performer']?>
+                	<?=$this->info['name']?>
+                	<?if ( $this->info['name_2'] ):?>
+            	  		 и<?=" ".$this->info['name_2']?>
+               		<?endif?>
+				</h1>
+				<span class="button pink_button float_pink_button">Новенькая</span>
+				<a class="add_favorites" href="#"><span class="add_favorites_icon"></span>В избранное</a>
+			</div>
+			<aside id="left_sidebar">
+				<? if($this->info['photolist']):?>
+					<ul class="anket_preview_girl">
+					<?php foreach($this->info['photolist'] as $thumb):?>
+                	<? if ( $thumb['fs'] ) : ?>	
+                    	<li><img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" height="352" alt="description"></li>
+                	<? endif ?>
+               		<? endforeach; ?> 
+               		</ul>
+               	<?php endif; ?>
+			</aside>
+			<div id="narrow_content">
+				<div class="ribbon_title_bg">
+					<h2>основная информация</h2>
+				</div>
+				<div class="single_girl_main_info_block">
+					<div class="single_girl_main_info_block_l">
+						<span class="big_red_phone"></span>
+						<ul class="single_girl_from">
+							<li><span class="red_col">Санкт-Петербург,</span></li>
+							<li><?php echo $this->district_list[$this->info['district']] ?></li>
+							<li><strong><?php echo $this->places[$this->info['place']] ?></strong></li>
+						</ul>
+						<span class="grey_metro"><span class="grey_metro_icon"></span><?= $this->metro_list[$this->info['metro']]?></span>
+						<h5>Параметры:</h5>
+						<ul class="girl_card_info_list black_list">
+							<li>Возраст..............<?php echo $this->info['age'] ?></li>
+							<li>Рост...................<?php echo $this->info['weight'] ?></li>
+							<li>Вес....................<?php echo $this->info['height'] ?></li>
+							<li>Грудь.................<?php echo $this->info['breast'] ?></li>
+						</ul>
+						<!-- <div class="without_ret2"></div> -->
+					</div>	
+					<div class="single_girl_main_info_block_r">
+						<div class="salon_card_another_info">
+							<div class="salon_card_rating_block">
+								<div class="salon_card_rating">
+									<span class="common_salon_card_rating"><span class="white_star_icon"></span>8.5</span>
+										<ul class="rating_stars">
+											<li></li>
+											<li></li>
+											<li></li>
+											<li></li>
+										</ul>
+									<span class="all_voices_text">Всего голосов: 837</span>
+								</div>
+								<div class="salon_card_revies">
+									<span class="green_label">Отзывы пользователей</span>
+									<ul class="voices_counter">
+										<li><span class="good_voice">+188</span></li>
+										<li><span class="voice">1</span></li>
+										<li><span class="bad_voice">-0</span></li>
+									</ul>
+								</div>
+							</div>
+							<span class="real_individual"><?php if ( true ) : ?><span class="real_individual_icon full"></span>Реальня индивидуалка<?php endif ?></span>
+							<span class="photo_verified"><?php if ( $this->info['status'] > 20 ) : ?><span class="photo_verified_icon"></span>Фото проверено<?php endif ?></span>
+							<h5 class="common_programs">Любимые программы:</h5>
+							<?php 
+								$this->row = $this->info;
+								echo $this->render('_show-services.phtml');
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="grey_title_box">
+					<strong>Тариф:</strong>
+				</div>
+				<table class="grey_table">
+					<thead>
+						<tr>
+							<td></td>
+							<td>Апартаменты</td>
+							<td>Выезд</td>
+							<td>Анал</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="one_hour_icon"></span>1 час</td>
+							<td><?if ( $this->info['price_1h_ap'] ): ?><?=number_format($this->info['price_1h_ap'], 0, ',', '.') . " руб";?><?endif?></td>
+							<td><?if ( $this->info['price_1h_ex'] ): ?><?=number_format($this->info['price_1h_ex'], 0, ',', '.') . " руб";?><?endif?></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><span class="two_hour_icon"></span>2 часа</td>
+							<td><?if ( $this->info['price_2h_ap'] ):?><?=number_format($this->info['price_2h_ap'], 0, ',', '.') . " руб";?><?endif?></td>
+							<td><?if ( $this->info['price_2h_ex'] ):?><?=number_format($this->info['price_2h_ex'], 0, ',', '.') . " руб";?><?endif?></td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td><span class="all_night_icon"></span>Ночь</td>
+							<td><?if ( $this->info['price_n_ap'] ):?><?=number_format($this->info['price_n_ap'], 0, ',', '.') . " руб";?><?endif?></td>
+							<td><?if ( $this->info['price_n_ex'] ):?><?=number_format($this->info['price_n_ex'], 0, ',', '.') . " руб";?><?endif?></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="ribbon_title_bg">
+					<h2>основная информация</h2>
+				</div>
+				<div class="additional_skils">
+					<?php echo $this->render("anketa/_show-services.phtml") ?>
+				</div>
+				<div class="ribbon_title_bg">
+					<h2>О себе</h2>
+				</div>
+				<p><?=nl2br($this->info['about'])?></p>
+				<?php echo $this->render('anketa/_comments-block.phtml') ?>
+		</div>
+	</div>
+	<aside id="sidebar">
+		<div class="sidebox pink">
+			<div class="sidebox_header">
+				<h3>Мое видео</h3>
+			</div>
+			<div class="sidebox_content no_padding">
+				<?php if( $this->info['videolist'] ) : ?>
+                    <?php $video=array_shift($this->info['videolist']); ?>
+                    <?php $swflink = 'file='.$video['fs'].'&image=/img/videoprev.jpg&author=vipsoski.com&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
+                    <span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="248" height="189" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
+                    <script type="text/javascript" src="/js/swfobject.js"></script>
+                    <script type="text/javascript">
+                    	var s1 = new SWFObject('/player.swf','player','230','189','9');
+                        s1.addParam('allowfullscreen','true');
+                        s1.addParam('allowscriptaccess','always');
+                        s1.addParam('flashvars','<?=$swflink;?>');
+                        s1.write('video1');
+                    </script>
+				<?php endif ?>
+			</div>
+			<div class = "sidebox pink">
+				<div class="sidebox_header">
+					<h3>оценка пользователей</h3>
+				</div>
+				<div class="sidebox_content no_side_padding">
+					<span class="total_score">Общая оценка: <span class="good_score">хорошо <span class="good_score_icon"></span></span></span>
+						<ul class="reviews_sidebar_item">
+							<li>
+								<span class="reviewer_name">Миша</span>
+								<ul class="reviews_sidebar_item_info">
+									<li>Соответствие фото: <span class="black">настоящие</span></li>
+									<li>Реальна индивидуалка: <span class="black">салон</span></li>
+									<li>
+										Отношение к клиенту:
+										<div class="black">
+											<ul class="rating_stars">
+												<li></li>
+												<li></li>
+												<li></li>
+												<li></li>
+											</ul>
+										</div>
+									</li>
+									<li>
+										Массаж эротический:
+										<div class="black">
+											<ul class="rating_stars">
+												<li></li>
+												<li></li>
+												<li></li>
+												<li class="bad"></li>
+											</ul>
+										</div>
+									</li>
+									<li>
+										Ролевые игры:
+										<div class="black">
+											<ul class="rating_stars">
+												<li></li>
+												<li></li>
+												<li class="bad"></li>
+												<li class="bad"></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+								<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
+							</li>
+							<li>
+								<span class="reviewer_name">Sanek</span>
+								<ul class="reviews_sidebar_item_info">
+									<li>Соответствие фото: <span class="black">чужие</span></li>
+									<li>Реальна индивидуалка: <span class="black">салон</span></li>
+									<li>
+										Отношение к клиенту:
+										<div class="black">
+											<ul class="rating_stars">
+												<li></li>
+												<li></li>
+												<li></li>
+												<li></li>
+											</ul>
+										</div>
+									</li>
+									<li>
+										Массаж эротический:
+										<div class="black">
+											<ul class="rating_stars">
+												<li></li>
+												<li></li>
+												<li></li>
+												<li class="bad"></li>
+											</ul>
+										</div>
+									</li>
+									<li>
+										Ролевые игры:
+										<div class="black">
+											<ul class="rating_stars">
+												<li></li>
+												<li></li>
+												<li class="bad"></li>
+												<li class="bad"></li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							<span class="single_reviewer_total_score">Общая оценка: <span class="bad_score">не советую <span class="bad_score_icon"></span></span></span>
+							</li>
+						</ul>
+						<a href="#" class="more_reviews">Показать все отзывы</a>
+					</div>
+				</div>
+				<div class="sidebox pink">
+					<div class="sidebox_header">
+						<h3>ищи меня на карте</h3>
+					</div>
+					<div class="sidebox_content no_padding">
+						<img src="/img/pic30.jpg" width="248" height="189" alt="description">
+					</div>
+				</div>
+				 <?php
+              		  $salon = $this->salon;
+              		  if(!empty($salon['photolist'])){
+					  	$photolist=unserialize($salon['photolist']);
+					  if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+						else{$photo=array_shift($photolist);}
+					  } else{
+						$photo=false;
+					  }	
+					if ($photo) :
+				?>
+				<div class="sidebox">
+					<div class="sidebox_header">
+						<h3>анкета от салона</h3>
+					</div>
+					<div class="sidebox_content">
+						<div class="salon_anket_sidebox">
+							<div class="salon_anket_sidebox_name">
+								<h4><?php echo $salon['name'] ?></h4>
+								<span><?php echo $salon['about'] ?></span>
+							</div>
+							<div class="salon_anket_sidebox_place">
+								<span><span class="grey_metro_icon"></span><?php $metro = explode(";", $salon['metro']); echo $this->metro_list[$metro[0]]; ?></span>
+								<span>г. Москва</span>
+								<span class="girl_card_price"><?php echo $salon['price_1h_ap']?><span>руб/час</span></span>
+							</div>
+						</div>
+						<div class="salon_anket_sidebox_preview">
+							<img src="<?php echo $this->url_user_ph.'/'.$salon['user_id'].'/th_'.$photo?>" width="237" height="161" alt="description">
+							<!-- <div class="new_ribbon"></div> -->
+						</div>
+						<div class="salon_anket_sidebox_more_info">
+							<div class="salon_anket_sidebox_more_left">
+								<?php 
+									$this->row = $salon;
+									echo $this->render('_show-services-salon.phtml'); 
+								?>
+								<ul class="salon_anket_sidebox_more_left">
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+							</div>
+							<div class="salon_anket_sidebox_more_right">
+								<ul class="salon_card_info_list">
+									<li>Девушек...<?php echo $salon['girl_number'] ?></li>
+									<li>Комнат.....<?php echo $salon['room_number'] ?></li>
+								</ul>
+								<a href="/salon/<?=$salon['name_eng']?>-<?=$salon['id']?>" class="more_link_side">Подробнее</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php 
+					endif; 
+				?>
+			</div>
+		</aside>
+	</div>
+</div>
+<script type="text/javascript">
+	$.get("/remote/phone/n/<?=$this->info['id']?>", function(data){
+		$(".big_red_phone").html(data); 
+	},"");
+</script>

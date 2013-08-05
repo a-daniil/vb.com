@@ -1,0 +1,72 @@
+<div class="center">
+	<div id = "centerwrap" >
+		<div id="cab_ankets_wrap" style="padding: 10px;">
+			<div class="form-links">
+				<a href="/cabinet/edit-photo-salon/n/<?=$this->id?>">Фото</a>
+				<a href="/cabinet/edit-video-salon/n/<?=$this->id?>">Видео</a>
+				<a href="/cabinet/add-ank-to-salon/n/<?=$this->id?>">Анкеты</a>
+			</div>
+			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+				<div class="form">
+					<div class="form-left">
+        				<? foreach ($this->form as $element): ?>
+                			<? if ( !preg_match('/service_group(.*)|only|submit/', $element->getName() ) ) :?>
+               	 				<?= $element ?>
+               	 			<? endif; ?>
+  						<? endforeach; ?>
+  					</div>
+  					<div class="form-right">
+        				<? foreach ($this->form as $element): ?>
+        					<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
+               	 				<?= $element ?>
+               	 			<? endif; ?>
+  						<? endforeach; ?>
+  					</div>
+  					<?= $this->form->getElement('submit') ?>  				
+  				</div>
+  			</form>
+  		</div>
+  	</div>
+</div>
+<script type="text/javascript">
+	window.onload = function () {
+		changeView();	
+
+		$("#fieldset-worktime > legend").after("<div class='form-element'><div id='24hour-label'><label for='24hour' class='optional'>24 часа:</div><input type='checkbox' name='24hour' id='24hour' checked='checked' /></div>");
+		$("#time_from").attr("disabled", "disabled");
+		$("#time_to").attr("disabled", "disabled");			
+	}	
+
+	$("#type").change( function (){		
+		changeView();
+	});
+
+	function changeView () {
+		type = $("#type").val();		
+		
+		switch ( type ) {
+			case '1' : 				
+				$("#fieldset-service_group_intim, #fieldset-priceexinfo, #fieldset-price_ex_i_info").css("display", "block");
+				$("#fieldset-service_group_mass, #fieldset-service_group_strip, #fieldset-service_group_bdsm").css("display", "none");
+			break;
+			case '2' :
+				$("#fieldset-service_group_mass, #fieldset-service_group_strip").css("display", "block");
+				$("#fieldset-service_group_intim, #fieldset-service_group_bdsm, #fieldset-priceexinfo, #fieldset-price_ex_i_info").css("display", "none");
+			break;
+			case '3' :
+				$("#fieldset-service_group_bdsm").css("display", "block");
+				$("#fieldset-service_group_intim, #fieldset-service_group_strip, #fieldset-service_group_mass, #fieldset-priceexinfo, #fieldset-price_ex_i_info").css("display", "none");
+			break;			
+		}
+	}
+
+	$("#fieldset-worktime").click(function (){	
+		if ( $("#24hour").is(":checked") ) {
+			$("#time_from").attr("disabled", "disabled");
+			$("#time_to").attr("disabled", "disabled");
+		} else {
+			$("#time_from").removeAttr("disabled");
+			$("#time_to").removeAttr("disabled");
+		}		
+	});
+</script>

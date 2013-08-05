@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Service/DeveloperGarden/Response/SendSms
+END
+SendFlashSMSResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/DeveloperGarden/Response/SendSms/SendFlashSMSResponse.php
+END
+SendSMSResponse.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/DeveloperGarden/Response/SendSms/SendSMSResponse.php
+END
+SendSmsAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/DeveloperGarden/Response/SendSms/SendSmsAbstract.php
+END

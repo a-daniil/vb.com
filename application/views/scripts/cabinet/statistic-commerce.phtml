@@ -1,0 +1,56 @@
+<div id="center">
+	<div id = "centerwrap-table" >	
+		<table class='form-table' cellspacing='0' id="sorter">
+			<thead>
+				<tr>
+					<td>Тип</td>
+					<td>Количество</td>
+					<th>Приоритетных</th>
+					<th>Доход всего (р.)</th>
+					<th>Доход мес (р.)</th>
+					<th>Доход сут (р.)</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Девушкии</td>
+				<td class="digits"><?= $this->ankets_count[0]['count']; ?></td>
+				<td class="digits"><?= $this->girl_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>Подружки</td>
+				<td class="digits"><?= $this->ankets_count[1]['count']; ?></td>
+				<td class="digits"><?= $this->lesb_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>Мужчины</td>
+				<td class="digits"><?= $this->ankets_count[2]['count']; ?></td>
+				<td class="digits"><?= $this->man_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>Трансы</td>
+				<td class="digits"><?= $this->ankets_count[3]['count']; ?></td>
+				<td class="digits"><?= $this->trans_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>Пары</td>
+				<td class="digits"><?= $this->ankets_count[4]['count']; ?></td>
+				<td class="digits"><?= $this->para_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>Массажистки</td>
+				<td class="digits"><?= $this->ankets_count[5]['count']; ?></td>				
+				<td class="digits"><?= $this->mass_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>БДСМ</td>
+				<td class="digits"><?= $this->ankets_count[6]['count']; ?></td>
+				<td class="digits"><?= $this->bdsm_priority['count']; ?></td>
+			</tr>
+			<tr>
+				<td>Салоны</td>
+				<td class="digits"><?= $this->salons[0]['count']; ?></td>
+				<td class="digits"><?= $this->salons_priority['count']; ?></td>
+			</tr>
+		</table>
+	</div>
+</div>

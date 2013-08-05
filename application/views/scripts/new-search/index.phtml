@@ -1,0 +1,945 @@
+<script>
+	$(function(){
+		/*Слайдер возраст*/
+		$( "#slider_age" ).slider({
+			range: true,
+			min: 18,
+			max: 45,
+			values: [ 20, 30 ],
+			slide: function( event, ui ) {
+				$( "#amount_age" ).val( ui.values[ 0 ]);
+				$( "#amount_age2" ).val(ui.values[ 1 ]);
+			 }
+		});
+
+		$( "#amount_age" ).val($( "#slider_age" ).slider( "values", 0 ));
+		$( "#amount_age2" ).val($( "#slider_age" ).slider( "values", 1 ));
+
+		/*Слайдер грудь*/
+		$( "#slider_breast" ).slider({
+			range: true,
+			min: 0,
+			max: 6,
+			values: [ 3, 5 ],
+			slide: function( event, ui ) {
+				$( "#amount_breast" ).val( ui.values[ 0 ]);
+				$( "#amount_breast2" ).val(ui.values[ 1 ]);
+			 }
+		});
+
+		$( "#amount_breast" ).val($( "#slider_breast" ).slider( "values", 0 ));
+		$( "#amount_breast2" ).val($( "#slider_breast" ).slider( "values", 1 ));
+
+		/*Слайдер рост*/
+		$( "#slider_height" ).slider({
+			range: true,
+			min: 145,
+			max: 200,
+			values: [ 160, 180 ],
+			slide: function( event, ui ) {
+				$( "#amount_height" ).val( ui.values[ 0 ]);
+				$( "#amount_height2" ).val(ui.values[ 1 ]);
+			}
+		});
+
+		$( "#amount_height" ).val($( "#slider_height" ).slider( "values", 0 ));
+		$( "#amount_height2" ).val($( "#slider_height" ).slider( "values", 1 ));
+
+		/*Слайдер вес*/
+		$( "#slider_weight" ).slider({
+			range: true,
+			min: 35,
+			max: 100,
+			values: [ 50, 65 ],
+			slide: function( event, ui ) {
+				$( "#amount_weight" ).val( ui.values[ 0 ]);
+				$( "#amount_weight2" ).val(ui.values[ 1 ]);
+			 }
+		});
+
+		$( "#amount_weight" ).val($( "#slider_weight" ).slider( "values", 0 ));
+		$( "#amount_weight2" ).val($( "#slider_weight" ).slider( "values", 1 ));
+
+		/*Слайдер цена за 1 час*/
+		$( "#slider_one_hour" ).slider({
+			range: true,
+			min: 1500,
+			max: 8000,
+			values: [ 3000, 5000 ],
+			slide: function( event, ui ) {
+				$( "#amount_one_hour" ).val( ui.values[ 0 ] + ' руб');
+				$( "#amount_one_hour2" ).val(ui.values[ 1 ] + ' руб');
+			 }
+		});
+
+		$( "#amount_one_hour" ).val($( "#slider_one_hour" ).slider( "values", 0 ) + ' руб');
+		$( "#amount_one_hour2" ).val($( "#slider_one_hour" ).slider( "values", 1 ) + ' руб');
+
+		/*Слайдер цена за 2 часа*/
+		$( "#slider_two_hour" ).slider({
+			range: true,
+			min: 1500,
+			max: 8000,
+			values: [ 3000, 5000 ],
+			slide: function( event, ui ) {
+				$( "#amount_two_hour" ).val( ui.values[ 0 ] + ' руб');
+				$( "#amount_two_hour2" ).val(ui.values[ 1 ] + ' руб');
+			 }
+		});
+
+		$( "#amount_two_hour" ).val($( "#slider_two_hour" ).slider( "values", 0 ) + ' руб');
+		$( "#amount_two_hour2" ).val($( "#slider_two_hour" ).slider( "values", 1 ) + ' руб');
+
+		/*Слайдер цена за ночь*/
+		$( "#slider_night" ).slider({
+			range: true,
+			min: 1500,
+			max: 8000,
+			values: [ 3000, 5000 ],
+			slide: function( event, ui ) {
+				$( "#amount_night" ).val( ui.values[ 0 ] + ' руб');
+				$( "#amount_night2" ).val(ui.values[ 1 ] + ' руб');
+			 }
+		});
+
+		$( "#amount_night" ).val($( "#slider_night" ).slider( "values", 0 ) + ' руб');
+		$( "#amount_night2" ).val($( "#slider_night" ).slider( "values", 1 ) + ' руб');
+
+	});
+</script>
+<div class="fix_width">
+	<? if( isset( $this->info['title'] ) ): ?>
+		<h1><?= $this->textToView( $this->info['title'] ) ?></h1>
+	<? else: ?>
+		<h1>Расширенный поиск анкет, девушек, массажисток, БДСМ и т.д.</h1>
+	<? endif; ?>
+	<div id="main">
+		<form action="/new-search/result/" method="post">
+			<fieldset>
+				<div class="main_search_block">
+					<div class="left_search_block">
+						<div class="ribbon_title_bg">
+							<h2>Поиск анкет по исполнителю</h2>
+						</div>
+						<div class="common_tools_block">
+							<div class="form_row">
+								<label for="performer" class="form_row_label">Исполнитель:</label>
+								<div class="tool_box">
+									<select multiple="multiple" name="performer[]" class="multiselect">
+										<?foreach ($this->performer as $value => $title ): ?>
+											<option value="<?= $value ?>"
+											<? if( isset( $this->info['performer'] ) && $value == $this->info['performer'] ): ?>
+												selected 
+											<? endif ?>>
+											<?=$title?>
+											</option>
+										<? endforeach ?>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="individual" class="form_row_label">Индивидуалка:</label>
+								<div class="tool_box">
+									<select name="type" class="multiselect">
+										<? foreach ( $this->types as $value=>$title) : ?>
+											<option value="<?= $value ?>"
+											<? if ( isset( $this->info['type'] ) && $value == $this->info['type'] ): ?>
+												selected
+											<? endif ?>>
+											<?= $title ?>
+											</option>
+										<? endforeach ?>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="individual" class="form_row_label">Экзотика:</label>
+								<div class="tool_box">
+									<select name="exotics" class="multiselect">
+										<?foreach($this->exotics as $value=>$title):?>
+											<option value="<?=$value?>"<?if( isset( $this->info['exotics'] ) && $value==$this->info['exotics'] ):?>selected<?endif?>><?=$title?></option>
+										<? endforeach ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="ribbon_title_bg">
+							<h2>Поиск анкет по параметрам</h2>
+						</div>
+						<div class="common_tools_block">
+							<div class="form_row_slider">
+								<label class="form_row_label">Возраст:</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_age" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_age"></div>
+										</div>
+										<input type="text" id="amount_age2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form_row_slider">
+								<label class="form_row_label">Грудь:</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_breast" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_breast"></div>
+										</div>
+										<input type="text" id="amount_breast2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form_row_slider">
+								<label class="form_row_label">Рост:</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_height" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_height"></div>
+										</div>
+										<input type="text" id="amount_height2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form_row_slider">
+								<label class="form_row_label">Вес:</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_weight" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_weight"></div>
+										</div>
+										<input type="text" id="amount_weight2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ribbon_title_bg">
+							<h2>Поиск анкет по тарифам</h2>
+						</div>
+						<div class="common_tools_block">
+							<div class="form_row_slider">
+								<label class="form_row_label">1 час (руб.):</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_one_hour" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_one_hour"></div>
+										</div>
+										<input type="text" id="amount_one_hour2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form_row_slider">
+								<label class="form_row_label">2 часа (руб.):</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_two_hour" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_two_hour"></div>
+										</div>
+										<input type="text" id="amount_two_hour2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+							<div class="form_row_slider">
+								<label class="form_row_label">Ночь (руб.):</label>
+								<div class="tool_box">
+									<div class="range_slider">
+										<input type="text" id="amount_night" class="grey_price first_val" readonly />
+										<div class="ui-slider_holder">
+											<div id="slider_night"></div>
+										</div>
+										<input type="text" id="amount_night2" class="grey_price second_val" readonly />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ribbon_title_bg">
+							<h2>Поиск анкет по расположению</h2>
+						</div>
+						<div class="common_tools_block">
+							<div class="form_row">
+								<label for="city" class="form_row_label">Город:</label>
+								<div class="tool_box">
+									<select name="city" class="multiselect">
+										<option value="1">Вариант1</option>
+										<option value="2">Вариант2</option>
+										<option value="3">Вариант3</option>
+										<option value="4">Вариант4</option>
+										<option value="5">Вариант5</option>
+										<option value="6">Вариант6</option>
+										<option value="7">Вариант7</option>
+										<option value="8">Вариант8</option>
+										<option value="9">Вариант9</option>
+										<option value="10">Вариант10</option>
+										<option value="11">Вариант11</option>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="neighborhood" class="form_row_label">Указать район:</label>
+								<div class="tool_box">
+									<select name="district" class="multiselect">
+										<?php foreach($this->districts as $value=>$title):?>
+											<option value="<?=$value?>"<?if( isset( $this->info['district'] ) && $value==$this->info['district'] ):?>selected<?endif?>><?=$title?></option>
+										<? endforeach ?>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="metro" class="form_row_label">Указать метро:</label>
+								<div class="tool_box">
+									<select name="metro" class="multiselect">
+										<?php foreach($this->metro_list as $key => $title): ?>
+											<option value="<?php echo $key ?>"><?php echo $title ?></option>
+										<?php endforeach ?>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="place" class="form_row_label">Место встречи:</label>
+								<div class="tool_box">
+									<select name="place" class="multiselect">
+										<? foreach($this->places as $value=>$title): ?>
+											<option value="<?=$value?>"
+											<? if( isset( $this->info['place'] ) && $value==$this->info['place'] ): ?> 
+												selected
+											<? endif ?>>
+											<?= $title ?>
+											</option>
+										<? endforeach ?>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="ribbon_title_bg">
+							<h2>Отзывов не менее</h2>
+						</div>
+						<div class="common_tools_block">
+							<div class="form_row">
+							<label for="reviews" class="form_row_label">Отзывов, не менее:</label>
+										<div class="tool_box">
+											<select name="reviews" class="multiselect">
+												<option value="1">Вариант1</option>
+												<option value="2">Вариант2</option>
+												<option value="3">Вариант3</option>
+												<option value="4">Вариант4</option>
+												<option value="5">Вариант5</option>
+												<option value="6">Вариант6</option>
+												<option value="7">Вариант7</option>
+												<option value="8">Вариант8</option>
+												<option value="9">Вариант9</option>
+												<option value="10">Вариант10</option>
+												<option value="11">Вариант11</option>
+											</select>
+										</div>
+									</div>
+							<div class="form_row">
+							<label for="reviews" class="form_row_label">Оценок, не менее:</label>
+								<div class="tool_box">
+									<select name="reviews" class="multiselect">
+										<option value="1">Вариант1</option>
+										<option value="2">Вариант2</option>
+										<option value="3">Вариант3</option>
+										<option value="4">Вариант4</option>
+										<option value="5">Вариант5</option>
+										<option value="6">Вариант6</option>
+										<option value="7">Вариант7</option>
+										<option value="8">Вариант8</option>
+										<option value="9">Вариант9</option>
+										<option value="10">Вариант10</option>
+										<option value="11">Вариант11</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="ribbon_title_bg">
+							<h2>Дополнительно</h2>
+						</div>
+						<div class="common_tools_block">
+							<div class="form_row">
+								<label for="ankets" class="form_row_label">Анкеты добавленные:</label>
+								<div class="tool_box">
+									<select name="ankets" class="multiselect">
+										<option value="1">Вариант1</option>
+										<option value="2">Вариант2</option>
+										<option value="3">Вариант3</option>
+										<option value="4">Вариант4</option>
+										<option value="5">Вариант5</option>
+										<option value="6">Вариант6</option>
+										<option value="7">Вариант7</option>
+										<option value="8">Вариант8</option>
+										<option value="9">Вариант9</option>
+										<option value="10">Вариант10</option>
+										<option value="11">Вариант11</option>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="national" class="form_row_label">Национальность:</label>
+								<div class="tool_box">
+									<select name="national" class="multiselect">
+										<option value="1">Вариант1</option>
+										<option value="2">Вариант2</option>
+										<option value="3">Вариант3</option>
+										<option value="4">Вариант4</option>
+										<option value="5">Вариант5</option>
+										<option value="6">Вариант6</option>
+										<option value="7">Вариант7</option>
+										<option value="8">Вариант8</option>
+										<option value="9">Вариант9</option>
+										<option value="10">Вариант10</option>
+										<option value="11">Вариант11</option>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="hair_color" class="form_row_label">Цвет волос:</label>
+								<div class="tool_box">
+									<select name="hair_color" class="multiselect">
+										<option value="1">Вариант1</option>
+										<option value="2">Вариант2</option>
+										<option value="3">Вариант3</option>
+										<option value="4">Вариант4</option>
+										<option value="5">Вариант5</option>
+										<option value="6">Вариант6</option>
+										<option value="7">Вариант7</option>
+										<option value="8">Вариант8</option>
+										<option value="9">Вариант9</option>
+										<option value="10">Вариант10</option>
+										<option value="11">Вариант11</option>
+									</select>
+								</div>
+							</div>
+							<div class="form_row">
+								<label for="intim_haircut" class="form_row_label">Интимная стрижка:</label>
+								<div class="tool_box">
+									<select name="intim_haircut" class="multiselect">
+										<option value="1">Вариант1</option>
+										<option value="2">Вариант2</option>
+										<option value="3">Вариант3</option>
+										<option value="4">Вариант4</option>
+										<option value="5">Вариант5</option>
+										<option value="6">Вариант6</option>
+										<option value="7">Вариант7</option>
+										<option value="8">Вариант8</option>
+										<option value="9">Вариант9</option>
+										<option value="10">Вариант10</option>
+										<option value="11">Вариант11</option>
+									</select>
+								</div>
+							</div>
+							<div class="common_checks">
+								<div class="common_checks_l">
+									<div class="common_checks_row">
+										<label><input type="checkbox">Фото проверено</label>
+									</div>
+									<div class="common_checks_row">
+										<label><input type="checkbox">Анкеты с видео</label>
+									</div>
+									<div class="common_checks_row">
+										<label><input type="checkbox">C отзывами</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="right_search_block">
+						<div class="ribbon_title_bg">
+							<h2>Предпочтения</h2>
+						</div>
+						<div class="common_checkboxes_hold">
+							<div class="common_checkboxes_hold_l">
+								<h5>Основные услуги:</h5>
+								<label><input type="checkbox">Классический секс</label>
+								<label><input type="checkbox">Анальный секс</label>
+								<label><input type="checkbox">Групповой секс</label>
+								<label><input type="checkbox">Лесбийский секс</label>
+								<label><input type="checkbox">Минет делаю</label>
+							</div>
+							<div class="common_checkboxes_hold_r">
+								<h5>Стриптиз услуги:</h5>
+								<label><input type="checkbox">Профи стриптиз</label>
+								<label><input type="checkbox">Не профи стриптиз</label>
+								<label><input type="checkbox">Откровенное лесби</label>
+								<label><input type="checkbox">Легкое лесби-шоу</label>
+							</div>
+						</div>
+						<div class="common_checkboxes_hold">
+							<div class="common_checkboxes_hold_l">
+								<h5>Дополнительные услуги:</h5>
+								<label><input type="checkbox">Минет без резинки </label>
+								<label><input type="checkbox">Минет глубокий</label>
+								<label><input type="checkbox">Куннилингус</label>
+								<label><input type="checkbox">Игрушки</label>
+								<label><input type="checkbox">Ролевые игры</label>
+								<label><input type="checkbox">Услуги семейным парам</label>
+								<label><input type="checkbox">Услуги геям</label>
+								<label><input type="checkbox">Услуги девушкам</label>
+								<label><input type="checkbox">Окончание на грудь</label>
+								<label><input type="checkbox">Окончание на лицо</label>
+								<label><input type="checkbox">Окончание в рот</label>
+								<label><input type="checkbox">Фото/видео съемка</label>
+								<label><input type="checkbox">Минет в машине</label>
+								<label><input type="checkbox">Эскорт</label>
+								<label><input type="checkbox">Урология</label>
+							</div>
+							<div class="common_checkboxes_hold_r">
+								<h5>Услуги экстра:</h5>
+								<label><input type="checkbox">Страпон клиенту</label>
+								<label><input type="checkbox">Страпон исполнителю</label>
+								<label><input type="checkbox">Римминг( анилингус)</label>
+								<label><input type="checkbox">Золотой дождь выдаю</label>
+								<label><input type="checkbox">Золотой дождь прием</label>
+								<label><input type="checkbox">Копро выдаю</label>
+								<label><input type="checkbox">Копро принимаю</label>
+								<label><input type="checkbox">Фистинг класс клиенту</label>
+								<label><input type="checkbox">Фистинг класс исполнителю</label>
+								<label><input type="checkbox">Фистинг анал клиенту</label>
+								<label><input type="checkbox">Фистинг анал исполнителю</label>
+							</div>
+						</div>
+						<div class="common_checkboxes_hold">
+							<div class="common_checkboxes_hold_l">
+								<h5>Массаж услуги:</h5>
+								<label><input type="checkbox">Расслабляющий массаж </label>
+								<label><input type="checkbox">Классический массаж</label>
+								<label><input type="checkbox">Профессионал. массаж </label>
+								<label><input type="checkbox">Тайский массаж</label>
+								<label><input type="checkbox">Урологический массаж </label>
+								<label><input type="checkbox">Точечный массаж</label>
+								<label><input type="checkbox">Эротический массаж</label>
+								<label><input type="checkbox">Ветка сакуры массаж </label>
+								<label><input type="checkbox">Аква-пенный массаж </label>
+							</div>
+							<div class="common_checkboxes_hold_r">
+								<h5>Садо-мазо услуги:</h5>
+								<label><input type="checkbox">Бондаж</label>
+								<label><input type="checkbox">Госпожа </label>
+								<label><input type="checkbox">Рабыня </label>
+								<label><input type="checkbox">Игры</label>
+								<label><input type="checkbox">Легкая доминация</label>
+								<label><input type="checkbox">Порка </label>
+								<label><input type="checkbox">Фетиш </label>
+								<label><input type="checkbox">Трамплинг </label>
+							</div>
+						</div>
+						<span>Укажите на карте желаемое месторасположение:</span>
+						<div class="search_radius">
+							<span class="search_radius_labe">Радиус поиска (км):</span>
+							<input type="text">
+						</div>
+						<div class="yandex_map">
+							<img src="/img/pic31.jpg" width="432" height="318" alt="description">
+						</div>
+					</div>
+				</div>
+				<button class="button pink_button main_search_button"><span class="search_icon"></span>показать анкеты</button>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<!-- 
+<div class="row" style="width: 1000px;">		
+	<div class="span6" style="width: 1000px;">
+		<div class="center_title" style="text-align: center;">
+			<? if( isset( $this->info['title'] ) ): ?>
+				<?= $this->textToView( $this->info['title'] ) ?>
+			<? else: ?>
+				Расширенный поиск анкет, девушек, массажисток, БДСМ и т.д.
+			<? endif; ?>
+		</div>
+		<form class="right_form_filtr" method="post" action="/new-search/result/">		
+		<div class="right_aside_title" style="width: 400px; float: right; margin-right: 50px;" >
+			<table>
+				<tr>
+					<td style="vertical-align: top;">
+					<?foreach( $this->services as $part => $srv ):?>
+						<?if( in_array($part, array('main')) ):?>		
+						<p class="sidebar-subtitle"><?=array_shift($srv)?></p>
+							<?foreach( $srv as $num => $val ): 
+								$param = $part . '_' . $num; 
+							?>			
+							<div class="CheckboxesLine">
+							<ul>	
+								<li>	
+									<input type="checkbox" id="<?= $param ?>" name="s[]" value="<?= $param ?>" <?= ($this->filter['s'] == $param) ? 'checked' : '' ?>>
+									<label for=<?=$param?>><?=$val?></label>
+								<li>
+							</ul>
+							</div>
+							<? endforeach ?>
+						<?endif?>
+				   <?$i++; endforeach ?>	
+					</td>
+	<td style="vertical-align: top;">
+	<?foreach( $this->services as $part => $srv ):?>
+	 	<?if( in_array($part, array('strip')) ):?>			
+			<p class="sidebar-subtitle"><?=array_shift($srv)?></p>
+			<?foreach( $srv as $num => $val ): 
+				$param = $part . '_' . $num; 
+			?>	
+			<div class="CheckboxesLine">
+				<ul>	
+					<li>	
+					    <input type="checkbox" id="<?= $param ?>" name="s[]" value="<?= $param ?>" <?= ($this->filter['s'] == $param) ? 'checked' : '' ?>>
+					    <label for=<?=$param?>><?=$val?></label>
+					<li>
+				</ul>
+		   </div>
+			<?endforeach ?>
+		<?endif?>
+    <?$i++;endforeach ?>	
+    </td>
+    </tr>
+    <tr>
+	<td style="vertical-align: top;">
+	<?foreach( $this->services as $part => $srv ):?>
+		<?if( in_array($part, array('add')) ):?>		
+			<p class="sidebar-subtitle"><?=array_shift($srv)?></p>
+			<?foreach( $srv as $num => $val ): 
+				$param = $part . '_' . $num; 
+			?>			
+				<div class="CheckboxesLine">
+					<ul>	
+						<li>	
+							<input type="checkbox" id="<?= $param ?>" name="s[]" value="<?= $param ?>" <?= ($this->filter['s'] == $param) ? 'checked' : '' ?>>
+							<label for=<?=$param?>><?=$val?></label>
+						<li>
+					</ul>
+				</div>
+			<? endforeach ?>
+		<?endif?>
+	<? $i++; endforeach ?>	
+	</td>
+	<td style="vertical-align: top;">
+	<?foreach( $this->services as $part => $srv ):?>
+	 	<?if( in_array($part, array('extr')) ):?>			
+			<p class="sidebar-subtitle"><?=array_shift($srv)?></p>
+			<?foreach( $srv as $num => $val ): 
+				$param = $part . '_' . $num; 
+			?>	
+			<div class="CheckboxesLine">
+				<ul>	
+					<li>	
+					    <input type="checkbox" id="<?= $param ?>" name="s[]" value="<?= $param ?>" <?= ($this->filter['s'] == $param) ? 'checked' : '' ?>>
+					    <label for=<?=$param?>><?=$val?></label>
+					<li>
+				</ul>
+		   </div>
+			<?endforeach ?>
+		<?endif?>
+    <?$i++;endforeach ?>	
+    </td>
+    </tr>
+    <tr>
+	<td style="vertical-align: top;">
+	<?foreach( $this->services as $part => $srv ):?>
+		<?if( in_array($part, array('mass')) ):?>		
+			<p class="sidebar-subtitle"><?=array_shift($srv)?></p>
+			<?foreach( $srv as $num => $val ): 
+				$param = $part . '_' . $num; 
+			?>			
+				<div class="CheckboxesLine">
+					<ul>	
+						<li>	
+							<input type="checkbox" id="<?= $param ?>" name="s[]" value="<?= $param ?>" <?= ($this->filter['s'] == $param) ? 'checked' : '' ?>>
+							<label for=<?=$param?>><?=$val?></label>
+						<li>
+					</ul>
+				</div>
+			<? endforeach ?>
+		<?endif?>
+	<? $i++; endforeach ?>	
+	</td>
+	<td style="vertical-align: top;">
+	<?foreach( $this->services as $part => $srv ):?>
+	 	<?if( in_array($part, array('bdsm')) ):?>			
+			<p class="sidebar-subtitle"><?=array_shift($srv)?></p>
+			<?foreach( $srv as $num => $val ): 
+				$param = $part . '_' . $num; 
+			?>	
+			<div class="CheckboxesLine">
+				<ul>	
+					<li>	
+					    <input type="checkbox" id="<?= $param ?>" name="s[]" value="<?= $param ?>" <?= ($this->filter['s'] == $param) ? 'checked' : '' ?>>
+					    <label for=<?=$param?>><?=$val?></label>
+					<li>
+				</ul>
+		   </div>
+			<?endforeach ?>
+		<?endif?>
+    <?$i++;endforeach ?>	
+    </td>
+    </tr>
+    </table>
+		</div>
+		
+		<div style="padding-top: 20px;">
+		<table width="480" border="0" class="root_table_girl">
+			<tbody>
+				<tr>
+					<td colspan="2" class="root_tab_girl_head">Поиск анкет по исполнителю</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Исполнитель:</td>
+					<td style="text-align: center;">
+						<select name="performer" id="selectInput">
+							<?foreach ($this->performer as $value => $title ): ?>
+								<option value="<?= $value ?>" 
+									<? if( isset( $this->info['performer'] ) && $value == $this->info['performer'] ): ?> 
+										selected 
+									<? endif ?>>
+									<?=$title?>								
+								</option>
+							<? endforeach ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Индивидуалка:</td>
+					<td style="text-align: center;">
+						<select name="type" id="selectInput">
+							<? foreach ( $this->types as $value=>$title) : ?>
+								<option value="<?= $value ?>"
+								<? if ( isset( $this->info['type'] ) && $value == $this->info['type'] ): ?>
+									selected
+								<? endif ?>>
+								<?= $title ?>
+								</option>
+							<? endforeach ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Экзотика:</td>
+					<td style="text-align: center;">
+						<select name="exotics" id="selectInput">
+							<?foreach($this->exotics as $value=>$title):?>
+								<option value="<?=$value?>"<?if( isset( $this->info['exotics'] ) && $value==$this->info['exotics'] ):?>selected<?endif?>><?=$title?></option>
+							<? endforeach ?>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>		
+		
+		<table width="480" border="0" class="root_table_girl">
+			<tbody>
+				<tr>
+					<td colspan="3" class="root_tab_girl_head">Поиск анкет по параметрам</th>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">1 час (руб.):</td>
+					<td>
+						От: 
+						<input type="text" style="width: 50px; height: 10px;" name="oho" id="selectInput" />
+					</td>
+					<td>
+						До: 
+						<input type="text" style="width: 50px; height: 10px;" name="ohd" id="selectInput" />
+					</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">2 часа (руб.):</td>
+					<td>
+						От: 
+						<input type="text" style="width: 50px; height: 10px;" name="tho" id="selectInput"/> 
+					</td>
+		       		<td>
+		        		До: 
+		        		<input type="text" style="width: 50px; height: 10px;" name="thd" id="selectInput"/>
+		       		</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Ночь (руб.):</td>
+					<td>
+						От:
+						<input type="text" style="width: 50px; height: 10px;" name="aho" id="selectInput"/> 
+					</td>
+       		 	    <td>
+       		  		  	До: 
+       		    		<input type="text" style="width: 50px; height: 10px;" name="ahd" id="selectInput"/>
+       		 	    </td>
+				</tr>    
+				<tr> 
+					<td class="root_tab_first_rtd">Возраст: </td>
+					<td>
+						От: 
+						<input type="text" style="width: 50px; height: 10px;"  name="ao" id="selectInput"/>
+					</td>
+					<td>
+						До: 
+						<input type="text" style="width: 50px; height: 10px;" name="ad" id="selectInput"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Грудь: </td>
+					<td>
+						От: 
+						<input type="text" style="width: 50px; height: 10px;" name="bo" id="selectInput"/>
+					</td>
+					<td>
+						До: 
+						<input type="text" style="width: 50px; height: 10px;" name="bd" id="selectInput"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Рост: </td>
+					<td>
+						От: 
+						<input type="text" style="width: 50px; height: 10px;" name="ho" id="selectInput"/>  
+					</td>
+        			<td>
+        				До: 
+        				<input type="text" style="width: 50px; height: 10px;" name="hd" id="selectInput"/>
+        			</td>
+				</tr>    
+   				<tr>
+					<td class="root_tab_first_rtd">Вес: </td>
+					<td>
+						От: 
+						<input type="text" style="width: 50px; height: 10px;" name="wo" id="selectInput"/> 
+					</td>
+        			<td>
+        				До:
+        				<input type="text" style="width: 50px; height: 10px;" name="wd" id="selectInput"/>
+        			</td>
+				</tr>
+			</tbody>		
+		</table>
+		
+		<table width="480" border="0" class="root_table_girl">
+			<tbody>
+				<tr>
+					<td colspan="2" class="root_tab_girl_head">Поиск по расположению</th>
+				</tr>   
+   				<tr>
+					<td class="root_tab_first_rtd">Место встречи: </td>
+					<td style="text-align: center;">
+						<select name="place" id="selectInput">
+							<? foreach($this->places as $value=>$title): ?>
+							<option value="<?=$value?>"
+								<? if( isset( $this->info['place'] ) && $value==$this->info['place'] ): ?> 
+									selected
+								<? endif ?>>
+								<?= $title ?>
+							</option>
+							<? endforeach ?>
+						</select>
+					</td>
+				</tr>     
+				<tr>
+					<td class="root_tab_first_rtd">Указать метро: </td>
+					<td>
+						<ul id="metro" style="height: 100px; overflow-y: scroll; overflow-x: hidden;">
+						    <? $i=1; foreach($this->metro_list as $key => $title): $i++;
+								if ( !$key ) continue;
+                     	    ?>
+                     	    	<li>
+                     	    	    <nobr>
+                     	    		    <input id="metro_<?=$key?>" style="width: 30px;" type="checkbox" name="metro[<?=$key?>]" value="<?=$key?>">  <?= $title ?>
+                    	       	        <label for="metro_<?=$key?>"><?=$itle?></label>
+                    	       	    </nobr>
+                      	 	    </li> 
+                     	    <?endforeach?>
+						</ul>
+					</td>
+					<!-- 
+					<td class="root_tab_first_rtd">Указать метро: </td>
+					<td style="text-align: center;">
+						<select  name="metro[]"  id="selectInput" multiple="multiple" size="10">
+                    	   <? $i=1; foreach($this->metro_list as $key => $title): $i++;
+								if ( !$key ) continue;
+                     	   ?>
+                    	    <option  value="<?= $key ?>"
+                        		<?if( $i==$this->filter['m'] ):?> 
+                        			selected
+                        		<? endif ?>>
+                        		<?= $title ?>
+                      	 	 </option>
+                     	   <?endforeach?>
+                  	  </select>
+              	  </td>
+              
+				</tr>
+				<tr>
+					<td class="root_tab_first_rtd">Указать район: </td>
+					<td style="text-align: center;">
+						<select name="district" id="selectInput">
+							<?foreach($this->districts as $value=>$title):?>
+								<option value="<?=$value?>"<?if( isset( $this->info['district'] ) && $value==$this->info['district'] ):?>selected<?endif?>><?=$title?></option>
+							<? endforeach ?>
+						</select>
+					</td>
+				</tr>
+			</tbody>    
+		</table>
+		
+		<table width="480" border="0" class="root_table_girl">
+			<tbody>
+				<tr>
+					<td colspan="2" class="root_tab_girl_head">Поиск по новизне</th>
+				</tr><!-- Table Header    
+   				<tr>
+					<td class="root_tab_first_rtd">Анкеты добавленные: </td>
+					<td style="text-align: center;">
+						<select name="novelty" id="selectInput">
+							<option value="0">
+                				За все время
+                			</option>
+							<? foreach( $this->novelty as $value => $title ): ?>
+							<option value="<?=$value?>"
+								<? if( isset( $this->info['novelty'] ) && $value==$this->info['novelty'] ): ?> 
+									selected
+								<? endif ?>>
+								<?= $title ?>
+							</option>
+							<? endforeach ?>
+						</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table width="480" border="0" class="root_table_girl">
+			<tbody>
+				<tr>
+					<td colspan="2" class="root_tab_girl_head">Другое</th>
+				</tr><!-- Table Header     
+				<tr>
+					<td class="root_tab_first_rtd">Фото проверено: </td>
+					<td style="text-align: center;"> 
+						<input class="<?= ( $this->menu_sub['active'] == 'st' ) ? 'active' : '' ?>" type="checkbox" name="st"> 
+					</td>
+				</tr><!-- Table Row 
+				<tr class='even'>
+					<td class="root_tab_first_rtd">Анкеты с видео:</td>
+					<td style="text-align: center;"> 
+						<input class="<?= ( $this->menu_sub['active'] == 'v' ) ? 'active' : '' ?>" type="checkbox" name="v"> 
+					</td>
+				</tr><!-- Darker Table Row 
+	  	 		<tr>
+			 		<td class="root_tab_first_rtd">С отзывами:</td>
+					<td style="text-align: center;">
+						<input class="<?=( $this->menu_sub['active'] == 'rv' ) ? 'active' : '' ?>" type="checkbox" name="rv"> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div style="margin-top: 20px;">
+			<input type="hidden" name="search" value="<?= md5( time() ); ?>" /> 
+			<button class="buttonSearch" style='margin-bottom: 30px; margin-left: 400px;'>
+				Показать анкеты!
+			</button>
+		</div>
+		</form>
+	</div>
+</div>
+-->

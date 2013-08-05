@@ -1,0 +1,91 @@
+<div id="center">
+	<div id="cab_ankets">
+		<h2 id="cab_photo_title">Фотографии: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
+		<form id="cab_ankets_wrap" action="/cabinet/add-photo/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+			<div class="cab_form"><div class="cab_anketa_header">
+				<ul>				
+					<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
+					<li><input type="submit" value="Фото для проверки" name="to_check_photo" /></li>
+					<li><input type="submit" value="Видео" name="to_video" /></li>
+					<?/*?><li><a href="/">Видео</a></li>
+					<li><a href="/">Карта</a></li>
+					<li><a href="/">Комментарии</a></li>*/?>
+				</ul>
+			</div></div>
+			<?if ( $this->status > 20 ): ?>
+				<div class="edit-photo-text">
+					<h3>Фото проверено</h3>
+					<p>Фотографии в данной анкете были проверенны. Если вы загрузите в нее новое фото, то проверка будет аннулирована. При удаление фото проверка сохраняется.</p>
+				</div>
+			<?endif?>			
+			<div class="edit-photo-text">
+				<h3>Новая фотография</h3>
+				<p>Уважаемые рекламодатели, на сайте не допускается размещение чужих фотографий, порнографических фотографий, фотографий c логотипами других сайтов.</p>	
+				<p>Порнографией считается:</p>
+				<ul>
+					<li>изображение полового сношения.</li>
+					<li>изображение сопоставимого с половым сношением действия сексуального характера.</li>		
+					<li>изображение половых органов (если есть заретушируйте или наложите изображение).</li>	
+				</ul>
+				<p>Фотографии: 8 шт</p>
+				<p>
+					<span>Выберите фото на вашем компьютере через кнопку обзор и нажмите "Сохранить"</span>
+					<span>Запрещено в анкету загружать одинаковые фотографии.</span>
+					<span>Загружайте фотографии в самом высоком разрешении и максимальном качестве, на сервере они будут автоматически сжаты до оптимального размера.</span>
+					<span>Загружаемый файл должен быть не более 3 МБ, формата JPG, GIF, PNG. Минимальное разрешение не менее 400x400.</span>
+					<span>Для включения анкеты необходимо минимум 3 фото.</span>
+				</p>
+			</div>			
+			<div class="cab_photos_form_wrap">
+			<?foreach($this->info['photolist'] as $key=>$photo): $i++;?>
+			<div class="cab_anketa_photo cab_ank_photo_ed">
+				<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/th_'.$photo?>') no-repeat top;" onclick="showPhoto('<?=$this->photos_path.'/'.$photo?>')"<?endif?>></div>
+				<br />
+				<p><?if($photo):?>Заменить<?else:?>Добавить<?endif?>:</p>
+				<br />
+				<input type="file" size="20" name="file_<?=$key?>" id="add_file_<?php echo $i; ?>" <? if ( $this->info['status'] >= 30 ) :?> onchange="bindEasyconfirmToSaveButton(this)" <? endif; ?> />
+				<br />
+				<?if($photo):?>
+					<br />
+					<p>Использовать для превью:
+					<input type="radio" name="preview" class="cab_form_radio" <?if(isset($this->preview) && $key==$this->preview):?>checked="checked" <?endif?>value="<?=$key?>" /></p>
+					<a href="/cabinet/del-photo/n/<?=$this->info['id']?>/f/<?=$key?>" class="cab_anketa_photo_del remove">Удалить</a>
+				<?endif?>
+			</div>
+			<?endforeach?>
+			</div>			
+			<?php if ( $_GET['new'] ) : ?>
+				<input class="button" type="submit" value="Далее" id="save" name="next" />
+			<?php else : ?>			
+				<input class="button" type="submit" id="save" value="Сохранить"/>
+			<?php endif ?>			
+		</form>
+	</div>
+</div>
+
+<? if ( $this->info['status'] >= 30 ) :?>
+<script type="text/javascript">
+	$(".remove").easyconfirm({locale: {
+		title: 'Удалить?',
+		text: 'Анкете присвоен статус "Фото проверенно",<br/> при изменении фотографий - добалении/удалении<br/> статус "Фото проверенно" будет снят<br/> и анкета отправиться на модерацию! Продолжить?',
+		button: ['Нет', 'Да']
+	}});
+
+	var can_bind = true;
+	
+	function bindEasyconfirmToSaveButton ( el ) {
+		if ( can_bind ) {		
+			$("#save").easyconfirm({locale: {
+				title: 'Добавить/Изменить фото?',
+				text: 'Анкете присвоен статус "Фото проверенно",<br/> при изменении фотографий - добалении/удалении<br/> статус "Фото проверенно" будет снят<br/> и анкета отправиться на модерацию! Продолжить?',
+				button: ['Нет', 'Да']
+			}});	
+
+			can_bind = false;
+		}
+	}
+</script>
+<? endif; ?>
+
+
+

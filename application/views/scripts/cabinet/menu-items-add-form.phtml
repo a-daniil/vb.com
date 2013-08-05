@@ -1,0 +1,72 @@
+<div id="content-cab">
+	<div id="cab_ankets">
+		<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?= $this->url(array('action' => isset($this->action) ? ('menu-items-'.$this->action):'menu-items-add')) ?>"
+			onkeydown="return ctrEnter(event,'submit');"
+			onSubmit="$('#field_uri').removeAttr('disabled');">
+			<div class="ca_top ca_bottom">
+                <?// textToFormEdit helper apply in CabinetController.php:1306 arr_htmlentities() ?>
+                <h3 <?if(isset($this->info['failed']['menu_title'])):?>class="input_failed" <?endif?>>Название в меню:<b>*</b></h3>
+                <input type="text" name="menu_title"<?if(isset($this->info['menu_title'])):?> value='<?=($this->info['menu_title'])?>'<?endif?> />
+                <h3 <?if(isset($this->info['failed']['priority'])):?>class="input_failed" <?endif?>>Позиция в меню(1-NN): <b>*</b></h3>
+                <input type="text" name="priority"<?if(isset($this->info['priority'])):?> value='<?=($this->info['priority'])?>'<?endif?> />
+                <h3 <?if(isset($this->info['failed']['title'])):?>class="input_failed" <?endif?>>Название раздела:<b>*</b></h3>
+                <input type="text" name="title"<?if(isset($this->info['title'])):?> value='<?=($this->info['title'])?>'<?endif?> />
+                <h3 <?if(isset($this->info['failed']['uri'])):?>class="input_failed" <?endif?>>Section_uri:<b>*</b> 
+                    edit: <input style="width:25px;padding: 0px 20px 0px 2px;" type="checkbox" id="field_uri_is_editable" name="field_uri_is_editable" <?=($this->action == 'add') ? 'checked' : ''?>></h3>
+                <input id="field_uri" style="" type="text" name="uri"<?if(isset($this->info['uri'])):?> value='<?=$this->info['uri']?>'<?endif?> />                                              
+                <h3>Мета-тег title:</h3>
+                <input type="text" name="title_meta"<?if(isset($this->info['title_meta'])):?> value='<?=$this->info['title_meta']?>'<?endif?> />
+                <h3>Мета-тег Keywords:</h3>
+                <input type="text" name="keywords"<?if(isset($this->info['keywords'])):?> value='<?=$this->info['keywords']?>'<?endif?> />
+                <h3>Мета-тег Descriptions:</h3>
+                <input type="text" name="descriptions"<?if(isset($this->info['descriptions'])):?> value='<?=$this->info['descriptions']?>'<?endif?> />
+                <h3>Текст раздела:</h3>
+                <textarea name="text" id="editor" rows="6"><?if(isset($this->info['text'])):?><?=$this->info['text']?><?endif?></textarea>
+                <h3>Левая колонка:</h3>
+                <textarea name="text_left" id="editor1" rows="6"><?if(isset($this->info['text_left'])):?><?=$this->info['text_left']?><?endif?></textarea>
+                <h3>Правая колонка:</h3>
+                <textarea name="text_right" id="editor2" rows="6"><?if(isset($this->info['text_right'])):?><?=$this->info['text_right']?><?endif?></textarea>
+                <h3>Подвал:</h3>
+                <textarea name="text_footer" id="editor3" rows="6"><?if(isset($this->info['text_footer'])):?><?=$this->info['text_footer']?><?endif?></textarea>
+
+                <table>
+                	<tr>
+                        <th <?if(isset($this->info['failed']['name'])):?>class="input_failed" <?endif?>></th>
+                        <td></td><th <?if(isset($this->info['failed']['type'])):?>class="input_failed" <?endif?>>Тип:<b>*</b></th>
+                        <td>
+                            <select id="jstype" name="type" onchange="types()">                            	
+                                <?foreach($this->types_menu as $value=>$title):?>
+                                    <option value="<?=$value?>"<?if(isset($this->info['type']) && $value==$this->info['type']):?> selected<?endif?>><?=$title?></option>
+                                <?endforeach?>
+                            </select>
+                        </td>                           
+                    </tr>
+                    <tr>
+                    	<th <?if(isset($this->info['failed']['performer'])):?>class="input_failed" <?endif?>>Исполнитель:<b>*</b></th>
+                        <td>
+                            <select id="jsperformer" name="performer">                            
+                            <?foreach($this->performer as $value=>$title):?>
+                                <option value="<?=$value?>"<?if(isset($this->info['performer']) && $value==$this->info['performer']):?> selected<?endif?>><?=$title?></option>
+                            <?endforeach?>
+                            </select>
+                        </td> 
+                    </tr>                      
+                </table>                   
+            </div>
+            <input id="submit" class="button" type="submit" value="Сохранить (Ctrl + Enter)" />
+        </form>
+	</div>
+</div>
+<script>
+    function field_uri_editable(obj){
+      if ($(obj).attr('checked')){
+          $('#field_uri').removeAttr('disabled');
+      }else{
+          $('#field_uri').attr('disabled','disabled');
+      }
+    }
+    field_uri_editable('#field_uri_is_editable');
+    $('#field_uri_is_editable').change(function(){
+       field_uri_editable(this); 
+    });  
+</script>

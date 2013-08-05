@@ -1,0 +1,135 @@
+/* DEFAULT STYLE */
+
+/* selectbox wrapper */
+.styled-select {
+  border:1px solid #aeaeae;
+  background-color:white;
+  display:inline-block;
+  font: 13px/28px Arial,Sans-Serif;
+  height:28px;
+  color:#101010;
+  position:relative;
+  box-shadow: 2px 2px 2px #D1D1D1 inset;
+}
+.header_filter_block .styled-select {
+  background-color: #f9f9f9;
+  font: 13px/29px Arial,Sans-Serif;
+  font-weight: normal;
+  height:29px;
+  color:#222;
+  position:relative;
+  border: 1px solid #741011;
+  border-radius: 5px;
+  box-shadow: 4px 4px 6px #BFBFBF inset;
+}
+
+.styled-select,
+.styled-select .curr {padding:0 4px 0 5px;}
+
+/* select element inside the custom selectbox */
+.styled-select select {
+  padding:0 0;
+  margin:0 0;
+  height:0;
+  visibility:hidden;
+}
+
+/* selectbox button (current value holder) */
+.styled-select .curr {
+  display:block;
+  position:absolute;
+  top:0;
+  right:0;
+  left:0;
+  cursor:pointer;
+}
+.header_filter_block .styled-select .curr {
+  top:0;
+  right:0;
+  left:0;
+  color:#6e6e6e;
+   font-style: italic;
+}
+
+
+/* arrow down */
+.styled-select .curr:after {
+  content:"";
+  display:block;
+  width:0;
+  height:0;
+  border:7px solid transparent;
+  border-top-color:#242424;
+  position:absolute;
+  top:12px;
+  right:8px;
+}
+.header_filter_block .styled-select .curr:after {
+  right: -1px;
+  border: none;
+  top: -1px;
+  width: 28px;
+  height: 30px;
+  background: url(../img/sprite.png) no-repeat -118px -98px;
+}
+
+
+/* drop down menu (fake option list) */
+.styled-select ul {
+  border:1px solid #741011;
+  background-color:white;
+  margin:0 0;
+  padding:0 0;
+  position:absolute;
+  top:100%;
+  right:-1px;
+  left:-1px;
+  z-index:99;
+  -webkit-box-shadow:0 1px 4px -2px rgba(0,0,0,.4);
+  -moz-box-shadow:0 1px 4px -2px rgba(0,0,0,.4);
+  box-shadow:0 1px 4px -2px rgba(0,0,0,.4);
+}
+
+/* option item (fake option item) */
+.styled-select li {
+  list-style:none;
+  cursor:pointer;
+  padding:0 10px;
+  margin:0 0;
+}
+
+.styled-select li:hover {
+  background-color:#39f;
+  color:white;
+}
+.header_filter_block .styled-select li:hover {
+  background-color:#e0e0e0;
+  color:#741011;
+}
+
+/* selected option */
+.styled-select li.selected,
+.styled-select li.selected:hover {
+  background-color:#ffc;
+  color:black;
+}
+.header_filter_block .styled-select li.selected,
+.header_filter_block  .styled-select li.selected:hover {
+  background-color:#e0e0e0;
+  color:#741011;
+   border-top: 1px solid #741011;
+  border-bottom: 1px solid #741011;
+}
+
+
+/* disabled option */
+.styled-select li.disabled,
+.styled-select li.disabled:hover {
+  color:#bbb;
+  font-style:italic;
+  background:none;
+  cursor:text;
+}
+
+/* focused selectbox */
+/* .styled-select .curr.focused {background-color:#eee} */

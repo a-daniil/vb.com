@@ -1,0 +1,73 @@
+<div id="styles"></div>
+
+<div class="center">
+	<div id = "centerwrap" class="pay" >
+		<?php if ( $this->type == 0 ) : ?>		
+			<h2>Пополнение счета</h2>
+		<?php elseif ( $this->type == 1) : ?>
+			<h2>Пополнение счета через терминал оплаты</h2>
+		<?php elseif ( $this->type == 2) : ?>
+			<h2>Пополнение счета через карты WebMoney</h2>
+		<?php endif ?>	
+		<div class="pay-input">
+			Сумма платежа: 
+			<input type="text" size="15" maxlength="15" name="amount" id="amount" placeholder="1000.00"/> 
+			<select name="type" id="type">
+				<?php foreach( $this->vallets as $key => $value ) : ?>
+					<option value="<?php echo $value ?>"><?php echo $key ?></option>			
+				<?php endforeach; ?>
+			</select>
+			<button id="do_pay">Пополнить счёт</button>
+		</div>
+		<?php if ( $this->type == 0 ) : ?>		
+			<h4>Платежна система Web Money</h4>
+			<p>Для пополнения счета переводом по системе WebMoney необходимо скачать и установить себе программное обеспечение(кошелек), которое можно бесплатно скачать с сайта <a href="http://webmoney.ru">www.webmoney.ru</a></p>
+		<?php elseif ( $this->type == 1) : ?>		
+			<p>Как оплачивать через терминалы можно посмотреть <a href="http://www.webmoney.ru/rus/services/spendwm_noreg/terminal.shtml">тут</a></p>
+		<?php elseif ( $this->type == 2) : ?>
+			<p>Карты можно заказать с доставкой курьером: <a href="http://www.webmoney.ru/rus/addfunds/wmz/cardsdealers.shtml">Доставка карт</a></p>
+		<?php endif ?>
+  	</div>
+</div>
+
+<form name=pay method="POST" action="https://merchant.webmoney.ru/lmi/payment.asp?<?php if ( $this->type == 1) echo "at=authtype_7"; elseif ( $this->type == 2) echo "at=authtype_3"; else echo "at=authtype_8"; ?>">
+	<input type="hidden" name="LMI_PAYMENT_AMOUNT" id="LMI_PAYMENT_AMOUNT">
+	<input type="hidden" name="LMI_PAYMENT_DESC_BASE64" value="<?php echo base64_encode("тестовый платеж"); ?>">
+	<input type="hidden" name="LMI_PAYMENT_NO" value="<?php echo $this->payment_no ?>">
+	<input type="hidden" name="LMI_PAYEE_PURSE" id="LMI_PAYEE_PURSE">
+	<input type="hidden" name="LMI_SIM_MODE" value="0">
+	<input type="hidden" name="LMI_PAYMER_EMAIL" value="<?php echo $this->user_email ?>">
+	
+	<input type="hidden" name="LMI_ALLOW_SDP" value="">
+</form>
+
+<script type="text/javascript">
+	$("#do_pay").click(function (){
+		var amount = $("#amount").val();
+		var vallet = $("#type").val();
+		var match = amount.match(/^\d+(\.\d+)?$/);
+		
+		if ( amount && match) {
+			$("#LMI_PAYMENT_AMOUNT").attr("value", amount);
+			$("#LMI_PAYEE_PURSE").attr("value", vallet);
+
+			/* create payment */
+			$.get("/payment/create-payment", {
+				"LMI_PAYMENT_AMOUNT" : amount,
+				"LMI_PAYMENT_NO" : <?php echo $this->payment_no ?>,
+				"LMI_PAYEE_PURSE" : vallet,
+				"user_id" : <?php echo $this->user_id ?> 
+			}, function ( data ){
+				document.forms['pay'].submit();
+			});		
+		} else {			
+			if ( amount.length == 0 ) {
+				$("#amount").attr("placeholder", "Заполните это поле");
+			} else if ( match == null ) {
+				$("#amount").attr("placeholder", "Введите число").val("");
+			}
+			
+			$("#styles").append("<style>#amount::-webkit-input-placeholder{color: red;}	#amount:-moz-placeholder{color:red;}#amount:-ms-input-placeholder{color:red;}</style>");
+		}		
+	});
+</script>

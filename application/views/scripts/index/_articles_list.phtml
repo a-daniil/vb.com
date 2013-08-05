@@ -1,0 +1,14 @@
+	<?if(isset($this->articles) && count($this->articles) && $_SERVER['REQUEST_URI'] == '/'):?>
+			<div class="left_block_article">
+			<div>Интим новости и публикации</div>
+				<ul>
+				<?php $country = "/Проститутки\ [А-Я]/i"; ?>
+				<?foreach($this->articles as $art):?>
+					<?php if(!preg_match($country, $art['title'])){ ?>
+					<li><a href="<?=$this->url(array('action'=>'article','n'=>$art['id']),'default')?>"><?=$art['title']?></a></li>
+					<?php } ?>
+				<?endforeach?>
+				</ul>
+				<?=$this->paginationControl($this->articles,'Sliding','shared/pagination_pub.phtml')?>
+			</div>
+		<?endif?>

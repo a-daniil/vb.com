@@ -1,0 +1,11 @@
+<tr>
+	<td class="digits">
+		<?php echo $this->amount; ?>
+	</td>
+	<td class="digits">
+		<?php if ( $this->date )echo date('Y-m-d H:i:s', strtotime($this->date)); ?>
+	</td>
+	<td class="digits">
+		<?php if ( $this->state ) { echo "<b>Оплачен<b>" ;} else { echo "Выставлен"; } ?>
+	</td>	
+</tr>

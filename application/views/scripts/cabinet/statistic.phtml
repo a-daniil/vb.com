@@ -1,0 +1,22 @@
+<div class="center">
+	<div id = "centerwrap-table" >	
+		<table class='form-table' cellspacing='0' id="sorter">
+			<thead>
+				<tr>
+					<th rowspan="2" class="header">Имя</th>
+					<th rowspan="2" class="header">Цена за час</th>
+					<td colspan="4">Клики</td>
+				</tr>
+				<tr>
+					<th class="header">За сутки</th>
+					<th class="header">За неделю</th>
+					<th class="header">За 30 дней</th>
+					<th class="header">Всего</th>
+				</tr>
+			</thead>			
+			<?php  
+				echo $this->partialLoop('cabinet/ankets-statistic-row.phtml', $this->paginator); 
+			?>
+		</table>
+	</div>
+</div>

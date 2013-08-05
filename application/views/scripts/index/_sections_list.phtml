@@ -1,0 +1,11 @@
+<?if(isset($this->sections) && count($this->sections) && $_SERVER['REQUEST_URI'] == '/' ):?>
+            <div class="left_block_site">
+                    <div>Разделы сайта:</div>
+                <ul>
+                    <?foreach($this->sections as $item):?>
+                            <li><a href="<?= '/kategorii/'.str_replace(array("prostitutki-","-prostitutki"), "", $item['uri']) ?>"><?= $this->textToView($item['title'])?></a></li>
+                    <?endforeach?>
+                </ul>
+                <?=$this->paginationControl($this->sections,'Sliding','shared/pagination_pub.phtml')?>
+            </div>
+<?endif?>

@@ -1,0 +1,65 @@
+            <div class="left_aside_title">Быстрый поиск<br><span>анкет проституток</span></div>
+           <?/*
+            <form class="left_form_filtr" method="get" action="/index/index/m/">
+                <span>Метро:</span>
+                <div>
+                    <select class="lff_select" id="metro" onchange="if (this.selectedIndex) {this.form.action+=this.selectedIndex;this.form.submit();}">
+                        <option value="0">Выбрать</option>
+                       <?$i=0;foreach($this->metro_list as $title):$i++;?>
+                        <option value="<?=$title?>"<?if($i==$this->filter['m']):?> selected<?endif?>><?=$title?></option>
+                        <?endforeach?>
+                    </select>
+                </div>
+            </form>*/?>            
+            <!--  <form method="post" action="<? echo $SERVER['SERVER_NAME']; ?>"> -->
+				<div class="left_form_filtr">
+				<span>Место встречи:</span>
+                <div>
+					<a href="/kategorii/vyezd-na-dom">Выезд на дом</a> | <a href="/kategorii/s-apartamentami">С апартаментами</a>
+				</div>
+				<span>Экзотика:</span>
+                <div>
+					<a href="/kategorii/aziatki">Азиатки</a> | <a href="/kategorii/mulatki">Мулатки</a></br>
+					<a href="/kategorii/negrityanki">Негритянки</a> | <a href="/kategorii/uzbechki">Узбечки</a>
+				</div>
+                <span>Ценовые категории:</span>
+                <div>
+					<label>
+                        <?=$this->renderSelect('r',$this->price_options,$this->filter['r'],"lff_select");?>
+                    </label>
+					<a href="/kategorii/deshevye">Дешевые</a> | <a href="/kategorii/elitnye">Элитные</a>
+                </div>
+                <span>Бюст:</span>
+                <div>
+                    <label>
+                        <?=$this->renderSelect('b',$this->breast_options,$this->filter['b'],"lff_select");?>
+                    </label>
+                </div>
+                <span>Вес:</span>
+				<div>
+                    <label>
+                        <?=$this->renderSelect('w',$this->weight_options,$this->filter['w'],"lff_select");?>
+                    </label>
+					<a href="/kategorii/hudye">Худые</a> | <a href="/kategorii/tolstye">Толстые</a>
+                </div>
+                <span>Рост:</span>
+                <div>
+                    <label>
+                        <?=$this->renderSelect('h',$this->height_options,$this->filter['h'],"lff_select");?>
+                    </label>
+                </div>
+                <span>Возраст:</span>
+                <div>
+					<label>
+                        <?=$this->renderSelect('a',$this->age_options,$this->filter['a'],"lff_select");?>
+                    </label>
+					<a href="/kategorii/molodye">Молодые</a> | <a href="/kategorii/starye">Старые</a>
+                </div>
+				
+                <div> 
+                	<br/> 
+                 	<a class="clear_form" href="<?= $SERVER['SERVER_NAME'] . $SERVER['REQUEST_URI']?>">Очистить поиск!</a>
+                	<!-- <button id="clear" class="btn">Очистить поиск!</button> -->
+                </div>
+                </div>
+           <!-- </form> -->

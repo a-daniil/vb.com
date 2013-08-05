@@ -1,0 +1,17 @@
+<div id="center">
+	<div id="cab_ankets"><div id="cab_ankets_wrap">
+		<ul class="menu" style="margin:5px;">
+			<li><a href="/cabinet/art-add-form">Добавить</a></li>
+		</ul>
+		<table class="info_table">
+			<?foreach($this->articles as $art):?>
+			<tr>
+				<td><?=$art['title']?></td>
+				<td class="table_del_act" width="5%"><a href="/cabinet/art-del-req/n/<?=$art['id']?>">Удалить</a></td>
+				<td class="table_ed_act" width="5%"><a href="/cabinet/art-edit-form/n/<?=$art['id']?>">Редактировать</a></td>
+			</tr>
+			<?endforeach?>
+		</table>
+	</div></div>
+	<div class="pages"><?=$this->paginationControl($this->articles,'Sliding','pages_cab.phtml')?></div>
+</div>

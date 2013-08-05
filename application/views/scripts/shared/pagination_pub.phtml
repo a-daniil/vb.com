@@ -1,0 +1,15 @@
+<?php if ( $this->pageCount>1 ) : ?>
+	<?php if(isset($this->previous)) : ?>
+		<a id="prev" href="#" class="previouslink"></a>
+	<?php endif ?>
+		<a href="#" class="current"><?=$this->current?></a>
+	<?php if(isset($this->next)) : ?>
+		<a id="next" href="#" class="pagination_dots"></a>
+	<?php endif ?>
+<script>
+    var link_prev = "<?=$this->url(array('p'=>$this->previous),'default')?>";
+    var link_next = "<?=$this->url(array('p'=>$this->next),'default')?>";
+    $('#prev').attr('href', link_prev);
+    $('#next').attr('href', link_next);
+</script>
+<?endif?>

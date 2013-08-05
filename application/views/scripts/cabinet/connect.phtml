@@ -1,0 +1,21 @@
+<div class="center">
+	<div id = "centerwrap">	
+		<? if ( $this->message ) :?>
+			<div class="<?= $this->color ?>">
+				<span><?= $this->message ?></span>
+			</div>
+		<? endif; ?>	
+		<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>" enctype="multipart/form-data">
+			<div class="form">
+				<div class="form-left">
+        			<? foreach ($this->form as $element): ?>
+        				<? if ( !preg_match('/submit/', $element->getName() ) ) :?>
+        					<?= $element ?>
+        				<? endif ?>
+  					<? endforeach; ?>
+  				</div>  
+  				<?= $this->form->getElement('submit') ?> 				 				
+  			</div>
+  		</form>
+  	</div>
+</div>

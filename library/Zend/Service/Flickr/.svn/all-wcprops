@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/Flickr
+END
+ResultSet.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/Flickr/ResultSet.php
+END
+Result.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/Flickr/Result.php
+END
+Image.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Service/Flickr/Image.php
+END

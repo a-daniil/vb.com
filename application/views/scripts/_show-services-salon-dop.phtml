@@ -1,0 +1,29 @@
+<?php 
+$options = array();
+
+if( $this->row['sauna'] ){
+	$options['Сауна'] = true;
+}
+if( $this->row['bilyrd'] ){
+	$options['Бильярд'] = true;
+}
+if( $this->row['devushki'] ){
+	$options['Джакузи'] = true;
+}
+if( $this->row['bar'] ){
+	$options['Бар'] = true;
+}
+if( $this->row['karaoke'] ){
+	$options['Караоке'] = true;
+}
+if( $this->row['kalyan'] ){
+	$options['Кальян'] = true;
+}
+?>
+<ul class="green_check_list float">
+    <?php foreach($options as $name => $value) : ?>
+    	<?php if($value) : ?>
+        	 <li><?php echo $name ?></li>
+		<?php endif ?>
+	<?php endforeach ?>
+</ul>

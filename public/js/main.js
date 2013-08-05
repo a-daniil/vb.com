@@ -1,0 +1,56 @@
+$(document).ready(function(){
+	initFocus();
+
+	$('#login').click(function(e) {
+		var $message = $('.login_form');
+
+		if ($message.css('display') != 'block') {
+			$message.show();
+		}
+	});
+
+	$('table.even_odd tbody tr:even').css('background-color', '#f5f5f2');
+
+	$('.head_select').customSelectBox();
+	$('.simple_select').customSelectBox();
+
+	$(".multiselect").multiselect({
+		header: false,
+		selectedList: 1
+	});
+});
+
+function initFocus(){
+	$(document).on("focus", "input[type='text'], input[type='password'], textarea", function(){
+		$(this)
+			.parents('.input_row')
+			.find('.watermark')
+			.hide();
+	});
+
+	$(document).on("blur", "input[type='text'], input[type='password'], textarea", function(){
+		if($(this).val() == ''){
+			$(this)
+				.parents('.input_row')
+				.find('.watermark')
+				.show();
+		}
+	});
+
+	$(document).on("click", ".watermark", function(){
+		$(this).hide();
+		$(this)
+			.parent('.input_row')
+			.find("input[type='text'], textarea")
+			.focus();
+	});
+
+	$(document).on("each", "input[type='text'], input[type='password'], textarea", function(){
+		if($(this).val() !== ''){
+			$(this)
+				.parents('.input_row')
+				.find('.watermark')
+				.hide();
+		}
+	});
+}

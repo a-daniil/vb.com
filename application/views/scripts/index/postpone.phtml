@@ -1,0 +1,114 @@
+ <div class="row">
+ 	<div class="span10">
+    	<ul class="nav nav-tabs bottom_nav_tabs">
+        	<li class="<?=($this->menu_sub['active'] == 'default')?'active':''?>"><a href="/" class="bnt1">Все</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'st')?'active':''?>"><a href="?st=50-0" class="bnt2">Фото проверено</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'v')?'active':''?>"><a href="?v=1-0" class="bnt4">Анкеты с видео</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'rv')?'active':''?>"><a href="/?rv=1-0" class="bnt3">С отзывами</a></li>
+        </ul>
+    </div>
+    <div class="row bg_line">
+        <div class="span2">
+            <?= $this->render('index/_filter_left.phtml')?>
+            <?#= $this->render('index/_sections_list.phtml')?>
+            <?#= $this->render('index/_banners_left.phtml')?>
+            <?= $this->render('index/_articles_list.phtml')?>
+            <div class="left_block_text">               
+                <?if($_SERVER['REQUEST_URI'] == '/'):?>
+                    <?=nl2br(stripslashes($this->meta['column_left']))?>
+                <?endif;?>
+				<? if(isset($this->info['text_left'])): ?>
+                    <p class="word-wrap"><?=nl2br(stripslashes($this->info['text_left']))?></p>
+                <? endif ?>
+            </div>
+        </div>
+        <?if ( is_null($this->paginator) ): ?> 
+        	<div class="span6">  
+            	<div class="right_aside_title">У вас нет отложенных анкет</div>
+            </div>
+       	<? else: ?>    
+        	<div class="span6"> 
+        		<div class="right_aside_title">Ваши отложенные анкеты</div> 
+        		<div class="wrap_girl">
+       	        <?foreach($this->paginator as $row):?>
+        			<?
+        				if ( !empty($row['photolist']) ) {
+        					$photolist=unserialize($row['photolist']);
+        					if ( isset($photolist['preview']) ) {
+        						$photo=$photolist[$photolist['preview']];
+        					}
+        					else{
+        						$photo=array_shift($photolist);
+        					}
+        				} else {
+        					$photo=false;
+        				} 
+        			?>
+        			
+        			<div class="girl">
+                    	<div class="girl_name" style="float: left;"><?= $row['name']?$row['name'] : '' ?></div>
+                    	<div class="del_girl" style="float: right; margin-right: 10px;"><a href="/index/del-postpone/id/<?= $row[id]?>">Удалить</a></div>
+                   		<div class="girl_addres" style="clear: both;">г. Санкт-Петербург, <?if(!empty($row['metro'])):?>м. <?=$this->metro_list[$row['metro']]?><?endif?></div>
+                    	<div class="girl_phone" id="phone_<?=$row['id']?>">
+                    		<?//= $row['phone'] ? $this->phoneFormat(array('phone'=>$row['phone'])) : '' ?>
+                    		<script>
+    							$.get("/remote/phone/n/<?=$row['id']?>", function(data){
+       								$("#phone_<?=$row['id']?>").html(data); 
+    							},"");      
+							</script>
+                   		</div>
+                   		<div class="wrap_girl_info">
+                            <div class="girl_foto">
+                            	<a target="_blank" class="img" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" <?if(!empty($meta_img)):?>title="<?=$meta_img?>"<?endif?> onclick="addHistory(<?=$row['id']?>)" style="background:#fff url('<?= $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>') no-repeat center top;"></a>                            
+                            </div>
+                       		<div class="girl_info">
+                            	<div class="girl_price">
+                            		1 час: 
+                            		<? if ( $row['price_1h_ap'] ) :?>
+                            			<span>
+                            				<?=number_format($row['price_1h_ap'], 0, ',', ' ');?>
+                            			</span>
+                            		<? endif; ?>
+                            		<br>2 часа: 
+                            		<? if ( $row['price_2h_ap'] ) :?>
+                            			<span>
+                            				<?=number_format($row['price_2h_ap'], 0, ',', ' ');?>
+                            			</span>
+                            		<? endif ?>
+                            		<br>Ночь:
+                            		<? if ( $row['price_n_ap'] ) :?>
+                            			<span>
+                            				<?=number_format($row['price_n_ap'], 0, ',', ' ');?>
+                            			</span>
+                            		<? endif ?>
+                          	  	</div>
+                            	<div class="girl_stats">
+                                	<?if(!empty($row['age'])):?>Возраст: <?=$row['age']?><br /><?endif?>
+                                	<?if(!empty($row['height']) || !empty($row['weight'])):?>
+                                    	<?if(!empty($row['height'])):?>Рост: <?=$row['height']?><br /><?endif?>
+                                    	<?if(!empty($row['weight'])):?>Вес: <?=$row['weight']?><br /><?endif?>
+                                	<?endif?>
+                                	<?if(!empty($row['breast']) || $row['breast']==0):?>Грудь: <?=$row['breast']?><br /><?endif?>
+                                	<?if($row['videolist']):?><a>Есть видео</a><br /><?endif?>
+                                	<?if($row['status']>50):?><span>Фото проверено</span><?endif?></div>
+                            	<a target="_blank" class="btn" <?if(!empty($meta_detail)):?>title="<?=$meta_detail?>"<?endif?>href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" onclick="addHistory(<?=$row['id']?>)">Подробнее &gt;&gt;</a>
+                        	</div>
+                    	</div>
+                	</div>        			
+        		<? endforeach; ?>
+        		<div class="pagination pagination-centered pagin_girls">  
+        			<?=$this->paginationControl($this->paginator,'Sliding','shared/pagination_pub.phtml')?>
+        		</div> 
+        	</div>
+        </div>
+        <? endif; ?>        
+   		<div class="span2">
+        	<?= $this->render('index/_user_admin.phtml') ?>
+        	<?= $this->render('index/_filter_right.phtml')?>
+        	<?#=$this->render('index/_banners_right.phtml')?>
+        	<div class="right_block_text word-wrap">                    
+        		<p class="word-wrap"><?=nl2br($this->textToView($this->info['text_right']))?></p>
+        	</div>
+       	</div>
+    </div>
+</div>

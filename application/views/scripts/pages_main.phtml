@@ -1,0 +1,13 @@
+<?if($this->pageCount>1):?>
+<ul>
+	<?if(isset($this->previous)):?><li><a class="pages_nav" id="prev" href="#">Предыдущие</a></li><?endif?>
+	<li><p><?=$this->current?></p></li>
+	<?if(isset($this->next)):?><li><a class="pages_nav" id="next" href="#">Следующие</a></li><?endif?>
+</ul>
+<script>
+    var link_prev = "<?=$this->url(array('p'=>$this->previous),'default')?>";
+    var link_next = "<?=$this->url(array('p'=>$this->next),'default')?>";
+    $('#prev').attr('href', link_prev);
+    $('#next').attr('href', link_next);
+</script>
+<?endif?>

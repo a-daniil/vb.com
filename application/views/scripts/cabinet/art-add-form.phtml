@@ -1,0 +1,17 @@
+﻿<div id="content-cab"><div id="cab_ankets">
+	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array('action'=>isset($this->info)?'art-edit':'art-add'))?>">
+		<div class="ca_top ca_bottom">
+			<h3>Заголовок:</h3>
+			<input type="text" name="title"<?if(isset($this->info['title'])):?> value="<?=$this->info['title']?>"<?endif?> />
+			<h3>Мета-тег title:</h3>
+			<input type="text" name="title_meta"<?if(isset($this->info['title_meta'])):?> value="<?=$this->info['title_meta']?>"<?endif?> />
+			<h3>Мета-тег Keywords:</h3>
+			<input type="text" name="keywords"<?if(isset($this->info['keywords'])):?> value="<?=$this->info['keywords']?>"<?endif?> />
+			<h3>Мета-тег Descriptions:</h3>
+			<input type="text" name="descriptions"<?if(isset($this->info['descriptions'])):?> value="<?=$this->info['descriptions']?>"<?endif?> />
+			<h3>Текст статьи:</h3>
+			<textarea name="text" id="editor"><?if(isset($this->info['text'])):?><?=$this->info['text']?><?endif?></textarea>
+		</div>
+		<input class="button" type="submit" value="Сохранить" />
+	</form>
+</div></div>

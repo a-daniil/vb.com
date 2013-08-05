@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="span10">
+    	<ul class="nav nav-tabs bottom_nav_tabs">
+        	<li class="<?=($this->menu_sub['active'] == 'default')?'active':''?>"><a href="/" class="bnt1">Все</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'st')?'active':''?>"><a href="?st=50-0" class="bnt2">Фото проверено</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'v')?'active':''?>"><a href="?v=1-0" class="bnt4">Анкеты с видео</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'rv')?'active':''?>"><a href="/?rv=1-0" class="bnt3">С отзывами</a></li>
+        </ul>
+    </div>
+</div>
+<div class="row bg_line">
+	<div class="span2">
+    	<?= $this->render('index/_filter_left.phtml')?>
+        <?#= $this->render('index/_sections_list.phtml')?>
+        <?#= $this->render('index/_banners_left.phtml')?>
+        <?= $this->render('index/_articles_list.phtml')?>
+    	<div class="left_block_text">               
+        	<?if($_SERVER['REQUEST_URI'] == '/'):?>
+            	<?=nl2br(stripslashes($this->meta['column_left']))?>
+            <?endif;?>
+			<? if(isset($this->info['text_left'])): ?>
+            	<p class="word-wrap"><?=nl2br(stripslashes($this->info['text_left']))?></p>
+            <? endif ?>
+        </div>
+    </div>
+    <div class="span6">
+    	<div class="right_aside_title">Отзывы и комментарии</div>
+    	<?php if ( $this->paginator->count() ) : ?>    	
+    		<div class="user_message_top_buttons">
+    			Выделить: <a href="javascript:void(0)" class="choose_all" >Все</a>|
+    			    <a href="javascript:void(0)" class="del_all" >Удалить отмеченные</a>
+    		</div>
+    		<div class="wrapper_user_messages_form">
+    			<form action="/index/user-comments" method="post" id="user_messages_form">
+    			<? 
+    				if ( $this->paginator->count() > 0 ) {
+    					echo $this->partialLoop( 'index/comments-row.phtml', $this->paginator );
+    				}			
+    			?>
+    			</form>
+    		</div>
+    		<div class="pagination pagination-centered pagin_girls">  
+        		<?=$this->paginationControl($this->paginator,'Sliding','shared/pagination_pub.phtml')?>
+        	</div> 
+        <?php else : ?>   	
+       	    <div class="form">
+        		<h5 style="margin-left: 15px;">У вас нет комментариев</h5>
+        	</div>
+        <?php endif ?> 	
+    </div>
+    <div class="span2">
+        <?= $this->render('index/_user_admin.phtml') ?>
+        <?= $this->render('index/_filter_right.phtml') ?>
+        <?#=$this->render('index/_banners_right.phtml')?>
+        <div class="right_block_text word-wrap">                    
+        	<p class="word-wrap"><?=nl2br($this->textToView($this->info['text_right']))?></p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(".choose_all").click(function(){
+		$("input[name^='del_']").each(function(){
+			$(this).attr("checked", "checked");
+		});
+	});	
+
+	$(".del_all").click(function() {
+		$("form#user_messages_form").submit();
+	});
+</script>

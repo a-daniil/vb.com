@@ -1,0 +1,22 @@
+<div id="center">
+	<div id="cab_ankets">
+		<div id="cab_ankets_wrap">
+			<ul class="menu" style="margin:5px;">
+				<li><a href="/cabinet/menu-items-add-form">Добавить</a></li>
+			<ul>
+			<table class="info_table">
+				<? foreach($this->items as $item): ?>
+				<tr>
+					<td><?=$item['id']?>.<?= $this->textToView($item['title']) ?> (<?= $item['uri'] ?>)</td>
+					<td class="table_del_act" width="5%">
+						<a href="/cabinet/menu-items-del/n/<?= $item['id'] ?>">Удалить</a>
+					</td>
+					<td class="table_ed_act" width="5%"><a href="/cabinet/menu-items-edit-form/n/<?= $item['id'] ?>">Редактировать</a>
+				<? endforeach ?>			
+			</table>
+		</div>
+	</div>
+	<div class="pages">
+		<?= $this->paginationControl( $this->items, 'Sliding', 'pages_cab.phtml' ) ?>
+	</div>
+</div>

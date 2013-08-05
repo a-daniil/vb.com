@@ -1,0 +1,26 @@
+<tr>
+	<td class="digits">
+		<?= $this->amount; ?>
+	</td>	
+	<td class="digits inner-padding">
+		<?= $this->wmpayer; ?>
+	</td>
+	<td class="digits inner-padding">
+		<?= $this->wmidpayer; ?>
+	</td>	
+	<td class="digits inner-padding">
+		<?= $this->purse; ?>
+	</td>
+	<td class="center_content inner-padding">
+		<?= rusdate( strtotime($this->date), 'j %MONTH% Y') ?>
+	</td>
+	<td class="digits inner-padding">
+		<?= $this->number ?>
+	</td>
+	<td class="digits inner-padding">
+		<?= $this->transact?>
+	</td>
+	<td class="digits inner-padding">
+		<?= $this->wmsysno?>
+	</td>
+</tr>

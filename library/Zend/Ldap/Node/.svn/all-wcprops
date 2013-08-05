@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Ldap/Node
+END
+Collection.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/Collection.php
+END
+RootDse.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/RootDse.php
+END
+Schema.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/Schema.php
+END
+ChildrenIterator.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/ChildrenIterator.php
+END
+Abstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/Abstract.php
+END

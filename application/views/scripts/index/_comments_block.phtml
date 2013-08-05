@@ -1,0 +1,39 @@
+<? if(count($this->comments)): ?>
+	<div class="root_girl_title">Отзывы:</div>
+	<?foreach($this->comments as $comment):?>
+    	<div class="review_title">
+        	<?if($this->admin):?><a href="<?=$this->url(array('action'=>'comm-del-req','cn'=>$comment['id']))?>" class="del">УДАЛИТЬ</a><?endif?>
+            <span><?=date('d.m.y G:i',strtotime($comment['timestamp']))?></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#"><?=$comment['user_login']?></a>
+        </div>
+    	<div class="review_text"><?=$comment['text']?></div>
+	<?endforeach?>
+<? endif ?>
+<?=$this->paginationControl($this->comments,'Sliding','shared/pagination_comm.phtml')?>	
+<?php if ( $this->flags != '2') : ?>
+	<? if(isset($this->auth)): ?>
+		<div class="root_girl_title">Написать отзыв:
+			<div class="ca_top">
+				<textarea name="text" cols="18" style="width: 343px;"></textarea>
+			</div>
+			<a id="add_comment_button" class="button"/>Отправить</a>
+		</div>
+		<script type="text/javascript">
+			$("#add_comment_button").click(function () {			
+         	   var text = $("textarea[name=text]").val();
+
+				$.get("/index/comm-add/n/<?= $this->info['id'] ?>", 
+					{text: text},
+					function (response) {
+						$("textarea[name=text]").val('');
+					}
+				);
+			});
+		</script>
+	<?else:?>
+		<div class="root_girl_title" id="add-comment">
+			<a id="add_comment_button" href="javascript:addComment('<?=$this->url(array('action'=>'comm-add','n'=>$this->info['id']))?>');">
+				Написать отзыв
+			</a>
+		</div>
+	<?endif?>
+<?php endif ?>

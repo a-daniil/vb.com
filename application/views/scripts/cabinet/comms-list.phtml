@@ -1,0 +1,50 @@
+<div id="center">
+	<?if(!empty($this->errors)):?>
+		<div class="message">
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+		</div>
+	<?endif?>
+	<div id="cab_ankets"><div id="cab_ankets_wrap">
+		<div class="cab_anketa_header">
+			<h2>
+				<?=$this->info['name']?> (
+				<?=$this->cities[$this->info['city']]?>)
+				<?list($phone_p1,$phone_p2)=explode('-',$this->info['phone'])?>
+				+7(<?=$phone_p1?>)<?=$phone_p2?>
+			</h2>
+		</div>
+		<?if(count($this->comments)):?>
+			<div class="comments">
+			<?foreach($this->comments as $comment):?>
+			<div class="comment">
+				<h4><?if($this->admin || !$comment['flags'] & 1<<$this->adm_flag):?>
+					<a href="<?=$this->url(array('action'=>'comm-del-req','n'=>$comment['id']))?>" class="del">УДАЛИТЬ</a><?endif?>
+					<?=$comment['name']?> | <i><?=date('d.m.y G:i',strtotime($comment['timestamp']))?></i>
+				</h4>
+				<p><?=$comment['text']?></p>
+			</div>
+			<?endforeach?>
+			</div>
+		<?else:?>
+			<h4>Нет комментариев</h4>
+		<?endif?>
+		<form class="cab_form" method="post" action="<?=$this->url(array('action'=>'comm-add','n'=>$this->info['id']))?>">
+			<div class="ca_top"><table>
+				<tr>
+					<th>Введите ваше имя:</th>
+					<td><input name="name" value="<?=$this->comm_info['name']?>" /></td>
+					<?if($this->admin):?>
+					<th>Нельзя удалить:</th>
+					<td><input type="checkbox" name="admin_only" /></td>
+					<?endif?>
+				</tr>	
+			</table></div>
+			<div class="ca_bottom"><textarea name="text"><?=$this->comm_info['text']?></textarea></div>
+			<br />
+			<input id="captcha-id" type="hidden" name="id" value="<?=$this->captcha?>" />
+			<input id="add_comment_button" class="button" type="submit" value="Отправить" />
+		</form>
+	</div></div>
+</div>

@@ -1,0 +1,113 @@
+<div id="center"><div id="cab_ankets">
+	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array('action'=>'meta-write'))?>">
+		<div class="ca_top">
+			<h3>Подставляемые переменные:</h3>
+			<table style="text-align:left;">
+				<tr>
+					<th>%NAME%</th>
+					<td>- Имя</td>
+				</tr>
+				<tr>
+					<th>%TYPE%</th>
+					<td>- Тип</td>
+				</tr>
+				<tr>
+					<th>%PERFORMER%</th>
+					<td>- Исполнитель</td>
+				</tr>
+				<tr>
+					<th>%CITY%</th>
+					<td>- Город</td>
+				</tr>
+				<tr>
+					<th>%METRO%</th>
+					<td>- Метро</td>
+				</tr>
+				<tr>
+					<th>%AGE%</th>
+					<td>- Возраст</td>
+				</tr>
+				<tr>
+					<th>%BREAST%</th>
+					<td>- Размер груди</td>
+				</tr>
+				<tr>
+					<th>%HEIGHT%</th>
+					<td>- Рост</td>
+				</tr>
+				<tr>
+					<th>%WEIGHT%</th>
+					<td>- Вес</td>
+				</tr>
+                                <tr>
+					<th>%PHONE%</th>
+					<td>- Телефон</td>
+				</tr>
+			</table>
+			<p>Случайно выбираемые данные: {данные 1,данные 2,данные N}</p>
+		</div>
+		<div>
+			<h3>Стартовая страница: Logo Alt</h3>
+			<textarea name="start_logo_alt"><?if(isset($this->data['start_logo_alt'])):?><?=$this->data['start_logo_alt']?><?endif?></textarea>
+			<h3>Стартовая страница: Title</h3>
+			<textarea name="start_title"><?if(isset($this->data['start_title'])):?><?=$this->data['start_title']?><?endif?></textarea>
+			<h3>Стартовая страница: Description</h3>
+			<textarea name="start_desc"><?if(isset($this->data['start_desc'])):?><?=$this->data['start_desc']?><?endif?></textarea>
+			<h3>Стартовая страница: Keywords</h3>
+			<textarea name="start_keys"><?if(isset($this->data['start_keys'])):?><?=$this->data['start_keys']?><?endif?></textarea>
+		</div>
+		<div>
+			<h3>Стартовая страница: Кнопка выбора города - Питер</h3>
+			<textarea name="city_piter"><?if(isset($this->data['city_piter'])):?><?=$this->data['city_piter']?><?endif?></textarea>
+			<h3>Стартовая страница: Кнопка выбора города - Москва</h3>
+			<textarea name="city_moscow"><?if(isset($this->data['city_moscow'])):?><?=$this->data['city_moscow']?><?endif?></textarea>
+		</div>
+		<div>
+			<h3>Меню: Девушки</h3>
+			<textarea name="menu_girls"><?if(isset($this->data['menu_girls'])):?><?=$this->data['menu_girls']?><?endif?></textarea>
+			<h3>Меню: Салоны</h3>
+			<textarea name="menu_salons"><?if(isset($this->data['menu_salons'])):?><?=$this->data['menu_salons']?><?endif?></textarea>
+			<h3>Меню: Секс-Шопы</h3>
+			<textarea name="menu_shops"><?if(isset($this->data['menu_shops'])):?><?=$this->data['menu_shops']?><?endif?></textarea>
+		</div>
+		<div>
+			<h3>Анкета: Title</h3>
+			<textarea name="ank_title"><?if(isset($this->data['ank_title'])):?><?=$this->data['ank_title']?><?endif?></textarea>
+			<h3>Анкета: Description</h3>
+			<textarea name="ank_desc"><?if(isset($this->data['ank_desc'])):?><?=$this->data['ank_desc']?><?endif?></textarea>
+			<h3>Анкета: Keywords</h3>
+			<textarea name="ank_keys"><?if(isset($this->data['ank_keys'])):?><?=$this->data['ank_keys']?><?endif?></textarea>
+			<h3>Анкета: Текстовая информация</h3>
+			<textarea name="ank_text"><?if(isset($this->data['ank_text'])):?><?=$this->data['ank_text']?><?endif?></textarea>
+			<h3>Анкета: Alt для картинки в превью</h3>
+			<textarea name="ank_img_alt"><?if(isset($this->data['ank_img_alt'])):?><?=$this->data['ank_img_alt']?><?endif?></textarea>
+			<h3>Анкета: Title для кнопки "подробнее" в превью</h3>
+			<textarea name="ank_detail"><?if(isset($this->data['ank_detail'])):?><?=$this->data['ank_detail']?><?endif?></textarea>
+		</div>
+		<!-- 
+		<div>
+			<h3>Учреждение: Title</h3>
+			<textarea name="inst_title"><?if(isset($this->data['inst_title'])):?><?=$this->data['inst_title']?><?endif?></textarea>
+			<h3>Учреждение: Description</h3>
+			<textarea name="inst_desc"><?if(isset($this->data['inst_desc'])):?><?=$this->data['inst_desc']?><?endif?></textarea>
+			<h3>Учреждение: Keywords</h3>
+			<textarea name="inst_keys"><?if(isset($this->data['inst_keys'])):?><?=$this->data['inst_keys']?><?endif?></textarea>
+			<h3>Учреждение: Текстовая информация</h3>
+			<textarea name="inst_text"><?if(isset($this->data['inst_text'])):?><?=$this->data['inst_text']?><?endif?></textarea>
+		</div>
+		-->
+		<div class="ca_bottom">
+			<h3>Название раздела:</h3>
+            <input type="text" name="title"<?if(isset($this->data['title'])):?> value='<?=($this->data['title'])?>'<?endif?> />
+			<h3>Текст раздела:</h3>
+            <textarea name="text" id="editor" rows="6"><?if(isset($this->data['text'])):?><?=$this->data['text']?><?endif?></textarea>
+			<h3>Левая колонка:</h3>
+			<textarea name="column_left" rows="6"><?if(isset($this->data['column_left'])):?><?=$this->data['column_left']?><?endif?></textarea>
+			<h3>Правая колонка:</h3>
+			<textarea name="column_right" rows="6"><?if(isset($this->data['column_right'])):?><?=$this->data['column_right']?><?endif?></textarea>
+			<h3>Подвал:</h3>
+			<textarea name="footer" rows="6"><?if(isset($this->data['footer'])):?><?=$this->data['footer']?><?endif?></textarea>
+		</div>
+		<input class="button" type="submit" value="Сохранить" />
+	</form>
+</div></div>

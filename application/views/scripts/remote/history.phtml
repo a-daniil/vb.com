@@ -1,0 +1,33 @@
+<?if ( $this->history_ankets != null ):?>
+    
+        <div class="wrap_pre_see_title">Вы смотрели ранее &nbsp;</div>         	 	
+        <div class="wrap_slider">
+        <div class="prev"></div>
+		<div class="next"></div>
+		<ul class="thumbs carousel" id="foo">
+            <?foreach( $this->history_ankets as $row ):?>
+            <? 
+                if(!empty($row['photolist'])){
+                    $photolist=unserialize($row['photolist']);
+                	if(isset($photolist['preview'])){
+                		$photo=$photolist[$photolist['preview']];
+                	}else{
+                		$photo=array_shift($photolist);
+                	}
+               	}else{
+                    $photo=false;
+                }
+            ?>
+                <li>
+            	    <a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">
+                        <img  src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="95" height="134">
+                    </a>                		
+               	    <div>
+                        <a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank"><?=$row['name']?>, <?=$row['age']?> лет</a>
+                    </div>                			
+                </li>                		
+            <?endforeach;?>
+       	</ul>
+    	</div>
+         
+<?endif;?>     

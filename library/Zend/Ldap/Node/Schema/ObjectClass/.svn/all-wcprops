@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Ldap/Node/Schema/ObjectClass
+END
+ActiveDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/Schema/ObjectClass/ActiveDirectory.php
+END
+Interface.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/Schema/ObjectClass/Interface.php
+END
+OpenLdap.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Ldap/Node/Schema/ObjectClass/OpenLdap.php
+END

@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="span10">
+    	<ul class="nav nav-tabs bottom_nav_tabs">
+        	<li class="<?=($this->menu_sub['active'] == 'default')?'active':''?>"><a href="/" class="bnt1">Все</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'st')?'active':''?>"><a href="?st=50-0" class="bnt2">Фото проверено</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'v')?'active':''?>"><a href="?v=1-0" class="bnt4">Анкеты с видео</a></li>
+            <li class="<?=($this->menu_sub['active'] == 'rv')?'active':''?>"><a href="/?rv=1-0" class="bnt3">С отзывами</a></li>
+        </ul>
+    </div>
+</div>
+<div class="row bg_line">
+	<div class="span2">
+    	<?= $this->render('index/_filter_left.phtml')?>
+        <?#= $this->render('index/_sections_list.phtml')?>
+        <?#= $this->render('index/_banners_left.phtml')?>
+        <?= $this->render('index/_articles_list.phtml')?>
+    	<div class="left_block_text">               
+        	<?if($_SERVER['REQUEST_URI'] == '/'):?>
+            	<?=nl2br(stripslashes($this->meta['column_left']))?>
+            <?endif;?>
+			<? if(isset($this->info['text_left'])): ?>
+            	<p class="word-wrap"><?=nl2br(stripslashes($this->info['text_left']))?></p>
+            <? endif ?>
+        </div>
+    </div>
+    <div class="span6">
+    	<div class="right_aside_title">Форма отправки сообщений администрации</div>    
+    	<? if ( $this->message ) :?>
+			<div class="<?= $this->color ?>">
+				<span><?= $this->message ?></span>
+			</div>
+		<? endif; ?>	
+		<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>" enctype="multipart/form-data">
+			<div class="form">
+				<div class="form-left">
+        			<? foreach ($this->form as $element): ?>
+        				<? if ( !preg_match('/submit/', $element->getName() ) ) :?>
+        					<?= $element ?>
+        				<? endif ?>
+  					<? endforeach; ?>
+  				</div>  
+  				<?= $this->form->getElement('submit') ?> 				 				
+  			</div>
+  		</form>
+    </div>
+    <div class="span2">
+       	<?= $this->render('index/_user_admin.phtml') ?>
+        <?= $this->render('index/_filter_right.phtml')?>
+        <?#=$this->render('index/_banners_right.phtml')?>
+        <div class="right_block_text word-wrap">                    
+        	<p class="word-wrap"><?=nl2br($this->textToView($this->info['text_right']))?></p>
+        </div>
+    </div>
+</div>

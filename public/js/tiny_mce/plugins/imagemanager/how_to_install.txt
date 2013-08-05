@@ -1,0 +1,9 @@
+Положить папку imagemanager в tiny_mce\plugins\
+
+Инициализация плагина:
+
+plugins : "****...... ****, imagemanager",
+
+theme_advanced_buttons2 : "****........****, insertimage, ****......****",
+
+file_browser_callback : "mcImageManager.filebrowserCallBack",

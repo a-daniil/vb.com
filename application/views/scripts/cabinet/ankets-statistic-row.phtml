@@ -1,0 +1,24 @@
+<?php
+	$counters = new CountersAnkets();
+	$counter = $counters->get_ank($this->id);
+?>
+<tr>
+	<td>
+		<?= $this->name ?>&nbsp;(<?= $this->phone ?>)
+	</td>
+	<td class="digits">
+		<?= $this->price_1h_ap ?>
+	</td>
+	<td class="digits">
+		<?= $counter['today'] ?>
+	</td>
+	<td class="digits">
+		<?= $counter['week'] ?>
+	</td>
+	<td class="digits">
+		<?= $counter['month'] ?>
+	</td>		
+	<td class="digits">
+		<?= $counter['all'] ?>
+	</td>
+</tr>

@@ -1,0 +1,29 @@
+<div class="center">
+	<div class="form_title">Комментарии пользователя: <?php echo $this->user_login ?></div>
+	<div id = "centerwrap-table" >			
+		<table class='form-table' cellspacing='0' id="sorter">
+			<thead>				
+				<th>Номер анкеты</th>
+				<th>Текст</th>
+				<th>Дата написания</th>
+				<td>Редактирование</td>
+			</thead>			
+			<?php  
+				echo $this->partialLoop('cabinet/comments-statistic-row.phtml', $this->paginator); 
+			?>		
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".blocking").easyconfirm({locale: {
+		title: 'Заблокировать комментарии?',
+		text: 'Хотите продолжить?',
+		button: ['Нет', 'Да']
+	}});
+
+	$(".activating").easyconfirm({locale: {
+		title: 'Активировать комментарии?',
+		text: 'Хотите продолжить?',
+		button: ['Нет', 'Да']
+	}});	
+</script>

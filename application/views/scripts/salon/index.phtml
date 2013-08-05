@@ -1,0 +1,316 @@
+<div class="fix_width">
+	<div id="main">
+		<div class="side_narrow_common_holder">
+			<div class="main_title_block">
+				<h1 class="float_main_title"><?php echo $this->info['name'] ?></h1>
+				<strong class="salon_title_desc"><?php echo $this->info['type'] ?></strong>
+				<a class="add_favorites" href="#"><span class="add_favorites_icon"></span>В избранное</a>
+			</div>
+		</div>
+		<aside id="left_sidebar">
+			<ul class="anket_preview_girl">
+				 <? if($this->info['photolist']):
+                 		foreach($this->info['photolist'] as $thumb):
+                 ?>
+                    	<li><img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" /></li>
+                 <?
+                   		endforeach; 
+                  	 endif;
+                 ?>
+				<li>
+					<img src
+				</li>
+			</ul>
+		</aside>
+		<div id="narrow_content">
+			<div class="ribbon_title_bg">
+				<h2>основная информация</h2>
+			</div>
+			<div class="single_girl_main_info_block">
+				<div class="single_girl_main_info_block_l">
+					<span class="big_red_phone"></span>
+					<ul class="single_girl_from">
+						<li><span class="red_col">Санкт-Петербург,</span></li>
+						<li><?php echo $this->district_list[$this->info['district']] ?></li>
+					</ul>
+					<span class="grey_metro"><span class="grey_metro_icon"></span><? $metro = explode(";", $this->info['metro']);  echo $this->metro_list[$metro[0]]; ?></span>
+					<h5>Параметры:</h5>
+					<!-- <div class="without_ret2"></div> -->
+				</div>
+				<div class="single_girl_main_info_block_r">
+					<div class="salon_card_another_info">
+						<div class="salon_card_rating_block">
+							<div class="salon_card_rating">
+								<span class="common_salon_card_rating"><span class="white_star_icon"></span>8.5</span>
+								<ul class="rating_stars">
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+								<span class="all_voices_text">Всего голосов: 837</span>
+							</div>
+								<div class="salon_card_revies">
+								<span class="green_label">Отзывы пользователей</span>
+								<ul class="voices_counter">
+									<li><span class="good_voice">+188</span></li>
+									<li><span class="voice">1</span></li>
+									<li><span class="bad_voice">-0</span></li>
+								</ul>
+							</div>
+						</div>
+						<span class="real_individual"><span class="real_individual_icon full"></span>Реальня индивидуалка</span>
+						<span class="photo_verified"><span class="photo_verified_icon"></span>Фото проверено</span>
+						<h5 class="common_programs">Любимые программы:</h5>
+						<?php
+							$this->row = $this->info;
+							echo $this->render('_show-services-salon.phtml');
+						?>
+					</div>
+				</div>
+			</div>
+			<div class="grey_title_box">
+				<strong>Тариф:</strong>
+			</div>
+			<table class="grey_table">
+				<thead>
+					<tr>
+						<td></td>
+						<td>Апартаменты</td>
+						<td>Выезд</td>
+						<td>Анал</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><span class="one_hour_icon"></span>1 час</td>
+						<td><?if ( $this->info['price_1h_ap'] ):?><?php echo number_format($this->info['price_1h_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
+						<td><?if ( $this->info['price_1h_ap'] ):?><?php echo number_format($this->info['price_2h_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span class="two_hour_icon"></span>2 часа</td>
+						<td><?if ( $this->info['price_1h_ex'] ):?><?php echo number_format($this->info['price_1h_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
+						<td><?if ( $this->info['price_2h_ex'] ):?><?php echo number_format($this->info['price_2h_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span class="all_night_icon"></span>Ночь</td>
+						<td><?if ( $this->info['price_n_ap'] ):?><?php echo number_format($this->info['price_n_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
+						<td><?if ( $this->info['price_n_ex'] ):?><?php echo number_format($this->info['price_n_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="ribbon_title_bg">
+				<h2>Услуги салона</h2>
+			</div>
+			<div class="additional_skils">
+				<?php echo $this->render("salon/_show-services.phtml") ?>
+			</div>
+			<div class="ribbon_title_bg">
+				<h2>Описание салона</h2>
+			</div>
+			<p><?php echo $this->info['about'] ?></p>
+			<div class="salon_ankets">
+				<h2>у салона <?php echo $this->ankets->getTotalItemCount() ?> анкет</h2>			
+				<ul class="new_ankets">
+				<?php foreach( $this->ankets as $row ) :
+					$meta_tags=array(
+						'name',
+						'type',
+						'performer',
+						'city',
+						'metro',
+						'age',
+						'breast',
+						'height',
+						'weight'
+					);
+					$meta_replace=array();
+					foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
+					foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
+					$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
+					$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
+					if(!empty($row['photolist'])){
+						$photolist=unserialize($row['photolist']);
+						if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+						else{$photo=array_shift($photolist);}
+					}
+					else{$photo=false;}
+				?>
+				<li>
+					<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>"><img src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="110px" height="110px" /></a>
+					<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" class="new_ankets_girl_name"><?php echo ucfirst($row['name']) . ", " . $row['age']?></a>
+					<div class="tooltip">
+						<div class="tooltip_corner"></div>
+						<div class="tooltip_content">
+							<span class="tooltip_girl_name"><a href="#"><?php echo ucfirst($row['name']) ?></a>, <?php echo $row['age'] ?></span>
+							<span class="tooltip_girl_place">Россия, <?php echo $this->cities[$row['city']] ?></span>
+						</div>
+					</div>
+				</li>
+				<?php endforeach ?>
+				</ul>
+				<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" class="button all_list_btn">весь список</a>
+			</div>
+		</div>
+		<aside id="sidebar">
+					<div class="sidebox pink">
+						<div class="sidebox_header">
+							<h3>Мое видео</h3>
+						</div>
+						<div class="sidebox_content no_padding">
+							<?php if( $this->info['videolist'] ) : ?>
+                  			<?php $video=array_shift($this->info['videolist']); ?>
+                   			<?php $swflink = 'file='.$video['fs'].'&image=/img/videoprev.jpg&author=vipsoski.com&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
+                  				<span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="248" height="189" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
+                			    <script type="text/javascript" src="/js/swfobject.js"></script>
+                  				<script type="text/javascript">
+                    				var s1 = new SWFObject('/player.swf','player','230','189','9');
+                       				s1.addParam('allowfullscreen','true');
+                       				s1.addParam('allowscriptaccess','always');
+                      			    s1.addParam('flashvars','<?=$swflink;?>');
+                       				s1.write('video1');
+                   				</script>
+							<?php endif ?>
+						</div>
+					</div>
+					<div class="sidebox pink">
+						<div class="sidebox_header">
+							<h3>оценка пользователей</h3>
+						</div>
+						<div class="sidebox_content no_side_padding">
+							<span class="total_score">Общая оценка: <span class="good_score">хорошо <span class="good_score_icon"></span></span></span>
+							<ul class="reviews_sidebar_item">
+								<li>
+									<span class="reviewer_name">Миша</span>
+									<ul class="reviews_sidebar_item_info">
+										<li>Соответствие фото: <span class="black">настоящие</span></li>
+										<li>Реальна индивидуалка: <span class="black">салон</span></li>
+										<li>
+											Отношение к клиенту:
+											<div class="black">
+												<ul class="rating_stars">
+													<li></li>
+													<li></li>
+													<li></li>
+													<li></li>
+												</ul>
+											</div>
+										</li>
+										<li>
+											Массаж эротический:
+											<div class="black">
+												<ul class="rating_stars">
+													<li></li>
+													<li></li>
+													<li></li>
+													<li class="bad"></li>
+												</ul>
+											</div>
+										</li>
+										<li>
+											Ролевые игры:
+											<div class="black">
+												<ul class="rating_stars">
+													<li></li>
+													<li></li>
+													<li class="bad"></li>
+													<li class="bad"></li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+									<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
+								</li>
+								<li>
+									<span class="reviewer_name">Sanek</span>
+									<ul class="reviews_sidebar_item_info">
+										<li>Соответствие фото: <span class="black">чужие</span></li>
+										<li>Реальна индивидуалка: <span class="black">салон</span></li>
+										<li>
+											Отношение к клиенту:
+											<div class="black">
+												<ul class="rating_stars">
+													<li></li>
+													<li></li>
+													<li></li>
+													<li></li>
+												</ul>
+											</div>
+										</li>
+										<li>
+											Массаж эротический:
+											<div class="black">
+												<ul class="rating_stars">
+													<li></li>
+													<li></li>
+													<li></li>
+													<li class="bad"></li>
+												</ul>
+											</div>
+										</li>
+										<li>
+											Ролевые игры:
+											<div class="black">
+												<ul class="rating_stars">
+													<li></li>
+													<li></li>
+													<li class="bad"></li>
+													<li class="bad"></li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+									<span class="single_reviewer_total_score">Общая оценка: <span class="bad_score">не советую <span class="bad_score_icon"></span></span></span>
+								</li>
+							</ul>
+							<a href="#" class="more_reviews">Показать все отзывы</a>
+						</div>
+					</div>
+					<div class="sidebox pink">
+						<div class="sidebox_header">
+							<h3>ищи меня на карте</h3>
+						</div>
+						<div class="sidebox_content no_padding">
+							<img src="pics/pic30.jpg" width="248" height="189" alt="description">
+						</div>
+					</div>
+					<div class="sidebox">
+						<div class="sidebox_header">
+							<h3>Ближайшие салоны</h3>
+						</div>
+						<div class="sidebox_content no_side_padding">
+							<ul class="nearest_salon_list">
+								<li>
+									<h4>EGOIST +7 (495) 66 99  254</h4>
+									<h5>Салон эротического массажа</h5>
+									<span class="grey_near_text"><span class="grey_metro_icon"></span>Спортивная</span>
+									<span class="grey_near_text">г. Москва, Земляной Вал 1/4</span>
+								</li>
+								<li>
+									<h4>EGOIST +7 (495) 66 99  254</h4>
+									<h5>Салон эротического массажа</h5>
+									<span class="grey_near_text"><span class="grey_metro_icon"></span>Спортивная</span>
+									<span class="grey_near_text">г. Москва, Земляной Вал 1/4</span>
+								</li>
+								<li>
+									<h4>EGOIST +7 (495) 66 99  254</h4>
+									<h5>Салон эротического массажа</h5>
+									<span class="grey_near_text"><span class="grey_metro_icon"></span>Спортивная</span>
+									<span class="grey_near_text">г. Москва, Земляной Вал 1/4</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</aside>
+	</div>
+</div>
+<script type="text/javascript"> 
+	<?php if ( $this->info['status'] > 20 && $this->info['active'] ) : ?>	
+    	$.get("/remote/phone-salon/n/<?=$this->info['id']?>", function(data){
+       		$(".big_red_phone").html(data); 
+    	},"");
+   	<?php endif ?>
+</script>

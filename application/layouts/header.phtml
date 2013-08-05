@@ -1,0 +1,93 @@
+<script type="text/javascript">
+    $.get("/remote/login", function(data){
+       $("#login").html(data); 
+    },"");
+</script>
+<header id="header">
+	<div class="top_header_block">
+		<div class="fix_width">
+			<ul class="top_header_nav_block">
+				<li><a href="#" class="yellow_text"><span class="star_icon"></span>В избранное</a></li>
+				<li>
+					<a href="#" class="select_os">PDA</a>
+					<a href="#" class="select_os">WAP</a>
+					<a href="#" class="select_os active">PC</a>
+				</li>
+				<li class="relative" id="login">
+				</li>
+				<li>
+					<a href="#" class="active language rus"></a>
+					<a href="#" class="language ger"></a>
+					<a href="#" class="language eng"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="middle_header_block">
+		<div class="fix_width">
+			<div class="header_filter_block">
+				<form action="<?php echo $_SERVER['REQUEST_URI'] ?>" name="filters" method="post">
+					<fieldset>
+						<ul class="selects_holder">
+							<li>
+								<label for="city">Город:</label>
+								<select class="head_select" name="city">
+									<option value="1">Москва</option>
+									<option value="2">Санкт-Петербург</option>
+								</select>
+							</li>
+							<li>
+								<label for="metro">Рядом с метро:</label>
+								<select class="head_select" name="metro" name="m" onchange="if (this.selectedIndex) {submitForm('filters');}">
+									<?$i=0;foreach($this->metro_list as $title):?>                       
+                        				<option value="<?=$i?>"<?if($i==$this->filter['m']):?> selected<?endif?>><?=$title?></option>
+                     				<? $i++; endforeach?>
+								</select>
+							</li>
+							<li>
+								<label for="area">Район:</label>
+								<select class="head_select" name="area">
+									<option value="1">Москва</option>
+									<option value="2">Санкт-Петербург</option>
+									<option value="3">Оскол</option>
+								</select>
+							</li>
+							<li>
+								<label for="phone_number">Номер телефона:</label>
+								<input type="text" class="header_filter_phone" name="tel" />
+							</li>
+							<li>
+								<a href="/new-search" class="redbutton header_filter_block_button"><span class="search_icon"></span>Расширенный Поиск</a>
+							</li>
+						</ul>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="bottom_header_block">
+		<div class="fix_width">
+			<nav id="nav">
+				<ul>
+					<?php
+						$arrays = array("public", "metro", "/", 'index');
+						$id = str_replace($arrays, "", $_SERVER['REQUEST_URI']);
+
+						foreach ( $this->menu_items as $item ) {
+            		    	if ( $id == substr( $item['uri'],0 ) ) {
+            					echo '<li class="active"><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>'; 
+            		    	} else {
+            		       		echo '<li><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>';
+            		    	}
+               		 	}
+               		 ?>
+               		 <!-- <li><a href="#">статьи</a></li> -->
+				</ul>
+			</nav>
+			<!--
+				<div class="yellow_shadow"></div>
+				<a class="add_anket"><span class="add_anket_icon"></span>Добавить анекту</a>
+			-->
+		</div>
+	</div>
+</header>

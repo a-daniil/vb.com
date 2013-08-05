@@ -1,0 +1,40 @@
+<noindex>
+    <?if(isset($this->auth) && $this->auth):?>
+    	<a href="#" class="enter_link">Кабинет</a>
+    	<div class="login_form">
+    		<form method="post" action="/auth">
+				<div class="login_form_corner"></div>
+				<div class="login_form_content">
+					<div class="forgot_remember">
+						<div class="input_row">
+							<span>Вы вошли как: <?php echo $this->auth ?></span>
+						</div>
+						<a href="/cabinet">Кабинет</a>
+						<a href="/auth/logout" class="forgot_pass">Выход</a>
+					</div>
+				</div>
+			</form>
+		</div>
+    <?else:?>
+    	<a href="#" class="enter_link">Войти на сайт</a>
+    	<div class="login_form">
+    		<form method="post" action="/auth">
+				<div class="login_form_corner"></div>
+				<div class="login_form_content">
+					<div class="input_row">
+						<input type="text" name="username">
+						<span class="watermark">Login</span>
+					</div>
+					<div class="input_row">
+						<input type="password"  name="password">
+						<span class="watermark">Password</span>
+					</div>
+					<div class="forgot_remember">
+						<a href="#" class="forgot_pass">Forgot password?</a>
+					</div>
+					<button class="login_form_button">Войти</button>
+				</div>
+			</form>
+		</div>
+    <?endif?>
+</noindex>

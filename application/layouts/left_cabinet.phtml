@@ -1,0 +1,82 @@
+<div id="left">
+	<div id="leftwrap">
+		<h3 id="left_menu_top_header">Личный кабинет</h3>
+		<br />	
+		<ul class="menu">
+			<?	
+				$message = "Связь с администрацией";
+				if($this->admin):			
+			?>
+		 	   <li><a href="/cabinet/admin">Настройки сайта</a></li>
+		       <li><a href="/cabinet/billing">Биллинг</a>
+		  	   <li><a href="/cabinet/moder">Модерация</a></li>
+		       <li>
+		    		<?if($this->all_anks):?>
+		    			<a href="/cabinet/my-anks">В обычном режиме</a>
+		    		<?else:?>
+		    			<a href="/cabinet/all-anks">Все анкеты</a>
+		    		<?endif?>
+		   	 	</li>		    
+		    	<li><a href="/cabinet/users?filter=2">Пользователи</a></li>
+		    	<li><a href="/cabinet/statistic-commerce">Активность рекламодателей</a></li>		  
+		    	<li><a href="/cabinet/statistic">Статистика анкет</a></li>
+		    	<li><a href="/cabinet/profile?type=pass">Настройки профиля</a></li>		    
+			<? 
+				elseif($this->com_admin):				
+			?>
+				<li><a href="/cabinet/pay">Пополнить счет</a></li>
+				<li><a href="/cabinet/statistic">Статиcтика просмотров анкет</a></li>
+				<li><a href="/cabinet/profile?type=pass">Настройки профиля</a></li>
+		    	<!-- <li><?if($this->all_anks):?><a href="/cabinet/my-anks">В ОБЫЧНЫЙ РЕЖИМ</a><?else:?><a href="/cabinet/all-anks">ВСЕ АНКЕТЫ</a><?endif?></li> -->
+			<? 
+				elseif($this->tech_admin):					
+			?>
+				<li><a href="/cabinet/admin">Администрирование</a></li>
+				<li><a href="/cabinet/statistic-metro">Статиcтика по метро</a></li>
+				<li><a href="/cabinet/statistic-filter">Статиcтика по фильтрам</a></li>		
+			<?
+				elseif ( $this->user_moder ):				
+			?>	
+				<li><a href="/cabinet/ankets">Анкеты <?= $this->toModerNum() ?></a></li>
+				<li><a href="/cabinet/comments">Комментарии <?= $this->toModerNumComment() ?></a></li>
+				<li><a href="/cabinet/profile?type=pass">Настройки профиля</a></li>
+			<?endif;?>		
+				<li><h3>Сообщения</h3></li>
+				<li><a href="/cabinet/connect"><?= $message; ?></a></li>
+				<li>
+				<a href="/cabinet/messages">Мои сообщения 
+					<? if ( $count = $this->countNewMessages() ) { 
+						echo "(+" . $count . ")"; 
+			  		 } 
+					?>
+				</a>
+				</li>		
+			<? if ( !$this->tech_admin && !$this->user_moder ) : ?>					
+				<li><h3>Девушки</h3></li>
+				<li><a href="/cabinet?performer=1">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/1">Добавить анкету</a></li>			
+				<li><h3>Подружки</h3></li>
+				<li><a href="/cabinet?performer=2">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/2">Добавить анкету</a>			
+				<li><h3>Массажистки</h3></li>
+				<li><a href="/cabinet?performer=3">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/3">Добавить анкету</a>			
+				<li><h3>БДСМ</h3></li>
+				<li><a href="/cabinet?performer=4">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/4">Добавить анкету</a>			
+				<li><h3>Мужчина</h3></li>
+				<li><a href="/cabinet?performer=6">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/6">Добавить анкету</a>			
+				<li><h3>Транс</h3></li>
+				<li><a href="/cabinet?performer=7">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/7">Добавить анкету</a>			
+				<li><h3>Пары</h3></li>
+				<li><a href="/cabinet?performer=5">Мои анкеты</a></li>
+				<li><a href="/cabinet/add-ank-form/performer/5">Добавить анкету</a>			
+				<li><h3>Салоны</h3></li>
+				<li><a href="/cabinet/salons">Мои cалоны</a></li>
+				<li><a href="/cabinet/add-salon-form">Добавить салон</a></li>		
+			<? endif; ?>		
+		</ul>	
+	</div>
+</div>

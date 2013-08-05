@@ -1,0 +1,57 @@
+<div id="content-cab">
+	<div id="cab_ankets">
+		<h2 id="cab_photo_title">Видео: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
+		<form id="cab_ankets_wrap" action="/cabinet/add-video-salon/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+			<div class="cab_form"><div class="cab_anketa_header">
+				<ul>
+					<li><input type="submit" value="Данные анкеты" name="to_salon_edit" /></li>
+					<li><input type="submit" value="Фото" name="to_photo" /></li>					
+				</ul>
+			</div></div>
+			<p style="text-align: left; font-weight: bold;">Видеоролик</p>
+			<p style="text-align: left;">Допустимые форматы файлов: FLV, AVI, WMV, MPG.</p>
+			<p style="text-align: left;">Максимальный размер пересылаемого файла: 40МБ.</p>
+			<div class="cab_photos_form_wrap">
+			<?foreach($this->info['videolist'] as $key=>$item):?>
+			<div class="cab_anketa_video cab_ank_video_ed<?if(!$item):?> cab_video_add<?endif;?>" >
+				<!--<div<?if($item):?> style="background:url('<?=$this->videos_path.'/th_'.$item?>') no-repeat top;" onclick="showPhoto('<?=$this->videos_path.'/'.$item?>')"<?endif?>></div>-->
+			<?$swflink = 'file='.$this->videos_path.'/'.$item.'&image=/img/videoprev.jpg&author=vipkisa.ru&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
+<?if($item):?>
+<span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="480" height="380" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
+<script type="text/javascript" src="/js/swfobject.js"></script>
+<script type="text/javascript"> 
+var s1 = new SWFObject('/player.swf','player','480','380','9'); 
+s1.addParam('allowfullscreen','true'); 
+s1.addParam('allowscriptaccess','always'); 
+s1.addParam('flashvars','<?=$swflink;?>');
+s1.write('video1'); 
+</script>
+<?else:?>
+<div style="width: 100%;"></div>
+<?endif;?>
+				<br />
+				<br />
+				<p><?if($item):?>Заменить<?else:?>Добавить<?endif?>:</p>
+				<br />
+				<input type="file" size="20" name="file_<?=$key?>" />
+				<br />
+				<?if($item):?>
+					<br />
+					<!--  <p>Использовать для превью:
+					<input type="radio" name="preview" class="cab_form_radio" <?if(isset($this->preview) && $key==$this->preview):?>checked="checked" <?endif?>value="<?=$key?>" /></p>
+					<a href="/cabinet/del-video-salon/n/<?=$this->info['id']?>/f/<?=$key?>" class="cab_salon_photo_del">Удалить</a> -->
+				<?endif?>
+			</div>
+			<?endforeach?>
+			<div>&nbsp;</div>
+			</div>
+			<div>
+				<?php if ( $_GET['new'] ) : ?>
+					<input class="button" type="submit" value="Готово"/>
+				<?php else : ?>			
+					<input class="button" type="submit" value="Сохранить"/>
+				<?php endif ?>
+			</div>
+		</form>
+	</div>
+</div>

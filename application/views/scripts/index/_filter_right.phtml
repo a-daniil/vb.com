@@ -1,0 +1,15 @@
+<div class="right_aside_title">Фильтровать по услугам</div>
+<div class="right_form_filtr">
+    <?foreach($this->services as $part=>$srv):?>                        
+        <span><?=array_shift($srv)?></span>
+        <div>
+        	<?foreach($srv as $num=>$val):$param = $part.'_'.$num;?>
+            	<label class="checkbox"> 
+                	<input form="filters" onclick="submitForm('filters')" type="checkbox" id="<?=$param?>" name="s[]" value="<?=$param?>" <? echo $this->filter['s'][$param] ? ' checked ' : '' ?>>
+                	<?=$val?> 
+                </label> 
+            <?endforeach?>
+        </div> 			
+	<?endforeach?>
+</div>  
+  

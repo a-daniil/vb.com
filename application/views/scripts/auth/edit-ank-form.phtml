@@ -1,0 +1,9 @@
+<div id="center">
+	<?if(!empty($this->errors)):?>
+		<div class="message">
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+		</div>
+	<?endif?>
+</div>

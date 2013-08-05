@@ -1,0 +1,38 @@
+<div class="center">
+	<div id = "centerwrap" >
+		<div class="form-buttons">
+			<a href="/cabinet/profile?type=pass">Смена пароля</a><a href="/cabinet/profile?type=mess">Уведомления</a>
+		</div>
+		<? if ( $this->form instanceof Form_EditPassForm ) :?>
+			<div class="info">
+				<span>Логин: <?= $this->login ?> E-mail: <?= $this->email ?></span>
+			</div>
+		<? elseif ( $this->form instanceof Form_EditMessForm ) : ?>
+			<div class="info">
+				<span>Включить уведомление на e-mail: <?= $this->email ?></span>
+			</div>
+		<? endif ?>
+		<? if ( $this->message ) :?>
+			<div class="<?= $this->color ?>">
+				<span><?= $this->message ?></span>
+			</div>
+		<? endif; ?>
+		<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+			<div class="form">
+				<div class="form-left">
+					<?=$this->form->getElement('balance')?>
+					<?=$this->form->getElement('days_info')?>
+        			<? foreach ($this->form as $element): ?>
+        				<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
+        					<?= $element ?>
+        				<? endif ?>
+  					<? endforeach; ?>
+  				</div>  
+  				<?= $this->form->getElement('submit') ?> 				 				
+  			</div>
+  		</form>
+  	</div>
+</div>
+<script type="text/javascript">
+	$("#days-info-element").css("float", "left");
+</script>

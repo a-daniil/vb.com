@@ -1,0 +1,11 @@
+<script>
+    $.get("/remote/login", function(data){
+       $("#login").html(data); 
+    },"");
+</script>
+<div class="wrap_header">
+	<div class="header_row">
+	    <div class="logo row"><a href="/"><img src="/img/logo.jpg" alt=""></a></div>
+        <div id="login" class="row"></div>
+    </div>
+</div>

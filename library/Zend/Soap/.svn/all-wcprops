@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Soap
+END
+Wsdl.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Soap/Wsdl.php
+END
+Client.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Soap/Client.php
+END
+Server.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Soap/Server.php
+END
+AutoDiscover.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Soap/AutoDiscover.php
+END

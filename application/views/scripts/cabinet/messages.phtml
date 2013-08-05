@@ -1,0 +1,55 @@
+<div class="center">
+	<div id = "centerwrap" >	
+		<?php if ( $this->paginator->count() > 0 ) : ?>
+			<div class="form-buttons">
+				Выделить: <input type="button" id="all" value="все" />&nbsp;<input type="button" id="viewed" value="прочитанные" />&nbsp;<input type="button" id="new" value="новые" />
+			</div>	
+			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+				<div class="form">						
+					<table class='form-table' cellspacing='0'>
+					<?php 
+				   		echo $this->paginationControl($this->paginator,
+				       		'Sliding',
+					   		'partials/pagination-control.phtml'); 
+					?>
+					<?php  
+				   		echo $this->partialLoop('cabinet/messages-row.phtml', $this->paginator); 
+					?>
+					</table>
+					<?= $this->form->getElement('submit') ?>					
+				</div>
+			</form>		
+		<?php else : ?>
+			<div class="form-left">
+				У вас нет сообщений.
+			</div>
+		<?php endif ?>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#all").click(function(){
+		$("input[type='checkbox']").each(function(){
+			$(this).attr("checked", "checked");
+		});
+	});		
+
+	$("#viewed").click(function(){
+		$("input[type='checkbox']").each(function(){
+			$(this).removeAttr("checked");
+		});
+		
+		$(".checkbox-viewed").each(function(){
+			$(this).attr("checked", "checked");
+		});
+	});	
+
+	$("#new").click(function(){
+		$("input[type='checkbox']").each(function(){
+			$(this).removeAttr("checked");
+		});
+		
+		$(".checkbox-new").each(function(){
+			$(this).attr("checked", "checked");
+		});
+	});		
+</script>

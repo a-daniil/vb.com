@@ -1,0 +1,13 @@
+<div id="center"><div id="cab_ankets">
+	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array(action=>'settings-write'))?>">
+		<div class="ca_top ca_bottom">
+			<table>
+				<tr>
+					<th>Количество превью на странице:</th>
+					<td><input type="text" name="girls_per_page" <?if(isset($this->data['girls_per_page'])):?>value="<?=$this->data['girls_per_page']?>" <?endif?>/></td>
+				</tr>
+			</table>
+		</div>
+		<input class="button" type="submit" value="Сохранить" />
+	</form>
+</div></div>

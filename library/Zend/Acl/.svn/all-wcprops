@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Acl
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Acl/Exception.php
+END
+Role.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Acl/Role.php
+END
+Resource.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Acl/Resource.php
+END

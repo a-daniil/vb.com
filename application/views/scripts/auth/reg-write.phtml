@@ -1,0 +1,17 @@
+<div id="center">
+	<div class="message">
+	<?if(empty($this->errors)):?>	
+		<div class="info_message">
+			<span> &nbsp;&nbsp;&nbsp;&nbsp;Благодарим вас за регистрацию на сайте PutanaStars.com.
+			На указанный e-mail отправлено письмо.
+			Для активации учетной записи перейдите по ссылке в письме.
+			Если письмо не пришло, проверьте папку Спам в вашем почтовом ящике. Рекомендуем добавить адрес admin@putanastars.com в контакты. Если у вас возникли трудности с регистрацией просим связаться с нами напрямую по почте admin@putanastars.com
+			</span>
+		</div>
+	<?else:?>
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+	<?endif?>
+	</div>
+</div>

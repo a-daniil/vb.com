@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Framework/Client/Console
+END
+HelpSystem.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Framework/Client/Console/HelpSystem.php
+END
+ArgumentParser.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Framework/Client/Console/ArgumentParser.php
+END
+Manifest.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Framework/Client/Console/Manifest.php
+END

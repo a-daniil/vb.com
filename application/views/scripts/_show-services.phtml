@@ -1,0 +1,17 @@
+<ul class="red_dot_list">
+<?php
+    $count = 0;
+	foreach($this->services as $srv=>$list){
+		array_shift($list);
+		foreach($list as $key=>$value){
+			if( $this->row['srv'.'_'.$srv] & 1<<$key ){
+				echo "<li>" . $value . "</li>";
+				$count++;
+				if ( $count > 2 ) {
+					break 2;
+				}
+			}
+		}
+	}
+?>
+</ul>

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Tool/Project/Context/System
+END
+ProjectProvidersDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Project/Context/System/ProjectProvidersDirectory.php
+END
+ProjectDirectory.php
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Project/Context/System/ProjectDirectory.php
+END
+TopLevelRestrictable.php
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Project/Context/System/TopLevelRestrictable.php
+END
+Interface.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Project/Context/System/Interface.php
+END
+NotOverwritable.php
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Project/Context/System/NotOverwritable.php
+END
+ProjectProfileFile.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Tool/Project/Context/System/ProjectProfileFile.php
+END

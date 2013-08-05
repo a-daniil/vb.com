@@ -1,0 +1,27 @@
+<?if($this->pageCount>1):?>
+<? 
+	$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+	unset($params['module']);
+	unset($params['controller']);
+	unset($params['action']);
+	$form_params = array('performer','type','oho', 'ohd', 'tho', 'thd', 'aho', 'ahd', 'ao', 'ad', 'bo', 'bd', 'ho', 'hd', 'wo', 'wd', 'place', 'novelty', 'metro', 'district');
+	foreach ($params as $k => $v){
+		if( empty($v) && in_array($k, $form_params) ){
+			unset($params[$k]);
+		}
+	}
+?>
+<ul>
+	<ul>
+		<?if(isset($this->previous)):?><li><a id="prev" href="#">&lt;&lt; предыдущая</a></li><?endif?>
+		<li class="active"><a href="#"><?=$this->current?></a></li>
+		<?if(isset($this->next)):?><li><a id="next" href="#">следующая &gt;&gt;</a></li><?endif?>
+    </ul>
+</ul>
+<script>
+    var link_prev = "<?=$this->url(array_merge($params, array('p'=>$this->previous)))?>";
+    var link_next = "<?=$this->url(array_merge($params, array('p'=>$this->next)))?>";
+    $('#prev').attr('href', link_prev);
+    $('#next').attr('href', link_next);
+</script>
+<?endif?>

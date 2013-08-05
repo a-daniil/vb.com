@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Feed/Pubsubhubbub/Model
+END
+ModelAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Pubsubhubbub/Model/ModelAbstract.php
+END
+Subscription.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Pubsubhubbub/Model/Subscription.php
+END
+SubscriptionInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Pubsubhubbub/Model/SubscriptionInterface.php
+END

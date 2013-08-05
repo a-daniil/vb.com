@@ -1,0 +1,52 @@
+<div class="center">
+	<div id = "centerwrap" >
+		<? if ( $this->message ) :?>
+			<div class="<?= $this->color ?>">
+				<span><?= $this->message ?></span>
+			</div>
+		<? endif; ?>
+		
+		<? if ( $this->form ) : ?>
+			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>"  <?= $this->get ?> enctype="multipart/form-data">
+				<div class="form">						
+					<div class="">
+						<span><?= $this->from ?></span>
+					</div>		
+					<div class="subject">
+						<span><?=$this->subject?></span>&nbsp;(<?= rusdate(strtotime($this->timestamp), "j %MONTH% Y H:i") ?>)
+					</div>					
+					<div class="body">
+						<span><?=$this->body?></span>
+					</div>
+					<div class="file">
+						<?php if ( $this->file ) : ?>
+							Прикрепленный файл: 
+							<a class="black_link" href="/user_messages_photos/<?= $this->file ?>" ><?= $this->file ?></a>
+						<?php endif ?>
+					</div>	
+					Ответ:
+					<? foreach ($this->form as $element): ?>
+        				<?= $element ?>
+  					<? endforeach; ?>					
+				</div>
+			</form>
+		<? else : ?>
+			<div class="form">				
+				<div class="">
+					<span><?= $this->from ?></span>
+				</div>		
+				<div class="subject">
+					<span><?= $this->subject ?></span>&nbsp;(<?= rusdate(strtotime($this->timestamp), "j %MONTH% Y H:i") ?>)
+				</div>					
+				<div class="body">
+					<span><?= $this->body ?></span>
+				</div>
+				<div class="file">
+					Прикрепленный файл: 
+					<a class="black_link" href="/user_messages_photos/<?= $this->file ?>" ><?= $this->file ?></a>
+				</div>			
+			</div>
+		<? endif; ?>
+		
+	</div>
+</div>

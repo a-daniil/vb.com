@@ -1,0 +1,104 @@
+<div class="info_message">
+	<span style="font-size: 13px;">Город: Санкт-Петербург</span> <br />
+    	<? foreach( $this->info as $name => $value) : ?>  
+        	<? if ( $name == 'title' ) continue; ?>      			
+        		<span><? if ( !in_array($name, array("v","rv", "st","s") ) ) echo $name . ": " ?> <?= $value ?></span><br/>
+        	<? endforeach ?>
+</div>
+<div class="wrap_girl"  style="width: 900px; margin-left: 50px;">
+	<?if ( $this->ankets->getTotalItemCount() == 0 ):?>   
+    	<p>К сожалению по заданным критериям анкеты не найдены, попробуйте изменить параметры!</p>
+    <?else:?>
+		<? foreach($this->ankets as $row):
+		
+			$meta_tags=array(
+				'name',
+				'type',
+				'performer',
+				'city',
+				'metro',
+				'age',
+				'breast',
+				'height',
+				'weight'
+			);
+			$meta_replace=array();
+			foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
+			foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
+			$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
+			$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
+			if(!empty($row['photolist'])){
+				$photolist=unserialize($row['photolist']);
+				if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+				else{$photo=array_shift($photolist);}
+			}
+			else{$photo=false;}
+		?>
+
+    	<?list($width, $height) = getimagesize($_SERVER['DOCUMENT_ROOT'].$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo);?>
+       <div class="girl">
+           <div class="girl_name"><?= $row['name']?$row['name'] : '' ?></div>
+           <div class="girl_addres">г. Санкт-Петербург, <?if(!empty($row['metro'])):?><a href="#">м. <?= $this->metro_list[$row['metro']]?></a><?endif?></div>
+           <div class="girl_phone" id="phone_<?=$row['id']?>"></div>
+           <div class="wrap_girl_info">
+           <div class="girl_foto">
+               <a target="_blank" class="img" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" <?if(!empty($meta_img)):?>title="<?=$meta_img?>"<?endif?> onclick="addHistory(<?=$row['id']?>)" style="background:#fff url('<?= $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>') no-repeat center top;"></a>
+           </div>
+                        <div class="girl_info">
+                            <div class="girl_price">
+                            	<? if ( $row['price_1h_ap'] ) :?>
+                            		<span>
+                            			<?=number_format($row['price_1h_ap'], 0, ',', ' ');?>
+                            		</span>
+                            	<? endif; ?>
+                            	<br>2 часа: 
+                            	<? if ( $row['price_2h_ap'] ) :?>
+                            		<span>
+                            			<?=number_format($row['price_2h_ap'], 0, ',', ' ');?>
+                            		</span>
+                            	<? endif ?>
+                            	<br>Ночь:
+                            	<? if ( $row['price_n_ap'] ) :?>
+                            		<span>
+                            			<?=number_format($row['price_n_ap'], 0, ',', ' ');?>
+                            		</span>
+                            	<? endif ?>
+                            </div>
+                            <div class="girl_stats">
+                                <?if(!empty($row['age'])):?>Возраст: <?=$row['age']?><br /><?endif?>
+                                <?if(!empty($row['height']) || !empty($row['weight'])):?>
+                                    <?if(!empty($row['height'])):?>Рост: <?=$row['height']?><br /><?endif?>
+                                    <?if(!empty($row['weight'])):?>Вес: <?=$row['weight']?><br /><?endif?>
+                                <?endif?>
+                                <?if(!empty($row['breast']) || $row['breast']==0):?>Грудь: <?=$row['breast']?><br /><?endif?>
+                                <?if($row['video']):?><a>Есть видео</a><br /><?endif?>
+                                <?if($row['status']>50):?><span>Фото проверено</span><?endif?></div>
+                            <a target="_blank" class="btn" <?if(!empty($meta_detail)):?>title="<?=$meta_detail?>"<?endif?>href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>"  onclick="addHistory(<?=$row['id']?>)">Подробнее &gt;&gt;</a>
+                        </div>
+                    </div>
+                </div>
+          <? endforeach;?>
+          <? endif; ?>
+		</div>
+<div class="pagination pagination-centered pagin_girls">
+<?=$this->paginationControl($this->ankets,'Sliding','pages_search.phtml')?>
+</div>
+<script type="text/javascript">
+function addHistory(id){
+	var url = '/remote/add-history/id/' + id;	
+    
+	$.get(url, function(data){
+		getHistory();			
+	}, "");
+};  
+
+$(document).ready(function(){
+	$(".girl_phone").each(function (){
+		var id = $(this).attr('id');
+		id = id.replace("phone_", "");
+    	$.get("/remote/phone/n/" + id, function(data){
+			$("#phone_" + id ).html(data);
+		},""); 
+    });
+});
+</script>

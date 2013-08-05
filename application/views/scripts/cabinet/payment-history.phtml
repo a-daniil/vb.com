@@ -1,0 +1,17 @@
+<div class="center">
+	<div id = "centerwrap">
+		<h3>История платежей</h3>
+		<br />
+		<h4>Пополнение с кошелька Webmoney</h4>
+		<table class='form-table' cellspacing='0' id="sorter" style="width: 50%;">
+			<thead>
+				<th>Сумма</th>
+				<th>Дата</th>
+				<th>Состояние</th>			
+			</thead>			
+			<?php  
+				echo $this->partialLoop('cabinet/payments-statistic-row.phtml', $this->payments); 
+			?>			
+		</table>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<?php 
+	if ( $this->viewed  ) {
+		$class = "checkbox-viewed";
+		$color = "grey";
+	} else {
+		$class = "checkbox-new";			
+	}
+?>
+<tr>
+	<td>
+		<input type="checkbox" name="del_<?= $this->id?>" value="1" class="<?= $class ?>">
+	</td>
+	<td id="<?= $color ?>">
+		<?= $this->getMessageFrom( $this->id ) ?>		
+		<br />
+		<a class="show-message" href="/cabinet/show-message/id/<?= $this->id; ?>">
+			<?= $this->subject; ?>
+		</a>
+	</td>
+	<td>
+		<a href="/cabinet/delete-message/id/<?= $this->id; ?>">Удалить</a>
+	</td>
+</tr>

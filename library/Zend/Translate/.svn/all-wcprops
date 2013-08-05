@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Translate
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Exception.php
+END
+Plural.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Plural.php
+END
+Adapter.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter.php
+END

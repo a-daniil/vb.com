@@ -1,0 +1,14 @@
+<div id="center">
+	<?if(isset($this->error)):?>
+	<div class="message">
+		<h2><?=$this->error?></h2>
+	</div>
+	<?else:?>
+	<div id="ank">
+		<div class="ank_block">
+			<h2><?=$this->info['title']?></h2>
+			<p><?=$this->info['text']?></p>
+		</div>
+	</div>
+	<?endif?>
+</div>

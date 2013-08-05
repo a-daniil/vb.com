@@ -1,0 +1,69 @@
+<script>
+    $.get("/remote/login", function(data){
+       $("#login").html(data); 
+    },"");
+</script>﻿﻿
+<div id="right"><div id="rightwrap">
+	<div id="login"></div>
+        <?if(isset($this->sections) && count($this->sections) && $_SERVER['REQUEST_URI'] == '/' ):?>
+            <br />
+            <p class="header3">Разделы сайта</p>
+            <div id="articles">
+                    <ul id="articles_list">
+                    <?foreach($this->sections as $item):?>
+                            <li><a href="<?= '/'.$item['id'].'-'.$item['uri'] ?>"><?= $this->textToView($item['title'])?></a></li>
+                    <?endforeach?>
+                    </ul>
+                    <?=$this->paginationControl($this->sections,'Sliding','pages_art.phtml')?>
+            </div>
+            <br />
+        <?endif?>
+        <? if(isset($this->info['text_right']) && $this->controller != 'cabinet'): ?>
+            <p class="column_text"><?=nl2br($this->textToView($this->info['text_right']))?></p>
+        <? endif ?>
+        <?if(isset($this->meta['column_right']) && !empty($this->meta['column_right']) && $_SERVER['REQUEST_URI'] == '/'):?>
+	
+	<br />
+              
+        
+	<?if(count($this->bannersRight)):foreach ($this->bannersRight as $banner):;?>
+	<a href="<?=$banner['url']?>"><img alt="<?=$banner['title']?>"  src="<?=$this->banners_path.'/'.$banner['fname']?>"></a><br />
+	<?endforeach;endif;?>
+	<br />
+	<p class="column_text"><?=nl2br($this->textToView($this->meta['column_right']))?></p>
+	<?endif?>
+	<?if(isset($this->articles) && count($this->articles) && $_SERVER['REQUEST_URI'] == '/'):?>
+			<br />
+			<h3>Интим новости и публикации</h3>
+			<div id="articles">
+				<ul id="articles_list">
+				<?php $country = "/Проститутки\ [А-Я]/i"; ?>
+				<?foreach($this->articles as $art):?>
+					<?php if(!preg_match($country, $art['title'])){ ?>
+					<li><a href="<?=$this->url(array('action'=>'article','n'=>$art['id']),'default')?>"><?=$art['title']?></a></li>
+					<?php } ?>
+				<?endforeach?>
+				</ul>
+				<?=$this->paginationControl($this->articles,'Sliding','pages_art.phtml')?>
+			</div>
+		<?/*	<br /> 
+	**Это зачем ? если название статьи содержит страну например Италия или германия она выносится в этот блок. Надо убрать!! 
+	**Или переписать этот блок вывода статей
+			<h3>Проститутки мира</h3>
+			<div id="articles">
+				<ul id="articles_list">
+				<?php $country = "/Проститутки\ [А-Я]/i"; ?>
+				<?foreach($this->articles as $art):?>
+					<?php if(preg_match($country, $art['title'])){ ?>
+					<li><a href="<?=$this->url(array('action'=>'article','n'=>$art['id']))?>"><?=$art['title']?></a></li>
+					<?php } ?>
+				<?endforeach?>
+				</ul>
+				<?=$this->paginationControl($this->articles,'Sliding','pages_art.phtml')?>
+			</div>
+				*/?>
+		<?endif?>
+
+	<br />
+
+</div></div>

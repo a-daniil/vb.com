@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Feed/Writer/Extension
+END
+RendererAbstract.php
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Writer/Extension/RendererAbstract.php
+END
+RendererInterface.php
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Writer/Extension/RendererInterface.php
+END

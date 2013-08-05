@@ -1,0 +1,11 @@
+<?if($this->pageCount>1):?>
+<ul>
+	<?foreach($this->pagesInRange as $page):?>
+		<li>
+			<?if($this->current==$page):?><p><?=$page?></p><?else:?>	
+		<a href="<?= "/cabinet/add-ank-to-salon/n/210/p/" . $page ?>"><?=$page?></a>
+		<?endif?>
+	<?endforeach?>
+	</li>
+</ul>
+<?endif?>

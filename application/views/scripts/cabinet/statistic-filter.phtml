@@ -1,0 +1,27 @@
+<div class="center">
+	<div id = "centerwrap-table" >	
+		<table class='form-table' cellspacing='0' id="filters">
+			<tr>
+				<th rowspan="2">Фильтр</th><th colspan="2">Клики</th>
+			</tr>
+			<tr>
+				<td>За сутки</td><td>Всего</td>
+			</tr>
+			<tr>
+				<td>Атнкеты с видео</td>
+				<td><?= $this->video['today']; ?></td>
+				<td><?= $this->video['all']; ?></td>
+			</tr>
+			<tr>
+				<td>Только проверенные</td>
+				<td><?= $this->verified['today']; ?></td>
+				<td><?= $this->verified['all']; ?></td>
+			</tr>
+			<tr>
+				<td>Мужчины</td>
+				<td><?= $this->men['today']; ?></td>
+				<td><?= $this->men['all']; ?></td>				
+			</tr>
+		</table>
+	</div>
+</div>

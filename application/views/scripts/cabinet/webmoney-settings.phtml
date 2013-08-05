@@ -1,0 +1,35 @@
+<div id="center"><div id="cab_ankets">
+	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array(action=>'webmoney-settings-write'))?>">
+		<div class="ca_top ca_bottom">
+			<h2>Настройки WebMoney</h2>
+			<br />
+			<table>
+				<tr>
+					<th>WMR-кошелек:</th>
+					<td><input type="text" name="WMR" <?if(isset($this->data['WMR'])):?>value="<?=$this->data['WMR']?>" <?endif?>/></td>
+				</tr>
+				<tr>
+					<th>WMZ-кошелек:</th>
+					<td><input type="text" name="WMZ" <?if(isset($this->data['WMZ'])):?>value="<?=$this->data['WMZ']?>" <?endif?>/></td>
+				</tr>
+				<tr>
+					<th>WME-кошелек:</th>
+					<td><input type="text" name="WME" <?if(isset($this->data['WME'])):?>value="<?=$this->data['WME']?>" <?endif?>/></td>
+				</tr>
+				<tr>
+					<th>WMU-кошелек:</th>
+					<td><input type="text" name="WMU" <?if(isset($this->data['WMU'])):?>value="<?=$this->data['WMU']?>" <?endif?>/></td>
+				</tr>	
+				<tr>
+					<th>Навзвание платежа:</th>
+					<td><input type="text" name="DESC" <?if(isset($this->data['DESC'])):?>value="<?=$this->data['DESC']?>" <?endif?>/></td>					
+				</tr>
+				<tr>
+					<th>Секретный ключ:</th>
+					<td><input type="text" name="SECRET_KEY" <?if(isset($this->data['SECRET_KEY'])):?>value="<?=$this->data['SECRET_KEY']?>" <?endif?>/></td>
+				</tr>
+			</table>			
+		</div>
+		<input class="button" type="submit" value="Сохранить" />
+	</form>
+</div></div>

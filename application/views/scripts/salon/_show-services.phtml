@@ -1,0 +1,33 @@
+<?foreach($this->services as $part=>$srv):?>
+	<?if(isset($this->part_active[$part])): $i++?>
+		<?php if ( $i % 2 == 0 ) : ?><div class="additional_skils_right"><?php else : ?><div class="additional_skils_left"><?php endif ?>
+        	<h5><?php echo array_shift($srv) ?></h5>
+        	<ul class="red_dot_list">
+				<?foreach($srv as $num=>$val):?>
+					<?if($this->srv_active[$part.'_'.$num]):?><li><?=$val?></li><?endif?>
+				<?endforeach?>
+			</ul>
+      	</div>
+    <?endif?>
+    <?php if ( $i % 2 == 0 ) : ?>
+      		<div style="clear: both;"></div>
+      	<?php endif ?>
+<?endforeach?>
+<?if( $this->info['only']) : $i++?>
+	<?php if ( $i % 2 == 0 ) : ?><div class="additional_skils_right"><?php else : ?><div class="additional_skils_left"><?php endif ?>
+		<h5>Только у нас:</h5>
+		<ul class="red_dot_list">
+			<li><?=$this->info['only']?></li>
+		</ul>
+	</div>
+<?endif?>
+<?php $i++; if ( $i % 2 == 0 ) : ?><div class="additional_skils_right"><?php else : ?><div class="additional_skils_left"><?php endif ?>
+	<h5>Доп. удобства:</h5>
+	<ul class="red_dot_list">
+		<?foreach ( $this->options as $name => $value ) : ?>
+    		<?if ( $val ) : ?>
+        		<li><?=$name?></li>
+			<?endif?>
+		<?endforeach?>
+	</ul>
+</div>

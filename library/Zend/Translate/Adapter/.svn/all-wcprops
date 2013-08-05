@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Translate/Adapter
+END
+Csv.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Csv.php
+END
+Tbx.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Tbx.php
+END
+Array.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Array.php
+END
+Ini.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Ini.php
+END
+XmlTm.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/XmlTm.php
+END
+Gettext.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Gettext.php
+END
+Qt.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Qt.php
+END
+Tmx.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Tmx.php
+END
+Xliff.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Translate/Adapter/Xliff.php
+END

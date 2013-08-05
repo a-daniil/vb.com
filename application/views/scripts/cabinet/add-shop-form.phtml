@@ -1,0 +1,89 @@
+<div id="center">
+	<?if(!empty($this->errors)):?>
+		<div class="message">
+		<?foreach($this->errors as $error):?>
+		<h2><?=$error?></h2>
+		<?endforeach?>
+		</div>
+	<?endif?>
+	<div id="cab_ankets">
+		<?if(!isset($this->action)):?><h2 id="cab_photo_title">Анкета: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2><?endif?>
+		<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?if(isset($this->action)):?>/cabinet/add-ank<?else:?>/cabinet/edit-ank-write/n/<?=$this->info['id']?><?endif?>">
+			<?if(!isset($this->action)):?>
+			<div class="cab_anketa_header">
+				<ul>
+					<li><input type="submit" value="Фото" name="to_photo" /></li>
+					<li><input type="submit" value="Фото для проверки" name="to_check_photo" /></li>
+					<?if($this->info['status']):?><li><input type="submit" value="Проверка фото" name="to_check" /></li><?endif?>
+					<?/*?><li><a href="/">Видео</a></li>
+					<li><a href="/">Карта</a></li>
+					<li><a href="/">Комментарии</a></li>*/?>
+				</ul>
+			</div>
+			<?endif?>
+			<div class="ca_top">
+				<table>
+					<tr>
+						<th <?if(isset($this->info['failed']['name'])):?>class="input_failed" <?endif?>>Название:<b>*</b></th>
+						<td colspan="3"><input type="text" name="name"<?if(isset($this->info['name'])):?> value="<?=$this->info['name']?>"<?endif?> /></td>
+						<th <?if(isset($this->info['failed']['city'])):?>class="input_failed" <?endif?>>Город:<b>*</b></th>
+						<td><select id="jscity" name="city" onchange="metroList();">
+							<?foreach($this->cities as $value=>$title):?>
+							<option value="<?=$value?>"<?if(isset($this->info['city']) && $value==$this->info['city']):?> selected<?endif?>><?=$title?></option>
+							<?endforeach?>
+						</select></td>
+					</tr>
+					<tr>
+						<th <?if(isset($this->info['failed']['url'])):?>class="input_failed" <?endif?>>URL сайта:</th>
+						<td colspan="3"><input type="text" name="name"<?if(isset($this->info['url'])):?> value="<?=$this->info['url']?>"<?endif?> /></td>
+						<th <?if(isset($this->info['failed']['metro'])):?>class="input_failed" <?endif?>>Метро:<b>*</b></th>
+						<td id="jsmetro"><?if(isset($this->info['city']) || isset($this->info['metro'])):?>
+							<?if($this->info['city']==1 || $this->info['city']==2):?>
+							<select name="metro">
+								<?foreach($this->metro_list as $title):?>
+								<option value="<?=$title?>"<?if($title==$this->info['metro']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<?else:?>
+							<input type="text" name="metro" value="<?=$this->info['metro']?>" />
+							<?endif?>
+						<?else:?>
+						<input type="hidden" name="metro" value="" />
+						Выберите город
+						<?endif?>				
+						</td>
+					</tr>
+					<tr>
+						<th <?if(isset($this->info['failed']['adress'])):?>class="input_failed" <?endif?>>Адрес:<b>*</b></th>
+						<td colspan="5"><input type="text" name="name"<?if(isset($this->info['adress'])):?> value="<?=$this->info['adress']?>"<?endif?> /></td>
+					</tr>
+					<tr>
+						<th <?if(isset($this->info['failed']['phone_1']) || isset($this->info['failed']['phone_2'])):?>class="input_failed" <?endif?>>Телефон:<b>*</b></th>
+						<td colspan="2">+7 -
+							<input style="width:3em;" type="text" name="phone_1" title="Код города / оператора"<?if(isset($this->info['phone_1'])):?> value="<?=$this->info['phone_1']?>"<?endif?> /> -
+							<input style="width:7em;" type="text" name="phone_2"<?if(isset($this->info['phone_2'])):?> value="<?=$this->info['phone_2']?>"<?endif?> />
+						</td>
+						<th>Время работы:</th>
+						<td colspan="3">
+							C:
+							<select style="width:5em;" name="time_from">
+								<?for($nn=0;$nn<=24;$nn++):?>
+								<option value="<?=$nn?>"<?if($nn==10):?> selected<?endif?>><?=$nn?>:00</option>
+								<?endfor?>
+							</select>
+							&nbsp;До:
+							<select style="width:5em;" name="time_to">
+								<?for($nn=0;$nn<=24;$nn++):?>
+								<option value="<?=$nn?>"<?if($nn==20):?> selected<?endif?>><?=$nn?>:00</option>
+								<?endfor?>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<p><b>*</b> - поля обязательные для заполнения.</p>
+			</div>
+			<input disabled class="button" type="submit" <?if(isset($this->action)):?>value="Добавить" name="to_photo"<?else:?>value="Сохранить"<?endif?> />
+		</form>
+	</div>
+</div>
+<script type="text/javascript">var metro=<?=$this->metro?></script>

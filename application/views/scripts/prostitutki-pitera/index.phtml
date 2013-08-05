@@ -1,0 +1,22 @@
+﻿<div id="center">
+    
+    <? for ($i=0;$i<4;$i++):?>
+    <div class="anketa">&nbsp;</div>
+    <? endfor ?>
+    <? if (/*$_SERVER['REQUEST_URI'] == '/index/index/p/1' ||*/ $_SERVER['REQUEST_URI'] == '/'):?>
+<div class="footer" style="text-align: justify;"><p>
+        <? if(isset($this->info['text_footer'])): ?>
+            <p class="column_text"><?=nl2br($this->textToView($this->info['text_footer']))?></p>
+        <? endif ?>
+	<?if(isset($this->meta['footer']) && !empty($this->meta['footer']) && $_SERVER['REQUEST_URI'] == '/'):?>
+	<br />
+	<p class="column_text"><?=nl2br($this->textToView($this->meta['footer']))?></p>
+	<?endif?>
+</p></div>
+<? endif ?>
+<? if(isset($this->info['text_footer'])): ?>
+<div style="text-align: justify;"><p>
+    <p class="column_text"><?=nl2br($this->textToView($this->info['text_footer']))?></p>
+</p></div>
+<? endif ?>
+</div>

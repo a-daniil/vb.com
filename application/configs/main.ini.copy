@@ -1,0 +1,45 @@
+[main]
+
+domen				= "vseputani.com"
+
+db.adapter			= PDO_MYSQL
+db.config.host		= localhost
+db.config.username	= vseputani
+;db.config.password	= sh646e280
+db.config.password	= opsd4vk
+
+;db.config.username	= root
+;db.config.password	= ''
+
+db.config.dbname	= putanastars
+
+path.user_photos	= APP_PATH "/../public/user_photos"
+path.url_user_ph	= "/user_photos"
+path.user_videos	= APP_PATH "/../public/user_videos"
+path.url_user_vi	= "/user_videos"
+path.banners		= APP_PATH "/../public/bnrs"
+path.url_banners	= "/bnrs"
+path.meta			= APP_PATH "/configs/meta.cfg"
+path.settings		= APP_PATH "/configs/settings.cfg"
+path.captcha		= APP_PATH "/../public/captcha"
+
+font.captcha		= APP_PATH "/fonts/times.ttf"
+
+thumbnale_width			= 140
+thumbnale_height		= 192
+limit.max_photo_width	= 480
+limit.max_photos		= 8
+limit.max_photo_size	= 1000000
+limit.max_videos	= 2
+limit.max_video_size	= 41943040; 40Mb
+limit.banners_per_page  = 20;
+limit.banners.title	= 255;
+limit.banners.url	= 255;
+
+[production]
+
+errors.reporting	= 1
+
+[development]
+
+errors.reporting	= 1

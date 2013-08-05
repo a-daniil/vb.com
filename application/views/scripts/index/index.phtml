@@ -1,0 +1,335 @@
+<script type="text/javascript">
+	$(function(){
+		$( "#slider_per_hour" ).slider({
+			range: true,
+			min: 0,
+			max: 50000,
+			values: [ 0, 50000 ],
+			slide: function( event, ui ) {
+				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
+		  }
+		});
+
+		$( "#amount_per_hour" ).val($( "#slider_per_hour" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_per_hour" ).slider( "values", 1 ) + " руб");
+
+		$( "#slider_breast_size" ).slider({
+			range: true,
+			min: 0,
+			max: 8,
+			values: [ 0, 8 ],
+			slide: function( event, ui ) {
+				$( "#amount_breast_size" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+		  }
+		});
+
+		$( "#amount_breast_size" ).val($( "#slider_breast_size" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_breast_size" ).slider( "values", 1 ));
+	});
+</script>
+<div class="fix_width">
+	<div id="main">
+		<div id="content">
+			<div class="main_title_block">
+				<h1>
+					<? if(isset($this->info['title'])):?>
+                   		<?=$this->textToView($this->info['title'])?>
+               		<?elseif($_SERVER['REQUEST_URI'] == '/'):?>
+                		<?=nl2br(stripslashes($this->meta['title']))?>
+                	<? else:?>
+                    	Проститутки Санкт-Петербурга, индивидуалки
+               		<? endif; ?>
+				</h1>
+				<h2>новые анкеты</h2>
+				<div class="new_ankets_block">
+					<ul class="new_ankets">
+						<li>
+							<a href="#" style="background:#fff url('/user_photos/19/0a1a4d63d888f0fabce49218d4c81beb.jpg') no-repeat center top;"></a>
+							<a href="#" class="new_ankets_girl_name">Алена, 21</a href="#">
+							<div class="new_ribbon"></div>
+							<div class="tooltip">
+								<div class="tooltip_corner"></div>
+								<div class="tooltip_content">
+									<span class="tooltip_girl_name"><a href="#">Катя</a>, 18</span>
+									<span class="tooltip_girl_place">Россия, Москва</span>
+									<span>Ищу парня 25-36</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<a href="#" class="button btn_to_right">весь список</a>
+				</div>
+				<div class="best_massage_preview_block">
+					<h2>Рейтинг лучших анкет</h2>
+					<ul class="best_massage_preview">
+						<li>
+							<a href="#"><img src="" width="55" height="55" alt="descritpion"></a>
+						</li>
+					</ul>
+					<a href="#" class="button btn_to_right">весь рейтинг</a>
+				</div>
+				<div class="pager_holder gray_pager_holder">
+					<div class="pagination">
+						<a href="#" class="previouslink"></a>
+						<span class="current">3</span>
+						<a href="#" class="nextlink"></a>
+					</div>
+					<ul class="categories_page">
+						<li><a href="#">Фото без ретуши</a></li>
+						<li><a href="#">Реальные индивидулаки</a></li>
+						<li><a href="#">Анкеты с видео</a></li>
+					</ul>
+				</div>
+				<?php foreach($this->ankets as $row): 
+						$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
+						$meta_replace=array();
+						foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
+						foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
+						$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
+						$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
+						if(!empty($row['photolist'])){
+							$photolist=unserialize($row['photolist']);
+							if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+							else{$photo=array_shift($photolist);}
+						}else{
+							$photo=false;
+						}
+				?>
+				<div class="girl_card">
+					<div class="girl_card_photo">
+						<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="185" height="280" alt="description">
+						<!-- <div class="without_retouch"></div> -->
+					</div>
+					<div class="girl_card_main_info">
+						<h4 class="girl_card_title"><?php echo $row['name'] ?></h4>
+						<span class="girl_card_price"><?php echo $row['price_1h_ap'] ? $row['price_1h_ap'] : '' ?><span>руб/час</span></span>
+						<span class="grey_metro"><span class="grey_metro_icon"></span><?php echo $this->metro_list[$row['metro']] ?></span>
+						<ul class="girl_card_info_list">
+							<li>Возраст..............<?php echo $row['age'] ?></li>
+							<li>Рост...................<?php echo $row['height'] ?></li>
+							<li>Вес.....................<?php echo $row['weight'] ?></li>
+							<li>Грудь..................<?php echo $row['breast'] ?></li>
+						</ul>
+						<span class="contain_video"><?php if ( $row['videolist'] ) : ?><span class="contain_video_icon"></span>Есть видео<?php endif ?></span>
+						<span class="photo_verified"><?php if ( $row['status']>20 ) : ?><span class="photo_verified_icon"></span>Фото проверено<?php endif ?></span>
+						<span class="real_individual"><?php if ( true ) : ?><span class="real_individual_icon"></span>Реальня индивидуалка<?php endif ?></span>
+						<div class="new_ribbon"></div>
+					</div>
+					<div class="girl_card_another_info">
+						<div class="girl_card_likes_holder">
+							<div class=girl_card_likes_programms>
+								<h5>Любимые программы:</h5>
+								<?php 
+									$this->row = $row;
+									echo $this->render('_show-services.phtml');
+								 ?>
+							</div>
+							<div class="girl_card_rating_block">
+								<div class="girl_card_rating">
+									<span class="common_girl_card_rating"><span class="white_star_icon"></span>8.5</span>
+									<ul class="girl_card_rating_stars">
+										<li></li>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+									<span class="all_voices_text">Всего голосов: 837</span>
+								</div>
+								<div class="girl_card_revies">
+									<span class="green_label">Отзывы пользователей</span>
+									<ul class="voices_counter">
+										<li><span class="good_voice">+188</span></li>
+										<li><span class="voice">1</span></li>
+										<li><span class="bad_voice">-0</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="girl_card_text">
+							<span><?=nl2br($row['about'])?></span>
+						</div>
+					</div>
+					<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>	
+				</div>
+				<?php endforeach ?>
+				<div class="pager_holder gray_pager_holder">
+					<div class="pagination">
+						<a href="#" class="previouslink"></a>
+						<span class="current">3</span>
+						<a href="#" class="nextlink"></a>
+					</div>
+					<ul class="categories_page">
+						<li><a href="#">Фото без ретуши</a></li>
+						<li><a href="#">Реальные индивидулаки</a></li>
+						<li><a href="#">Анкеты с видео</a></li>
+					</ul>
+				</div>
+				<h2 class="pre_table_title">ФОРУМ О массажистКАХ Спб</h2>
+				<table class="even_odd">
+					<thead>
+						<tr>
+							<td>Тема</td>
+							<td>Автор</td>
+							<td>Ответов</td>
+							<td>Создана</td>
+						</tr>
+					</thead>
+					<tbody>
+					
+					</tbody>
+				</table>
+				<div class="clear">
+					<a href="#" class="button btn_to_right">Перейти в форум</a>
+				</div>
+			</div>
+		</div>
+		<aside id="sidebar">
+			<ul class="promo_site_block">
+				<li>
+					<div class="stop_fake_icon"></div>
+					<h3 class="big_red_title">Stop fake!</h3>
+					<strong class="smaller_title">Только оригинальные фото</strong>
+				</li>
+				<li>
+					<div class="actual_info_icon"></div>
+					<span>Актуальная информация о <a href="#">салонах эротического интима</a> подскажем лучшие места, с лучшими девушками. Ценим Ваш досуг и время.</span>
+				</li>
+				<li>
+					<div class="all_real_icon"></div>
+					<span>Настоящие фотографии, отзывы, комментарии, другие параметры массажисток, знающих и делающих.</span>
+				</li>
+			</ul>
+			<div class="sidebox">
+				<div class="sidebox_header">
+					<h3>Быстрый поиск</h3>
+				</div>
+				<div class="sidebox_content">
+					<form action="#">
+						<fieldset>
+							<h4 class="red_side_title">Цена за час</h4>
+							<div class="range_slider">
+								<input type="text" id="amount_per_hour" class="grey_price" readonly />
+								<div id="slider_per_hour"></div>
+							</div>
+							<h4 class="red_side_title">Размер груди</h4>
+								<div class="range_slider">
+									<input type="text" id="amount_breast_size" class="grey_price" readonly />
+									<div id="slider_breast_size"></div>
+								</div>
+								<div class="get_all_search_box">
+									<a href="#" class="all_search_label">Pасширенный поиск</a>
+									<button class="button pink_button"><span class="search_icon"></span>Найти</button>
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Фильтровать</h3>
+				</div>
+				<div class="sidebox_content filter_girl_min_height">
+					<h5 class="category_header">Возраст</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/molodye">"Молодые"</a> <span class="small_gray">(18-22)</span></li>
+						<li><a href="/kategorii/starye">"Старые"</a> <span class="small_gray">(23-29)</span></li>
+					</ul>
+					<h5 class="category_header">Телосложение</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/hudye">"Худые"</a></li>
+						<li><a href="/kategorii/tolstye">"Толстые"</a></li>
+					</ul>
+					<h5 class="category_header">Внешность</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/aziatki">Азиатки</a></li>
+						<li><a href="/kategorii/mulatki">Мулатки</a></li>
+						<li><a href="/kategorii/negrityanki">Негритянки</a></li>
+						<li><a href="/kategorii/uzbechki">Узбечечки</a></li>
+					</ul>
+					<h5 class="category_header">Расценки</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/deshevye">Дешевые</a></li>
+						<li><a href="/kategorii/elitnye">Элитные</a></li>
+					</ul>
+					<h5 class="category_header">Место встречи</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/vyezd-na-dom">Выезд на дом</a></li>
+						<li><a href="/kategorii/s-apartamentami">С апартаментами</a></li>
+					</ul>
+					<h5 class="category_header">Анкеты</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Новые</a></li>
+						<li><a href="/?st=30-40">Проверенные</a></li>
+						<li><a href="/?v=1-0">С видео</a></li>
+					</ul>
+					<div class="filter_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Услуги</h3>
+				</div>
+				<div class="sidebox_content servises_girl_min_height">
+					<h5 class="category_header">Основные программы</h5>
+					<ul class="red_dot_list">
+						<?php foreach($this->services as $part=>$srv) : ?>
+						    <?php array_shift($srv); ?>
+							<?php foreach($srv as $num=>$val) : ?>
+								<?php if ($part == 'main' ) : ?>
+									<li><a href="<?php echo $part . '_' . $num?>"><?php echo $val ?></a></li>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+					<h5 class="category_header">Дополнительные программы</h5>
+					<ul class="red_dot_list">
+						<?php foreach($this->services as $part=>$srv) : ?>
+						    <?php array_shift($srv); ?>
+							<?php foreach($srv as $num=>$val) : ?>
+								<?php if ($part == 'add' ) : ?>
+									<li><a href="<?php echo $part . '_' . $num?>"><?php echo $val ?></a></li>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+					<div class="servises_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3><span class="white_metro_icon"></span>Станция метро</h3>
+				</div>
+				<div class="sidebox_content">
+					<div class="left_sidebox_content">
+					<h5 class="category_header">Район ЦАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Курская</a></li>
+							<li><a href="#">Красные Ворота</a></li>
+							<li><a href="#">Сухаревская</a></li>
+							<li><a href="#">Чкаловская</a></li>
+							<li><a href="#">Таганская</a></li>
+						</ul>
+					</div>
+					<div class="right_sidebox_content">
+					<h5 class="category_header">Район ЮЗАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Спортивная</a></li>
+							<li><a href="#">Фрунзенская</a></li>
+							<li><a href="#">Университет</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<ul class="see_in_mobile">
+				<li>
+					<div class="first_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+				<li>
+					<div class="second_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+			</ul>
+		</aside>
+	</div>
+</div>

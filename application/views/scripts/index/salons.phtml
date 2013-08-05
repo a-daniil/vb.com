@@ -1,0 +1,245 @@
+<div class="fix_width">
+	<div id="main">
+		<div id="content">
+			<div class="main_title_block">
+				<?php if( isset( $this->info['title'] ) ): ?>
+					<h1><?php echo $this->textToView($this->info['title']) ?></h1>
+				<?else:?>
+					<h1>Салоны Санкт-Петербурга, интим, массажные, бдсм</h1>
+				<?endif;?>
+			</div>
+			<p><?php echo nl2br(stripslashes($this->info['text'])) ?></p>
+			<div class="pager_holder">
+				<div class="pagination">
+					<?php echo $this->paginationControl($this->salons,'Sliding','shared/pagination_pub.phtml') ?>
+				</div>
+				<ul class="categories_page">
+					<li <?php echo ($this->menu_sub['active'] == 'default') ? 'class="active"' : '' ?>><a href="/<?=$this->info['uri']?>">Все</a></li>
+					<li <?php echo ($this->menu_sub['active'] == 'intim' ) ? 'class="active"' : '' ?>><a href="/<?=$this->info['uri']?>?intim=true" class="bnt2">Интим</a></li>
+					<li <?php echo ($this->menu_sub['active'] == 'mass' ) ? 'class="active"' : '' ?>><a href="/<?=$this->info['uri']?>?mass=true" class="bnt4">Массажный</a></li>
+					<li <?php echo ($this->menu_sub['active'] == 'bdsm' ) ? 'class="active"' : '' ?>><a href="/<?=$this->info['uri']?>?bdsm=true" class="bnt3">БДСМ</a></li>
+				</ul>
+			</div>
+			<?php	foreach ( $this->salons as $row ) : ?>
+			<?php 
+					if(!empty($row['photolist'])){
+						$photolist=unserialize($row['photolist']);
+						if(isset($photolist['preview'])){
+							$photo=$photolist[$photolist['preview']];
+						}
+						else{
+							$photo=array_shift($photolist);
+						}
+					} else {
+						$photo = false;
+					}
+			?>
+			<div class="salon_card_holder">
+				<h2><?php echo $row['name'] ?></h2>
+				<div class="salon_card">
+					<div class="salon_card_common_left">
+						<div class="salon_card_photo">
+							<img src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="332" height="226">
+						</div>
+						<div class="salon_card_main_info">
+							<h4 class="salon_card_title"><?php echo $this->types_of_salon[$row['type']] ?></h4>
+							<span class="salon_card_price"><?php echo $row['price_1h_ap'] ?><span>руб/час</span></span>
+							<span class="grey_metro"><span class="grey_metro_icon"></span><?php $metro = explode(";", $row['metro']); echo $this->metro_list[$metro[0]]; ?></span>
+							<ul class="salon_card_info_list">
+								<li>Девушек...<?php echo $row['girl_number'] ?></li>
+								<li>Комнат.....<?php echo $row['room_number'] ?></li>
+							</ul>
+							<?php if ( $row['videolist'] ) : ?>
+								<span class="contain_video"><span class="contain_video_icon"></span>Есть видео</span>
+							<?php endif; ?>
+						</div>
+						<div class="salon_card_text_desc">
+							<span><?php echo $row['about'] ?></span>
+						</div>
+					</div>
+					<div class="salon_card_another_info">
+						<div class="salon_card_rating_block">
+							<div class="salon_card_rating">
+								<span class="common_salon_card_rating"><span class="white_star_icon"></span>8.5</span>
+								<ul class="rating_stars">
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+								<span class="all_voices_text">Всего голосов: 837</span>
+							</div>
+							<div class="salon_card_revies">
+								<span class="green_label">Отзывы пользователей</span>
+								<ul class="voices_counter">
+									<li><span class="good_voice">+188</span></li>
+									<li><span class="voice">1</span></li>
+									<li><span class="bad_voice">-0</span></li>
+								</ul>
+							</div>
+						</div>
+						<h5>Основные программы:</h5>
+						<?php 
+							$this->row = $row;
+							echo $this->render('_show-services-salon.phtml')
+						?>
+						<h5 class="common_programs">Дополнительно:</h5>
+						<?php 
+							$this->row = $row;
+							echo $this->render('_show-services-salon-dop.phtml')
+						?>
+						<div class="salon_card_text_desc_holder">
+							<a target="_blank" href="/salon/<?=$row['name_eng']?>-<?=$row['id']?>" class="button show _salon_btn">Посмотреть салон</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+				endforeach;
+			?>
+		</div>
+		<aside id="sidebar">
+			<ul class="promo_site_block">
+				<li>
+					<div class="stop_fake_icon"></div>
+					<h3 class="big_red_title">Stop fake!</h3>
+					<strong class="smaller_title">Только оригинальные фото</strong>
+				</li>
+				<li>
+					<div class="actual_info_icon"></div>
+					<span>Актуальная информация о <a href="#">салонах эротического интима</a> подскажем лучшие места, с лучшими девушками. Ценим Ваш досуг и время.</span>
+				</li>
+				<li>
+					<div class="all_real_icon"></div>
+					<span>Настоящие фотографии, отзывы, комментарии, другие параметры массажисток, знающих и делающих.</span>
+				</li>
+			</ul>
+			<div class="sidebox">
+				<div class="sidebox_header">
+					<h3>Быстрый поиск</h3>
+				</div>
+				<div class="sidebox_content">
+					<form action="#">
+						<fieldset>
+							<h4 class="red_side_title">Цена за час</h4>
+							<div class="range_slider">
+								<div class="amount_holder">
+									<input type="text" id="amount_per_hour" class="grey_price sidebar_amount sidebar_amount_first" readonly />
+									<input type="text" id="amount_per_hour2" class="grey_price sidebar_amount sidebar_amount_last" readonly />
+								</div>
+								<div id="slider_per_hour"></div>
+							</div>
+							<h4 class="red_side_title">Размер груди</h4>
+							<div class="range_slider">
+								<div class="amount_holder">
+									<input type="text" id="amount_breast_size" class="grey_price sidebar_amount sidebar_amount_first" readonly />
+									<input type="text" id="amount_breast_size2" class="grey_price sidebar_amount sidebar_amount_last" readonly />
+								</div>
+								<div id="slider_breast_size"></div>
+							</div>
+							<div class="get_all_search_box">
+								<a href="#" class="all_search_label">Pасширенный поиск</a>
+								<button class="button pink_button"><span class="search_icon"></span>Найти</button>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Фильтровать</h3>
+				</div>
+				<div class="sidebox_content filter_girl_min_height">
+					<h5 class="category_header">Возраст</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">"Молоденькие"</a> <span class="small_gray">(18-22)</span></li>
+						<li><a href="#">"Самый сок"</a> <span class="small_gray">(23-29)</span></li>
+						<li><a href="#">"Матюры"</a> <span class="small_gray">(от 30)</span></li>
+					</ul>
+					<h5 class="category_header">Телосложение</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">"Стройняшки"</a></li>
+						<li><a href="#">"Нормальные"</a></li>
+						<li><a href="#">"Полненькие"</a></li>
+					</ul>
+					<h5 class="category_header">Внешность</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Славянская</a></li>
+						<li><a href="#">Азиаточки</a></li>
+					</ul>
+					<h5 class="category_header">Анкеты</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Новые</a></li>
+						<li><a href="#">Проверенные</a></li>
+						<li><a href="#">С видео</a></li>
+					</ul>
+					<div class="filter_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Услуги</h3>
+				</div>
+				<div class="sidebox_content servises_girl_min_height">
+				<h5 class="category_header">Основные программы</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Эротический</a></li>
+						<li><a href="#">Классический</a></li>
+						<li><a href="#">Тайский  массаж</a></li>
+						<li><a href="#">Муладхара</a></li>
+						<li><a href="#">Урологический</a></li>
+						<li><a href="#">Аквапенный</a></li>
+					</ul>
+					<h5 class="category_header">Основные программы</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Ветка Сакуры</a></li>
+						<li><a href="#">Услуги госпожи</a></li>
+						<li><a href="#">Страпон</a></li>
+						<li><a href="#">Откровенные ласки</a></li>
+						<li><a href="#">Пип шоу</a></li>
+						<li><a href="#">Лесби шоу</a></li>
+						<li><a href="#">Фут фетиш</a></li>
+						<li><a href="#">Лесби шоу</a></li>
+						<li><a href="#">Ролевые игры</a></li>
+					</ul>
+					<div class="servises_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3><span class="white_metro_icon"></span>Станция метро</h3>
+				</div>
+				<div class="sidebox_content">
+					<div class="left_sidebox_content">
+						<h5 class="category_header">Район ЦАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Курская</a></li>
+							<li><a href="#">Красные Ворота</a></li>
+							<li><a href="#">Сухаревская</a></li>
+							<li><a href="#">Чкаловская</a></li>
+							<li><a href="#">Таганская</a></li>
+						</ul>
+					</div>
+					<div class="right_sidebox_content">
+						<h5 class="category_header">Район ЮЗАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Спортивная</a></li>
+							<li><a href="#">Фрунзенская</a></li>
+							<li><a href="#">Университет</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<ul class="see_in_mobile">
+				<li>
+					<div class="first_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+				<li>
+					<div class="second_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+			</ul>
+		</aside>
+	</div>
+</div>

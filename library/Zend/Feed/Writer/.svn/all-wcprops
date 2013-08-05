@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/makewap2/!svn/ver/5291/trunk/library/Zend/Feed/Writer
+END
+Source.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Writer/Source.php
+END
+Entry.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Writer/Entry.php
+END
+Feed.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Writer/Feed.php
+END
+Deleted.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/makewap2/!svn/ver/218/trunk/library/Zend/Feed/Writer/Deleted.php
+END

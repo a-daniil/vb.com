@@ -1,0 +1,32 @@
+<div id="content-cab">
+	<div id="cab_ankets">
+		<h2 id="cab_photo_title">Фотография для проверки: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
+		<form id="cab_ankets_wrap" action="/cabinet/check-photo-add/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+			<div class="cab_form"><div class="cab_anketa_header">
+				<ul>
+					<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
+					<li><input type="submit" value="Фото" name="to_photo" /></li>
+					<?if($this->info['status']):?><li><input type="submit" value="Проверка фото" name="to_check" /></li><?endif?>
+					<?/*?><li><a href="/">Видео</a></li>
+					<li><a href="/">Карта</a></li>
+					<li><a href="/">Комментарии</a></li>*/?>
+				</ul>
+			</div></div>
+			<div class="cab_photos_form_wrap">			
+				<div class="cab_anketa_photo cab_ank_photo_ed">
+					<div<?if($this->photo):?> style="background:url('<?=$this->photos_path.'/th_'.$this->photo?>') no-repeat top;" onclick="showPhoto('<?=$this->photos_path.'/'.$photo?>')"<?endif?>></div>
+					<br />
+					<p><?if($this->photo):?>Заменить<?else:?>Добавить<?endif?>:</p>
+					<br />
+					<input type="file" size="20" name="photo" />
+					<br />
+				</div>
+				<div class="cab_anketa_photo cab_ank_photo_ed">
+					<p>Для проверки подлинности вашей анкеты и уникальности ваших фотографий загрузите фотографию на которой вы держите в руках лист бумаги с надписью "Для vipkisa.ru".</p>
+					<p>Это фотография предназначена только для модератора и не будет видна посетителям сайта.</p>
+				</div>			
+			</div>
+			<input class="button" type="submit" value="Сохранить" />
+		</form>
+	</div>
+</div>

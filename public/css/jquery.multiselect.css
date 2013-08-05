@@ -1,0 +1,102 @@
+.ui-multiselect {
+	padding: 0 0 0 8px;
+	text-align:left;
+	border-radius: 0;
+	text-transform: none;
+	color: #7c7c7c;
+	font-size: 14px;
+	line-height: 19px;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+.tool_box .ui-multiselect{
+	margin: -4px 0 0 28px;
+}
+.ui-multiselect span.ui-icon {
+	float:right;
+	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAIAAAAP9fodAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIFdpbmRvd3MiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODA1RDQzNEVGOEVBMTFFMkFDREREQkI1QTAzODUzQTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODA1RDQzNEZGOEVBMTFFMkFDREREQkI1QTAzODUzQTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4MDVENDM0Q0Y4RUExMUUyQUNERERCQjVBMDM4NTNBMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4MDVENDM0REY4RUExMUUyQUNERERCQjVBMDM4NTNBMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrdI0dAAAAFbSURBVHjarFNLioNAEI3/YMDgwpV3mEVOEDBHyEGCB/AICa49gVcQzyK4E4wLQcEYdeYl5XTUmYyTYR6oXV3vdVmf5g6Hw+J1iHhs216tVl3XzbJ5ni/L8ng83mSGYUiS1LbtrEwQBFVV+2hN0yDUL2X0U/ziTxDp837HLJtx/kMGyLKMBCZspF3XNcdxIOA9kiFXCOI4vlwu5GMuRVFM04QYDRjJ2jt0Xd/v92EYTqLtdrsgCM7nMzRQ9pWEURRFnudRFPm+b1nWUAMTm3CBABpF6xvQfAI+z/O22y3tYwETm4zQjwt9kBiVpKoqURRd1327AwuY2CQvG8BRSegHcDbGzXEcmrssy5APK/VDRpVlMiBN081mQwtoKAjJpg0YtpuKxE78yhFZSa7XKxX3GRATeT5kMNbr9XK5HHb528lC30l5e5Ik0TSNLtLPwLkg97LT6fTqxfkQYAAmy/8BUqO0TAAAAABJRU5ErkJggg==);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	width: 18px;
+	height: 20px;
+}
+.ui-multiselect:hover{
+	
+}
+.ui-multiselect-single .ui-multiselect-checkboxes input {
+	position:absolute !important;
+	top: auto !important; 
+	left:-9999px;
+}
+.ui-multiselect-single .ui-multiselect-checkboxes label {
+	padding:5px !important;
+}
+.ui-multiselect-header {
+	margin-bottom:3px;
+	padding:3px 0 3px 4px;
+}
+.ui-multiselect-header ul {
+	font-size:0.9em;
+	overflow: hidden;
+}
+.ui-multiselect-header ul li {
+	float:left;
+	padding:0 10px 0 0;
+}
+.ui-multiselect-header a {
+	text-decoration:none;
+}
+.ui-multiselect-header a:hover {
+	text-decoration:underline;
+}
+.ui-multiselect-header span.ui-icon {
+	float:left;
+}
+.ui-multiselect-header li.ui-multiselect-close {
+	float:right;
+	text-align:right;
+	padding-right:0;
+}
+
+.ui-multiselect-menu {
+	display:none;
+	background: #fff;
+	border: 1px solid #9a9a9a;
+	position:absolute;
+	z-index:10000;
+	text-align: left;
+}
+.ui-multiselect-checkboxes {
+	position:relative /* fixes bug in IE6/7 */;
+	overflow-y:auto;	
+}
+.ui-multiselect-checkboxes label {
+	cursor:default;
+	display:block;
+	border:1px solid transparent;
+	padding:3px 1px;
+}
+.ui-multiselect-checkboxes label input {
+	position:relative;
+	top:1px;
+}
+.ui-multiselect-checkboxes li {
+	clear: both;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 1px 9px;
+}
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
+	text-align:center;
+	font-weight:bold;
+	border-bottom:1px solid;
+}
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a {
+	display:block;
+	padding:3px;
+	margin:1px 0;
+	text-decoration:none;
+}
+
+/* remove label borders in IE6 because IE6 does not support transparency */
+* html .ui-multiselect-checkboxes label { border:none }

@@ -1,0 +1,61 @@
+<div id="center"><div id="cab_ankets">
+	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array(action=>'finance-settings-write'))?>">
+		<div class="ca_top ca_bottom">
+			<h2>Стоимость размещения анкет (ед. сутки)</h2>
+			<br>
+			<table class="finance-settings-table">
+				<thead>
+					<th>Тип</th>
+					<th>Стоимость (сутки)</th>
+					<th>Скидака</th>
+				</thead>
+				<tr>
+					<th>Девушки:</th>
+					<td><input type="text" name="girl_hour_price" <?if(isset($this->data['girl_hour_price'])):?>value="<?=$this->data['girl_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="girl_hour_discount" <?if (isset($this->data['girl_hour_discount'])):?>value="<?=$this->data['girl_hour_discount']?>"<?endif?>/><td>
+				</tr>
+				<tr>
+					<th>Подружки:</th>
+					<td><input type="text" name="lesb_hour_price" <?if(isset($this->data['lesb_hour_price'])):?>value="<?=$this->data['lesb_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="lesb_hour_discount" <?if (isset($this->data['lesb_hour_discount'])):?>value="<?=$this->data['lesb_hour_discount']?>"<?endif?>/></td>
+				</tr>
+				<tr>
+					<th>Массажистки:</th>
+					<td><input type="text" name="mass_hour_price" <?if(isset($this->data['mass_hour_price'])):?>value="<?=$this->data['mass_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="mass_hour_discount" <?if (isset($this->data['mass_hour_discount'])):?>value="<?=$this->data['mass_hour_discount']?>"<?endif?>/></td>
+				</tr>
+				<tr>
+					<th>БДСМ:</th>
+					<td><input type="text" name="bdsm_hour_price" <?if(isset($this->data['bdsm_hour_price'])):?>value="<?=$this->data['bdsm_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="bdsm_hour_discount" <?if (isset($this->data['bdsm_hour_discount'])):?>value="<?=$this->data['bdsm_hour_discount']?>"<?endif?>/></td>
+				</tr>
+				<tr>
+					<th>Мужчина:</th>
+					<td><input type="text" name="man_hour_price" <?if(isset($this->data['man_hour_price'])):?>value="<?=$this->data['man_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="man_hour_discount" <?if (isset($this->data['man_hour_discount'])):?>value="<?=$this->data['man_hour_discount']?>"<?endif?>/></td>
+				</tr>
+				<tr>
+					<th>Транс:</th>
+					<td><input type="text" name="trans_hour_price" <?if(isset($this->data['trans_hour_price'])):?>value="<?=$this->data['trans_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="trans_hour_discount" <?if (isset($this->data['trans_hour_discount'])):?>value="<?=$this->data['trans_hour_discount']?>"<?endif?>/></td>
+				</tr>
+				<tr>
+					<th>Пары:</th>
+					<td><input type="text" name="pair_hour_price" <?if(isset($this->data['pair_hour_price'])):?>value="<?=$this->data['pair_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="pair_hour_discount" <?if (isset($this->data['pair_hour_discount'])):?>value="<?=$this->data['pair_hour_discount']?>"<?endif?>/></td>
+				</tr>				
+			</table>
+			<br />
+			<h2>Стоимость размещения салонов (ед. сутки)</h2>
+			<br />
+			<table class="finance-settings-table">
+				<tr>
+					<th>Салон:</th>
+					<td><input type="text" name="salon_hour_price" <?if(isset($this->data['salon_hour_price'])):?>value="<?=$this->data['salon_hour_price']?>" <?endif?>/></td>
+					<td><input type="text" name="salon_hour_discount" <?if (isset($this->data['salon_hour_discount'])):?>value="<?=$this->data['salon_hour_discount']?>"<?endif?>/></td>
+				</tr>
+			</table>
+		</div>
+		<input class="button" type="submit" value="Сохранить" />
+	</form>
+</div></div>

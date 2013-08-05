@@ -1,0 +1,56 @@
+<div id="center">
+	<div id = "centerwrap-table" >
+		<div class="form-buttons">
+			<a href="/cabinet/users?filter=2" class="<?= $_GET['filter'] == 2 ? "active" : null ?>">Рекламодатели</a>
+			<a href="/cabinet/users?filter=0" class="<?= $_GET['filter'] == 0 ? "active" : null ?>">Посетители</a>
+			<a href="/cabinet/users?filter=1" class="<?= $_GET['filter'] == 1 ? "active" : null ?>">Админы</a>
+			<a href="/cabinet/users?filter=4" class="<?= $_GET['filter'] == 4 ? "active" : null ?>">Тех. админы</a>
+			<a href="/cabinet/users?filter=8" class="<?= $_GET['filter'] == 8 ? "active" : null ?>">Модераторы</a>
+		</div>	
+		<div style="clear: both;"></div>	
+		<table class='form-table' cellspacing='0' id="sorter">
+			<thead>
+				<th>Логин&nbsp</th>				
+				<th>Баланс</th>
+				<th>Потрачено</th>
+				<th>Анкет</th>
+				<th>Дата регистрации</th>
+				<th>Статутс</th>
+				<th>Email</th>
+				<td>Редактирование</td>
+			</thead>			
+			<?php  
+				echo $this->partialLoop('cabinet/users-statistic-row.phtml', $this->paginator); 
+			?>
+			<tfoot>
+				<tr>
+					<td>
+						Всего:
+					</td>
+					<td class="digits">
+						<?= $this->showSumBalance( $_GET['filter'] ); ?>
+					</td>
+					<td class="digits">
+						<?= $this->showSumSpent( $_GET['filter'] ); ?>
+					</td>
+					<td class="digits">
+						<?= $this->showSumAnkets( $_GET['filter'] ); ?>
+					<td>										
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".blocking").easyconfirm({locale: {
+		title: 'Заблокировать',
+		text: 'Хотите продолжить?',
+		button: ['Нет', 'Да']
+	}});
+
+	$(".activating").easyconfirm({locale: {
+		title: 'Активировать',
+		text: 'Хотите продолжить?',
+		button: ['Нет', 'Да']
+	}});	
+</script>

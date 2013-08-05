@@ -1,0 +1,37 @@
+<footer id="footer">
+	<div class="fix_width">
+		<ul class="footer_columns">
+			<li class="footer_column_first">
+				<nav class="footer_nav">
+					<ul>
+						<?php
+							$arrays = array("public", "metro", "/", 'index');
+							$id = str_replace($arrays, "", $_SERVER['REQUEST_URI']);
+
+							foreach ( $this->menu_items as $item ) {
+            		    		if ( $id == substr( $item['uri'],0 ) ) {
+            						echo '<li class="active"><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>'; 
+            		    		} else {
+            		      	 		echo '<li><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>';
+            		    		}
+               		 		}
+               			 ?>
+               			 <li <?php if ( $id == 'new-search') : ?> class='active' <?php endif ?>><a href="/new-search">Расширенный поиск</a></li>
+					</ul>
+				</nav>
+			</li>
+			<li class="footer_column_second">
+				<h5 class="footer_title">Последние сатьи:</h5>
+				<ul class="corner_list">
+
+				</ul>
+			</li>
+			<li class="footer_column_third">
+				<ul class="copywright_ul">
+					<li>Сайт предназначен для лиц, достигших 18 лет!</li>
+					<li>&copy; PutanaStars, 2013</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</footer>

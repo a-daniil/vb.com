@@ -1,0 +1,55 @@
+<div id="center">
+	<div class="pages"><?=$this->paginationControl($this->ankets, 'Sliding', 'pages_anks_to_salon.phtml')?></div>
+	<div id="cab_ankets">
+		<?if( !isset( $this->action ) ):?><h2 id="cab_photo_title">Салон: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2><?endif?>		
+		<div id="cab_ankets_wrap" >
+			<div class="cab_form"><div class="cab_anketa_header">
+				<form action="/cabinet/add-ank-to-salon/n/<?php echo $this->salon ?>" method="post" >
+				<ul>
+					<li><input type="submit" value="Данные салона" name="to_salon_edit" /></li>
+					<li><input type="submit" value="Видео" name="to_video" /></li>
+					<li><input type="submit" value="Фото"  name="to_photo" /></li>
+				</ul>
+			</div>
+			</div>
+			<p>Здесь вы можете привязать ваши анкеты к салону, или удалить.</p>
+			<p>Добавленные анкеты будут показываться в анкете салона.</p>
+			<?foreach($this->ankets as $row):?>
+			<?php
+				if( !empty($row['photolist'])){
+					$photolist = unserialize($row['photolist']);
+					if( isset($photlist['preview'])){
+						$photo = $photolist[$photolist['preview']];
+					}
+					else{
+						$photo = array_shift($photolist);
+					}
+				}
+				else{
+					$photo = false;
+				}
+			?>	
+			<div class="cab_anketa" style="display: inline-block">
+				<div class="cab_anketa_header">
+					<h2 style="width: 160px;"><?=$row['name']?> (<?=$this->cities[$row['city']]?>)<br /><?list($phone_p1,$phone_p2)=explode('-',$row['phone'])?>+7(<?=$phone_p1?>)<?=$phone_p2?></h2>
+				</div>				   
+				<br />
+				<div class="cab_anketa_photo" style="max-width: 100%">
+					<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>">  
+						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top;"<?endif?>></div>
+					</a>
+					<br />
+					<ul class="cab_ank_sub_menu">
+							<?if( $row['type'] == ( $salon =$this->salon ) ):?>
+								<li><a href="/cabinet/del-ank-salon/a/<?=$row['id']?>/n/<?=$this->salon?>">Убрать</a></li>
+							<?else:?>
+								<li><a href="/cabinet/add-ank-salon/a/<?=$row['id']?>/n/<?=$this->salon?>">Добавить</a></li>
+							<?endif?>							
+					</ul>
+				</div>						
+			</div>
+			<?endforeach?>
+		</div>
+	</div>
+	<div class="pages"><?=$this->paginationControl($this->ankets, 'Sliding', 'pages_anks_to_salon.phtml')?></div>
+</div>

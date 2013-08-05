@@ -1,0 +1,30 @@
+<div id="center">
+	<div id="cab_ankets">
+		<form id="cab_ankets_wrap" class="cab_form" method="post" action="/auth/recovery-req">
+			<div class="ca_top ca_bottom">
+				<table>
+					<tr>
+						<th>Логин:</th>
+						<td><input type="text" name="name"></td>
+						<td width="60%">Введите логин пользователя под которым вы регистрировались на сайте.</td>
+					</tr>
+					<tr>
+						<th>Почтовый адрес:</th>
+						<td><input type="text" name="mail"></td>
+						<td><strong>Или</strong> введите адрес электронной почты указанный вами при регистрации.</td>
+					</tr>
+					<tr>
+						<th>Введите код защиты:</th>
+						<td><input type="text" name="captcha"></td>
+						<td rowspan="2">
+							<img src="/captcha/<?=$this->captcha?>.png" id="captcha-image" />
+							<img src="/img/captcha_refresh.png" id="captcha-refresh" onclick="captchaRefresh();" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<input id="captcha-id" type="hidden" name="id" value="<?=$this->captcha?>" />
+			<input class="button" type="submit" value="Отправить запрос">
+		</form>
+	</div>
+</div>

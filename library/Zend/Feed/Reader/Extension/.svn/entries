@@ -1,0 +1,123 @@
+10
+
+dir
+25915
+http://dev.8203.ru/svn/makewap2/trunk/library/Zend/Feed/Reader/Extension
+http://dev.8203.ru/svn/makewap2
+
+
+
+2010-12-14T11:18:11.556019Z
+5291
+master
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+9d829b5c-e55e-453e-bd47-816c8808a722
+
+Atom
+dir
+
+Content
+dir
+
+CreativeCommons
+dir
+
+DublinCore
+dir
+
+EntryAbstract.php
+file
+
+
+
+
+2012-02-06T09:30:52.387694Z
+9a3bc156c5655b4459989101203a4e5b
+2010-05-26T06:54:01.167143Z
+218
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4624
+
+FeedAbstract.php
+file
+
+
+
+
+2012-02-06T09:30:52.393694Z
+18471a5963ae43b67f83999773750996
+2010-05-26T06:54:01.167143Z
+218
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4034
+
+Podcast
+dir
+
+Slash
+dir
+
+Syndication
+dir
+
+Thread
+dir
+
+WellFormedWeb
+dir
+

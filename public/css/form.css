@@ -1,0 +1,377 @@
+@CHARSET "UTF-8";
+
+/* universal selectors */
+
+/* element selectors */
+
+ul.errors {
+	padding: 5px 0 5px 25px;
+	color: #ff0000;	
+}
+
+ul.errors > li {
+	width: 300px;
+}
+
+/* end of element selectors */
+
+/* class, attribute, and pseudo selectors */
+.form-table {
+	width: 100%;
+}
+
+.form-table td {
+	height: 35px;
+}
+
+.form-table a {
+	color: #ff0000;	
+}
+
+.form-table thead tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	padding: 15px;
+}
+
+.form-table thead tr td {
+	background-color: lightgray;
+	border: 1px solid #FFF;
+	text-align: center;
+}
+
+.form-table .header {
+	background-image: url(../img/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+
+.form-table .headerSortUp {
+	background-color: #8dbdd8;
+	background-image: url(../img/asc.gif);
+}
+
+.form-table .headerSortDown {
+	background-image: url(../img/desc.gif);
+	background-color: #8dbdd8;
+}
+
+.digits {
+	text-align: center;
+}
+
+.inner-padding {
+	padding: 5px;
+}
+
+.center_content {
+	text-align: center;
+}
+
+.padding_content {
+	padding-left: 10px;
+}
+
+a.show-message {
+	color: #ff0000;
+}
+
+.paginationControl {
+	margin: 10px 0px 10px 0px;
+}
+
+.paginationControl a {
+	color: #ff0000;
+}
+
+.body {
+	margin: 10px 10px 10px 0px;
+}
+
+.body a {
+	color: #0088CC;
+}
+
+.subject {
+	margin: 10px 10px 10px 0px;
+}
+
+.subject span {
+	font-weight: bold;
+}
+
+.red {
+	color: #ff0000;
+	margin: 10px 0px 10px 0px;
+}
+
+.green {
+	color: green;
+	margin: 10px 0px 10px 0px;
+}
+
+.info {
+	margin: 10px 0px 10px 0px;
+	clear: both;
+}
+
+.center {
+	float: left;
+	width: 60%;	
+	min-height: 1px;
+	margin-left: 13px;
+	margin-top: 10px;
+}
+
+.form-links {
+	float: right;
+	margin-right: 10px;	
+}
+
+.form-links a, .form-buttons a {
+	background:#eee;
+	cursor:pointer;
+	color:#e00;	
+	
+	width:100%;
+	border:none;
+	padding:0 5px;
+	
+	box-shadow:0 0 2px #444;
+	-moz-box-shadow:0 0 2px #444;
+	-webkit-box-shadow:0 0 2px #444;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	
+	margin: 3px;
+}
+
+.form-buttons {
+	margin: 10px 0px 10px 0px;
+	float: right;
+}
+
+.form-buttons .active {
+	font-weight: bold;
+}
+
+.form-bottom-buttons {
+	margin: 10px 0px 10px 0px;
+}
+
+.form-bottom-buttons button {
+	height: 20px;
+}
+
+.form-bottom-buttons input[type=submit] {
+	height: 20px;
+}
+
+.form label {
+	font-weight: bold;
+	font-size: 12px;	
+}
+
+.form label.required:before {
+	content: "* ";
+	color: #ff0000;	
+}
+
+.form-left {
+	float: left;
+}
+
+.form-right {
+	float: right;
+}
+
+.form-about {
+	display: block;	
+	margin-bottom: 6px;
+}
+
+.form-element {
+	margin: 10px 0 10px 0;
+}
+
+.form-element > label {
+	display: block;
+}
+
+.form-element-delete-button {
+	float: left;
+	margin: 0px 10px 0px 10px;
+}
+
+.form-elemnet-submit-button {
+	margin: 0px 10px 0px 10px;
+}
+
+.form-element-service {
+	margin: 10px 0 10px 0;
+}
+
+.form-element-service label {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.form-element-service input[type=checkbox] {
+	display: inline-block;	
+	float: left;
+}
+
+.form-element-submit {
+	text-align: center;
+	clear: both;
+	margin: 10px 0px 10px 0px;
+}
+
+.form-element-buttons {
+	margin: 10px 0 10px 0px;
+}
+
+.form-element div {
+	display: inline-block;
+	width: 150px;
+}
+
+.form-element select {
+	width: 190px;
+}
+
+.form-element input[type=text] {
+	width: 190px;
+}
+
+.form-element input[type=password] {
+	width: 190px;
+}
+
+.form-fieldset {
+	margin: 15px 0 15px 0;
+}
+
+.form-fieldset fieldset {
+	border: none;
+}
+
+.form-fieldset fieldset legend{
+	padding-bottom: 10px;
+	color: red;
+	font-weight: bold;
+}
+
+.form label {
+	font-weight: bold;
+	font-size: 12px;	
+}
+
+.form label.required:before {
+	content: "* ";
+	color: #ff0000;	
+}
+
+.form_title {
+	dislpay: block;
+	margin: 30px 10px 10px 10px;
+}
+
+.ank_title {
+	font-size:14px;
+	padding-bottom:10px;
+	color:#a71c28;
+	text-shadow:0 2px 1px #fff;
+	text-align: center;
+}
+
+.file a {
+	color: #0088CC;
+}
+
+/* end of class, attribute, and pseudo selectors */
+
+/* id selectors */
+#centerwrap {
+	margin: 40px auto;
+	width: 700px;
+	box-shadow:0 0 5px #444;
+	-moz-box-shadow:0 0 5px #444;
+	-webkit-box-shadow:0 0 5px #444;
+	border-radius:13px;
+	-moz-border-radius:13px;
+	-webkit-border-radius:13px;
+	padding: 20px;
+}
+
+#centerwrap-table {
+	margin: 30px 10px 10px 10px;
+	width: 750px;
+}
+
+#only-label {
+	width: 90px;
+}
+
+#days_info {
+	width: 30px;
+	display: inline-block;
+	float: left;
+}
+
+#balance-element {
+	float: left;	
+}
+
+#days-info-element label {
+	margin-left: 10px;
+	float: right;
+}
+
+#days_info-label {
+	width:  170px;
+}
+
+#edit-mess-fieldset {
+	clear: both;
+}
+
+#filters th {
+	background-color: #e6EEEE;
+}
+
+#filters td {
+	text-align: center;
+}
+
+#filters tr:nth-child(even) td {
+	background:#ddd;	
+}
+
+#grey {
+	color: grey;
+}
+
+#grey a {
+	color: grey;
+}
+
+#subject {
+	width: 60%;
+}
+
+#send_to {
+	width: 60%;
+}
+
+#submit {
+	width: 110px;
+}
+
+/* other */
+
+.file {
+	margin: 10px 10px 10px 0px;
+}
