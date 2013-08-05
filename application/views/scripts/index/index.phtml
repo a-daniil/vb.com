@@ -43,8 +43,23 @@
 				<h2>новые анкеты</h2>
 				<div class="new_ankets_block">
 					<ul class="new_ankets">
+						<?php foreach($this->ankets as $row): 
+							$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
+							$meta_replace=array();
+							foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
+							foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
+							$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
+							$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
+							if(!empty($row['photolist'])){
+								$photolist=unserialize($row['photolist']);
+							if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+								else{$photo=array_shift($photolist);}
+							}else{
+								$photo=false;
+							}
+						?>
 						<li>
-							<a href="#" style="background:#fff url('/user_photos/19/0a1a4d63d888f0fabce49218d4c81beb.jpg') no-repeat center top;"></a>
+							<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
 							<a href="#" class="new_ankets_girl_name">Алена, 21</a href="#">
 							<div class="new_ribbon"></div>
 							<div class="tooltip">
@@ -56,15 +71,32 @@
 								</div>
 							</div>
 						</li>
+						<?php endforeach ?>
 					</ul>
 					<a href="#" class="button btn_to_right">весь список</a>
 				</div>
 				<div class="best_massage_preview_block">
 					<h2>Рейтинг лучших анкет</h2>
 					<ul class="best_massage_preview">
+						<?php foreach($this->ankets as $row): 
+							$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
+							$meta_replace=array();
+							foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
+							foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
+							$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
+							$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
+							if(!empty($row['photolist'])){
+								$photolist=unserialize($row['photolist']);
+							if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+								else{$photo=array_shift($photolist);}
+							}else{
+								$photo=false;
+							}
+						?>
 						<li>
-							<a href="#"><img src="" width="55" height="55" alt="descritpion"></a>
+							<a href="#"><img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="55" height="55" alt="descritpion"></a>
 						</li>
+						<?php endforeach ?>
 					</ul>
 					<a href="#" class="button btn_to_right">весь рейтинг</a>
 				</div>
