@@ -127,24 +127,26 @@
 						}
 				?>
 				<div class="girl_card">
-					<div class="girl_card_photo">
-						<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="185" height="280" alt="description">
-						<!-- <div class="without_retouch"></div> -->
-					</div>
-					<div class="girl_card_main_info">
-						<h4 class="girl_card_title"><?php echo $row['name'] ?></h4>
-						<span class="girl_card_price"><?php echo $row['price_1h_ap'] ? $row['price_1h_ap'] : '' ?><span>руб/час</span></span>
-						<span class="grey_metro"><span class="grey_metro_icon"></span><?php echo $this->metro_list[$row['metro']] ?></span>
-						<ul class="girl_card_info_list">
-							<li>Возраст..............<?php echo $row['age'] ?></li>
-							<li>Рост...................<?php echo $row['height'] ?></li>
-							<li>Вес.....................<?php echo $row['weight'] ?></li>
-							<li>Грудь..................<?php echo $row['breast'] ?></li>
-						</ul>
-						<span class="contain_video"><?php if ( $row['videolist'] ) : ?><span class="contain_video_icon"></span>Есть видео<?php endif ?></span>
-						<span class="photo_verified"><?php if ( $row['status']>20 ) : ?><span class="photo_verified_icon"></span>Фото проверено<?php endif ?></span>
-						<span class="real_individual"><?php if ( true ) : ?><span class="real_individual_icon"></span>Реальня индивидуалка<?php endif ?></span>
-						<div class="new_ribbon"></div>
+					<div class="main_info_photo_holder">
+						<div class="girl_card_photo">
+							<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="185" height="280" alt="description">
+							<!-- <div class="without_retouch"></div> -->
+						</div>
+						<div class="girl_card_main_info">
+							<h4 class="girl_card_title"><?php echo $row['name'] ?></h4>
+							<span class="girl_card_price"><?php echo $row['price_1h_ap'] ? $row['price_1h_ap'] : '' ?><span>руб/час</span></span>
+							<span class="grey_metro"><span class="grey_metro_icon"></span><?php echo $this->metro_list[$row['metro']] ?></span>
+							<ul class="girl_card_info_list">
+								<li>Возраст..............<?php echo $row['age'] ?></li>
+								<li>Рост...................<?php echo $row['height'] ?></li>
+								<li>Вес.....................<?php echo $row['weight'] ?></li>
+								<li>Грудь..................<?php echo $row['breast'] ?></li>
+							</ul>
+							<span class="contain_video"><?php if ( $row['videolist'] ) : ?><span class="contain_video_icon"></span>Есть видео<?php endif ?></span>
+							<span class="photo_verified"><?php if ( $row['status']>20 ) : ?><span class="photo_verified_icon"></span>Фото проверено<?php endif ?></span>
+							<span class="real_individual"><?php if ( true ) : ?><span class="real_individual_icon"></span>Реальня индивидуалка<?php endif ?></span>
+							<div class="new_ribbon"></div>
+						</div>
 					</div>
 					<div class="girl_card_another_info">
 						<div class="girl_card_likes_holder">
