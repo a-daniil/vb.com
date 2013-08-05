@@ -338,8 +338,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->ankets = $paginator;
 		
         // debug filters
-        if ($this->admin) print_r($params);                
-                
+        if ($this->admin) print_r($params);
         if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
 		if (isset($this->view->info['keywords'])) $this->view->meta['start_keys']=$this->view->info['keywords'];
 		if (isset($this->view->info['descriptions'])) $this->view->meta['start_desc']=$this->view->info['descriptions'];		
