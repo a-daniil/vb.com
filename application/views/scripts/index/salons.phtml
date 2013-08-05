@@ -1,3 +1,32 @@
+<script type="text/javascript">
+	$(function(){
+		$( "#slider_per_hour" ).slider({
+			range: true,
+			min: 0,
+			max: 50000,
+			values: [ 0, 50000 ],
+			slide: function( event, ui ) {
+				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
+		  }
+		});
+
+		$( "#amount_per_hour" ).val($( "#slider_per_hour" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_per_hour" ).slider( "values", 1 ) + " руб");
+
+		$( "#slider_breast_size" ).slider({
+			range: true,
+			min: 0,
+			max: 8,
+			values: [ 0, 8 ],
+			slide: function( event, ui ) {
+				$( "#amount_breast_size" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+		  }
+		});
+
+		$( "#amount_breast_size" ).val($( "#slider_breast_size" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_breast_size" ).slider( "values", 1 ));
+	});
+</script>
 <div class="fix_width">
 	<div id="main">
 		<div id="content">
