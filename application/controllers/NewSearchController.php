@@ -238,7 +238,6 @@ class NewSearchController extends Zend_Controller_Action {
 		}
 
 		print_r($params);
-
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$ankets->set_items_per_page( ( $this->_hasParam( 'limit' ) ) ? (int)$this->_getParam( 'limit' ) : $this->settings['girls_per_page']);
@@ -246,5 +245,4 @@ class NewSearchController extends Zend_Controller_Action {
 		$info['title'] ="Результат поиска анкет";
 		$this->view->info = $info;
 	}
-
 }
