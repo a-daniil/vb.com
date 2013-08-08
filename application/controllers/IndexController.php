@@ -317,18 +317,10 @@ class IndexController extends Zend_Controller_Action {
 			}
 		}
 		else{$filters['s']=false;}
-		
-		/*
-                foreach ($this->content->srv as $srv => $null){
-                    $fsrv = 'srv_'.$srv;
-                    if ($this->_getParam($fsrv)){
-                        $params[]=$fsrv.'&'.$this->_getParam($fsrv);
-                    }
-                }
-        */
-                
+
 		$this->view->filter=$filters;
-		
+
+		/* get ankets */
 		$ankets = new Model_AnketsTest();
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);
 		
@@ -336,24 +328,17 @@ class IndexController extends Zend_Controller_Action {
 		$paginator->setItemCountPerPage($this->settings['girls_per_page']);
 		$paginator->setCurrentPageNumber($page);
 		$this->view->ankets = $paginator;
-		
+
+		/* get top score */
+		$review = new Model_Review();
+		$per = $params['performer'] ? $params['performer'] : false;
+		$top_100 = $review->getTop100( $per );
+		$this->view->top_100 = $top_100;
         // debug filters
         if ($this->admin) print_r($params);
         if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
 		if (isset($this->view->info['keywords'])) $this->view->meta['start_keys']=$this->view->info['keywords'];
-		if (isset($this->view->info['descriptions'])) $this->view->meta['start_desc']=$this->view->info['descriptions'];		
-		
-		/* get history block */		
-		if ( isset( $_COOKIE['ph'] ) ) {
-			$anks = unserialize($_COOKIE['ph']);
-			
-			if ( is_array($anks) && count($anks) > 0 ) {
-				$history_ankets = $ankets->getHistoryAnkets($anks);				
-				
-				$this->view->history_ankets = $history_ankets;
-			}
-		}		
-		/* end of get history block */
+		if (isset($this->view->info['descriptions'])) $this->view->meta['start_desc']=$this->view->info['descriptions'];	
 	}
 
 	public function clearAction() {

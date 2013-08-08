@@ -27,6 +27,14 @@ $(document).ready(function(){
 		header: false,
 		selectedList: 1
 	});
+	
+	$('.rating_stars_dinamic li a').hover(function(){
+		$(this).addClass('hover_star');
+		$(this).parent().prevAll().children().addClass('hover_star');
+	}, function(){
+		$(this).removeClass('hover_star');
+		$(this).parent().prevAll().children().removeClass('hover_star');
+	});
 });
 
 function initFocus(){

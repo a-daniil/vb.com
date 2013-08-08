@@ -139,7 +139,93 @@ class RemoteController extends Zend_Controller_Action {
     	}
     }
     
+    public function reviewAction() {
+    	/* prepare and insert data */
+    	$owner_id              = $this->_getParam('owner_id');
+    	$photo_original        = $this->_getParam('photo_original');
+    	$photo_original_select = $this->_getParam('photo_original_select');
+    	$real_individual       = $this->_getParam('real_individual');
+    	$comment               = $this->_getParam('comment');
+    	$apartment             = $this->_getParam('apartment');
+    	$service               = $this->_getParam('service');
+    	$services              = $this->_getParam('services');
+    	$score                 = $this->_getParam('score');
+    	$user_id               = $this->_getParam('user_id');
+    	
+    	$services_count = 0;
+    	foreach ( $services as $k => $v ) {
+    		list($name, $ratio) = explode("_", $v);
+    		$serv_ratio += $ratio;
+    		$services_count++;
+    	}
+
+    	$ratio = ($photo_original + $photo_original_select + $apartment
+    		+ $service + $serv_ratio) / (3 + $services_count );
+		
+     	$review = new Model_Review();
+    	$review->insert(array(
+    		'owner_id'        => $owner_id,
+    		'ratio'           => $ratio,
+    		'photo_original'  => $photo_original,
+    		'photo_original_select' => $photo_original_select,
+    		'real_individual' => $real_individual,
+    		'comment'         => $comment,
+    		'apartment'       => $apartment,
+    		'service'         => $service,
+    		'score'           => $score,
+    		'services'        => serialize($services),
+    		'user_id'         => $user_id
+    	));
+
+    	/* get anket info */
+    	$ankets = new Model_AnketsTest();
+    	$info = $ankets->getById($owner_id);
+
+    	/* check photo original */
+    	$ifNotOriginal = $review->getNotOriginalCount($owner_id);
+    	if ( ($ifNotOriginal > 5) && ($info['status'] > 20) ) {
+    		$status = 10;
+    		Ps_SendMessage_NotOriginalPhoto::sendMessage($status, $info, Form_NewMessageForm::FROM_ADMIN);
+    		/* update anket status */
+    		$ankets->update(array(
+    			'status' => $status
+    		), 'id = ' . $info['id']);
+    	}
+    	
+    	/* check real individual */
+    	$summaByRealIndividual = $review->getSummaByRealIndividual($owner_id);
+    	if (  ($summaByRealIndividual >= 5) && ($info['real'] != 1) ) {
+    		$status = 1;
+    		Ps_SendMessage_RealIndividual::sendMessage($status, $info, Form_NewMessageForm::FROM_ADMIN);
+    		$ankets->update(array(
+    			'real' => $status
+    		), 'id = ' . $info['id']);
+    	} elseif ( ($summaByRealIndividual < 5) && ($info['real'] == 1) ) {
+    		$status = 0;
+    		Ps_SendMessage_RealIndividual::sendMessage($status, $info, Form_NewMessageForm::FROM_ADMIN);
+    		$ankets->update(array(
+    			'real' => $status
+    		), 'id = ' . $info['id']);
+    	}
+    	
+    	/* check score */
+    	$score = $review->getSumScore($owner_id);
+    	if ( ($score >= 5) && ($info['score'] != 1) ) {
+    		$status = 1;
+    		Ps_SendMessage_Score::sendMessage($status, $info,  Form_NewMessageForm::FROM_ADMIN);
+    		$ankets->update(array(
+    			'score' => $status
+    		), 'id = ' . $info['id']);
+    	} elseif ( ($score < 5) && ($info['score'] == 1)) {
+    		$status = 0;
+    		Ps_SendMessage_Score::sendMessage($status, $info,  Form_NewMessageForm::FROM_ADMIN);
+    		$ankets->update(array(
+    			'score' => $status
+    		), 'id = ' . $info['id']);
+    	}
+    }
+
     protected function error($error){
-	}    
+	}
 }
 ?>

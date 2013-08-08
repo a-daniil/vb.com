@@ -1,7 +1,7 @@
 <?php
 
 class CabinetController extends Zend_Controller_Action {
-	
+		
 	protected $content,$config,$user_id,$user_admin,$admin_flags;
 	
 	/* constants for user types */
@@ -314,8 +314,8 @@ class CabinetController extends Zend_Controller_Action {
 		$paginator->setItemCountPerPage(10);
 		$page = $this->_request->getParam('page', 1);
 		$paginator->setCurrentPageNumber($page);
-		$this->view->paginator = $paginator;	
-		$this->view->my_id = $this->user_id;	
+		$this->view->paginator = $paginator;
+		$this->view->my_id = $this->user_id;
 	}
 	
 	function deleteMessageAction()  {

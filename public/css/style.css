@@ -571,6 +571,20 @@ table tbody tr td:first-child{text-align: left;}
 	position: relative;
 	z-index: 10;
 }
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+	#nav ul li a{
+		font-size: 8px;
+		line-height: 10px;
+	}
+}
+@media only screen and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	#nav ul li a{
+		font-size: 8px;
+		line-height: 10px;
+	}
+}
 #nav ul li a:hover{
 	color: #ffc740;
 	text-decoration: none;
@@ -1074,6 +1088,8 @@ table tbody tr td:first-child{text-align: left;}
 .voices_counter li{
 	float: left;
 }
+.collapse{color: #c41a1d}
+.evolve{color: #6eb31f}
 .show_anket_btn{
 	position: absolute;
 	right: 0;
@@ -1630,7 +1646,7 @@ table tbody tr td:first-child{text-align: left;}
 	float: left;
 }
 .select_rating_girl_block{
-	margin: 0 0 40px;
+	margin: 0 0 20px;
 }
 .select_rating_girl_block:after{
 	display:block;
@@ -1646,8 +1662,8 @@ table tbody tr td:first-child{text-align: left;}
 	width: 210px;
 
 }
-.select_rating_ul{
-	
+ul.select_rating_ul.hidden {
+	display: none;
 }
 .select_rating_ul > li{
 	overflow: hidden;
@@ -1674,7 +1690,7 @@ table tbody tr td:first-child{text-align: left;}
 	height: 12px;
 	background: url(../img/sprite.png) no-repeat -90px -131px;
 }
-.rating_stars_dinamic li a:hover, .rating_stars_dinamic li a.active{
+.rating_stars_dinamic li a.hover_star, .rating_stars_dinamic li a.active{
 	background-position: -77px -131px;
 }
 .select_rate_common_stage{
@@ -2194,3 +2210,19 @@ table tbody tr td:first-child{text-align: left;}
 	color: #330C0A;
 }
 .copywright_ul li{margin: 0 0 26px;}
+
+/* additional */
+.hidden_service {
+	display: block;
+	padding-bottom: 10px;
+}
+
+.not_valid {
+	color: #c41a1d;
+}
+
+.in_preview {
+	position: absolute;
+	bottom: 5px;
+	right: 170px;
+}

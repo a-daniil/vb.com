@@ -159,5 +159,10 @@ class AnketaController extends IndexController {
 		$comments = new Comments();
 		$this->view->comments = $comments->get_list($commpage,$ank_id);	
 		$this->view->services = $services;	
+		
+		// Reviews
+		$reviews = new Model_Review();
+		$latest2reviews = $reviews->getLatest2Reviews($ank_id);
+		$this->view->latest2reviews = $latest2reviews;
 	}
 }

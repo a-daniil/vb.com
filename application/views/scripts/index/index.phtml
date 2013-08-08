@@ -1,3 +1,8 @@
+<style>
+	.hidden {
+		visibility: hidden;
+	}
+</style>
 <script type="text/javascript">
 	$(function(){
 		$( "#slider_per_hour" ).slider({
@@ -79,23 +84,18 @@
 				<div class="best_massage_preview_block">
 					<h2>Рейтинг лучших анкет</h2>
 					<ul class="best_massage_preview">
-						<?php foreach($this->ankets as $row): 
-							$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
-							$meta_replace=array();
-							foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
-							foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
-							$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
-							$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
-							if(!empty($row['photolist'])){
-								$photolist=unserialize($row['photolist']);
+						<?php foreach($this->top_100 as $top):
+							$j++;
+							if(!empty($top['photolist'])){
+								$photolist=unserialize($top['photolist']);
 							if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
 								else{$photo=array_shift($photolist);}
 							}else{
 								$photo=false;
 							}
 						?>
-						<li>
-							<a href="#"><img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="55" height="55" alt="descritpion"></a>
+						<li <?php if ( $j > 24 ) echo "class='hidden'"?>>
+							<a href="/anketa/<?=$top['name_eng']?>-<?=$top['owner_id']?>" target="_blank"><img src="<?php echo $this->url_user_ph. '/' . $top['user_id'] . '/th_' . $photo ?>" width="55" height="55" alt="descritpion"></a>
 						</li>
 						<?php endforeach ?>
 					</ul>
@@ -159,21 +159,18 @@
 							</div>
 							<div class="girl_card_rating_block">
 								<div class="girl_card_rating">
-									<span class="common_girl_card_rating"><span class="white_star_icon"></span>8.5</span>
-									<ul class="girl_card_rating_stars">
-										<li></li>
-										<li></li>
-										<li></li>
-										<li></li>
+									<span class="common_girl_card_rating"><span class="white_star_icon"></span><?php echo $this->getRatioVoices($row['id']) ?></span>
+									<ul class="rating_stars">
+										<?php echo str_repeat("<li></li>", floor($this->getRatioVoices($row['id'])) ) ?>
 									</ul>
-									<span class="all_voices_text">Всего голосов: 837</span>
+									<span class="all_voices_text">Всего голосов: <?php echo $this->getCountVoices($row['id']) ?></span>
 								</div>
 								<div class="girl_card_revies">
 									<span class="green_label">Отзывы пользователей</span>
 									<ul class="voices_counter">
-										<li><span class="good_voice">+188</span></li>
-										<li><span class="voice">1</span></li>
-										<li><span class="bad_voice">-0</span></li>
+										<li><span class="good_voice"><?php echo $this->getPositiveVoices($row['id']) ?></span></li>
+										<li><span class="voice"><?php echo $this->getNeutralVoices($row['id']) ?></span></li>
+										<li><span class="bad_voice"><?php echo $this->getNegativeVoices($row['id']) ?></span></li>
 									</ul>
 								</div>
 							</div>
@@ -182,7 +179,10 @@
 							<span><?=nl2br($row['about'])?></span>
 						</div>
 					</div>
-					<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>	
+						<?php if ($row['score']) : ?>
+							<span class="good_score in_preview"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
+						<?php endif ?>
+						<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>
 				</div>
 				<?php endforeach ?>
 				<div class="pager_holder gray_pager_holder">
@@ -364,3 +364,11 @@
 		</aside>
 	</div>
 </div>
+<script type="text/javascript">
+	$(".all_rate_btn").click(function(e){
+		e.preventDefault();		
+		$(".hidden").each(function(){
+			$(this).removeClass("hidden");
+		});
+	})
+</script>
