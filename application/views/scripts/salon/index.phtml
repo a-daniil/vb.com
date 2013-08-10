@@ -11,7 +11,11 @@
 					 <? if($this->info['photolist']):
                  		foreach($this->info['photolist'] as $thumb):
                 	 ?>
-                    	<li><img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" /></li>
+                    	<li>
+                    		<a href="/watermark.php?image=.<?php echo $thumb['fs'] ?>" onclick="return hs.expand(this, { align : 'center' })">
+                    		<img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" />
+                    		</a>
+                    	</li>
                  	<?
                    			endforeach; 
                   		 endif;

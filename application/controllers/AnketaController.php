@@ -160,9 +160,17 @@ class AnketaController extends IndexController {
 		$this->view->comments = $comments->get_list($commpage,$ank_id);	
 		$this->view->services = $services;	
 		
-		// Reviews
+		// Reviews for latest two section in sidebar
 		$reviews = new Model_Review();
 		$latest2reviews = $reviews->getLatest2Reviews($ank_id);
 		$this->view->latest2reviews = $latest2reviews;
+		
+		// Reviews
+		$cp = $this->_getParam('cp');
+		$adapter = $reviews->fetchPaginatorAdapter($info['id']);
+		$paginator = new Zend_Paginator($adapter);
+		$paginator->setItemCountPerPage(2);
+		$paginator->setCurrentPageNumber($cp);
+		$this->view->reviews = $paginator;
 	}
 }

@@ -1,8 +1,8 @@
-<?php if ( $this->comments->getTotalItemCount() ): ?>
+<?php if ( $this->reviews->getTotalItemCount() ): ?>
 	<div class="ribbon_title_bg">
 		<div class="ribbon_title_overflow">
 			<h2 class="ribbon_title_fll">Отзывы</h2>
-			<span class="allreviews_in_title"><a href="#"><?php echo $this->comments->getTotalItemCount() ?> отзыва(ов) </a>от работодателей за все время</span>
+			<span class="allreviews_in_title"><a href="#"><?php echo $this->reviews->getTotalItemCount() ?> отзыва(ов) </a>от работодателей за все время</span>
 		</div>
 	</div>
 	<div class="clear">
@@ -12,16 +12,15 @@
 		</div>
 	</div>
 	<ul class="reviews">
-	<?php foreach ( $this->comments as $comment) : ?>
+	<?php foreach ( $this->reviews as $review) : ?>
 		<li>
-			<div class="avatar"><img src="pics/pic19.jpg" width="60" height="60" alt="description"></div>
-			<div class="good_score_icon"></div>
-			<?=$comment['text']?>
+			<?php echo rusdate(strtotime($review['date'])) ?> | <?php echo $this->getUserLoginById($review['user_id']) ?><br/>
+			<?=$review['comment']?>
 		</li>
 	<?php endforeach; ?>
 	</ul>	
 <?php endif ?>
-<?=$this->paginationControl($this->comments,'Sliding','shared/pagination_comm.phtml')?>
+<?=$this->paginationControl($this->reviews,'Sliding','shared/pagination_comm.phtml')?>
 <div class="comments_common_block">
 	<a href="#" class="add_review"><span class="add_review_icon"></span>Оставить отзыв</a>
 	<p>Если вы лично побывали у этой девушки вы можете отсавить отзыв и оценить качество оказанных услуг. После этого анкета появится в списке проверенных в Вашем кабинете.</p>
@@ -47,8 +46,9 @@
 				<h5 class="question_title question_title_fl">Реальная индивидуалка?<span class="required">*</span></h5>
 			</div>
 			<div class="check_real_individual">
-				<label class="comment_label"><input type="radio" name="real_individual" value="1" checked="checked">Да</label>
-				<label class="comment_label"><input type="radio" name="real_individual" value="-1">Это салон</label>
+				<label class="comment_label"><input type="radio" name="real_individual" value="0" checked="checked">Не знаю</label>
+				<label class="comment_label"><input type="radio" name="real_individual" value="1">Да</label>
+				<label class="comment_label"><input type="radio" name="real_individual" value="-1">Нет, это салон</label>
 			</div>
 			<h5 class="question_title">Ваши оценки <span class="required">*</span></h5 >
 			<span class="grey_italic">Если девушка оказывала Вам какие-то услуги, Вы можете оценить их качество, выбрав значение ниже</span>
@@ -144,8 +144,6 @@ $(document).on("click", ".star", function(e){
 	el.parent().prevAll().children().addClass("active");
 	el.addClass("active");
 	el.parent().nextAll().children().removeClass("active");
-
-	
 });
 
 $('.hidden_service').click(function(e){
@@ -165,6 +163,14 @@ $('.bad_score_icon').click(function(e){
 
 $('.question_tip_icon').click(function(){
 	$('input[name="score"]').val(0);
+});
+
+$('input[name="photo_original"]').click(function(){
+	if ( $(this).val() == 4 ) {
+		$('select[name="photo_original_select"]').removeAttr("disabled");
+	} else {
+		$('select[name="photo_original_select"]').attr("disabled", "disabled");
+	}
 });
 
 $("#review_form").submit(function(event) {
@@ -273,11 +279,6 @@ $("#review_form").submit(function(event) {
 	"service" : service,
 	"services[]" : services,
 	"score" : score
-  });
-
-  /* Put the results in a div */
-  posting.done(function( data ) {
-  	console.log('posting done');
   });
 });
 

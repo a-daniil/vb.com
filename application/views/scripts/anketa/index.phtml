@@ -17,7 +17,11 @@
 					<ul class="anket_preview_girl">
 					<?php foreach($this->info['photolist'] as $thumb):?>
                 	<? if ( $thumb['fs'] ) : ?>	
-                    	<li><img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" height="352" alt="description"></li>
+                    	<li>
+                    		<a href="/watermark.php?image=.<?=$thumb['fs']?>" onclick="return hs.expand(this, { align: 'center' })">
+                    			<img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" height="352" alt="description">
+                    		</a>
+                    	</li>
                 	<? endif ?>
                		<? endforeach; ?> 
                		</ul>
@@ -154,53 +158,61 @@
 					<ul class="reviews_sidebar_item">
 						<?php foreach ( $this->latest2reviews as $review ) : ?>
 						<li>
-							<span class="reviewer_name">Миша</span>
+							<span class="reviewer_name"><?php echo $this->getUserLoginById($review['user_id']) ?></span>
 							<ul class="reviews_sidebar_item_info">
 								<li>Фото оригинал: 
+									<span class="black">
 									<?php if ( $review['photo_original'] ) : ?>
-										<span class="black">Да
+											Да
 										<?php if ( $review['photo_original_select'] == 1 ) :?>
 											, 100% без ретуши
 										<?php else : ?>
 											, есть фотошоп
 										<?php endif ?>
-										</span>
+									<?php else : ?>
+										Чужие
 									<?php endif ?>
+									</span>
 								</li>
-								<li>Реальна индивидуалка: <span class="black">салон</span></li>
+								<li>Реальна индивидуалка: 
+									<span class="black">
+										<?php if ($review['real_individual'] == 1) : ?>
+											Да
+										<?php elseif ($review['real_individual'] == -1) : ?>
+											Салон
+										<?php elseif ($review['real_individual'] == 0) : ?>
+											Не знаю
+										<?php endif ?>
+									</span>
+								</li>
 								<li>
 									Отношение к клиенту:
 									<div class="black">
 										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
+											<?php echo str_repeat("<li></li>", $review['service']) ?>
 										</ul>
 									</div>
 								</li>
 								<li>
-									Массаж эротический:
+									Апартаменты:
 									<div class="black">
 										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li></li>
-											<li class="bad"></li>
+											<?php echo str_repeat("<li></li>", $review['apartment']) ?>
 										</ul>
 									</div>
 								</li>
+								<?php $services = unserialize($review['services']) ?>
+								<?php foreach ( $services as $srv ) : ?>
+								<?php list($name, $score) = explode("_", $srv)?>
 								<li>
-									Ролевые игры:
+									<?php echo $name; ?>
 									<div class="black">
 										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li class="bad"></li>
-											<li class="bad"></li>
+											<?php echo str_repeat("<li></li>", $score ) ?>
 										</ul>
 									</div>
 								</li>
+								<?php endforeach ?>
 							</ul>
 							<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
 						</li>

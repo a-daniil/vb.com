@@ -17,7 +17,7 @@ class Model_Review extends Zend_Db_Table_Abstract {
 		}
 		return $row['count'];
 	}
-	
+
 	public function getSummaByRealIndividual($owner_id)
 	{
 		$select = $this->select();
@@ -62,7 +62,7 @@ class Model_Review extends Zend_Db_Table_Abstract {
 		$rows = $statement->fetchAll();
 		return $rows;
 	}
-	
+
 	public function getCountVoices( $owner_id )
 	{
 		$select = $this->select();
@@ -139,5 +139,14 @@ class Model_Review extends Zend_Db_Table_Abstract {
 		
 		$rows = $this->fetchAll($select);
 		return $rows->toArray();
+	}
+
+	public function fetchPaginatorAdapter( $owner_id )
+	{
+		$select = $this->select();
+		$select->where('owner_id = ?' , $owner_id);
+	
+		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+		return $adapter;
 	}
 }

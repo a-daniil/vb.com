@@ -9,7 +9,7 @@ class ShowCab_Exception extends Zend_Exception {}
  *
  * @author master
  */
-class RemoteController extends Zend_Controller_Action {  
+class RemoteController extends Zend_Controller_Action {
     
     const USR_ADM=0;
     
@@ -97,8 +97,8 @@ class RemoteController extends Zend_Controller_Action {
     	
     	setcookie("ph", serialize($anks), time()+108000, "/");
     }
-    
-    public function historyAction() {    	   	
+
+    public function historyAction() {
     	include_once 'Ankets.php';
     	$ankets=new Ankets();
     	
@@ -151,7 +151,7 @@ class RemoteController extends Zend_Controller_Action {
     	$services              = $this->_getParam('services');
     	$score                 = $this->_getParam('score');
     	$user_id               = $this->_getParam('user_id');
-    	
+
     	$services_count = 0;
     	foreach ( $services as $k => $v ) {
     		list($name, $ratio) = explode("_", $v);
