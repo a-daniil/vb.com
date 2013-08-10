@@ -1548,7 +1548,10 @@ and (max-device-width : 480px) {
 	font-weight: normal;
 }
 .comments_common_block{
-	padding: 20px 0 0;
+	padding: 20px 0 0
+}
+.hide {
+	display: none;
 }
 .add_review{
 	color: #d84a2e;

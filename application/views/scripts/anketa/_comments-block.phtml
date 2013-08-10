@@ -21,8 +21,11 @@
 	</ul>	
 <?php endif ?>
 <?=$this->paginationControl($this->reviews,'Sliding','shared/pagination_comm.phtml')?>
-<div class="comments_common_block">
-	<a href="#" class="add_review"><span class="add_review_icon"></span>Оставить отзыв</a>
+<a href="#" class="add_review"><span class="add_review_icon"></span>Оставить отзыв</a>
+<div class="show_not_autorize hide">
+	<p>Для того что бы оставлять отзывы авторизуйтесь пожалуйста!</p>
+</div>
+<div class="comments_common_block hide">
 	<p>Если вы лично побывали у этой девушки вы можете отсавить отзыв и оценить качество оказанных услуг. После этого анкета появится в списке проверенных в Вашем кабинете.</p>
 	<span class="grey_italic">Все поля отмеченые <span class="required">*</span> обязательны для заполнения.</span>
 	<form action="/remote/review/" id="review_form">
@@ -132,6 +135,7 @@
 		</fieldset>
 	</form>	
 </div>
+<?php if ($this->user_id) : ?>
 <script type="text/javascript">
 $(document).on("click", ".star", function(e){
 	e.preventDefault();
@@ -322,4 +326,19 @@ $( '#review_form a, #review_form input[name="photo_original"], select[name="phot
 		$('.question_tip_block_cont > span').html("Суммарная оценка положительна, укажите На ваше усмотрение или Рекомендую, или измените оценки.");
 	}
 });
+</script>
+<?php endif ?>
+<script type="text/javascript">
+	$(".add_review").click(function(e){
+		e.preventDefault();
+
+		<?php if ( $this->user_id ) : ?>
+			$('div.comments_common_block').toggleClass('hide');
+		<?php else : ?>
+			$('div.show_not_autorize').toggleClass('hide');
+			if ( !$('div.show_not_autorize').hasClass('hide') ) {
+				showLoginFormByAddReview();
+			}
+		<?php endif ?>
+	});
 </script>

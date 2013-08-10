@@ -1,22 +1,6 @@
 $(document).ready(function(){
 	initFocus();
-
-	$('#login').click(function(e) {
-		var $message = $('.login_form');
-
-		if ($message.css('display') != 'block') {
-			$message.show();
-			
-			var firstClick = true;
-			$(document).bind('click.myEvent', function(e) {
-				if (!firstClick && $(e.target).closest('.login_form').length == 0) {
-					$message.hide();
-					$(document).unbind('click.myEvent');
-				}
-				firstClick = false;
-			});
-		}
-	});
+	showLoginForm();
 
 	$('table.even_odd tbody tr:even').css('background-color', '#f5f5f2');
 
@@ -70,4 +54,40 @@ function initFocus(){
 				.hide();
 		}
 	});
+}
+
+function showLoginForm() {
+	$('#login').click(function(e) {
+		var $message = $('.login_form');
+
+		if ($message.css('display') != 'block') {
+			$message.show();
+			
+			var firstClick = true;
+			$(document).bind('click.myEvent', function(e) {
+				if (!firstClick && $(e.target).closest('.login_form').length == 0) {
+					$message.hide();
+					$(document).unbind('click.myEvent');
+				}
+				firstClick = false;
+			});
+		}
+	});
+}
+
+function showLoginFormByAddReview() {
+	var $message = $('.login_form');
+
+	if ($message.css('display') != 'block') {
+		$message.show();
+
+		var firstClick = true;
+		$(document).bind('click.myEvent', function(e) {
+			if (!firstClick && $(e.target).closest('.login_form').length == 0) {
+				$message.hide();
+				$(document).unbind('click.myEvent');
+			}
+			firstClick = false;
+		});
+	}
 }
