@@ -1088,8 +1088,6 @@ and (max-device-width : 480px) {
 .voices_counter li{
 	float: left;
 }
-.collapse{color: #c41a1d}
-.evolve{color: #6eb31f}
 .show_anket_btn{
 	position: absolute;
 	right: 0;
@@ -1548,10 +1546,7 @@ and (max-device-width : 480px) {
 	font-weight: normal;
 }
 .comments_common_block{
-	padding: 20px 0 0
-}
-.hide {
-	display: none;
+	padding: 20px 0 0;
 }
 .add_review{
 	color: #d84a2e;
@@ -1649,7 +1644,7 @@ and (max-device-width : 480px) {
 	float: left;
 }
 .select_rating_girl_block{
-	margin: 0 0 20px;
+	margin: 0 0 40px;
 }
 .select_rating_girl_block:after{
 	display:block;
@@ -1665,8 +1660,8 @@ and (max-device-width : 480px) {
 	width: 210px;
 
 }
-ul.select_rating_ul.hidden {
-	display: none;
+.select_rating_ul{
+	
 }
 .select_rating_ul > li{
 	overflow: hidden;
@@ -2213,19 +2208,3 @@ ul.select_rating_ul.hidden {
 	color: #330C0A;
 }
 .copywright_ul li{margin: 0 0 26px;}
-
-/* additional */
-.hidden_service {
-	display: block;
-	padding-bottom: 10px;
-}
-
-.not_valid {
-	color: #c41a1d;
-}
-
-.in_preview {
-	position: absolute;
-	bottom: 5px;
-	right: 170px;
-}

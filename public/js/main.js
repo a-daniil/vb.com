@@ -4,14 +4,15 @@ $(document).ready(function(){
 
 	$('table.even_odd tbody tr:even').css('background-color', '#f5f5f2');
 
-	$('.head_select').customSelectBox();
+	/*Кастомный селект*/
 	$('.simple_select').customSelectBox();
+	$('.head_select').msDropdown();
 
 	$(".multiselect").multiselect({
 		header: false,
 		selectedList: 1
 	});
-	
+
 	$('.rating_stars_dinamic li a').hover(function(){
 		$(this).addClass('hover_star');
 		$(this).parent().prevAll().children().addClass('hover_star');
