@@ -1548,6 +1548,9 @@ and (max-device-width : 480px) {
 .comments_common_block{
 	padding: 20px 0 0;
 }
+.hide {
+	display: none;
+}
 .add_review{
 	color: #d84a2e;
 	display: block;
@@ -1666,6 +1669,9 @@ and (max-device-width : 480px) {
 .select_rating_ul > li{
 	overflow: hidden;
 	margin: 0 0 15px;
+}
+.hidden {
+	display: none;
 }
 .select_rating_star{
 	float: right;
