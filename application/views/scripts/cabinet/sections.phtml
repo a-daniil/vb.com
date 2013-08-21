@@ -4,11 +4,11 @@
 			<li><a href="/cabinet/section-add-form">Добавить</a></li>
 		</ul>
 		<table class="info_table">
+			<?php $count = 1; ?>
 			<?foreach($this->items as $item):?>
 			<tr>
-                            <td><?=  $this->textToView($item['title'])?> (<?= '/kategorii/' . $item['uri'] ?> )</td>
-                                <td class="table_del_act" width="5%"><a href="#">Удалить</a></td>
-<!--				<td class="table_del_act" width="5%"><a href="/cabinet/section-del-req/n/<?=$item['id']?>">Удалить</a></td>-->
+            	<td><?= $count++ ?> . <?=  $this->textToView($item['title'])?> (<?= $item['uri'] ?> )</td>
+                <td class="table_del_act" width="5%"><a href="#">Удалить</a></td>
 				<td class="table_ed_act" width="5%"><a href="/cabinet/section-edit-form/n/<?=$item['id']?>">Редактировать</a></td>
 			</tr>
 			<?endforeach?>

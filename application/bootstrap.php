@@ -68,8 +68,29 @@ $routeSections = new Zend_Controller_Router_Route_Regex(
         '%s');// %s is fix, Cannot assemble. Reversed route is not specified, Exception
 */
 
-$arrays = array("public", "devushki", "metro", "/", "main", "_", 'uslugi','kategorii');
-$id = str_replace($arrays, "", $_SERVER['REQUEST_URI']);
+/* get all distinct uri for routing */
+$sections = new Model_SectionsTest();
+$uris = $sections->getAllDistinctUri();
+
+$ret = array();
+foreach ( $uris as $uri ) {
+	if ( preg_match('/^([\w-]+)\/([\w-]+)$/', $uri['uri'], $matches)) {
+		$ret[] = $matches[1];
+	}
+}
+
+$ret = array_unique($ret);
+preg_match('/([\/\w-]+)\/([\w-]+)/', $_SERVER['REQUEST_URI'], $matches);
+$id = $matches[2];
+
+// and create routeres by all distinct uri
+foreach ( $ret as $k => $v ) {
+	$compare_v = "/" . $v;
+	if ( $compare_v == $matches[1] ) {
+		$router->addRoute($v , new Zend_Controller_Router_Route("{$v}/:name", array('module' => 'default', 'controller' => 'index', 'action' => 'section', 'id' => $sections->getId($v."/".$id))));
+	}
+}
+/* end of all distinct uri for routing */
 
 include('models/Arrays.php');
 

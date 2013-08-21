@@ -75,13 +75,13 @@ function types(){
 	
 }
 
-function metroList() {
-	var select=getId('jsmetro');
+function createList( list, id, q, name ) {
+	var select=getId(id);
 	var value=getId('jscity').value;
-	select.innerHTML='';	
+	select.innerHTML='';
 	switch(value){
-		case '1': var mn='m1'; break;
-		case '2': var mn='m2'; break;
+		case '1': var ln= q + '1'; break;
+		case '2': var ln= q + '2'; break;
 		default:
 			input=document.createElement('input');
 			input.setAttribute('name','metro');
@@ -89,36 +89,12 @@ function metroList() {
 			return;
 	}
 	input=document.createElement('select');
-	input.setAttribute('name','metro');
-	var len=metro[mn].length;
+	input.setAttribute('name', name);
+	var len=list[ln].length;
 	for(var i=0;i<len;i++){
-		var opt=document.createElement('option');		
-		opt.value=metro[mn][i];
-		opt.innerHTML=metro[mn][i];
-		input.appendChild(opt);
-	}
-	select.appendChild(input);
-}
-
-function districtList(){
-	var select = getId('jsdistrict');
-	var value = getId('jscity').value;
-	select.innerHTML='';
-	switch(value){
-	case '2': var dn='d2';break;
-	default:
-		input = document.createElement('input');
-		input.setAttribute('name', 'district');
-		select.appendChild(input);
-		return;
-	}
-	input=document.createElement('select');
-	input.setAttribute('name','district');
-	var len = district[dn].length;
-	for(var i=0;i<len;i++){
-		var opt = document.createElement('option');
-		opt.value=district[dn][i];
-		opt.innerHTML=district[dn][i];
+		var opt=document.createElement('option');
+		opt.value = i + 1;
+		opt.innerHTML=list[ln][i];
 		input.appendChild(opt);
 	}
 	select.appendChild(input);

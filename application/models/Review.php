@@ -43,7 +43,7 @@ class Model_Review extends Zend_Db_Table_Abstract {
 		} 
 		return $row['summa'];
 	}
-	
+
 	public function getTop100( $performer = false )
 	{
 		if ($performer) {
@@ -56,7 +56,7 @@ class Model_Review extends Zend_Db_Table_Abstract {
 					review as r JOIN ankets as a on r.owner_id = a.id
 					WHERE a.status = 40 AND a.priority = 1 " . $per_query . 
 					"GROUP BY r.owner_id ORDER by avg_ratio DESC, count LIMIT 100";
-		
+
 		$statement = $this->getAdapter()->query($sql);
 
 		$rows = $statement->fetchAll();

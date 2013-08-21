@@ -7,7 +7,7 @@ class Zend_View_Helper_GetUserLoginById extends Zend_View_Helper_Abstract {
 		if ( !is_null($user_id) ) {
 			$user = new Model_UsersTest();
 			$login = $user->getLogin( $user_id );
-		
+
 			if ( $login ) {
 				return $login;
 			}

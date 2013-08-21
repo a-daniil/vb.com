@@ -186,16 +186,16 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		}
 		return $row['count'];
 	}
-	
+
 	public function getById ($id)
 	{
 		$select = $this->select();
 		$select->where('id = ?', $id);
-		
+
 		$row = $this->fetchRow($select);
 		return $row;
 	}
-	
+
 	public function getPriorityAnketsByUserId( $uid ) 
 	{
 		$select = $this->select();
@@ -204,8 +204,8 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		$select->where('priority = 1');
 		$select->where('status = 40');
 		$select->where('active = 1');
-		$select->group('performer');		
-		
+		$select->group('performer');
+
 		$row = $this->fetchAll($select);
 		if ( $row ) {
 			return $row->toArray();

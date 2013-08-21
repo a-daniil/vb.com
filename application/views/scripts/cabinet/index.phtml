@@ -26,7 +26,7 @@
 			<?foreach($this->ankets as $row):?>
 			<?php 
 				if(!empty($row['photolist'])){
-					$photolist = unserialize($row['photolist']);					
+					$photolist = unserialize($row['photolist']);
 					if(isset($photolist['preview'])){
 						$photo=$photolist[$photolist['preview']];
 					}
@@ -51,10 +51,10 @@
 					</h2>
 					<ul>
 						<li><a href="/cabinet/edit-ank-form/id/<?=$row['id']?>">Редактировать</a></li>
-						<li><a href="/cabinet/edit-photo/n/<?=$row['id']?>">Фото</a></li>						
-						<li><a href="/cabinet/check-photo/n/<?=$row['id']?>" title="Фотография подтверждающая подлинность анкеты">Фото для проверки</a></li>						
+						<li><a href="/cabinet/edit-photo/n/<?=$row['id']?>">Фото</a></li>
+						<li><a href="/cabinet/check-photo/n/<?=$row['id']?>" title="Фотография подтверждающая подлинность анкеты">Фото для проверки</a></li>
 						<li><a href="/cabinet/edit-video/n/<?=$row['id']?>">Видео</a></li>
-						<li><a href="/cabinet/comms-list/n/<?=$row['id']?>">Комментарии</a></li>						
+						<li><a href="/cabinet/comms-list/n/<?=$row['id']?>">Комментарии</a></li>
 					</ul>
 				</div>
 				<br />
@@ -74,7 +74,7 @@
 						<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
 					    <?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
 						<?elseif($row['status']==20):?><h2 title="Анкета на модерации">НА МОДЕРАЦИИ</h2>
-						<?elseif($row['status']==30):?><h2 title="Анкета показывается на сайте">ИДЕТ ПОКАЗ</h2>							
+						<?elseif($row['status']==30):?><h2 title="Анкета показывается на сайте">ИДЕТ ПОКАЗ</h2>	
 						<?elseif($row['status']==40):?><h2 title="Анкета в приорететном показе на сайте">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
 						<? endif; ?>
 						<form action="/cabinet/ank-status-set/n/<?=$row['id'] . $this->getRightUri( $_GET ) ?>" method="post">
@@ -91,7 +91,7 @@
 								<label for="comm_texarea">	
 								 	Комментарий (не обязательно):
 								</label>
-								<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>														
+								<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>	
 							</div>	
 						</form>
 						<br />
@@ -111,10 +111,10 @@
 						<?php if ( $this->isHaveRequiredPhotos( $row['id'], 3 ) && $this->isHavePhotoCheck( $row['id'] ) ) : ?><h3>Загрузите новую проверочную фотографию!</h3><?php endif ?>					
 					<?elseif($row['status']==11):?>
 					    <h2 title="Отклонена модератором">ОТКЛОНЕНА</h2>
-					    <h3>Проверочное фото не прошло проверку</h3>		
+					    <h3>Проверочное фото не прошло проверку</h3>
 					<?elseif($row['status']==12):?>
 						<h2 title="Отклонена модератором">ОТКЛОНЕНА</h2>
-						<h3>Не полная информация</h3>		
+						<h3>Не полная информация</h3>
 					<?elseif($row['status']==20):?><h2 title="Анкета на модерации">НА МОДЕРАЦИИ</h2>
 					<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
 					<?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
@@ -144,12 +144,12 @@
 								<?php else: ?>
 								<li><a href="/cabinet/enable-ank/n/<?=$row['id'] . $this->getRightUri( $_GET); ?>">Включить</a></li>
 								<?php endif ?>
-								<li><a href="/cabinet/del-ank/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">Удалить</a></li>							
+								<li><a href="/cabinet/del-ank/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">Удалить</a></li>
 							</ul>
-						</div>				
+						</div>
 					</div>
-				</div>				
-				<? endif; ?>				
+				</div>
+				<? endif; ?>
 				<div class="cab_anketa_panel ca_left">
 					<div class="cab_ank_pan_sub">
 						<ul>
@@ -173,7 +173,7 @@
 							<? endif; ?>
 						</ul>			
 					</div>
-					<div class="cab_ank_pan_sub">						
+					<div class="cab_ank_pan_sub">
 						<h3>Просмотры:</h3>
 					</div>
 					<div class="cab_ank_pan_sub">
@@ -199,11 +199,11 @@
 	<?php endif ?>
 </div>
 <script type="text/javascript">
-	function showComment( value, el ) {		
+	function showComment( value, el ) {
 		if ( value == 30 || value == 0) {
 			$(el).siblings('div').css('display', 'none');
 		} else {
 			$(el).siblings('div').css('display', 'block');
 		}
-	}			
+	}
 </script>

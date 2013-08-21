@@ -37,7 +37,7 @@ class RemoteController extends Zend_Controller_Action {
     public function logoAction(){
         
     }
-    
+
     public function loginAction(){
         $auth=Zend_Auth::getInstance()->getIdentity();
         if($auth){
@@ -52,8 +52,8 @@ class RemoteController extends Zend_Controller_Action {
         $this->config=Zend_Registry::get('config');
         $this->content=Zend_Registry::get('content');
     }
-    
-    public function phoneAction(){    	
+
+    public function phoneAction(){
         if(!$this->_hasParam('n')){$this->error('request_error');return;}
 		$ank_id=$this->_hasParam('n')?intval(substr($this->_getParam('n'),0,32)):false;
 		if(!$ank_id){$this->error('request_error');return;}			

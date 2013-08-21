@@ -110,7 +110,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->per_page = $this->settings['girls_per_page'];
 	}
 
-	function profileAction () {			
+	function profileAction () {
 		$type = $this->getParam('type');
 		
 		switch ($type) {
@@ -118,7 +118,7 @@ class CabinetController extends Zend_Controller_Action {
 				$frm = new Form_EditPassForm();
 				break;
 			case 'mess' :
-				$frm = new Form_EditMessForm();				
+				$frm = new Form_EditMessForm();
 				break;
 		}		
 		
@@ -131,18 +131,18 @@ class CabinetController extends Zend_Controller_Action {
 			if ( $frm->isValid( $_POST ) ) {
 				if ( $frm instanceof Form_EditPassForm ) {
 					$oldpass = $frm->getValue('old_pass');
-					$pass = $frm->getValue('new_pass');					
+					$pass = $frm->getValue('new_pass');
 					if ( $users->user_check_password($this->user_id,md5($oldpass) ) ) {
 						$users->user_change_password($this->user_id,md5($pass));
 						$this->view->message = Form_EditPassForm::SUCCESS;
-						$this->view->color = Form_EditPassForm::SUCCESS_COLOR;				
+						$this->view->color = Form_EditPassForm::SUCCESS_COLOR;
 					} else {
 						$this->view->message = Form_EditPassForm::FAILED;
 						$this->view->color = Form_EditPassForm::FAILED_COLOR;
 					}
 					
 				} elseif ( $frm instanceof Form_EditMessForm ) {
-					$user_config = new Model_UsersConfig();					
+					$user_config = new Model_UsersConfig();	
 					$result = $user_config->addUserMessagesConfig(
 						$frm->getValue('balance'),
 						$frm->getValue('days_info'),
@@ -279,27 +279,27 @@ class CabinetController extends Zend_Controller_Action {
 			}
 		}
 		
-		$this->view->form = $frm;		
+		$this->view->form = $frm;
 	}
-	
+
 	function messagesAction () {
 		$frm = new Form_MessagesForm();
 		$this->view->form = $frm;
-		
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
 				$messages = new Model_Messages();
 				foreach ( $_POST as $key => $value ) {
 					if ( preg_match('/del_/', $key) ) {
-						list($prefix, $id) = explode('_', $key);	
-						$where[] = $id;						
+						list($prefix, $id) = explode('_', $key);
+						$where[] = $id;
 					}
 				}
-				
+
 				$result = $messages->delete('id IN ('. implode(',',$where) .')');
 			}
 		}
-		
+
 		$messages = new Model_Messages();
 
 		if ( $this->user_admin) {
@@ -2110,11 +2110,11 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect('/cabinet/salons');
 		die;
 	}
-	
+
 	public function adminAction(){
-		$this->hasRights( array('user_tech', 'user_admin') );		
+		$this->hasRights( array('user_tech', 'user_admin') );
 	}
-	
+
 	public function billingAction() {
 		$this->hasRights( 'user_admin' );
 	}
@@ -2694,19 +2694,19 @@ class CabinetController extends Zend_Controller_Action {
 			if( isset($info['failed']) ){
 				$this->error('requireds');return $info;
 			}
-			return $info;						
+			return $info;
 		}
-        
+
         protected function get_section_info_from_form(array $current=array()){
-            
+
             $params=$this->_getAllParams();
             $info = array();
             $fields = array(
                 'title','uri','title_meta','keywords','descriptions',
                 'text','text_left','text_right','text_footer',
-                'age','type','city','district','exotics','metro[]','phone','height','weight',
+                'age','type','city','district','exotics','metro','phone','height','weight',
                 'performer','breast','place','price_1h_ap','price_2h_ap',
-                'price_n_ap','price_2h_ex','timestamp','photolist','videolist', 
+                'price_n_ap','price_2h_ex','timestamp','photolist','videolist',
                 'status','with_videos', 'verified',	'with_comments');
             foreach ($fields as $field){
                 if (strpos($field, '[]') != 0){
@@ -2717,7 +2717,7 @@ class CabinetController extends Zend_Controller_Action {
                     //$info[$field] = htmlentities($params[$field]);
                 }
             }
-                          
+
             if (empty($current['objSections']) || !$current['objSections'] instanceof Sections) throw new Zend_Exception(__METHOD__.'Exception: $current[\'objSections\'] must be a member of Sections model!');
             $objSections = $current['objSections'];
             if (empty($params['uri']) || $data = $objSections->check_uri($params['uri'])){
@@ -2752,7 +2752,7 @@ class CabinetController extends Zend_Controller_Action {
             // 	$info['failed']['services'] = true;
             //}                
             
-            if(isset($info['failed'])){
+            if(isset($info['failed'])) {
             	$this->error('requireds');
             	return $info;
             }
@@ -2762,7 +2762,7 @@ class CabinetController extends Zend_Controller_Action {
         protected function menu_items_return_to_edit($info){
         	
         }
-        
+
         protected function section_return_to_edit($info){
 			$this->get_config_info();
 			$services=$this->content->srv->toArray();
@@ -2772,20 +2772,24 @@ class CabinetController extends Zend_Controller_Action {
 					$this->view->srv_active[$srv.'_'.$key]=$info['srv'.'_'.$srv] & 1 << $key ? true : false;
 				}
 			}
-			if( $info['city']==1 ){
-				$this->view->metro_list=$this->content->metro_msk->toArray();			
-			}
-			elseif( $info['city']==2 ){
-				$this->view->metro_list=$this->content->metro_spb->toArray();
-				$this->view->district_list=$this->content->district_spb->toArray();
-			}
-			$this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
+
+       		$this->view->metro_list = array(
+        		'm1' => $this->content->metro_msk->toArray(),
+        		'm2' => $this->content->metro_spb->toArray()
+       		);
+
+       		$this->view->district_list = array(
+        		//'d1' => $this->content->district_msk->toArray(), // не заполнены в content.ini
+        		'd2' => $this->content->district_spb->toArray()
+        	);
+
+			//$this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
             $this->_helper->viewRenderer->setScriptAction('add-section-form');
 			$this->view->info = $info;
        		$this->view->info = $this->arr_htmlentities($this->view->info);
        	   //$this->view->info = $this->arr_stripslashes($this->view->info);
 	  }
-	
+
 	public function bannersAction(){
 	    $this->get_config_info();
 		//if(!$this->_hasParam('n')){$this->error('request_error');return;}
@@ -3011,39 +3015,103 @@ class CabinetController extends Zend_Controller_Action {
     }
     
     public function sectionsAction(){
-    	$this->get_config_info();
-    	//if(!$this->_hasParam('n')){$this->error('request_error');return;}
-    	$id=intval(substr($this->_getParam('n'),0,32));
+    	$this->get_config_info();    	
     	$page=intval(substr($this->_getParam('p'),0,3));
-    	if (!$id) $id = 1;
     	if (!$page) $page = 1;
     	if( !$this->user_admin && !$this->user_tech ){
     		$this->error('no_rights_ank');return;
     	}
     	include_once 'Sections.php';
     	$mSections=new Sections();
-    	#$this->view->paginator=$mSections->get_list($page);
-    	$this->view->items=$mSections->get_list($page);
+    	$this->view->items=$mSections->get_list($page, array('uslugi', 'metro', 'district'));
     }
-        
+
+    public function uslugiAction(){
+    	$this->get_config_info();
+    	$page=intval(substr($this->_getParam('p'),0,3));
+    	if (!$page) $page = 1;
+    	if( !$this->user_admin && !$this->user_tech ){
+    		$this->error('no_rights_ank');return;
+    	}
+    	include_once 'Sections.php';
+    	$mSections=new Sections();
+    	$this->view->items = $mSections->get_list($page, 'uslugi' );
+    	$this->_helper->viewRenderer->setScriptAction('sections');
+    }
+
+    public function metroSpbAction(){
+    	$this->get_config_info();
+    	$page=intval(substr($this->_getParam('p'),0,3));
+    	if (!$page) $page = 1;
+    	if( !$this->user_admin && !$this->user_tech ){
+    		$this->error('no_rights_ank');return;
+    	}
+    	include_once 'Sections.php';
+    	$mSections=new Sections();
+    	$this->view->items = $mSections->get_list($page, 'metro', 2);
+    	$this->_helper->viewRenderer->setScriptAction('sections');
+    }
+    
+    public function metroMskAction(){
+    	$this->get_config_info();
+    	$page=intval(substr($this->_getParam('p'),0,3));
+    	if (!$page) $page = 1;
+    	if( !$this->user_admin && !$this->user_tech ){
+    		$this->error('no_rights_ank');return;
+    	}
+    	include_once 'Sections.php';
+    	$mSections=new Sections();
+    	$this->view->items = $mSections->get_list($page, 'metro', 1 );
+    	$this->_helper->viewRenderer->setScriptAction('sections');
+    }
+    
+    public function districtSpbAction(){
+    	$this->get_config_info();
+    	$page=intval(substr($this->_getParam('p'),0,3));
+    	if (!$page) $page = 1;
+    	if( !$this->user_admin && !$this->user_tech ){
+    		$this->error('no_rights_ank');return;
+    	}
+    	include_once 'Sections.php';
+    	$mSections=new Sections();
+    	$this->view->items = $mSections->get_list($page, 'district', 2 );
+    	$this->_helper->viewRenderer->setScriptAction('sections');
+    }
+    
+    public function districtMskAction(){
+    	$this->get_config_info();
+    	$page=intval(substr($this->_getParam('p'),0,3));
+    	if (!$page) $page = 1;
+    	if( !$this->user_admin && !$this->user_tech ){
+    		$this->error('no_rights_ank');return;
+    	}
+    	include_once 'Sections.php';
+    	$mSections=new Sections();
+    	$this->view->items = $mSections->get_list($page, 'district', 1 );
+    	$this->_helper->viewRenderer->setScriptAction('sections');
+    }
+
     public function sectionAddFormAction(){
     	$this->get_config_info();
         $info = array();
         $info['city']=2;
-   		if( $info['city']==1 ){
-			$this->view->metro_list=$this->content->metro_msk->toArray();			
-		}
-		elseif( $info['city']==2 ){
-			$this->view->metro_list=$this->content->metro_spb->toArray();
-			$this->view->district_list=$this->content->district_spb->toArray();
-		}
-            
-        $this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
+
+        $this->view->metro_list = array(
+        	'm1' => $this->content->metro_msk->toArray(),
+        	'm2' => $this->content->metro_spb->toArray()
+        );
+
+        $this->view->district_list = array(
+        	//'d1' => $this->content->district_msk->toArray(), // не заполнены в content.ini
+        	'd2' => $this->content->district_spb->toArray()
+        );
+
+        //$this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
         $this->_helper->viewRenderer->setScriptAction('section-add-form');
         $this->view->action='add';
         $this->view->info = $info;
         $this->view->info = $this->arr_stripslashes($this->view->info);
-        $this->view->types = $this->content->types->toArray();        
+        $this->view->types = $this->content->types->toArray();
     }
         
         public function sectionAddAction(){
@@ -3064,9 +3132,20 @@ class CabinetController extends Zend_Controller_Action {
             }
 
             $sections->add($info);
+            if ( preg_match('/uslugi/', $info['uri']) ) {
+            	$this->_redirect('/cabinet/uslugi');die;
+            } else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
+            	$this->_redirect('/cabinet/metro-msk');die;
+            } else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 2) {
+            	$this->_redirect('/cabinet/metro-spb');die;
+            } else if ( preg_match('/district/', $info['uri']) && $info['city'] == 1) {
+            	$this->_redirect('/cabinet/district-msk');die;
+            } else if ( preg_match('/district/', $info['uri']) && $info['city'] == 2) {
+            	$this->_redirect('/cabinet/district-spb');die;
+            }
             $this->_redirect('/cabinet/sections');die;
         }
-        
+
         public function sectionEditFormAction(){
             if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
             if(!$this->_hasParam('n')){$this->error('request_error');return;}
@@ -3081,7 +3160,7 @@ class CabinetController extends Zend_Controller_Action {
             $this->view->action='edit';
             $this->view->types = $this->content->types->toArray(); 
         }
-        
+
         public function sectionEditAction(){
             if( !$this->user_admin && !$this->user_tech ){
             	$this->_redirect('/cabinet');
@@ -3093,6 +3172,9 @@ class CabinetController extends Zend_Controller_Action {
 			$sections=new Sections();
             $current['objSections'] = $sections;
 			$info = $this->get_section_info_from_form($current);
+			/* trim uri */
+			$info['uri'] = trim($info['uri']);
+			
 			if($info['failed']){
             	$this->section_return_to_edit($info);
                 $this->_helper->viewRenderer->setScriptAction('section-add-form');
@@ -3105,7 +3187,18 @@ class CabinetController extends Zend_Controller_Action {
             if(!$info){
 				$this->_helper->viewRenderer->setScriptAction('error');
 				$this->error('no_section');
-				return;			
+				return;
+			}
+			if ( preg_match('/uslugi/', $info['uri']) ) {
+				$this->_redirect('/cabinet/uslugi');die;
+			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
+				$this->_redirect('/cabinet/metro-msk');die;
+			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 2) {
+				$this->_redirect('/cabinet/metro-spb');die;
+			} else if ( preg_match('/district/', $info['uri']) && $info['city'] == 1) {
+				$this->_redirect('/cabinet/district-msk');die;
+			} else if ( preg_match('/district/', $info['uri']) && $info['city'] == 2) {
+				$this->_redirect('/cabinet/district-spb');die;
 			}
 			$this->_redirect('/cabinet/sections');die;
         }

@@ -130,7 +130,7 @@ class IndexController extends Zend_Controller_Action {
 			$filters['m'] = $this->_getParam('m');
 		}
 		
-		if ( $this->_getParam('tel') ) {			
+		if ( $this->_getParam('tel') ) {
 			$tel =  preg_replace('/\D/', '', $this->_getParam('tel'));
 		
 			if ( strlen($tel) > 10 ) {
@@ -174,7 +174,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->breast_options = $this->content->breast_options->toArray();
 		$this->view->weight_options = $this->content->weight_options->toArray();
 		$this->view->height_options = $this->content->height_options->toArray();
-		$this->view->age_options = $this->content->age_options->toArray();		
+		$this->view->age_options = $this->content->age_options->toArray();
         $this->view->menu_sub = array('active' => 'default');
         if($this->_hasParam('st')) $this->view->menu_sub['active'] = 'st';
         if($this->_hasParam('v')) $this->view->menu_sub['active'] = 'v';
@@ -188,23 +188,27 @@ class IndexController extends Zend_Controller_Action {
 
 		if($this->_getParam('m')){
 			$mtr = $this->content->metro_spb->toArray();
-			$mtr_id = (int)$this->_getParam('m');			
+			$mtr_id = (int)$this->_getParam('m');
        	    $filters['m'] = $this->_getParam('m');
 	    }
 
-	    if ( $this->_getParam('tel') ) {	    
-	    	if ( $this->view->info['performer'] ) {		    	
+	    if($this->_hasParam('s_metro')){
+	    	$mtr_id = (int)$this->_getParam('s_metro');
+	    }
+
+	    if ( $this->_getParam('tel') ) {
+	    	if ( $this->view->info['performer'] ) {
 	    		$params['performer'] = 'performer = ' . $this->view->info['performer'];
 	    	} else {
 	    		unset( $params['performer'] );
 	    	}
-	    	
+
 	    	$tel =  preg_replace('/\D/', '', $this->_getParam('tel'));
-	    	
+
 	    	if ( strlen($tel) > 10 ) {
 	    		$tel = substr($tel, -10);
 	    	}
-	    	
+
 	    	$pattern = '/(\d{1,3})(\d{0,7})/';
 	    	if ( preg_match($pattern, $tel) ) {
 	    		$replacement = '$1-%$2%';
@@ -213,12 +217,12 @@ class IndexController extends Zend_Controller_Action {
 	    		$tel2 = preg_replace($pattern, $replacement, $tel);
 	    		$replacement = '$2-%$3%';
 	    		$tel3 = preg_replace('/([7-8]{1})(\d{1,3})(\d{0,7})/', $replacement, $tel);
-	    		$params[] = "phone like '{$tel1}' OR phone like '{$tel2}' OR phone like '{$tel3}'";	    		 
+	    		$params[] = "phone like '{$tel1}' OR phone like '{$tel2}' OR phone like '{$tel3}'";
 	    	}
-	    	
+
 	    	$filters['tel'] = $this->_getParam('tel');
-	    }                
-                
+	    }
+
        if ( $this->_hasParam('metro') ) {
            $metro_arr = $this->_getParam('metro');
                     
@@ -227,7 +231,7 @@ class IndexController extends Zend_Controller_Action {
                $metro_str = '('; 
                foreach ($metro_arr as $metro){
            	       $i++;
-                   $metro_str .= (($i>1)?' OR ':'').'metro = "'.$metro.'"'; 
+                   $metro_str .= (($i>1)?' OR ':'').'metro = "'.$metro.'"';
                }
                $params[] = $metro_str.')';
                unset($i, $metro_str, $metro);
@@ -238,59 +242,56 @@ class IndexController extends Zend_Controller_Action {
 		if($this->_getParam('v')){$video = true;}
 		if($this->_getParam('rv')){$params[] = "comments <> 0";}
 		$page=$this->_hasParam('p')?intval($this->_getParam('p')):1;
-		$in_params=array(
-			'c'	=> 'city',
-			'a' => 'age',
-			'h' => 'height',
-			'w'	=> 'weight',
-			'b'	=> 'breast',
-			'r'	=> 'price_1h_ap',
-            'r2'	=> 'price_2h_ap',
-            'rn'	=> 'price_n_ap',
-			'st' => 'status',
-            'place' => 'place',
-			'district' => 'district',
-			'exotics' => 'exotics'
-		);
-                
+
 		if ($this->_hasParam('place')) {
-                    switch ($this->_getParam('place')) {
-                        case 1:
-                            $params[] = ("place = 1 OR place = 3");
-                            break;
-                        case 2:
-                            $params[] = ("place = 2 OR place = 3");
-                            break;
-                        case 3:
-                            $params[] = ("place = 3");
-                            break;
-                        default:
-                            break;
-                    }
-                     $this->_setParam('place', null);
-                }
-                
-                $in_switch = array(
-                        'video' => array('length(videolist)',2), 
-                        //'verified' => array('photo_check',0),
-                        'comments'=>array('comments',0),
-                );
-                foreach ($in_switch as $param_key => $ank_tbl_field)
-                //if($this->_hasParam($param_key)) {
-                    switch ($this->_getParam ($param_key)){
-                        case '1':
-                            $params[] = "$ank_tbl_field[0] > $ank_tbl_field[1]";// 1>
-                            break;
-                        case '0':
-                            $params[] = "$ank_tbl_field[0] > $ank_tbl_field[1]";
-                            break;
-                        default:
-                            //do nothing
-                         
-                    }
-                            
-                //}       
-                    
+        	switch ($this->_getParam('place')) {
+            	case 1:
+                	$params[] = ("place = 1 OR place = 3");
+                    break;
+                case 2:
+                    $params[] = ("place = 2 OR place = 3");
+                    break;
+                case 3:
+                    $params[] = ("place = 3");
+                    break;
+                default:
+                    break;
+            }
+            $this->_setParam('place', null);
+        }
+ 
+        $in_switch = array(
+        	'video' => array('length(videolist)',2),
+            //'verified' => array('photo_check',0),
+            'comments'=>array('comments',0),
+        );
+
+        foreach ($in_switch as $param_key => $ank_tbl_field)
+        	switch ($this->_getParam ($param_key)){
+            	case '1':
+                	$params[] = "$ank_tbl_field[0] > $ank_tbl_field[1]";// 1>
+                    break;
+                case '0':
+                    $params[] = "$ank_tbl_field[0] > $ank_tbl_field[1]";
+                    break;
+                default:
+        }
+
+        $in_params=array(
+        	'c'	=> 'city',
+        	'a' => 'age',
+        	'h' => 'height',
+        	'w'	=> 'weight',
+        	'b'	=> 'breast',
+        	'r'	=> 'price_1h_ap',
+        	'r2'	=> 'price_2h_ap',
+        	'rn'	=> 'price_n_ap',
+        	'st' => 'status',
+        	'place' => 'place',
+        	'district' => 'district',
+        	'exotics' => 'exotics'
+        );
+
 		foreach($in_params as $param=>$column){ // Add parameters to the base selection
 			if($this->_getParam($param)){
 				$value=substr($this->_getParam($param),0,32);
@@ -306,6 +307,15 @@ class IndexController extends Zend_Controller_Action {
 			}
 			else{$filters[$param]=false;}
 		}
+		
+		// get services from sections
+		foreach( $this->content->srv->toArray() as $srv=>$list ) {
+        	foreach( $list as $key=>$null ) {
+        		if ( $this->_getParam('srv'.'_'.$srv) & 1<<$key )
+        			$params[] = 'srv_' . $srv . '&1<<' .$key;
+        	}
+        }
+
 		if( $this->_hasParam('s') && count($this->_getParam('s')) >= 1 ){
 			foreach ( $checkboxes = $this->_getParam('s') as $s ) {
 				$value = $s;
@@ -338,7 +348,7 @@ class IndexController extends Zend_Controller_Action {
         if ($this->admin) print_r($params);
         if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
 		if (isset($this->view->info['keywords'])) $this->view->meta['start_keys']=$this->view->info['keywords'];
-		if (isset($this->view->info['descriptions'])) $this->view->meta['start_desc']=$this->view->info['descriptions'];	
+		if (isset($this->view->info['descriptions'])) $this->view->meta['start_desc']=$this->view->info['descriptions'];
 	}
 
 	public function clearAction() {
@@ -426,7 +436,7 @@ class IndexController extends Zend_Controller_Action {
         include_once 'Sections.php';
         $mSections=new Sections();
         $this->view->info = $info = $mSections->get($id);
-           
+
         $in_params=array(
             'c'	=> 'city',
             'a'     => 'age',
@@ -440,31 +450,31 @@ class IndexController extends Zend_Controller_Action {
             'comments'=>'with_comments',
             'st' => 'verified',
             'place' => 'place',
-            'srv_main' => 'srv_main',
-            'srv_add' => 'srv_add',
-            'srv_strip' => 'srv_strip',
-            'srv_extr' => 'srv_extr',
-            'srv_bdsm' => 'srv_bdsm',
-            'srv_mass' => 'srv_mass',                
-            'metro' => 'metro[]',
+            's_metro' => 'metro',
         	'district' => 'district',
-        	'exotics' => 'exotics'
+        	'exotics' => 'exotics',
+        	'srv_main'  => 'srv_main',
+        	'srv_add'   => 'srv_add',
+        	'srv_strip' => 'srv_strip',
+        	'srv_extr'  => 'srv_extr',
+        	'srv_bdsm'  => 'srv_bdsm',
+        	'srv_mass'  => 'srv_mass',
 		);
-        
+
         foreach ($in_params as $key => $val){
         	if (strpos($val, '[]') != 0){
             	$val = rtrim($val,'[]');
-                $info[$val] = unserialize($info[$val]);  
+                $info[$val] = unserialize($info[$val]);
             }
             if ($info[$val] != 0 && $info[$val] != -1){
             	$this->_setParam($key, $info[$val]);
-            }  
-        }   
-                
+            }
+        }
+
         $this->_helper->viewRenderer->setScriptAction('index');
         $this->indexAction();
     }
-        
+
     public function menuitemsAction() {
     	$uri = substr($this->_getParam('uri'),0,256);
     	

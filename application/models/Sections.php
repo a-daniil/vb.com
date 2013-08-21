@@ -15,16 +15,30 @@ class Sections extends Zend_Db_Table_Abstract{
  	public function set_items_per_page($perpage){
  		$this->per_page = (int)$perpage;
  	}
-	public function get_list($page){
+	public function get_list($page, $uri = false, $city = false){
 		$select = $this->getAdapter()
 			->select()
 			->from(self::TABLE,$this->fields);
+
+		if ( is_array($uri) && !empty($uri) ) {
+			foreach( $uri as $u ) {
+				$select->where('uri NOT LIKE ?', "%{$u}%");
+			}
+		} elseif ( $uri ) {
+			$select->where('uri LIKE ?', "%{$uri}%");
+		}
+		
+		if ( $city ) {
+			$select->where('city = ?', $city);
+		}
+
 		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setPageRange(15);
 		$paginator->setCurrentPageNumber($page);
 		$paginator->setItemCountPerPage($this->per_page);
 		return $paginator;
 	}
+
 	public function add($info){
             if (empty($info['timestamp'])){
                 $info['timestamp'] = date("m-d-Y H:i:s");

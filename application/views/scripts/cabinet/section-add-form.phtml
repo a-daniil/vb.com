@@ -25,7 +25,6 @@
                     <textarea name="text_right" id="editor2" rows="6"><?if(isset($this->info['text_right'])):?><?=$this->info['text_right']?><?endif?></textarea>
                     <h3>Подвал:</h3>
                     <textarea name="text_footer" id="editor3" rows="6"><?if(isset($this->info['text_footer'])):?><?=$this->info['text_footer']?><?endif?></textarea>
-
                     <table>
                         <tr>
                             <th <?if(isset($this->info['failed']['type'])):?>class="input_failed" <?endif?>>Тип:</th>
@@ -35,15 +34,35 @@
                                     <?endforeach?>
                             </select></td>
                             <th <?if(isset($this->info['failed']['city'])):?>class="input_failed" <?endif?>>Город:</th>
-                            <td><select id="jscity" name="city" onchange="metroList();">
+                            <td>
+                            	<script type="text/javascript">
+									function createLists() {
+                        				var metro = [];
+                            				metro['m1'] = new Array("<?= implode('","', $this->metro_list['m1']) ?>");
+                            				metro['m2'] = new Array("<?= implode('","', $this->metro_list['m2']) ?>");
+                            			createList(metro, 'jsmetro', 'm', 'metro');
+                            			var district = [];
+                            				district['d2'] = new Array("<?= implode('","', $this->district_list['d2']) ?>");
+                            			createList(district, 'jsdistrict', 'd', 'district')
+                            		}
+                            	</script>
+                            	<select id="jscity" name="city" onchange="createLists();">
                                     <?foreach($this->cities as $value=>$title):?>
                                     <option value="<?=$value?>"<?if(isset($this->info['city']) && $value==$this->info['city']):?> selected<?endif?>><?=$title?></option>
                                     <?endforeach?>
-                            </select></td>
-                            <th <?if(isset($this->info['failed']['city'])):?>class="input_failed" <?endif?>>Район:</th>
-                            <td>
+                            	</select>
+                            </td>
+                            <th <?if(isset($this->info['failed']['district'])):?>class="input_failed" <?endif?>>Район:</th>
+                            <td id="jsdistrict">
+                            	<?php 
+									if ( $this->info['city'] == 2 ) {
+										$array_index = "d2";
+									} else if ( $this->info['city'] == 1) {
+										$array_index = "d1";
+									}
+								?>
                             	<select name="district">
-                                    <?foreach($this->district_list as $value=>$title):?>
+                                    <?foreach($this->district_list[$array_index] as $value=>$title):?>
                                     <option value="<?=$value?>"<?if(isset($this->info['district']) && $value==$this->info['district']):?> selected<?endif?>><?=$title?></option>
                                     <?endforeach?>
                             	</select>
@@ -57,13 +76,28 @@
                                     <?endforeach?>
                             </select></td>
                             <th <?if(isset($this->info['failed']['place'])):?>class="input_failed" <?endif?>>Место встречи:</th>
-                            <td><select name="place">
+                            <td>
+                            	<select name="place">
                                     <?foreach($this->places as $value=>$title):?>
                                     <option value="<?=$value?>"<?if(isset($this->info['place']) && $value==$this->info['place']):?> selected<?endif?>><?=$title?></option>
                                     <?endforeach?>
-                            </select></td>
-                            <th colspan="2" style="vertical-align: bottom; text-align: center;" <?if(isset($this->info['failed']['metro'])):?>class="input_failed" <?endif?>>Метро:</th>
-
+                            	</select>
+                            </td>
+                            <th <?if(isset($this->info['failed']['metro'])):?>class="input_failed" <?endif?>>Метро:</th>
+							<td id="jsmetro">
+								<?php 
+									if ( $this->info['city'] == 2 ) {
+										$array_index = "m2";
+									} else if ( $this->info['city'] == 1) {
+										$array_index = "m1";
+									}
+								?>
+								<select name="metro">
+									<?foreach($this->metro_list[$array_index] as $value=>$title):?>
+										<option value="<?=$value?>"<?if(isset($this->info['metro']) && $value==$this->info['metro']):?> selected<?endif?>><?=$title?></option>
+									<?endforeach?>
+								</select>
+							</td>
                         </tr>
                         <tr>
                             <th colspan="4">Задать диапазон: NNN - NNN</th>
@@ -73,9 +107,9 @@
                             <td><input type="text" name="height" title="Цифры: от 120 до 230"<?if(isset($this->info['height'])):?> value="<?=$this->info['height']?>"<?endif?> /></td>
                             <th <?if(isset($this->info['failed']['weight'])):?>class="input_failed" <?endif?>>Вес:</th>
                             <td><input type="text" name="weight" title="Цифры: от 25 до 300"<?if(isset($this->info['weight'])):?> value="<?=$this->info['weight']?>"<?endif?> /></td>
-                            
-                            <td rowspan="3" colspan="2" id="jsmetro"><?if(isset($this->info['city']) || isset($this->info['metro'])):?>
-                                    <?if($this->info['city']==1 || $this->info['city']==2):?>
+                            <!-- 
+                           	<td rowspan="3" colspan="2" id="jsmetro"><?if(isset($this->info['city']) || isset($this->info['metro'])):?>
+                                <?if($this->info['city']==1 || $this->info['city']==2):?>
                                 <ul id="metro" style="height: 100px; overflow-y: scroll; overflow-x: hidden;">
                                     <?$i=0;foreach($this->metro_list_checkbox as $item):$i++;?> 
                                     <li><nobr>
@@ -91,18 +125,17 @@
                             <?else:?>
                             <input type="hidden" name="metro" value="" />
                             Выберите город
-                            <?endif?>				
+                            <?endif?>
                             </td>
-                        </tr>
-                        <tr>
+                            -->
                             <th <?if(isset($this->info['failed']['age'])):?>class="input_failed" <?endif?>>Возраст:</th>
                             <td><input type="text" name="age" title="Цифры: от 18 до 99"<?if(isset($this->info['age'])):?> value="<?=$this->info['age']?>"<?endif?> /></td>
+                        </tr>
+                        <tr>
                             <?/*<th <?if(isset($this->info['failed']['hair'])):?>class="input_failed" <?endif?>>Волосы:</th>
                             <td><input type="text" name="hair"<?if(isset($this->info['hair'])):?> value="<?=$this->info['hair']?>"<?endif?> /></td>*/?>
                             <th <?if(isset($this->info['failed']['clothing'])):?>class="input_failed" <?endif?>>Размер одежды:</th>
                             <td><input type="text" name="clothing"  title="Цифры: от 30 до 300"<?if(isset($this->info['clothing'])):?> value="<?=$this->info['clothing']?>"<?endif?> /></td>
-                        </tr>
-                        <tr>
                             <?/*<th <?if(isset($this->info['failed']['condom'])):?>class="input_failed" <?endif?>>Презерватив:</th>
                             <td><select name="condom">
                                     <option value="0"<?if(isset($this->info['condom']) && 0==$this->info['condom']):?> selected<?endif?>>Не указано</option>
@@ -196,17 +229,15 @@
 	</form>
 </div></div>
 <script>
-    function field_uri_editable(obj){
-      if ($(obj).attr('checked')){
-          $('#field_uri').removeAttr('disabled');
-      }else{
-          $('#field_uri').attr('disabled','disabled');
-      }
-    }
-    field_uri_editable('#field_uri_is_editable');
+	$(document).ready(function(){
+		$('#field_uri').attr('disabled', 'disabled');
+	});
+
     $('#field_uri_is_editable').change(function(){
-       field_uri_editable(this); 
+    	if ( $('#field_uri').attr('disabled') ) {
+		    $('#field_uri').removeAttr('disabled');
+    	} else {
+			$('#field_uri').attr('disabled', 'disabled');
+    	}
     });
-    
-    
 </script>
