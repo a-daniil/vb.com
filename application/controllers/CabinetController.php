@@ -615,28 +615,28 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->user_id=false;
 		$this->view->ank_moderation=true;
 	}
-	
+
 	public function ankStatusSetAction() {
 		$this->hasRights( array( 'user_admin', 'user_moder') );
 		if(!$this->_hasParam('n') || !$this->_hasParam('s')){$this->error('request_error');return;}
 		$status = $this->_hasParam('s') ? intval($this->_getParam('s')) : 10;
 		$comm = $this->_hasParam('comm') ? $this->_getParam('comm') : false;
-		
+
 		$ankets = new Model_AnketsTest();
-		$info = $ankets->getById( $this->_getParam('n') );	
+		$info = $ankets->getById( $this->_getParam('n') );
 		if(!$info){$this->error('no_ank');return;}
 
 		$data = array(
 			'photo_start' => date('Y-m-d H:i:s', time()),
 			'photo_finish' =>  date('Y-m-d H:i:s', time() + 7776000),
 			'status' => Ps_Statuses_ControlStatuses::getStatus($status, 'ankStatusSet', array('priority' => $info['priority']))
-		);	
-		$res = $ankets->update($data, "id = " . $info['id']);		
-	
+		);
+		$res = $ankets->update($data, "id = " . $info['id']);
+
 		if ( $res ) {
 			/* send message into inner mail */
 			Ps_SendMessage_SM::sendMessage($status, $comm, $info, $this->user_id);
-			
+
 			if ( $comm && $status == 11 ) {
 				$comm_by_ankets_moderation = new Model_AnketsModerationComm();
 				$comm_by_ankets_moderation->addAnketaModerationCommm( $comm, $info['id'] );
@@ -644,8 +644,8 @@ class CabinetController extends Zend_Controller_Action {
 		}
 		$this->_redirect('/cabinet/ank-moderation' . $this->addGetParamsToUri());
 		die;
-	}	
-	
+	}
+
 	public function salonStatusSetAction() {
 		$this->hasRights( array( 'user_admin', 'user_moder') );	
 		
@@ -3015,7 +3015,7 @@ class CabinetController extends Zend_Controller_Action {
     }
     
     public function sectionsAction(){
-    	$this->get_config_info();    	
+    	$this->get_config_info();
     	$page=intval(substr($this->_getParam('p'),0,3));
     	if (!$page) $page = 1;
     	if( !$this->user_admin && !$this->user_tech ){
@@ -3023,7 +3023,7 @@ class CabinetController extends Zend_Controller_Action {
     	}
     	include_once 'Sections.php';
     	$mSections=new Sections();
-    	$this->view->items=$mSections->get_list($page, array('uslugi', 'metro', 'district'));
+    	$this->view->items=$mSections->get_list($page, array('uslugi', 'metro', 'rajon'));
     }
 
     public function uslugiAction(){
@@ -3074,7 +3074,7 @@ class CabinetController extends Zend_Controller_Action {
     	}
     	include_once 'Sections.php';
     	$mSections=new Sections();
-    	$this->view->items = $mSections->get_list($page, 'district', 2 );
+    	$this->view->items = $mSections->get_list($page, 'rajon', 2 );
     	$this->_helper->viewRenderer->setScriptAction('sections');
     }
     
@@ -3087,7 +3087,7 @@ class CabinetController extends Zend_Controller_Action {
     	}
     	include_once 'Sections.php';
     	$mSections=new Sections();
-    	$this->view->items = $mSections->get_list($page, 'district', 1 );
+    	$this->view->items = $mSections->get_list($page, 'rajon', 1 );
     	$this->_helper->viewRenderer->setScriptAction('sections');
     }
 
@@ -3138,9 +3138,9 @@ class CabinetController extends Zend_Controller_Action {
             	$this->_redirect('/cabinet/metro-msk');die;
             } else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 2) {
             	$this->_redirect('/cabinet/metro-spb');die;
-            } else if ( preg_match('/district/', $info['uri']) && $info['city'] == 1) {
+            } else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 1) {
             	$this->_redirect('/cabinet/district-msk');die;
-            } else if ( preg_match('/district/', $info['uri']) && $info['city'] == 2) {
+            } else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 2) {
             	$this->_redirect('/cabinet/district-spb');die;
             }
             $this->_redirect('/cabinet/sections');die;
