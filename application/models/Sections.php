@@ -1,7 +1,7 @@
 <?php
 class Sections extends Zend_Db_Table_Abstract{
 	const TABLE = 'sections';
-	protected $per_page = 20;
+	protected $per_page = 200;
         public $fields = array(
             'id','user_id','title','uri','title_meta','keywords','descriptions',
             'text','text_left','text_right','text_footer',
