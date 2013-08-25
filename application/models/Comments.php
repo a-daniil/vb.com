@@ -5,21 +5,31 @@ class Comments extends Zend_Db_Table_Abstract{
  	public function set_items_per_page($perpage){
  		$this->per_page=(int)$perpage;
  	}
-	public function get_list($page=1,$id){
+
+	public function get_list($page=1,$id, $priority){
 		$select=$this->getAdapter()
 			->select()
-			->from(self::TABLE,array('id','text', 'user_id', 'timestamp', 'flags', 'users.user_login'))
+			->from(self::TABLE,array('id','text', 'user_id', 'timestamp', 'flags', 'users.user_login', 'owner_id', 'hide', 'ankets.user_id as anket_user_id'))
 			->join('users',
 				'users.id = comments.user_id',
 				'user_login')
+			->join('ankets',
+				   'ankets.id = comments.owner_id',
+				   'ankets.user_id as anket_user_id')
 			->where('comments.owner_id = ?',$id)
 			->where('comments.confirm = true');
+
+		if ( $priority ) {
+			$select->where('comments.hide = false OR comments.hide IS NULL');
+		}
+
 		$paginator=new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setPageRange(15);
 		$paginator->setCurrentPageNumber($page);
 		$paginator->setItemCountPerPage($this->per_page);
 		return $paginator;
 	}
+
 	public function get_list_by_user($page=1,$id){
 		$select=$this->getAdapter()
 			->select()

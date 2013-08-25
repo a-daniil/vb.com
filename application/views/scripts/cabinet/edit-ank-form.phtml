@@ -6,7 +6,8 @@
 			<div class="form-links">
 				<a href="/cabinet/edit-photo/n/<?=$this->id?>">Фото</a>
 				<a href="/cabinet/check-photo/n/<?=$this->id?>">Фото для проверки</a>
-				<a href="/cabinet/edit-video/n/<?=$this->id?>">Видео</a>			
+				<a href="/cabinet/edit-video/n/<?=$this->id?>">Видео</a>
+				<a href="/cabinet/comms-list/n/<?php echo $this->id ?>">Комментарии</a>
 			</div>
 			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
 				<div class="form">
@@ -24,8 +25,8 @@
                	 			<? endif; ?>
   						<? endforeach; ?>
   					</div>
-  					<?= $this->form->getElement('submit') ?>  				
-  				</div>
+  					<?= $this->form->getElement('submit') ?> 
+				</div>
   			</form>
   		</div>
   	</div>

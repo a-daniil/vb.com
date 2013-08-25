@@ -10,6 +10,9 @@
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=free" ?>" <?php if ( $_GET['filter'] == 'free' ) : ?> class="underlined" <?php endif ?>>БЕСПЛАТНЫХ: <?=$this->active-$this->paid?></a></li>
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=not_active" ?>" <?php if ( $_GET['filter'] == 'not_active' ) : ?> class="underlined" <?php endif ?>>СНЯТЫ С ПОКАЗА (ВЫКЛЮЧЕНЫ): <?=$this->all-$this->active?></a></li>			
 		</ul>
+		<ul class="top_info_login">
+			<li>Салоны <?php echo $this->getUserLoginById($this->user_id); ?></li>
+		</ul>
 		<?if( $this->user_id):?>
 			<hr />
 			<ul class="top_info_bottom">
@@ -27,7 +30,7 @@
 			<?php
 				if( !empty($row['photolist'])){
 					$photolist = unserialize($row['photolist']);
-					if( isset($photlist['preview'])){
+					if( isset($photolist['preview'])){
 						$photo = $photolist[$photolist['preview']];
 					}
 					else{
@@ -37,7 +40,7 @@
 				else{
 					$photo = false;
 				}
-			?>			
+			?>
 			<a name="<?=$row['id']?>"></a>
 			<div class="cab_anketa">
 				<div class="cab_anketa_header">
@@ -56,6 +59,7 @@
 				</div>
 				<br />
 				<div class="cab_anketa_photo">
+					<?if ( $row['active'] == 0 ) : ?><div class="cab_anketa_photo_glass"></div><?php endif ?>
 					<a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
 						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top;" <?endif?>></div>
 					</a>
@@ -73,25 +77,25 @@
 						<h2 title="">ОТКЛОНЕНА</h2>
 						<h3>Не полная информация</h3>
 					<?elseif($row['status']==20):?>
-						<h2 title="На модерации">НА МОДЕРАЦИИ</h2>						
+						<h2 title="На модерации">НА МОДЕРАЦИИ</h2>
 					<?elseif($row['status']==30):?><h2 title="Проверена">ПРОВЕРЕНА</h2>
 					<?elseif($row['status']==40):?><h2 title="Идет приоритетный показ">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
 					<?php endif ?>
 					<form action="/cabinet/salon-status-set/n/<?=$row['id'] .  $this->getRightUri( $_GET ) ?>" method="post">
 						<select name="s" onchange="if (this.value) { showComment(this.value, this) }">
 							<option value="0">Выберите</option>
-							<option value=11>Отклонить(неполные данные)</option>								
+							<option value=11>Отклонить(неполные данные)</option>
 							<option value="30">Разрешить фото</option>
 							<option value="1">Заблокировать</option>
 							<option value="2">Заблокировать (черный список)</option>
 						</select>
-						<input type="submit" value="применить">		
+						<input type="submit" value="применить" id="submit_status">
 						<div id="comment" style="display: none;">
-							<label for="comm_texarea">	
+							<label for="comm_texarea">
 								 	Комментарий (не обязательно):
 							</label>
-							<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>														
-						</div>	
+							<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>
+						</div>
 					</form>
 					<br />
 					<div class="cab_ank_pan_sub">
@@ -111,6 +115,10 @@
 					<?elseif($row['status']==11):?>
 						<h2 title="">ОТКЛОНЕНА</h2>
 						<h3>Не полная информация</h3>
+						<h4>Результат проверки читайте в моих сообщениях. После изменений отправте на модерацию повторно.</h4>
+						<ul class="cab_ank_sub_menu">
+							<li><a href="/cabinet/to-moderation-salon/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">На модерацию</a></li>
+						</ul>
 					<?elseif($row['status']==20):?>
 						<h2 title="На модерации">НА МОДЕРАЦИИ</h2>
 						<h3>Анкета ожидает модерации</h3>
@@ -146,27 +154,28 @@
 				<div class="cab_anketa_panel ca_left">
 					<div class="cab_ank_pan_sub">
 						<ul>
-							<li><strong>Добавлена:</strong><?=rusdate(strtotime($row['timestamp']))?></li>							
-						</ul>						
-					</div>
-					<div class="cab_ank_pan_sub">
-						<?//<a class="cab_ank_button" href="/">Продлить</a>?>
-						<h3>Просмотры:</h3>
-					</div>
-					<div class="cab_ank_pan_sub">
-					<?php
-						$counters = new CountersAnkets();
-						$counter = $counters->get_ank($row['id']);
-					?>
-						<ul>
-							<li><strong>За 24 часа:</strong><?= $counter['today'] ? $counter['today'] : 0 ?></li>
-							<li><strong>За неделю:</strong><?= $counter['week'] ? $counter['week'] : 0 ?></li>
-							<li><strong>За месяц:</strong><?= $counter['month'] ? $counter['month'] : 0 ?></li>
-							<li><strong>Всего:</strong><?= $counter['all'] ? $counter['all'] : 0 ?></li>
+							<li><strong>Добавлена:</strong><?=rusdate(strtotime($row['timestamp']))?></li>
 						</ul>
 					</div>
-					<div class="cab_ank_pan_sub"></div>
-				</div>				
+					<div class="to_bottom">
+						<div class="cab_ank_pan_sub">
+							<?//<a class="cab_ank_button" href="/">Продлить</a>?>
+							<h3>Просмотры:</h3>
+						</div>
+						<div class="cab_ank_pan_sub">
+							<?php
+								$counters = new CountersAnkets();
+								$counter = $counters->get_ank($row['id']);
+							?>
+							<ul>
+								<li><strong>За 24 часа:</strong><?= $counter['today'] ? $counter['today'] : 0 ?></li>
+								<li><strong>За неделю:</strong><?= $counter['week'] ? $counter['week'] : 0 ?></li>
+								<li><strong>За месяц:</strong><?= $counter['month'] ? $counter['month'] : 0 ?></li>
+								<li><strong>Всего:</strong><?= $counter['all'] ? $counter['all'] : 0 ?></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 			<?endforeach?>
 		</div>
@@ -176,11 +185,26 @@
 	<?php endif ?>
 </div>
 <script type="text/javascript">
-	function showComment( value, el ) {		
+	function showComment( value, el ) {
 		if ( value == 30 || value == 0) {
 			$(el).siblings('div').css('display', 'none');
 		} else {
 			$(el).siblings('div').css('display', 'block');
 		}
-	}			
+	}
+
+	$("#submit_status").click(function(e){
+		s = $('select[name="s"]').val();
+		console.log(s);
+		val = $('#comm_textarea').val();
+		console.log(val);
+		if ( (!val || val.length == 0 || val == "Обязательно оставьте комментарий" ) && s != 30 ) {
+			e.preventDefault();
+			$('#comm_textarea').val('Обязательно оставьте комментарий');
+		}
+	});
+
+	$("#comm_textarea").focus(function (){
+		$(this).val('');
+	})
 </script>

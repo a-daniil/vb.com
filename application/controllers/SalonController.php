@@ -8,7 +8,7 @@ class SalonController extends IndexController {
 		if( !$this->_hasParam('name') ){
 			throw new Ps_Salon_Exception();
 		}
-		list( $name, $salon_id ) = explode("-", $this->_getParam('name') );
+		list( $name, $salon_id, $uri ) = explode("-", $this->_getParam('name') );
 		if( !$salon_id ){
 			throw new Ps_Salon_Exception();
 		}
@@ -20,6 +20,8 @@ class SalonController extends IndexController {
 		if(!$info){
 			throw new Ps_Salon_Exception();
 		}
+
+		$info['uri'] = $uri;
 
 		if(empty($info['photolist'])){
 			$info['photolist']=false;

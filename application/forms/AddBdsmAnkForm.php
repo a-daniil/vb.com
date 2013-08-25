@@ -4,8 +4,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 {
 	public function init() {
 		/*
-		  Permanently set hardcoded perfomrer		  
-		*/		
+		  Permanently set hardcoded perfomrer
+		*/
 		$values = $this->content->performer->toArray();
 		$this->addElement('select', 'performer_el', array(
 			'validators' => array(
@@ -14,7 +14,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				))),
 			),
-			//'required' => true,				
+			//'required' => true,
 			'multiOptions' => array_slice($values, $this->performer, 1),
 			'value' => $this->performer,
 			'label'    => 'Исполнитель:',
@@ -29,38 +29,38 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 		/*
 		  end of setting permanently hardcoded perfomer
 		*/
-		
-		$this->addElement('select', 'type', array(			
-			'required' => true,				
+
+		$this->addElement('select', 'type', array(
+			'required' => true,
 			'multiOptions' => $this->params['types'],
 			'label'    => 'Салон:',
 			'decorators' => array(
 				'ViewHelper',
-				'Errors',				
+				'Errors',
 				array('Label', array('tag' => 'div')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
 		));
-		
+
 		$this->addElement('text', 'name', array(
 			'filter' => array('StringTrim'),
-			'validators' => array( 
+			'validators' => array(
 			 	 array(
 					'NotEmpty', false, array('messages' => array(
-						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY		
-				)))		
+						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				)))
 			),
 			'required' => true,
 			'label'    => 'Имя:',
-			'decorators' => array(		
-				'ViewHelper',		
-				'Errors',		
+			'decorators' => array(
+				'ViewHelper',
+				'Errors',
 				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))		
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)	
 		));	
-		
-		list($height_min,$height_max)=explode('-',$this->content->height);		
+
+		list($height_min,$height_max)=explode('-',$this->content->height);
 		$this->addElement('text', 'height', array(
 			'filter' => array('StringTrim'),
 			'validators' => array( 
@@ -70,7 +70,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				))),
 				array (
 					'Int', false, array('messages' => array(
-						Zend_Validate_Int::NOT_INT => self::NOT_INT		
+						Zend_Validate_Int::NOT_INT => self::NOT_INT
 				))),
 				array (
 					'GreaterThan', false, array($height_min, 'messages' => array(
@@ -90,8 +90,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
 		));
-		
-		list($weight_min,$weight_max)=explode('-',$this->content->weight);		
+
+		list($weight_min,$weight_max)=explode('-',$this->content->weight);
 		$this->addElement('text', 'weight', array(
 			'filter' => array('StringTrim'),
 			'validators' => array( 
@@ -121,7 +121,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
 		));
-		
+
 		list($age_min,$age_max)=explode('-',$this->content->age);
 		$this->addElement('text', 'age', array(
 			'filter' => array('StringTrim'),
@@ -170,9 +170,9 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			)
 		));
 
-		list($breast_min,$breast_max)=explode('|',$this->content->breast);		
+		list($breast_min,$breast_max)=explode('|',$this->content->breast);
 		$this->addElement('select', 'breast', array(
-			'validators' => array(				
+			'validators' => array(
 				array(
 					'GreaterThan', false, array($breast_min, 'messages' => array(
 						Zend_Validate_GreaterThan::NOT_GREATER => sprintf( self::NOT_RANGE, $breast_min, $breast_max)
@@ -182,7 +182,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 						Zend_Validate_LessThan::NOT_LESS => sprintf( self::NOT_RANGE, $breast_min, $breast_max)
 				)))
 			),	
-			'multiOptions' => $this->content->breast_form->toArray(),		
+			'multiOptions' => $this->content->breast_form->toArray(),
 			'label'    => 'Размер груди:',
 			'decorators' => array(
 				'ViewHelper',
@@ -192,7 +192,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			)
 		));	
 		
-		$this->addElement('select', 'exotics', array(			
+		$this->addElement('select', 'exotics', array(
 			'multiOptions' => $this->content->exotics->toArray(),
 			'label'    => 'Экзотика:',
 			'decorators' => array(
@@ -202,7 +202,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
 		));
-		
+
 		$this->addDisplayGroup(array(
 				'name',
 				'height',
@@ -214,9 +214,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 		),
 				'info',
 				array("legend" => "Параметры девушки.")
-		);	
-		
-		
+		);
+
 		$this->addElement('text', 'phone', array(
 			'filter' => array('StringTrim'),
 			'validators' => array( 
@@ -225,7 +224,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-])?(\d{3})([)-])?(\d{3})(-?)(\d{2})(-?)(\d{2})$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
 				)))
 			),	
@@ -493,6 +492,10 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				array(
 					'NotEmpty', false, array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				))),
+				array(
+					'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
 			'required' => true,
@@ -718,7 +721,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'), array('tag' => 'div', 'class' => 'form-fieldset'))
 		));	
 	}
-	
+
 	public function isValid($data)
 	{
 		$isValid = parent::isValid($data);

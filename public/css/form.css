@@ -129,7 +129,17 @@ a.show-message {
 	margin-right: 10px;	
 }
 
-.form-links a, .form-buttons a {
+#cab_ankets_span {
+	display: inline-block;
+	float: right;
+	padding-right: 20px;
+}
+
+#cab_ankets_span a.active {
+	font-weight: bold;
+}
+
+.form-links a, .form-buttons a, #cab_ankets_span a {
 	background:#eee;
 	cursor:pointer;
 	color:#e00;	
@@ -149,7 +159,7 @@ a.show-message {
 }
 
 .form-buttons {
-	margin: 10px 0px 10px 0px;
+	margin: 10px 10px 10px 0px;
 	float: right;
 }
 

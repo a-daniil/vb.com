@@ -78,7 +78,5 @@ class Ps_Notifier_Email
 				throw new Notifier_Email_Unknown_Type_Exception('Please putt right type of notification');
 				break;
 		}
-		
 	}
-	
 }

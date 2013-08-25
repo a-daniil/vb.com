@@ -1,3 +1,11 @@
+<style>
+	#button{
+		position: relative;
+		left: 35px;
+		background-color: #fff;
+		width: 70px;
+	}
+</style>
 <div id="center">
 	<div id="cab_ankets">
 		<h2 id="cab_photo_title">Фотография для проверки: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
@@ -6,14 +14,15 @@
 				<div class="cab_anketa_header">
 					<ul>
 						<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
-						<li><input type="submit" value="Фото" name="to_photo" /></li>	
-						<li><input type="submit" value="Видео" name="to_video" /></li>				
+						<li><input type="submit" value="Фото" name="to_photo" /></li>
+						<li><input type="submit" value="Видео" name="to_video" /></li>
 						<?/*?><li><a href="/">Видео</a></li>
 						<li><a href="/">Карта</a></li>
 						<li><a href="/">Комментарии</a></li>*/?>
+						<li><input type="submit" value="Комментарии" name="to_comments"></li>
 					</ul>
 				</div>
-			</div>	
+			</div>
 			<div class="cab_form">
 				<h3>Как пройти проверку</h3>
 				<p>Для проверки подлинности вашей анкеты и уникальности фотографий загрузите фотографию, на которой Вы держите в руках лист бумаги с датой, написанной от руки. Дата не должна отличаться более чем на 3 дня от текущей даты на момент ее загрузки. Фото должно быть в оригинальном размере, без сжатия и обработки. Не пытайтесь подделывать проверочные фотографии, иначе анкета будет заблокирована. После проверки фотографий анкета будет показываться на сайте. Проверка фото истекает через 3 месяца, после чего необходимо загрузить новую.</p>
@@ -32,42 +41,53 @@
 			<div class="cab_form">
 				<h3>Ретушь</h3>
 				<p>Если лицо на фото скрыто или заретушировано, необходимо загрузить также фото без ретуши, где видно лицо, именно с данной фотосессии, фото которой загружено в разделе фотографии.</p>				
-			</div>			
-			<div class="cab_photos_form_wrap">		
-			<?php 
-				$i = 0;
-				foreach ( $this->photo_check as $photo_check ) : 
-			 ?>		
-				<div class="cab_anketa_photo cab_ank_photo_ed">
-					<div style="background:url('<?=$this->photos_path.'/th_'.$photo_check?>') no-repeat top;" onclick="showPhoto('<?=$photo_check.'/'.$this->photo?>')"></div>
-					<?if ( $this->status == 11  ):?>
-						<p style="text-align: left; font-weight: bold;">Отклонена</p>
-						<p style="text-align: left;"><?php if ( $this->comm )echo $this->comm; ?></p>				
-					<?endif?>
-					<?if ( $this->status > 20  ):?>
-						<p style="text-align: left; font-weight: bold;">Проверка пройдена</p>				
-					<?endif?>
-					<?if ( $this->status == 20 ):?>
-						<p style="text-align: left; font-weight: bold;">На модерации</p>
-					<?endif?>						
-					<br />					
-				</div>			
-			<?php
-				 $i++; 
-				 endforeach 
-			?>	
-				<div class="cab_anketa_photo cab_ank_photo_ed">
+			</div>	
+			<div class="cab_form">
+				<h3>Размер и качество проверочной фотографии.</h3>
+				<p>К проверке не допускаются сжатые или обработанные фотографии. Загружайте фотографии в самом высоком разрешении и максимальном качестве. Загружаемый файл должен быть не более 3 МБ, формата JPG, GIF, PNG. Минимальное разрешение не менее 800x600px.</p>
+			</div>
+			<div class="cab_photos_form_wrap">
+				<?php foreach ( $this->moderations as $moderation ) : ?>
+					<?php $photos = unserialize($moderation['photo_check_indexes']) ?>
+					<?php foreach ($photos as $photo) : $i++;?>
+						<div class="cab_anketa_photo cab_ank_photo_ed" style="max-width: 144px;">
+							<div style="background:url('<?=$this->photos_path.'/th_'.$photo?>') no-repeat top;" onclick="showPhoto('<?=$this->photos_path.'/'.$photo?>')"></div>
+							<?if ( $moderation['status'] == 11 ):?>
+								<p style="text-align: left; font-weight: bold;" id="failed_photo_check">Отклонена</p>
+								<p style="text-align: left;"><?php echo date('Y-m-d H:i', strtotime($moderation['date'])); ?></p>
+								<p style="text-align: left;"><?php if ( $moderation['comment'] ) echo $moderation['comment'] ?></p>
+							<?endif?>
+							<?if ( $moderation['status'] > 20  ):?>
+								<p style="text-align: left; font-weight: bold;" id="success_photo_check">Проверка пройдена</p>
+								<p style="text-align: left;"><?php echo date('Y-m-d H:i', strtotime($moderation['date'])); ?></p>
+							<?endif?>
+							<?if ( $moderation['status'] == 20 ):?>
+								<p style="text-align: left; font-weight: bold;" id="moderation_photo_check">На модерации</p>
+							<?endif?>
+						</div>
+					<?php endforeach; ?>
+				<?php endforeach; ?>
+				<div class="cab_anketa_photo cab_ank_photo_ed" style="max-width: 144px;">
 					<div></div>
 					<br />
-					<p>Добавить:</p>
+					<p>Загрузить:</p>
 					<br />
-					<input type="file" size="20" name="photo_check_<?php echo $i ?>" class="photo" />
-					<br />					
+					<input type="text" id="fileName" readonly="readonly" style="width: 140px; cursor: default;" >
+					<div class="file_input_div" style="display: inline; background-color: #fff;">
+						<input type="button" id="button" value="Обзор" />
+						<input type="file" name="photo_check_<?php echo $i ?>" style="opacity: 0; filter: alpha(opacity=0); position: relative; left: -40px; width: 70px;"
+							onchange="javascript: document.getElementById('fileName').value = this.value" />
+						<!-- <input type="file" size="20" name="photo_check_<?php echo $i ?>" class="photo" style="width: 90px; display: block; margin: auto;" /> -->
+					</div>
+					<?php if ( $_GET['unvalid'] ) : ?>
+						<span style="color: red;">Нельзя загружать фото размером меньше чем <?php echo $_GET['width']?> * <?php echo $_GET['height'] ?></span>
+					<?php endif ?>
+					<br />
 				</div>
 			</div>
 			<?php if ( $_GET['new'] ) : ?>
 				<input class="button" type="submit" value="Далее" name="next" />
-			<?php else : ?>			
+			<?php else : ?>
 				<input class="button" type="submit" value="Сохранить"/>
 			<?php endif ?>
 		</form>
@@ -75,10 +95,10 @@
 </div>
 <script type="text/javascript">
 	function bindUnbindNewPhoto() {
-		$("input[type='file']:last").bind('change', (function () {	
+		$("input[type='file']:last").bind('change', (function () {
 			var id = $(".cab_anketa_photo:last > .photo").attr('name');
 			id = parseInt(id.replace("photo_check_", "")) + 1;
-			$(".cab_photos_form_wrap:last").append("<div class='cab_anketa_photo cab_ank_photo_ed'><div></div><br /><p>Добавить:</p><br /><input type='file' size='20' name='photo_check_" + id + "' class='photo'><br /></div>");			
+			$(".cab_photos_form_wrap:last").append("<div class='cab_anketa_photo cab_ank_photo_ed' style='max-width: 144px'><div></div><br /><p>Добавить:</p><br /><input type='file' size='20' name='photo_check_" + id + "' class='photo'><br /></div>");
 			$(this).unbind('change');
 			bindUnbindNewPhoto();
 		}));

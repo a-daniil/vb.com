@@ -30,7 +30,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 		  end of setting permanently hardcoded perfomer
 		*/
 		
-		$this->addElement('select', 'type', array(			
+		$this->addElement('select', 'type', array(
 			'required' => true,				
 			'multiOptions' => $this->params['types'],
 			'label'    => 'Салон:',
@@ -399,7 +399,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-])?(\d{3})([)-])?(\d{3})(-?)(\d{2})(-?)(\d{2})$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
 				)))
 			),	
@@ -667,6 +667,10 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				array(
 					'NotEmpty', false, array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				))),
+				array(
+					'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
 			'required' => true,
@@ -683,9 +687,13 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'filter' => array('StringTrim'),
 				'validators' => array(
 						array(
-								'NotEmpty', false, array('messages' => array(
-										Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
-								)))
+							'NotEmpty', false, array('messages' => array(
+								Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+							))),
+						array(
+							'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+								Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
+						)))
 				),
 				'required' => true,
 				'label'    => 'Имя 2-ой девушки: (на англ.)',

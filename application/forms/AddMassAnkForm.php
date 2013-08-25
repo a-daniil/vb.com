@@ -30,7 +30,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 		  end of setting permanently hardcoded perfomer
 		*/
 		
-		$this->addElement('select', 'type', array(			
+		$this->addElement('select', 'type', array(
 			'required' => true,				
 			'multiOptions' => $this->params['types'],
 			'label'    => 'Салон:',
@@ -225,7 +225,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-])?(\d{3})([)-])?(\d{3})(-?)(\d{2})(-?)(\d{2})$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
 				)))
 			),	
@@ -329,7 +329,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'contact-info',
 				array("legend" => "Контактные данные.")
 		);
-		
+
 		$this->addElement('text', 'price_an', array(
 				'filter' => array('StringTrim'),
 				'validators' => array(
@@ -493,6 +493,10 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				array(
 					'NotEmpty', false, array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				))),
+				array(
+					'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
 			'required' => true,
@@ -669,7 +673,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				$elements = array();	
 				while( $val = array_shift($srv) ) {
 					$part_el = $part . '_' . ++$nn;
-					if ( in_array( $part_el, array( 'add_8', 'add_9', 'strip_0', 'strip_1', 'mass_0', 'mass_1', 'mass_2', 'mass_3', 'mass_4', 'mass_5', 'mass_6', 'mass_7', 'mass_8' ) ) ) {
+					if ( in_array( $part_el, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) || preg_match('/^mass_(.*)$/', $part_el) ) {
 						$elements[] = $part_el;
 						$service = $this->addElement('checkbox', $part_el, array(
 							'label'    => $val,
@@ -679,8 +683,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 								array('Label'),
 								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
 							)
-						));		
-					}			
+						));
+					}
 				}
 
 				if ( count( $elements ) > 0 ) {

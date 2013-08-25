@@ -34,7 +34,21 @@ class AnketaController extends IndexController {
 		if ( !$info ) {
 			throw new Ps_Anketa_Exception();
 		}
-
+			
+		$age_conf=$this->content->age_post->toArray();
+		switch($info['age'][1]){
+			case 0: $age_post=$age_conf[0];break;
+			case 1: $age_post=$age_conf[1];break;
+			case 2:
+			case 3:
+			case 4: $age_post=$age_conf[2];break;
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9: $age_post=$age_conf[0];break;
+		}
+		$info['age'].=' '.$age_post;
 		if(empty($info['photolist'])){
 			$info['photolist']=false;
 		} // If the photo's array is empty
@@ -91,7 +105,7 @@ class AnketaController extends IndexController {
 		if( $info['type'] != 1){
 			include_once 'Salons.php';
 			$salons=new Salons();
-			$this->view->salon=$salons->get_salon($info['type']);
+			$this->view->salon=$salons->get_salon($info['type'], true, 40, true);
 			$this->view->uri = 'salony';
 			$this->view->services_of_salon = $this->content->srv_salon->toArray();
 		} else {
@@ -133,11 +147,13 @@ class AnketaController extends IndexController {
 				case 'phone':
 					$meta_replace[$key]=$this->view->PhoneFormat(array('phone' => $info[$key]));
 					break;
+				case 'metro' :
+					$meta_replace[$key] = $this->view->metro_list[$info[$key]];
+					break;
 				default:
 					$meta_replace[$key]=$info[$key];
 					break;
-			}
-		
+			}		
 		}
 		foreach($meta_tags as $key=>$value){
 			$meta_tags[$key]='%'.strtoupper($value).'%';
@@ -157,7 +173,7 @@ class AnketaController extends IndexController {
 		$commpage = $this->_hasParam('cp') ? intval($this->_getParam('cp')) : 1;
 		include_once 'Comments.php';
 		$comments = new Comments();
-		$this->view->comments = $comments->get_list($commpage,$ank_id);	
+		$this->view->comments = $comments->get_list($commpage,$ank_id, $info['priority']);	
 		$this->view->services = $services;	
 		
 		// Reviews for latest two section in sidebar

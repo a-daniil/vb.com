@@ -73,18 +73,31 @@ class Salons extends Zend_Db_Table_Abstract{
 		$paginator->setItemCountPerPage($this->per_page);
 		return $paginator;
 	}
-	
-	public function get_salon($id){
+
+	public function get_salon($id, $active = false, $status = false, $priority = false){
 		$select = $this->getAdapter()
 			->select()
 			->from(self::TABLE)
 			->where('id = ?', $id)
 			->limit(1);
+
+		if ( $active ) {
+			$select->where('active = 1');
+		}
+
+		if ( $priority ) {
+			$select->where('priority = 1');
+		}
+
+		if ( $status ) {
+			$select->where('status = ?', $status);
+		}
+
 		$return = $this->getAdapter()->query($select)->fetch();
 		if( !$return ){ return false;}
 		return $return;
 	}
-	
+
 	public function get_salon_phone($id){
 		$select = $this->getAdapter()
 			->select()

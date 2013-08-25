@@ -10,10 +10,10 @@ class IndexController extends Zend_Controller_Action {
 	const TECH_ADM=2;
 	const MODER = 3;
 	const USER = 4;
-	
+
 	protected $config,$content,$settings,$admin;
-	protected $mBanners;	
-	
+	protected $mBanners;
+
 	public function init() {
 		$auth=Zend_Auth::getInstance()->getIdentity();
 		if ( $auth ) {
@@ -26,13 +26,13 @@ class IndexController extends Zend_Controller_Action {
 			$this->admin = false;
 			$this->view->flags = null;
 		}
-		
+
 		$this->view->admin=$this->admin;
 		$this->config=Zend_Registry::get('config');
 		$this->content=Zend_Registry::get('content');
-        $this->view->controller = $this->_request->getControllerName();
+		$this->view->controller = $this->_request->getControllerName();
 		$this->view->performer=$this->content->performer->toArray();
-		$this->view->performer_out=$this->content->performer_out->toArray();		
+		$this->view->performer_out=$this->content->performer_out->toArray();
 		$this->view->types=$this->content->types->toArray();
 		$this->view->types_of_salon=$this->content->types_of_salon->toArray();
 		$this->view->cities=$this->content->cities->toArray();
@@ -44,7 +44,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->banners_path=$this->config->path->url_banners;
 		$this->view->srv_short_list=true;
 		$this->view->errors=array();
-		
+
 		$city = Zend_Registry::get('city');
 		if ( $city == 2 ) {
 			$this->city = 2;
@@ -96,9 +96,9 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->bannersRight= $this->mBanners->get_list_right();
 
 		include_once 'Sections.php';
-		$mSections=new Sections();                
+		$mSections=new Sections();
 		$this->view->sections=$mSections->get_list($page);
-               
+
         include_once 'MenuItems.php';
         $mMenuItems = new MenuItems();
         $this->view->menu_items = $mMenuItems->get_all_items();
@@ -118,25 +118,25 @@ class IndexController extends Zend_Controller_Action {
 			$this->view->menu_sub['active'] = 'bdsm';
 			$type = $this->_getParam('bdsm') ? 3 : false;
 		}
-		
+
 		$filters = array();
 		$params = array();
 		$page = $this->_hasParam( 'p' ) ? intval( $this->_getParam( 'p' )) : 1;
-		
+
 		if($this->_getParam('m')){
 			$mtr = $this->content->metro_spb->toArray();
 			$mtr_id = (int)$this->_getParam('m')-1;
 			$metro = $mtr[$mtr_id];
 			$filters['m'] = $this->_getParam('m');
 		}
-		
+
 		if ( $this->_getParam('tel') ) {
 			$tel =  preg_replace('/\D/', '', $this->_getParam('tel'));
-		
+
 			if ( strlen($tel) > 10 ) {
 				$tel = substr($tel, -10);
 			}
-		
+
 			$pattern = '/(\d{1,3})(\d{0,7})/';
 			if ( preg_match($pattern, $tel) ) {
 				$replacement = '$1-%$2%';
@@ -147,10 +147,14 @@ class IndexController extends Zend_Controller_Action {
 				$tel3 = preg_replace('/([7-8]{1})(\d{1,3})(\d{0,7})/', $replacement, $tel);
 				$params[] = "phone like '{$tel1}' OR phone like '{$tel2}' OR phone like '{$tel3}'";
 			}
-		
+
 			$filters['tel'] = $this->_getParam('tel');
 		}
 
+		include_once 'Salons.php';
+		$salons = new Salons();
+		$salons->set_items_per_page(($this->_hasParam('limit')) ? (int)$this->_getParam('limit') : $this->settings['girls_per_page']);
+		
 		// debug filters
 		if ($this->admin) print_r($params);
 
@@ -617,37 +621,37 @@ class IndexController extends Zend_Controller_Action {
 		 *
 		 *
 		 */
-		
-		 $id = $this->_getParam('id');
-		 
-		 if ( !$id ) {
-		 	throw new Delete_Postpone_NoId_Exception();
-		 }
-		 
-		 $postpone = new Model_Postpone();
-		 $result = $postpone->delete("user_id = " . $this->user_id . " AND ank_id = " . $id);
 
-		 if ( !$result ) {
-		 	throw new Delete_Postpone_Exception();
-		 } else {
-		 	$this->_redirect('/index/postpone');
-		 }
+		$id = $this->_getParam('id');
+			
+		if ( !$id ) {
+			throw new Delete_Postpone_NoId_Exception();
+		}
+			
+		$postpone = new Model_Postpone();
+		$result = $postpone->delete("user_id = " . $this->user_id . " AND ank_id = " . $id);
+
+		if ( !$result ) {
+			throw new Delete_Postpone_Exception();
+		} else {
+			$this->_redirect('/index/postpone');
+		}
 	}
-	
+
 	public function profileAction () {
-	   /*
-		* Need to implement rights check
-		*
-		*/
-		
+		/*
+		 *Need to implement rights check
+		 *
+		 */
+
 		if ( !$this->user_id ) {
 			$this->_redirect("/");
 		}
-		
-	   /*
-		*
-		*
-		*/
+
+		/*
+		 *
+		 *
+		 */
 		
 		$type = $this->_getParam('type');
 		

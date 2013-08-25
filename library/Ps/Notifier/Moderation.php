@@ -3,7 +3,7 @@
 class Ps_Notifier_Moderation_Exception extends Zend_Exception{}
 
 class Ps_Notifier_Moderation extends Ps_Notifier_Sender {
-	
+
 	public function send( $uid, $params = null)
 	{
 		if ( !$params ) {
@@ -26,5 +26,5 @@ class Ps_Notifier_Moderation extends Ps_Notifier_Sender {
 		if ( !$result ) {
 			throw new Ps_Notifier_Moderation_Exception('Can\'t send moder email');
 		}
-	}	
+	}
 }

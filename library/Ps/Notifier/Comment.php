@@ -4,7 +4,7 @@ class Ps_Notifier_Comment_Exception extends Zend_Exception{}
 
 class Ps_Notifier_Comment extends Ps_Notifier_Sender {	
 	
-	const MESSAGE = "У вашей анкеты ( %s ) новый комментарий";	
+	const MESSAGE = "У вашей анкеты ( %s ) новый комментарий.<br/>";
 	
 	public function send( $uid, $params = null ) 
 	{		
@@ -19,6 +19,8 @@ class Ps_Notifier_Comment extends Ps_Notifier_Sender {
 		$header.="From: ".$content->mail->from->new_comment." \r\n";
 		
 		$text = sprintf(self::MESSAGE, $link);
+		$text.= "<p>Письмо отправлено автоматически отвечать на него не нужно.<br/>";
+		$text.= "С уважением, робот <a href='http://". $this->config->domen ."'>vb.arcada-team.ru</a>";
 		$subj = $content->mail->subj->new_comment;
 		
 		$result = mail($mail, $subj, $text, $header);

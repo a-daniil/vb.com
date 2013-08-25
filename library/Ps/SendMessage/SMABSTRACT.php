@@ -17,8 +17,9 @@ class Ps_SendMessage_SMABSTRACT
 
 		/*
 		if ( $result && Ps_Notifier_Email::isSend( $info['user_id'], Ps_Notifier_Email::MODERATION )) {
-			$body .= "<br />Письмо отправлено автоматически, отвечать на него не нужно.<br />C уважением, робот Vbordele.com";
-		
+			$body .= "<br/>Письмо отправлено автоматически, отвечать на него не нужно.<br/>
+					C уважением, робот <a href='http://putanastars.com'>PutanaStars.com</a>";
+
 			$notifier = new Ps_Notifier_Email( $info['user_id'], Ps_Notifier_Email::MODERATION );
 			$notifier->send( array (
 					'subject' => $subject,

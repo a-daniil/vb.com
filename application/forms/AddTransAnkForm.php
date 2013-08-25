@@ -247,7 +247,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-])?(\d{3})([)-])?(\d{3})(-?)(\d{2})(-?)(\d{2})$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
 				)))
 			),	
@@ -515,6 +515,10 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				array(
 					'NotEmpty', false, array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				))),
+				array(
+					'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
 			'required' => true,

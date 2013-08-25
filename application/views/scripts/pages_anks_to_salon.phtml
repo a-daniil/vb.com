@@ -2,8 +2,8 @@
 <ul>
 	<?foreach($this->pagesInRange as $page):?>
 		<li>
-			<?if($this->current==$page):?><p><?=$page?></p><?else:?>	
-		<a href="<?= "/cabinet/add-ank-to-salon/n/210/p/" . $page ?>"><?=$page?></a>
+			<?if($this->current==$page):?><p><?=$page?></p><?else:?>
+		<a href="<?= "/cabinet/add-ank-to-salon/n/".$this->salon."/p/" . $page . "?filter=" . $this->filter ?>"><?=$page?></a>
 		<?endif?>
 	<?endforeach?>
 	</li>

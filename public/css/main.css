@@ -75,13 +75,13 @@ margin-left:0px;
 
 
 body{font:12px Arial, Helvetica, sans-serif;line-height:1.1em;}
-a{color:#000;text-decoration:none;}
+a{color:#FFF;text-decoration:none;}
 .blue_link{color:#0088CC;}
 a img{border:none;}
 ul{list-style:none;}
 h3 span{color:#5f0;}
 table{border-collapse:collapse;}
-b{color:#e00;font-size:14px;padding-left:3px;}
+b{font-size:14px;padding-left:3px;}
 #wrap{overflow:hidden;min-width:1200px;min-height:824px;background:#fff url("/img/bg.jpg") no-repeat;margin-bottom:20px;}
 
 #header{position:relative;height:270px;}
@@ -139,7 +139,7 @@ b{color:#e00;font-size:14px;padding-left:3px;}
 .footer h3{color:#FFF;text-shadow:1px 1px 1px #000,0 0 5px #000;margin:7px 0; font-size:14px}
 
 
-.pages{display:block;width: 700px;margin-bottom: -40px;}
+.pages{display:block;width: 700px;}
 .pages ul{overflow:hidden;display:inline-block;}
 .pages li{float:left;margin:5px;}
 .pages a,.pages p{display:table-cell;background:#d12931 url("/img/buttons_grad_bg.png") repeat-x;
@@ -224,6 +224,8 @@ b{color:#e00;font-size:14px;padding-left:3px;}
 #cab_ankets hr{border:none;border-top:1px solid #f66;margin:5px 0;}
 .top_info{overflow:hidden;font-size:11px;padding-bottom:5px;}
 .top_info li{float:left;width:20%;color:rgb(138,28,28);text-align:left;font-weight:bold;}
+.top_info_login {overflow:hidden;font-size:11px;padding-bottom:5px;}
+.top_info_login li {float:left;width:100%;color:rgb(138,28,28);text-align:left;font-weight:bold;}
 .top_info a{color: rgb(138,28,28);}
 .top_info_bottom{overflow:hidden;font-size:11px;padding-bottom:5px;}
 .top_info_bottom li{float:left;width:30%;color:rgb(138,28,28);text-align:left;font-weight:bold;}
@@ -236,17 +238,27 @@ b{color:#e00;font-size:14px;padding-left:3px;}
 .cab_anketa_header h2{color:#e00;font-size:12px;float:left;padding:3px;}
 .cab_anketa_header ul{overflow:hidden;float:right;}
 .cab_anketa_header li{float:left;padding:3px;}
-.cab_anketa_photo{float:left;border:2px solid #ddd;padding:10px;min-height:190px;max-width:43%;
-	border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+.cab_anketa_photo{
+	float:left;
+	border:2px solid #ddd;
+	min-height:190px;
+	max-width:43%;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	position: relative;
+}
+.cab_anketa_photo .cab_anketa_photo_glass{position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.5);}
 .cab_anketa_photo p{text-align:left;text-indent:1em;}
-.cab_anketa_photo div{width:140px;height:160px;background:#eee;cursor:pointer;}
+.cab_anketa_photo div{width:140px;height:192px;background:#eee}
 .cab_anketa_photo_del{color:#e00;font-weight:bold;text-align:left;display:block;margin-top:5px;}
+.cab_salon_photo_del{color:#e00;font-weight:bold;text-align:left;display:block;margin-top:5px;}
 .cab_anketa_photo_del:hover{text-decoration:underline;}
 .cab_anketa_panel{background:#ddd;padding:5px;float:right;margin-left:2px;width:230px;height:204px;}
 .ca_right{border-top-right-radius:5px;-moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px;
 	border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;-webkit-bottom-right-border-radius:5px;position: relative;}
 .ca_left{border-top-left-radius:5px;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px;
-	border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-bottom-left-border-radius:5px;}
+	border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-bottom-left-border-radius:5px;position: relative;}
 .ca_top{border-top-right-radius:5px;-moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px;
 	border-top-left-radius:5px;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px;}
 .ca_bottom{border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;-webkit-bottom-right-border-radius:5px;
@@ -278,10 +290,10 @@ b{color:#e00;font-size:14px;padding-left:3px;}
 	box-shadow:0 0 5px #444;-moz-box-shadow:0 0 5px #444;-webkit-box-shadow:0 0 5px #444;cursor:pointer;width: 100px;}
 .cab_form_radio{vertical-align:middle;}
 .cab_table_title{text-align:left;color:#e22;padding:5px !important;}
-#cab_photo_title{font-size:14px;padding-bottom:10px;color:#a71c28;text-shadow:0 2px 1px #fff;}
+#cab_photo_title{font-size:14px;padding-bottom:10px;color:#a71c28;text-shadow:0 2px 1px #fff;display: inline-block}
 #cab_ankets_wrap .cab_photos_form_wrap{overflow:hidden;padding:5px 90px;}
-.cab_ank_photo_ed{margin:5px;height:360px;}
-.cab_ank_photo_ed div{margin:0 auto;height:260px;}
+.cab_ank_photo_ed{margin:5px;height:340px;}
+.cab_ank_photo_ed div{margin:0 auto;}
 .cab_ank_sub_menu a,.cab_ank_button{display:block;margin:5px;padding:5px;text-shadow:0 2px 1px #a71c28;
 	background:#e22 url("/img/buttons_grad_bg.png") repeat-x center;color:#fff;}
 .cab_ank_sub_menu .right{float:right;}
@@ -410,7 +422,8 @@ b{color:#e00;font-size:14px;padding-left:3px;}
 }
 
 .pay-input {
-	margin: 20px 10px 10px 10px;
+	margin: 20px 10px 10px 0px;
+	color: #757575;
 }
 
 .pay .description {
@@ -434,8 +447,22 @@ b{color:#e00;font-size:14px;padding-left:3px;}
 
 .pay h4 {
 	display: block;
-	margin: 5px 0px 5px 5px;
+	margin: 10px 0px 10px 0px;
 	color: #757575;
+}
+
+.pay p {
+	color: #757575;
+}
+
+.success p{
+	color: #757575;
+	margin: 5px 0px 5px 0px;
+}
+
+.to_bottom {
+	position: absolute;
+	bottom: 0px;
 }
 /* end of payment style */
 
@@ -466,6 +493,7 @@ table {
 	padding-bottom:8px;
 	font-weight:normal;
 	color:#3f3f3f;
+	text-align: center;
 }
 
 .root_table_girl td a {
@@ -581,4 +609,66 @@ h4 {
 /* finance - settings */
 .finance-settings-table th {
 	width: 100px;
+}
+
+/* check photo statuses */
+#moderation_photo_check {
+	color: grey;
+}
+
+#success_photo_check {
+	color: green;
+}
+
+#failed_photo_check {
+	color: red;
+}
+
+.h3_cabinet_title {
+	text-align: left;
+	margin: 5px;
+}
+
+.button-block {
+	display: inline-block;
+	margin: 10px 0px 10px 15px;
+	width: 150px;
+	background: #d12931;
+	color: #fff;
+	border-radius: 5px;
+	vertical-align: middle;
+	height: 25px;
+	padding: 2px 5px;
+}
+
+.button-block-holder {
+	margin: 10px 0px 10px 0px;
+	text-align: left;
+}
+
+.margin-form {
+	display: block;
+	margin: 10px 0px 10px 0px;
+}
+
+.form-hidden {
+	display: none;
+}
+
+.comments p {
+	display: inline-block;
+}
+
+.comments a {
+	display: inline-block;
+	float: right;
+}
+
+#cab_ankets_wrap p {
+	text-align: left;
+	padding: 10px;
+}
+
+.ancher_wrapper a {
+	color: black;
 }

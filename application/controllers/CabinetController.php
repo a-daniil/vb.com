@@ -1,7 +1,7 @@
 <?php
 
 class CabinetController extends Zend_Controller_Action {
-		
+	
 	protected $content,$config,$user_id,$user_admin,$admin_flags;
 	
 	/* constants for user types */
@@ -18,9 +18,9 @@ class CabinetController extends Zend_Controller_Action {
 	const BDSM = 4;
 	const MAN = 6;
 	const TRANS = 7;
-	const PAIR = 5;	
+	const PAIR = 5;
 
-	public function init() { 		
+	public function init() {
     	$this->_helper->layout->setLayout('cabinet');
         $auth=Zend_Auth::getInstance()->getIdentity();
         if(!$auth){$this->_redirect('/');die;}
@@ -56,17 +56,17 @@ class CabinetController extends Zend_Controller_Action {
             // '0'  => 'No',
             '1'  => 'Yes'
         ); 
-        
+ 
         include_once 'Settings.php';
         $settings=new Settings;
         $this->settings=$settings->get();
-	}	
-	
+	}
+
 	public function indexAction() {
 		$page      = $this->getParam('p') ? intval($this->getParam('p')) : 1;
         $performer = $this->getParam('performer') ? intval($this->getParam('performer')) : false;
         $filter    = $this->getParam('filter') ? $this->getParam('filter') : false;
-        
+
         switch ($filter) {
         	case 'active' :
         		$filter = "active = 1 AND status >= 30";
@@ -82,37 +82,39 @@ class CabinetController extends Zend_Controller_Action {
         		break;
         	case 'all' : 
         		$filter = false;
-        		break;        	
+        		break;
         }
-        
+
 		include_once 'Ankets.php';
-		$ankets=new Ankets();		
-		
+		$ankets=new Ankets();
+
 		if($this->user_admin && $this->admin_flags->all_anks){$user_id=false;}
 		else{
-			$user_id = $this->user_id;			
+			$user_id = $this->user_id;
 			$this->view->balance = $balance = $this->calculateBalance();
 			$this->view->spend = $spend = $this->calculateSpending();
 			$this->view->forecast = $this->calculateForecast($balance, $spend);
 		}
-		$this->view->user_id = $user_id;		
-		
-		if ( $this->user_moder ) {
+		$this->view->user_id = $user_id;
+
+		if ( $this->admin_flags->all_anks ) {
+			$this->view->ankets = $ankets->get_ankets_list_cab($page, false, false, $performer, $filter);
+		} elseif ( $this->admin_flags->all_anks ) {
 			$this->view->ankets = $ankets->get_ankets_list_cab($page, false, true, $performer, $filter);
 		} else {
-			$this->view->ankets = $ankets->get_ankets_list_cab($page, $user_id, false, $performer, $filter);				
+			$this->view->ankets = $ankets->get_ankets_list_cab($page, $user_id, false, $performer, $filter);
 		}
-		
+
 		$this->view->all    = $ankets->count_all_ankets($user_id);
 		$this->view->active = $ankets->count_active_ankets($user_id);
 		$this->view->paid   = $ankets->count_paid_ankets($user_id);
-		include_once 'CountersAnkets.php';	
+		include_once 'CountersAnkets.php';
 		$this->view->per_page = $this->settings['girls_per_page'];
 	}
 
 	function profileAction () {
 		$type = $this->getParam('type');
-		
+
 		switch ($type) {
 			case 'pass' : 
 				$frm = new Form_EditPassForm();
@@ -120,8 +122,8 @@ class CabinetController extends Zend_Controller_Action {
 			case 'mess' :
 				$frm = new Form_EditMessForm();
 				break;
-		}		
-		
+		}
+
 		include_once 'Users.php';
 		$users = new Users();
 		$email = $users->get_email($this->user_id);
@@ -142,7 +144,7 @@ class CabinetController extends Zend_Controller_Action {
 					}
 					
 				} elseif ( $frm instanceof Form_EditMessForm ) {
-					$user_config = new Model_UsersConfig();	
+					$user_config = new Model_UsersConfig();
 					$result = $user_config->addUserMessagesConfig(
 						$frm->getValue('balance'),
 						$frm->getValue('days_info'),
@@ -170,13 +172,13 @@ class CabinetController extends Zend_Controller_Action {
 		
 		$this->view->login = $login;
 		$this->view->email = $email;
-		$this->view->form = $frm;		
+		$this->view->form = $frm;
 	}
 
 	function changeUserPassAction () {
 		$id = $this->getParam('id');
 		$frm = new Form_ChangeUserPassForm();
-		
+
 		include_once 'Users.php';
 		$users = new Users();
 		
@@ -308,8 +310,8 @@ class CabinetController extends Zend_Controller_Action {
 			$adapter = $messages->fetchPaginatorAdapter(Form_NewMessageForm::TO_MODER, $this->user_id);
 		} else {
 			$adapter = $messages->fetchPaginatorAdapter($this->user_id);
-		}			
-		
+		}
+	
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage(10);
 		$page = $this->_request->getParam('page', 1);
@@ -460,25 +462,30 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->verified = $stats_common->getCommon('verified');
 		$this->view->man = $stats_common->getCommon('man');
 	}
-	
+
 	function statisticCommerceAction() {
 		$ankets = new Model_AnketsTest();
-		$this->view->ankets_count = $ankets->getAnketsCount();	
-		
+		$anks = $ankets->getAnketsCount();
+		foreach ( $anks as $key => $value ) {
+			$ankets_count[$value['performer']] = $value['count'];
+		}
+
 		$salons = new Model_SalonsTest();
-		$this->view->salons = $salons->getSalonsCount();
-		
-		$this->view->girl_priority = $ankets->getPriority( 1 );
-		$this->view->lesb_priority = $ankets->getPriority( 2 );
-		$this->view->mass_priority = $ankets->getPriority( 3 );
-		$this->view->bdsm_priority = $ankets->getPriority( 4 );
-		$this->view->para_priority = $ankets->getPriority( 5 );
-		$this->view->man_priority = $ankets->getPriority( 6 );
-		$this->view->trans_priority = $ankets->getPriority( 7 );
-		
-		$this->view->salons_priority = $salons->getPriority();
+		$ankets_count[8] = $salons->getSalonsCount();
+
+		$count_priority[1] = $ankets->getPriority( 1 );
+		$count_priority[2] = $ankets->getPriority( 2 );
+		$count_priority[3] = $ankets->getPriority( 3 );
+		$count_priority[4] = $ankets->getPriority( 4 );
+		$count_priority[5] = $ankets->getPriority( 5 );
+		$count_priority[6] = $ankets->getPriority( 6 );
+		$count_priority[7] = $ankets->getPriority( 7 );
+		$count_priority[8] = $salons->getPriority();
+
+		$this->view->count_priority = $count_priority;
+		$this->view->count = $ankets_count;
 	}
-	
+
 	public function salonsAction() {
 		$page   = $this->_hasParam('p') ? intval($this->_getParam('p')):1;		
 		$filter = $this->getParam('filter') ? $this->getParam('filter') : false;
@@ -525,21 +532,21 @@ class CabinetController extends Zend_Controller_Action {
 	public function addAnkToSalonAction(){
 		if( $this->_hasParam('n')){
 			$this->view->salon = intval( $this->_getParam('n') );
-		}		
+		}
+
 		/* redirect to salons ingo pages */
 		if ( $this->_hasParam('to_photo') ) { $redirect = '/cabinet/edit-photo-salon/n/' . $this->view->salon; }
-		if ( $this->_hasParam('to_video') ) { $redirect = '/cabinet/edit-photo-video/n/' . $this->view->salon; }
+		if ( $this->_hasParam('to_video') ) { $redirect = '/cabinet/edit-video-salon/n/' . $this->view->salon; }
 		if ( $this->_hasParam('to_salon_edit') ) { $redirect = '/cabinet/edit-salon-form/id/' . $this->view->salon; }
 		if ( $redirect ) {
 			$this->_redirect($redirect);
 		}
-		
-		
-		$page = $this->_hasParam('p') ? intval($this->_getParam('p')):1;		
+
+		$page = $this->_hasParam('p') ? intval($this->_getParam('p')):1;
 		include_once 'Salons.php';
 		$salons=new Salons();
 		$this->view->info=$salons->get_salon( $this->_getParam( 'n' ) );
-		
+
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		if($this->user_admin && $this->admin_flags->all_anks){
@@ -547,17 +554,29 @@ class CabinetController extends Zend_Controller_Action {
 		} else {
 			$user_id=$this->user_id;
 		}
-		
+
+		/* add filter */
+		$filter = $this->getParam('filter') ? $this->getParam('filter') : 0;
+		switch ($filter) {
+			case 0: 
+				$filter = "type = " . $this->_getParam('n');
+				break;
+			case 1:
+				$filter = "type != " . $this->_getParam('n');
+				break;
+			default:
+				$filter = false;
+				break;
+		}
+
 		$this->view->user_id=$user_id;
 		$ankets->set_items_per_page(12);
-		$this->view->ankets=$ankets->get_ankets_list_cab($page,$user_id);
-		if( $this->view->ankets->getTotalItemCount() == 0 ){
-			$this->_redirect('/cabinet/salons');
-		}
+		$this->view->ankets=$ankets->get_ankets_list_cab($page,$user_id, false, false, $filter);
+
 		include_once 'CountersAnkets.php';
 		$this->view->counters=new CountersAnkets();
 	}
-	
+
 	public function addAnkSalonAction(){
 		$n = intval( $this->_getParam('n') );
 		$id = intval( $this->_getParam('a') );
@@ -587,7 +606,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect('/cabinet/add-ank-to-salon/n/'.$n);
 		die;
 	}
-	
+
 	public function ankModerationAction(){
 		$this->hasRights( array( 'user_admin', 'user_moder') );
 		$user_id = $this->_hasParam('uid') ? intval($this->_getParam('uid')) : false;
@@ -597,11 +616,11 @@ class CabinetController extends Zend_Controller_Action {
 		$ankets=new Ankets();
 		$this->view->ankets=$ankets->get_ankets_list_cab($page,$user_id,true);
 		include_once 'CountersAnkets.php';
-		$this->view->counters=new CountersAnkets();		
-		$this->view->user_id=false;
+		$this->view->counters=new CountersAnkets();
+		$this->view->user_id=$user_id;
 		$this->view->ank_moderation=true;
 	}
-	
+
 	public function salonsModerationAction(){		
 		$this->hasRights( array( 'user_admin', 'user_moder') );
 		$user_id = $this->_hasParam('uid') ? intval($this->_getParam('uid')) : false;
@@ -611,7 +630,7 @@ class CabinetController extends Zend_Controller_Action {
 		$salons = new Salons();
 		$this->view->salons = $salons->get_salons_list_cab($page,$user_id,true);
 		include_once 'CountersAnkets.php';
-		$this->view->counters=new CountersAnkets();		
+		$this->view->counters=new CountersAnkets();
 		$this->view->user_id=false;
 		$this->view->ank_moderation=true;
 	}
@@ -637,10 +656,12 @@ class CabinetController extends Zend_Controller_Action {
 			/* send message into inner mail */
 			Ps_SendMessage_SM::sendMessage($status, $comm, $info, $this->user_id);
 
-			if ( $comm && $status == 11 ) {
-				$comm_by_ankets_moderation = new Model_AnketsModerationComm();
-				$comm_by_ankets_moderation->addAnketaModerationCommm( $comm, $info['id'] );
-			}
+			$moderations = new Model_ModerationsTest();
+			$moderations->update(array(
+				'status'  => $status,
+				'comment' => $comm,
+				'date'    => date('Y-m-d H:i:s')
+			), "owner_id = " . $info['id'] . " AND date is null");
 		}
 		$this->_redirect('/cabinet/ank-moderation' . $this->addGetParamsToUri());
 		die;
@@ -690,24 +711,34 @@ class CabinetController extends Zend_Controller_Action {
 		$paginator->setCurrentPageNumber($page);
 		$this->view->paginator = $paginator;		
 	}
-	
+
 	function confirmCommentAction () {
 		$id = $this->getParam('id');
 		$uid = $this->getParam('uid');
-	
+
 		$users = new Model_CommentsTest();
 		$where = "id = " . $id;
-	
-		$res = $users->update(array('confirm' => true), $where);		
+
+		$res = $users->update(array('confirm' => true), $where);
 		/* send email */
 		if ( $res && Ps_Notifier_Email::isSend( $uid, Ps_Notifier_Email::COMMENT ) ) {
 			$notifier = new Ps_Notifier_Email( $uid, Ps_Notifier_Email::COMMENT );
 			$notifier->send($id);
 		}
-		
+
 		$this->_redirect('/cabinet/comment-moderation?uid=' . $uid);
 	}
-	
+
+	function deleteCommentAction() {
+		$id  = $this->getParam('id');
+		$uid = $this->getParam('uid');
+
+		$comments = new Model_CommentsTest();
+		$comments->delete('id = ' . $id);
+
+		$this->_redirect('/cabinet/comment-moderation?uid=' . $uid);
+	}
+
 	function addAnkFormAction () {		
 		$performer = $this->getParam('performer');	
 		$salons = $this->getUsersSalons();
@@ -1163,33 +1194,47 @@ class CabinetController extends Zend_Controller_Action {
 		include_once 'WebMoneySettings.php';
 		$webmoney_settings = new WebMoneySettings();
 		$data = $webmoney_settings->get();
-		
+
 		$this->view->vallets = array(
 			"WMR" => $data["WMR"],
 			"WMU" => $data["WMU"],
 			"WME" => $data["WME"],
 			"WMZ" => $data["WMZ"]
 		);
-		
+
 		/* set user email */
 		$users = new Model_UsersTest();
 		$this->view->user_email = $users->getEmail($this->user_id);
-				
+
 		/* generate Payment No. */
 		$payment_no = Ps_Payment_Order::getRandomPaymentNo();
 		$this->view->payment_no = $payment_no;
-		
+
 		/*  set user id */
 		$this->view->user_id = $this->user_id;
-		
+
 		/* get type */
 		$this->view->type = $this->_getParam('type');
 	}
-	
+
+	public function paymentStrictAction() {
+		/* set vallets from finance web money config */
+		include_once 'WebMoneySettings.php';
+		$webmoney_settings = new WebMoneySettings();
+		$data = $webmoney_settings->get();
+
+		$this->view->vallets = array(
+			"WMR" => $data["WMR"],
+			"WMU" => $data["WMU"],
+			"WME" => $data["WME"],
+			"WMZ" => $data["WMZ"]
+		);
+	}
+
 	public function paymentInfoAction() {
 		include_once 'FinanceSettings.php';	
-		$finance_settings = new FinanceSettings();		
-		$prices = $finance_settings->get();		
+		$finance_settings = new FinanceSettings();
+		$prices = $finance_settings->get();
 		$this->view->girl_price  = $prices['girl_hour_price'];
 		$this->view->lesb_price  = $prices['lesb_hour_price'];
 		$this->view->mass_price  = $prices['mass_hour_price'];
@@ -1247,7 +1292,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect('/cabinet/salons');
 		die;
 	}
-	
+
 	public function editPhotoAction(){
 		$this->get_config_info();
 		if(!$this->_hasParam('n')){$this->error('request_error');return;}
@@ -1266,7 +1311,7 @@ class CabinetController extends Zend_Controller_Action {
 				$this->view->preview=$info['photolist']['preview'];
 				unset($info['photolist']['preview']);
 			}
-			$count=count($info['photolist']);		
+			$count=count($info['photolist']);
 			if($count<$photos_num){
 				for($ii=0;$ii<$photos_num;$ii++){
 					if(!isset($info['photolist'][$ii])){$info['photolist'][$ii]=false;}
@@ -1277,7 +1322,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->info=$info;
 		$this->view->status = $info['status'];
 	}
-	
+
 	public function editPhotoSalonAction(){
 		$this->get_salon_info();
 		if( !$this->_hasParam('n') ){
@@ -1314,10 +1359,14 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->photos_path.='/'.$info['user_id'];
 		$this->view->info=$info;
 	}
-	
+
 	public function addPhotoAction() 
 	{
-		$id = $this->getParam('n');
+		$id = $this->getParam('n');	
+
+		if ( $this->_hasParam('next') ) {
+			$new = 1;
+		}
 
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
@@ -1345,8 +1394,9 @@ class CabinetController extends Zend_Controller_Action {
 				$path=$dir.'/'.$hash.'.'.$ext;
 				$simage=new SimpleImage();
 				if ( ! $simage->checkFile( $path_tmp, $this->config->limit->min_photo_width, $this->config->limit->min_photo_height ) ){
-					$cnt--;
-					continue;
+					$redirect='/cabinet/edit-photo/n/' . $id . "?unvalfile=" . ($cnt + 1) . "&new=" . $new;
+					$this->_redirect($redirect);
+					die();
 				}
 				$simage->load($path_tmp);
 				if($simage->getWidth()>$this->config->limit->max_photo_width){
@@ -1402,6 +1452,7 @@ class CabinetController extends Zend_Controller_Action {
 
 		$redirect='/cabinet?performer=' . $info['performer'];
 		if($this->_hasParam('next')){$redirect='/cabinet/check-photo/n/'.$id.'?new=1';}
+		elseif($this->_hasParam('to_comments')){$redirect='/cabinet/comms-list/n/'.$id;}
 		elseif($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
 		elseif($this->_hasParam('to_check_photo')){$redirect='/cabinet/check-photo/n/'.$id;}
 		elseif($this->_hasParam('to_video')){$redirect='/cabinet/edit-video/n/'.$id;}
@@ -1430,20 +1481,21 @@ class CabinetController extends Zend_Controller_Action {
 	    	 if ( !is_dir($dir)) {
 	    	 	mkdir($dir);
 	    	 }
-	    	 
+
 	    	 if (empty($info['photolist'])) {
 	    	 	$photos = array_fill(0, $this->config->limit->max_photos, false);
 	    	 } else {
 	    	 	$photos = unserialize($info['photolist']);
 	    	 }
-	    	 
+
 	    	 include_once 'SimpleImage.php';
-	    	 $cnt=-1;	    	
+	    	 $cnt=-1;
+	    	 $rcnt=-1;
 	    	 foreach($_FILES as $file){
 	    	 	$cnt++;
 	    	 	if($file['error'] || $file['size']>$this->config->limit->max_photo_size){
 	    	 		continue;
-	    	 	}	    	 	
+	    	 	}
 	    	 	$path_tmp=$dir.'/'.$file['name'];
 	    	 	move_uploaded_file($file['tmp_name'],$path_tmp);
 	    	 	$hash=md5_file($path_tmp);
@@ -1458,12 +1510,12 @@ class CabinetController extends Zend_Controller_Action {
 	    	 		$simage->resizeToWidth($this->config->limit->max_photo_width);
 	    	 	}
 	    	 	$simage->save($path);
-	    	 	$conf_aspect=$this->config->thumbnale_salon_width/$this->config->thumbnale_salon_height;
+	    	 	$conf_aspect=$this->config->thumbnale_width/$this->config->thumbnale_height;
 	    	 	$aspect=$simage->getWidth()/$simage->getHeight();
 	    	 	if($aspect>$conf_aspect){
-	    	 		$simage->resizeToHeight($this->config->thumbnale_salon_height);
+	    	 		$simage->resizeToHeight($this->config->thumbnale_height);
 	    	 	}
-	    	 	else{$simage->resizeToWidth($this->config->thumbnale_salon_width);
+	    	 	else{$simage->resizeToWidth($this->config->thumbnale_width);
 	    	 	}
 	    	 	$simage->save($dir.'/th_'.$hash.'.'.$ext);
 	    	 	unlink($path_tmp);
@@ -1480,7 +1532,7 @@ class CabinetController extends Zend_Controller_Action {
 	    	 		$count++;
 	    	 	}
 	    	 } 
-	    	 
+
 	    	 $new_info = array(
 	    	 	'photolist' => serialize($photos),
 	    	 	'status'	=> Ps_Statuses_ControlStatuses::getStatus(
@@ -1519,13 +1571,15 @@ class CabinetController extends Zend_Controller_Action {
 			$redirect.='/edit-salon-form/id/'.$id;
 		} elseif ($this->_hasParam('to_video')) {
 			$redirect.='/edit-video-salon/n/'.$id;
+		} elseif ($this->_hasParam('to_ankets')) {
+			$redirect.='/add-ank-to-salon/n/'.$id;
 		} else {
 			$redirect.='/salons';
 		}		
 		$this->_redirect($redirect);
 		die;
 	}
-	
+
 	public function delPhotoAction() {
 		if(!$this->_hasParam('n') || !$this->_hasParam('f')){$this->error('request_error');return;}
 		$id=intval(substr($this->_getParam('n'),0,32));
@@ -1614,30 +1668,37 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->status = $info['status'];
 		$this->view->photo_check = unserialize($info['photo_check']);
 		$this->view->info=$info;
-		
-		$comm_by_ankets_moderation = new Model_AnketsModerationComm();
-		$this->view->comm =	$comm_by_ankets_moderation->getByOwnerId( $info['id'] );
-	}	
-	
+
+		$moderations = new Model_ModerationsTest();
+		$moderations = $moderations->getByAnkId($info['id']);
+		$this->view->moderations = $moderations;
+	}
+
 	public function checkPhotoAddAction(){
 		if(!$this->_hasParam('n')){$this->error('request_error');return;}
 		$id=intval(substr($this->_getParam('n'),0,32));
-		
+
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($id);
-		
+
+		$moderations = new Model_ModerationsTest();
+
 		$err_nm=0;
 		foreach($_FILES as $file){if($file['error']){$err_nm++;}}
-		if( $err_nm<count($_FILES) ){			
+		if( $err_nm<count($_FILES) ){
 			$this->hasRights('user_admin', array($info['user_id'], $this->user_id));
-									
+
 			$dir=$this->config->path->user_photos.'/'.$info['user_id'];
 			if(!is_dir($dir)){
 				mkdir($dir);
 			}
 			$photos_check = unserialize($info['photo_check']);
-			
+
+			if  ( $this->_hasParam('next') ) {
+				$new = 1;
+			}
+
 			include_once 'SimpleImage.php';
 			if ( !$photos_check ) {
 				$cnt = -1;
@@ -1653,10 +1714,15 @@ class CabinetController extends Zend_Controller_Action {
 				$ext=array_pop(explode('.',$file['name']));
 				$path=$dir.'/'.$hash.'.'.$ext;
 				$simage=new SimpleImage();
-				$simage->load($path_tmp);
-				if($simage->getWidth()>$this->config->limit->max_photo_width){
-					$simage->resizeToWidth($this->config->limit->max_photo_width);
+				if ( ! $simage->checkFile( $path_tmp, $this->config->limit->min_photo_check_width, $this->config->limit->min_photo_check_height ) ){
+					$redirect='/cabinet/check-photo/n/' . $id . 
+						"?unvalid=true&width=" . $this->config->limit->min_photo_check_width .
+						"&height=" . $this->config->limit->min_photo_check_height .
+						"&new=" . $new;
+					$this->_redirect($redirect);
+					die();
 				}
+				$simage->load($path_tmp);
 				$simage->save($path);
 				$conf_aspect=$this->config->thumbnale_width/$this->config->thumbnale_height;
 				$aspect=$simage->getWidth()/$simage->getHeight();
@@ -1672,9 +1738,9 @@ class CabinetController extends Zend_Controller_Action {
 					unlink($dir.'/th_'.$photos_check[$cnt]);
 				}
 				$photos_check[$cnt]=$hash.'.'.$ext;
-			}			
-			
-			/* get photos count for right status */
+			}
+
+			/* get photos count for right status and then update status */
 			$photos = unserialize($info['photolist']);
 			$count  = 0;
 			foreach($photos as $key => $value) {
@@ -1682,24 +1748,32 @@ class CabinetController extends Zend_Controller_Action {
 					$count++;
 				}
 			}
-			
+
+			$status = Ps_Statuses_ControlStatuses::getStatus($info['status'], 'addCheckPhoto', array('count' => $count));
 			$new_info = array(
-				'photo_check' => serialize($photos_check),
-				'status'      => Ps_Statuses_ControlStatuses::getStatus($info['status'], 'addCheckPhoto', array('count' => $count))
+				'status' => $status
 			);
-			
+
 			$ankets->upd_anket($id,$new_info);
-		}		
-		
+
+			/* create moderation insertion */
+			$moderations->insert(array(
+				'owner_id'            => $info['id'],
+				'photo_check_indexes' => serialize($photos_check),
+				'status'              => 20
+			));
+		}
+
 		$redirect='/cabinet?performer=' . $info['performer'];
 		if($this->_hasParam('next')){$redirect = '/cabinet/edit-video/n/'.$id.'?new=1';}
+		elseif($this->_hasParam('to_comments')){$redirect='/cabinet/comms-list/n/'.$id;}
 		elseif($this->_hasParam('to_photo')){$redirect='/cabinet/edit-photo/n/'.$id;}
 		elseif($this->_hasParam('to_ank_edit')){$redirect ='/cabinet/edit-ank-form/id/'.$id;}
-		elseIf($this->_hasParam('to_video')){$redirect = '/cabinet/edit-video/n/'.$id;}	
+		elseIf($this->_hasParam('to_video')){$redirect = '/cabinet/edit-video/n/'.$id;}
 		$this->_redirect($redirect);
 		die;
 	}
-	
+
 	public function checkPhotoSalonAction(){
 		if(!$this->_hasParam('n')){
 			$this->error('request_error');return;
@@ -1806,7 +1880,7 @@ class CabinetController extends Zend_Controller_Action {
 				$this->view->preview=$info['videolist']['preview'];
 				unset($info['videolist']['preview']);
 			}
-			$count=count($info['videolist']);			
+			$count=count($info['videolist']);
 		}
 		$this->view->videos_path.='/'.$info['user_id'];
 		$this->view->info=$info;
@@ -1815,14 +1889,14 @@ class CabinetController extends Zend_Controller_Action {
 	public function addVideoAction(){
 		if(!$this->_hasParam('n')){$this->error('request_error');return;}
 		$id=intval(substr($this->_getParam('n'),0,32));
-		
+
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($id);
-		
+
 		$err_nm=0;
 		foreach($_FILES as $file){if($file['error']){$err_nm++;}}
-		if($err_nm<count($_FILES) || $this->_hasParam('preview')){			
+		if($err_nm<count($_FILES) || $this->_hasParam('preview')){
 			if($info['user_id']!=$this->user_id && !$this->user_admin){$this->error('no_rights_ank');return;}
 			$dir=$this->config->path->user_videos.'/'.$info['user_id'];
 			if(!is_dir($dir)){mkdir($dir);}
@@ -1837,7 +1911,20 @@ class CabinetController extends Zend_Controller_Action {
 				move_uploaded_file($file['tmp_name'],$path_tmp);
 				$hash=md5_file($path_tmp);
 				$ext=substr(strrchr($file['name'], '.'), 1);
-				$path=$dir.'/'.$hash.'.'.$ext;				
+				$path=$dir.'/'.$hash.'.'.$ext;
+				/*
+				$simage=new SimpleImage();
+				$simage->load($path_tmp);
+				if($simage->getWidth()>$this->config->limit->max_photo_width){
+					$simage->resizeToWidth($this->config->limit->max_photo_width);
+				}
+				$simage->save($path);
+				$conf_aspect=$this->config->thumbnale_width/$this->config->thumbnale_height;
+				$aspect=$simage->getWidth()/$simage->getHeight();
+				if($aspect>$conf_aspect){$simage->resizeToHeight($this->config->thumbnale_height);}
+				else{$simage->resizeToWidth($this->config->thumbnale_width);}
+				$simage->save($dir.'/th_'.$hash.'.'.$ext);
+				 */
 				copy($path_tmp, $path);
 				unlink($path_tmp);
 				if(isset($items[$cnt]) && $items[$cnt] && $items[$cnt]!=$hash.'.'.$ext){
@@ -1858,14 +1945,26 @@ class CabinetController extends Zend_Controller_Action {
 			elseif($info['status']==0 && $status){$new_info['status']=20;}
 			$ankets->upd_anket($id,$new_info);
 		}
-		$redirect='/cabinet?performer=' . $info['performer'];		
-		if($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
+		$redirect='/cabinet?performer=' . $info['performer'];
+		if($this->_hasParam('next')){$redirect='/cabinet/finish/n/'.$id;}
+		elseif($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
+		elseif($this->_hasParam('to_comments')){$redirect='/cabinet/comms-list/n/'.$id;}
 		elseif($this->_hasParam('to_check_photo')){$redirect='/cabinet/check-photo/n/'.$id;}
-		elseif($this->_hasParam('to_photo')){$redirect='/cabinet/edit-photo/n/'.$id;}		
+		elseif($this->_hasParam('to_photo')){$redirect='/cabinet/edit-photo/n/'.$id;}
 		$this->_redirect($redirect);
 		die;
 	}
-	
+
+	public function finishAction() {
+		$id = $this->getParam('n');
+
+		include_once 'Ankets.php';
+		$ankets=new Ankets();
+		$info=$ankets->get_anket($id);
+
+		$this->view->performer = $info['performer'];
+	}
+
 	public function addVideoSalonAction(){
 		if(!$this->_hasParam('n')){
 			$this->error('request_error');return;
@@ -1920,14 +2019,22 @@ class CabinetController extends Zend_Controller_Action {
 			$new_info=array('videolist'=>serialize($items));
 			$salons->upd_salon($id,$new_info);
 		}
-		$redirect='/cabinet';
-		if($this->_hasParam('to_salon_edit')){
+		$redirect='/cabinet/salons';
+		if($this->_hasParam('next')){
+			$redirect='/cabinet/finish-salon/n/'.$id;
+		} elseif ($this->_hasParam('to_salon_edit')){
 			$redirect.='/edit-salon-form/id/'.$id;
 		} elseif ( $this->_hasParam('to_photo') ) {	
-			$redirect.='/edit-photo-salon/n/'.$id;	
+			$redirect.='/edit-photo-salon/n/'.$id;
+		} elseif ( $this->_hasParam('to_ankets') ) {
+			$redirect.='/add-ank-to-salon/n/'.$id;
 		}
 		$this->_redirect($redirect);
 		die;
+	}
+
+	public function finishSalonAction() {
+
 	}
 
 	public function delVideoAction(){
@@ -2122,15 +2229,21 @@ class CabinetController extends Zend_Controller_Action {
 	public function moderAction(){
 		$this->hasRights( 'user_admin' );
 	}
-	
+
 	public function allAnksAction(){
 		$this->hasRights( array('user_tech', 'user_admin') );
+		$this->admin_flags->all_anks = true;
+
+		$this->_redirect('/cabinet/index/');
 	}
-	
+
 	public function myAnksAction(){
-		$this->hasRights( array('user_tech', 'user_admin') );	
+		$this->hasRights( array('user_tech', 'user_admin') );
+
+		$this->admin_flags->all_anks = false;
+		$this->_redirect('/cabinet/index');
 	}
-	
+
 	public function metaAction(){
 		$this->hasRights( array('user_tech', 'user_admin') );
 		include_once 'Meta.php';
@@ -2158,11 +2271,11 @@ class CabinetController extends Zend_Controller_Action {
 		$webmoney_settings = new WebMoneySettings();
 		$this->view->data = $webmoney_settings->get();
 	}
-	
-	function usersAction() {		
-		$this->hasRights( 'user_admin' );		
+
+	function usersAction() {
+		$this->hasRights( 'user_admin' );
 		$filter = $this->getParam('filter');
-		
+
 		$users = new Model_UsersTest();
 		$adapter = $users->fetchPaginatorAdapter( $filter );
 		$paginator = new Zend_Paginator($adapter);
@@ -2170,8 +2283,8 @@ class CabinetController extends Zend_Controller_Action {
 		$page = $this->_request->getParam('page', 1);
 		$paginator->setCurrentPageNumber($page);
 		$this->view->paginator = $paginator;
-	}	
-	
+	}
+
 	function anketsAction() {
 		$this->hasRights( array('user_moder', 'user_admin') );
 		
@@ -2195,10 +2308,10 @@ class CabinetController extends Zend_Controller_Action {
 		$paginator->setCurrentPageNumber($page);
 		$this->view->paginator = $paginator;		
 	}
-	
+
 	function commentsAction() {
 		$this->hasRights( array('user_moder', 'user_admin') );
-		
+
 		$commetns_per_users = new Model_CommentsTest();
 		$adapter = $commetns_per_users->fetchCommentsPerUsersPaginationAdapter();
 		$paginator = new Zend_Paginator($adapter);
@@ -2207,7 +2320,7 @@ class CabinetController extends Zend_Controller_Action {
 		$paginator->setCurrentPageNumber($page);
 		$this->view->paginator = $paginator;
 	}
-	
+
 	public function metaWriteAction(){
 		$this->hasRights( array('user_tech', 'user_admin') );
 		
@@ -2326,15 +2439,15 @@ class CabinetController extends Zend_Controller_Action {
 	}
 	
 	public function priorityWriteAction(){
-		$this->_helper->viewRenderer->setScriptAction('error');		
+		$this->_helper->viewRenderer->setScriptAction('error');
 		$id=intval(substr($this->_getParam('n'),0,32));
 		$pr=$this->getParam('pr');
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($id);
 		if($info['user_id']!=$this->user_id && !$this->user_admin){$this->error('no_rights_ank');return;}
-		
-		/* get cost for anket's type */		
+
+		/* get cost for anket's type */
 		include_once 'FinanceSettings.php';
 		$settings = new FinanceSettings;
 		$settings = $settings->get();
@@ -2373,7 +2486,7 @@ class CabinetController extends Zend_Controller_Action {
 				break;
 		}		
 	   /* end of get cost for ankets's type */
-		
+
 		include_once 'Users.php';
 		$users=new Users;
 		$user_info=$users->get_user_info($info['user_id']);
@@ -2446,7 +2559,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect('/cabinet/salons' .  $this->addGetParamsToUri());
 		die;
 	}
-	
+
 	public function toModerationAction(){
 		$this->_helper->viewRenderer->setScriptAction('error');
 		if(!$this->_hasParam('n')){$this->error('request_error');return;}
@@ -2455,14 +2568,32 @@ class CabinetController extends Zend_Controller_Action {
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($id);
 		if($info['user_id']!=$this->user_id && !$this->user_admin){$this->error('no_rights_ank');return;}
-		if($info['status']<30){$status=30;}
-		elseif($info['status']==40){$status=50;}
-		else{$status=30;}
-		$ankets->upd_anket($id,array('status'=>$status));
-		$this->_redirect('/cabinet');
+		if($info['status'] != 12){return;}
+		$ankets->upd_anket($id,array('status'=>20));
+		$this->_redirect('/cabinet' . $this->addGetParamsToUri());
 		die;
 	}
-	
+
+	public function toModerationSalonAction(){
+		$this->_helper->viewRenderer->setScriptAction('error');
+		if(!$this->_hasParam('n')){
+			$this->error('request_error');return;
+		}
+		$id=intval(substr($this->_getParam('n'),0,32));
+		include_once 'Salons.php';
+		$salons = new Salons();
+		$info=$salons->get_salon($id);
+		if($info['user_id']!=$this->user_id && !$this->user_admin){
+			$this->error('no_rights_ank');return;
+		}
+		if($info['status'] != 11){
+			return;
+		}
+		$salons->upd_salon($id,array('status'=>20));
+		$this->_redirect('/cabinet/salons' . $this->addGetParamsToUri());
+		die;
+	}
+
 	public function articlesAction(){
 		$page=$this->_hasParam('p')?intval($this->_getParam('p')):1;
 		include_once 'Articles.php';
@@ -2549,23 +2680,45 @@ class CabinetController extends Zend_Controller_Action {
 		$articles->upd_art($id,$info);
 		$this->_redirect('/cabinet/articles');die;
 	}
-	
+
 	public function commsListAction(){
 		$commpage=$this->_hasParam('cp')?intval($this->_getParam('cp')):1;
 		$id=$this->_hasParam('n')?intval($this->_getParam('n')):false;
-		if(!$id){$this->error('request_error');return;}		
+		if(!$id){$this->error('request_error');return;}
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($id);
 		if(!$info){$this->error('no_ank');return;}
 		if($info['user_id']!=$this->user_id && !$this->user_admin && !$this->user_moder){$this->error('no_rights_ank');return;}
-		$this->view->info=$info;		
+		$this->view->info=$info;
 		include_once 'Comments.php';
 		$comments=new Comments();
 		$this->view->comments=$comments->get_list($commpage,$id);
 		$this->view->adm_flag=self::COM_ADM;
+
+		$this->view->ank_id = $id;
 	}
-	
+
+	public function commsHideShowAction() {
+		foreach ( $_POST as $key => $value ) {
+			if ( preg_match('/^sh_(.*)/', $key) ) {
+				list($prefix, $id) = explode('_', $key);
+				$where[] = $id;
+			}
+		}
+
+		$comments = new Model_CommentsTest();
+		$where = 'id IN ('. implode(',',$where) .')';
+		if ( $_POST['comms-show-hide'] == 'Показать отмеченные' ) {
+			$data = array('hide' => false);
+		} elseif ( $_POST['comms-show-hide'] == 'Скрыть отмеченные' ) {
+			$data = array('hide' => true);
+		}
+
+		$comments->update($data, $where);
+		$this->_redirect('/cabinet/comms-list/n/' . $this->getParam('ank_id') . "?cp=" . $this->getParam('cp') );
+	}
+
 	public function commAddAction(){
 		if(!$this->_hasParam('n')){$this->_redirect('/');die;}
 		$ank_id=$this->_hasParam('n')?intval(substr($this->_getParam('n'),0,32)):false;
@@ -2752,7 +2905,7 @@ class CabinetController extends Zend_Controller_Action {
             // 	$info['failed']['services'] = true;
             //}                
             
-            if(isset($info['failed'])) {
+            if(isset($info['failed'])){
             	$this->error('requireds');
             	return $info;
             }
@@ -2773,17 +2926,14 @@ class CabinetController extends Zend_Controller_Action {
 				}
 			}
 
-       		$this->view->metro_list = array(
-        		'm1' => $this->content->metro_msk->toArray(),
-        		'm2' => $this->content->metro_spb->toArray()
-       		);
-
-       		$this->view->district_list = array(
-        		//'d1' => $this->content->district_msk->toArray(), // не заполнены в content.ini
-        		'd2' => $this->content->district_spb->toArray()
-        	);
-
-			//$this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
+			if( $info['city']==1 ){
+				$this->view->metro_list=$this->content->metro_msk->toArray();			
+			}
+			elseif( $info['city']==2 ){
+				$this->view->metro_list=$this->content->metro_spb->toArray();
+				$this->view->district_list=$this->content->district_spb->toArray();
+			}
+			$this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
             $this->_helper->viewRenderer->setScriptAction('add-section-form');
 			$this->view->info = $info;
        		$this->view->info = $this->arr_htmlentities($this->view->info);
@@ -3016,14 +3166,18 @@ class CabinetController extends Zend_Controller_Action {
     
     public function sectionsAction(){
     	$this->get_config_info();
+		//if(!$this->_hasParam('n')){$this->error('request_error');return;}
+    	$id=intval(substr($this->_getParam('n'),0,32));
     	$page=intval(substr($this->_getParam('p'),0,3));
+		if (!$id) $id = 1;
     	if (!$page) $page = 1;
     	if( !$this->user_admin && !$this->user_tech ){
     		$this->error('no_rights_ank');return;
     	}
     	include_once 'Sections.php';
     	$mSections=new Sections();
-    	$this->view->items=$mSections->get_list($page, array('uslugi', 'metro', 'rajon'));
+    	#$this->view->paginator=$mSections->get_list($page);
+    	$this->view->items=$mSections->get_list($page);
     }
 
     public function uslugiAction(){
@@ -3132,7 +3286,7 @@ class CabinetController extends Zend_Controller_Action {
             }
 
             $sections->add($info);
-            if ( preg_match('/uslugi/', $info['uri']) ) {
+			if ( preg_match('/uslugi/', $info['uri']) ) {
             	$this->_redirect('/cabinet/uslugi');die;
             } else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
             	$this->_redirect('/cabinet/metro-msk');die;
@@ -3292,11 +3446,11 @@ class CabinetController extends Zend_Controller_Action {
 	/* return get params in uri */
 	protected function addGetParamsToUri () {
 		$uri = "?";	
-		
-		foreach ( $_GET as $k => $v) {			
+
+		foreach ( $_GET as $k => $v) {
 			$uri .=  $k . "=" . $v . "&";
 		}
-		
+
 		return $uri;
 	}
 

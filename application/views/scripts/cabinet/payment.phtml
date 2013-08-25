@@ -1,8 +1,7 @@
 <div id="styles"></div>
-
 <div class="center">
 	<div id = "centerwrap" class="pay" >
-		<?php if ( $this->type == 0 ) : ?>		
+		<?php if ( $this->type == 0 ) : ?>
 			<h2>Пополнение счета</h2>
 		<?php elseif ( $this->type == 1) : ?>
 			<h2>Пополнение счета через терминал оплаты</h2>
@@ -14,13 +13,13 @@
 			<input type="text" size="15" maxlength="15" name="amount" id="amount" placeholder="1000.00"/> 
 			<select name="type" id="type">
 				<?php foreach( $this->vallets as $key => $value ) : ?>
-					<option value="<?php echo $value ?>"><?php echo $key ?></option>			
+					<option value="<?php echo $value ?>"><?php echo $key ?></option>
 				<?php endforeach; ?>
 			</select>
 			<button id="do_pay">Пополнить счёт</button>
 		</div>
 		<?php if ( $this->type == 0 ) : ?>		
-			<h4>Платежна система Web Money</h4>
+			<h4>Платежная система Web Money</h4>
 			<p>Для пополнения счета переводом по системе WebMoney необходимо скачать и установить себе программное обеспечение(кошелек), которое можно бесплатно скачать с сайта <a href="http://webmoney.ru">www.webmoney.ru</a></p>
 		<?php elseif ( $this->type == 1) : ?>		
 			<p>Как оплачивать через терминалы можно посмотреть <a href="http://www.webmoney.ru/rus/services/spendwm_noreg/terminal.shtml">тут</a></p>
@@ -29,15 +28,13 @@
 		<?php endif ?>
   	</div>
 </div>
-
 <form name=pay method="POST" action="https://merchant.webmoney.ru/lmi/payment.asp?<?php if ( $this->type == 1) echo "at=authtype_7"; elseif ( $this->type == 2) echo "at=authtype_3"; else echo "at=authtype_8"; ?>">
 	<input type="hidden" name="LMI_PAYMENT_AMOUNT" id="LMI_PAYMENT_AMOUNT">
 	<input type="hidden" name="LMI_PAYMENT_DESC_BASE64" value="<?php echo base64_encode("тестовый платеж"); ?>">
 	<input type="hidden" name="LMI_PAYMENT_NO" value="<?php echo $this->payment_no ?>">
 	<input type="hidden" name="LMI_PAYEE_PURSE" id="LMI_PAYEE_PURSE">
 	<input type="hidden" name="LMI_SIM_MODE" value="0">
-	<input type="hidden" name="LMI_PAYMER_EMAIL" value="<?php echo $this->user_email ?>">
-	
+	<input type="hidden" name="LMI_PAYMER_EMAIL" value="<?php echo $this->user_email ?>">	
 	<input type="hidden" name="LMI_ALLOW_SDP" value="">
 </form>
 

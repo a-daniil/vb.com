@@ -149,6 +149,8 @@ class Ankets extends Zend_Db_Table_Abstract{
 	public function get_ankets_by_salon_id($salon_id){
 		$select=$this->getAdapter()->select()->from(self::TABLE);
 		$select->where('type = ?', $salon_id);
+		$select->where('status > 20');
+		$select->where('active = 1');
 		$paginator=new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setPageRange(15);
 		$paginator->setCurrentPageNumber($page);
@@ -179,7 +181,7 @@ class Ankets extends Zend_Db_Table_Abstract{
 	public function count_all_ankets($user_id = false ) {
 		$select = $this->getAdapter()
 			->select()
-			->from(self::TABLE, 'COUNT(*) as count');			
+			->from(self::TABLE, 'COUNT(*) as count');
 		if ( $user_id ) {
 			$select->where('user_id = ?', $user_id); 
 		}
@@ -187,7 +189,7 @@ class Ankets extends Zend_Db_Table_Abstract{
 		if ( !$return ) {
 			return false;
 		}
-		return $return['count'];				
+		return $return['count'];
 	}	
 	public function count_active_ankets($user_id=false){
 		$select=$this->getAdapter()
@@ -212,6 +214,7 @@ class Ankets extends Zend_Db_Table_Abstract{
 		if(!$return){return false;}
 		return $return['count'];
 	}
+
  	public function check_phone($phone){
 		$select=$this->getAdapter()
 			->select()
@@ -219,12 +222,11 @@ class Ankets extends Zend_Db_Table_Abstract{
 			->where('phone = ?',$phone)
             ->order('RAND()'); 
 		$return=$this->getAdapter()->query($select)->fetch();
-        
 
 		if(!$return){return false;}
 		return $return;
 	}
-    
+
 	public function add_anket(array $info){
 		$this->getAdapter()->insert(self::TABLE,$info);
 		return $this->getAdapter()->lastInsertId(self::TABLE,'id');

@@ -62,7 +62,6 @@ function showPhoto(url){
 	div.style.top=window.pageYOffset+div.offsetTop+Math.round(Math.random()*50)+'px';
 }
 
-
 function types(){
 	var value = getId('jstype').value;
 	var performer = getId('jsperformer');
@@ -119,6 +118,13 @@ function captchaRefresh(){
 	$.get('/auth/captcha-refresh/id/'+$('#captcha-id').value,function(response){		
 		$('#captcha-image').attr( 'src', '/captcha/'+response+'.png');
 		$('#captcha-id').val(response);
+	});
+}
+
+function addAnkets(url) {
+	$.get('/index/add-ankets', {}, function(response){
+		$('.span6').html(response);
+		console.log(response);
 	});
 }
 

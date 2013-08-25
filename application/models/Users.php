@@ -2,15 +2,26 @@
 class Users extends Zend_Db_Table_Abstract{
  	const TABLE='users';
  	protected $per_page=50;
- 	public function user_check($login=null,$mail=null){
+	public function user_check_by_email( $mail ){
 		$select=$this->getAdapter()
-			->select()
-			->from(self::TABLE,array('id','user_login','mail'))
-			->limit(1);
-		if($login){$select->where('user_hash = ?',$login);}	
-		if($mail){$select->where('mail = ?',$mail);}
+		->select()
+		->from(self::TABLE,array('id','user_login','mail'))
+		->limit(1);
+		$select->where('mail = ?',$mail);
 		$return=$this->getAdapter()->query($select)->fetch();
 		if(!$return){return false;}
+		return $return;
+	}
+	public function user_check_by_name( $login ){
+		$select=$this->getAdapter()
+		->select()
+		->from(self::TABLE,array('id','user_login','mail'))
+		->limit(1);	
+		$select->where('user_hash = ?',$login);
+		$return=$this->getAdapter()->query($select)->fetch();
+		if(!$return){
+			return false;
+		}
 		return $return;
 	}
 	public function user_check_confirm($confirm){

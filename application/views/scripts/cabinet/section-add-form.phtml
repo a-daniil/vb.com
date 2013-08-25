@@ -25,7 +25,8 @@
                     <textarea name="text_right" id="editor2" rows="6"><?if(isset($this->info['text_right'])):?><?=$this->info['text_right']?><?endif?></textarea>
                     <h3>Подвал:</h3>
                     <textarea name="text_footer" id="editor3" rows="6"><?if(isset($this->info['text_footer'])):?><?=$this->info['text_footer']?><?endif?></textarea>
-                    <table>
+
+				    <table>
                         <tr>
                             <th <?if(isset($this->info['failed']['type'])):?>class="input_failed" <?endif?>>Тип:</th>
                             <td><select name="type">
@@ -196,7 +197,7 @@
                             </td>
                              
                         </tr>
-                    </table>                 
+                    </table>
                     <table>
               			<tr><th <?if(isset($this->info['failed']['services'])):?>class="input_failed" <?endif?>>Укажите услиги:</th>
                     <?foreach($this->services as $part=>$srv):?>
@@ -229,15 +230,17 @@
 	</form>
 </div></div>
 <script>
-	$(document).ready(function(){
-		$('#field_uri').attr('disabled', 'disabled');
-	});
-
+    function field_uri_editable(obj){
+      if ($(obj).attr('checked')){
+          $('#field_uri').removeAttr('disabled');
+      }else{
+          $('#field_uri').attr('disabled','disabled');
+      }
+    }
+    field_uri_editable('#field_uri_is_editable');
     $('#field_uri_is_editable').change(function(){
-    	if ( $('#field_uri').attr('disabled') ) {
-		    $('#field_uri').removeAttr('disabled');
-    	} else {
-			$('#field_uri').attr('disabled', 'disabled');
-    	}
+       field_uri_editable(this); 
     });
+    
+    
 </script>

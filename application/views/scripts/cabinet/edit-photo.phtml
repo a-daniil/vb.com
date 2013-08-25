@@ -3,10 +3,11 @@
 		<h2 id="cab_photo_title">Фотографии: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
 		<form id="cab_ankets_wrap" action="/cabinet/add-photo/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
 			<div class="cab_form"><div class="cab_anketa_header">
-				<ul>				
+				<ul>
 					<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
 					<li><input type="submit" value="Фото для проверки" name="to_check_photo" /></li>
 					<li><input type="submit" value="Видео" name="to_video" /></li>
+					<li><input type="submit" value="Комментарии" name="to_comments"></li>
 					<?/*?><li><a href="/">Видео</a></li>
 					<li><a href="/">Карта</a></li>
 					<li><a href="/">Комментарии</a></li>*/?>
@@ -17,15 +18,15 @@
 					<h3>Фото проверено</h3>
 					<p>Фотографии в данной анкете были проверенны. Если вы загрузите в нее новое фото, то проверка будет аннулирована. При удаление фото проверка сохраняется.</p>
 				</div>
-			<?endif?>			
+			<?endif?>
 			<div class="edit-photo-text">
 				<h3>Новая фотография</h3>
-				<p>Уважаемые рекламодатели, на сайте не допускается размещение чужих фотографий, порнографических фотографий, фотографий c логотипами других сайтов.</p>	
+				<p>Уважаемые рекламодатели, на сайте не допускается размещение чужих фотографий, порнографических фотографий, фотографий c логотипами других сайтов.</p>
 				<p>Порнографией считается:</p>
 				<ul>
 					<li>изображение полового сношения.</li>
-					<li>изображение сопоставимого с половым сношением действия сексуального характера.</li>		
-					<li>изображение половых органов (если есть заретушируйте или наложите изображение).</li>	
+					<li>изображение сопоставимого с половым сношением действия сексуального характера.</li>
+					<li>изображение половых органов (если есть заретушируйте или наложите изображение).</li>
 				</ul>
 				<p>Фотографии: 8 шт</p>
 				<p>
@@ -35,7 +36,7 @@
 					<span>Загружаемый файл должен быть не более 3 МБ, формата JPG, GIF, PNG. Минимальное разрешение не менее 400x400.</span>
 					<span>Для включения анкеты необходимо минимум 3 фото.</span>
 				</p>
-			</div>			
+			</div>
 			<div class="cab_photos_form_wrap">
 			<?foreach($this->info['photolist'] as $key=>$photo): $i++;?>
 			<div class="cab_anketa_photo cab_ank_photo_ed">
@@ -44,6 +45,9 @@
 				<p><?if($photo):?>Заменить<?else:?>Добавить<?endif?>:</p>
 				<br />
 				<input type="file" size="20" name="file_<?=$key?>" id="add_file_<?php echo $i; ?>" <? if ( $this->info['status'] >= 30 ) :?> onchange="bindEasyconfirmToSaveButton(this)" <? endif; ?> />
+				<?php if ( $_GET['unvalfile'] == $i ) : ?>
+					<span style="color: red;">Нельзя загружать фото размером меньше чем 400 * 400</span>
+				<?php endif; ?>
 				<br />
 				<?if($photo):?>
 					<br />
@@ -53,12 +57,12 @@
 				<?endif?>
 			</div>
 			<?endforeach?>
-			</div>			
+			</div>
 			<?php if ( $_GET['new'] ) : ?>
 				<input class="button" type="submit" value="Далее" id="save" name="next" />
-			<?php else : ?>			
+			<?php else : ?>
 				<input class="button" type="submit" id="save" value="Сохранить"/>
-			<?php endif ?>			
+			<?php endif ?>
 		</form>
 	</div>
 </div>

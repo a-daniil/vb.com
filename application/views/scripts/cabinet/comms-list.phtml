@@ -6,7 +6,18 @@
 		<?endforeach?>
 		</div>
 	<?endif?>
-	<div id="cab_ankets"><div id="cab_ankets_wrap">
+	<div id="cab_ankets">
+		<h3 class="h3_cabinet_title">Комментарии к анкете</h3>
+		<div style="text-align: left; margin: 10px 0px 10px 5px;">
+			<span style="color: #757575">Вы можете скрыть комментарии к анкете, на тот момент когда она показывается в приоритетном(платном) показе</span>
+		</div>
+		<div class="form-buttons">
+			<a href="/cabinet/edit-ank-form/id/<?php echo $this->ank_id ?>">Данные анкеты</a>
+			<a href="/cabinet/edit-photo/n/<?=$this->ank_id ?>">Фото</a>
+			<a href="/cabinet/check-photo/n/<?=$this->ank_id ?>">Фото для проверки</a>
+			<a href="/cabinet/edit-video/n/<?=$this->ank_id ?>">Видео</a>
+		</div>
+		<div id="cab_ankets_wrap">
 		<div class="cab_anketa_header">
 			<h2>
 				<?=$this->info['name']?> (
@@ -16,16 +27,30 @@
 			</h2>
 		</div>
 		<?if(count($this->comments)):?>
+			<form action="/cabinet/comms-hide-show?ank_id=<?php echo $this->ank_id ?>&cp=<?php echo $_GET['cp'] ?>"  method="POST" name="comms-hide-show" id="comms-hide-show"></form>
 			<div class="comments">
 			<?foreach($this->comments as $comment):?>
 			<div class="comment">
 				<h4><?if($this->admin || !$comment['flags'] & 1<<$this->adm_flag):?>
-					<a href="<?=$this->url(array('action'=>'comm-del-req','n'=>$comment['id']))?>" class="del">УДАЛИТЬ</a><?endif?>
-					<?=$comment['name']?> | <i><?=date('d.m.y G:i',strtotime($comment['timestamp']))?></i>
+					<!--  <a href="<?=$this->url(array('action'=>'comm-del-req','n'=>$comment['id']))?>" class="del">УДАЛИТЬ</a><?endif?>	-->
+					<input form="comms-hide-show" type="checkbox" name="sh_<?php echo $comment['id'] ?>" value="1">
+					<?=$comment['user_login']?> | <i><?=date('d.m.y G:i',strtotime($comment['timestamp']))?></i>
 				</h4>
-				<p><?=$comment['text']?></p>
+				<?php if ( !$comment['hide'] ) : ?>
+					<p><?=$comment['text']?></p>
+				<?php else : ?>
+					<p><del><?=$comment['text']?></del></p>
+				<?php endif; ?>
+				<a href="#" user_login="<?php echo $comment['user_login'] ?>" class="create_answear">
+					<img src="/img/messages.png" alt="Ответить" title="Ответить" />
+				</a>
 			</div>
 			<?endforeach?>
+			</div>
+			<div class="pages"><?=$this->paginationControl($this->comments,'Sliding','shared/pagination_comm.phtml')?></div>
+			<div class="button-block-holder">
+				<input type="submit" value="Скрыть отмеченные" class="button button-block" id="comms-hide" form="comms-hide-show" name="comms-show-hide" />
+				<input type="submit" value="Показать отмеченные" class="button button-block" id="comms-show" form="comms-hide-show" name="comms-show-hide" />
 			</div>
 		<?else:?>
 			<h4>Нет комментариев</h4>
@@ -48,3 +73,26 @@
 		</form>
 	</div></div>
 </div>
+<script type="text/javascript">
+	$(".create_answear").click(function (e){
+		e.preventDefault();
+		var $user_login = $(this).attr('user_login');
+		$("textarea[name='text']").text($user_login + ", ");
+		
+		if ( $(".cab_form").hasClass("form-hidden") ) {
+			$(".cab_form").toggleClass("form-hidden");
+		}
+	});
+
+	$("#add_comment_button").click(function (e){
+		e.preventDefault();
+  	    var text = $("textarea[name=text]").val();
+
+		$.get("/index/comm-add/n/<?= $this->info['id'] ?>",
+			{text: text},
+			function (response) {
+				$("textarea[name=text]").val('');
+			}
+		);
+	});
+</script>

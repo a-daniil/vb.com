@@ -1,17 +1,23 @@
 <div id="center">
 	<div id="cab_ankets">
-		<form id="cab_ankets_wrap" class="cab_form" method="post" action="/auth/recovery-req">
+		<h1 class="center_title">Восстановление пароля</h1>
+		<?foreach($this->errors as $error):?>
+			<div class="recovery-errors">
+				<h4><?=$error?></h4>
+			</div>
+		<?endforeach?>
+		<form id="cab_ankets_wrap" class="cab_form" method="post" action="/auth/recovery">
 			<div class="ca_top ca_bottom">
 				<table>
 					<tr>
 						<th>Логин:</th>
 						<td><input type="text" name="name"></td>
-						<td width="60%">Введите логин пользователя под которым вы регистрировались на сайте.</td>
+						<td width="60%">Укажите логин пользователя под которым вы регистрировались на сайте.</td>
 					</tr>
 					<tr>
 						<th>Почтовый адрес:</th>
 						<td><input type="text" name="mail"></td>
-						<td><strong>Или</strong> введите адрес электронной почты указанный вами при регистрации.</td>
+						<td><strong>Или</strong> Укажите адрес электронной почты указанный вами при регистрации.</td>
 					</tr>
 					<tr>
 						<th>Введите код защиты:</th>
@@ -24,7 +30,7 @@
 				</table>
 			</div>
 			<input id="captcha-id" type="hidden" name="id" value="<?=$this->captcha?>" />
-			<input class="button" type="submit" value="Отправить запрос">
+			<input class="button" type="submit" value="Отправить запрос" name="recovery">
 		</form>
 	</div>
 </div>

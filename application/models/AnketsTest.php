@@ -133,20 +133,20 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 	{
 		
 	}
-	
+
 	public function getAnketsCount()
 	{
 		$select = $this->select();
-		$select->from($this->_name, 'COUNT(*) as count');
+		$select->from($this->_name, array('COUNT(*) as count', 'performer'));
 		$select->group('performer');
-		
+
 		$row = $this->fetchAll($select);
 		if ( $row ) {
 			return $row->toArray();
 		}
 		return array();
 	}
-	
+
 	public function getAnketsCountByPriority()
 	{
 		$select = $this->select();
@@ -159,21 +159,21 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		}
 		return $row['count'];
 	}
-	
+
 	public function getPriority( $perfomer )
 	{
 		$select = $this->select();
 		$select->from($this->_name, 'COUNT(*) as count');
 		$select->where('performer = ?', $perfomer);
 		$select->where('priority = ?', 1);
-		
+
 		$row = $this->fetchRow($select);
 		if ( $row ) {
-			return $row->toArray();
+			return $row['count'];
 		}
 		return array();
 	}
-	
+
 	public function getToModerNum()
 	{
 		$select=$this->select();

@@ -1,7 +1,13 @@
 <div id="center">
-	<div class="pages"><?=$this->paginationControl($this->ankets, 'Sliding', 'pages_anks_to_salon.phtml')?></div>
+	<div class="pages">
+	<?=$this->paginationControl($this->ankets, 'Sliding', 'pages_anks_to_salon.phtml', array('salon' => $this->salon, 'filter' => $_GET['filter']))?>
+	</div>
 	<div id="cab_ankets">
-		<?if( !isset( $this->action ) ):?><h2 id="cab_photo_title">Салон: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2><?endif?>		
+		<?if( !isset( $this->action ) ):?><h2 id="cab_photo_title">Анкеты салона: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2><?endif?>
+		<span id="cab_ankets_span">
+			<a href="/cabinet/add-ank-to-salon/n/<?php echo $this->info['id'] ?>?filter=0" class="<?= $_GET['filter'] == 0 ? "active" : null ?>">Добавленные</a>
+			<a href="/cabinet/add-ank-to-salon/n/<?php echo $this->info['id'] ?>?filter=1" class="<?= $_GET['filter'] == 1 ? "active" : null ?>">Добавить</a>
+		</span>
 		<div id="cab_ankets_wrap" >
 			<div class="cab_form"><div class="cab_anketa_header">
 				<form action="/cabinet/add-ank-to-salon/n/<?php echo $this->salon ?>" method="post" >
@@ -18,7 +24,7 @@
 			<?php
 				if( !empty($row['photolist'])){
 					$photolist = unserialize($row['photolist']);
-					if( isset($photlist['preview'])){
+					if( isset($photolist['preview'])){
 						$photo = $photolist[$photolist['preview']];
 					}
 					else{
@@ -40,16 +46,16 @@
 					</a>
 					<br />
 					<ul class="cab_ank_sub_menu">
-							<?if( $row['type'] == ( $salon =$this->salon ) ):?>
-								<li><a href="/cabinet/del-ank-salon/a/<?=$row['id']?>/n/<?=$this->salon?>">Убрать</a></li>
-							<?else:?>
-								<li><a href="/cabinet/add-ank-salon/a/<?=$row['id']?>/n/<?=$this->salon?>">Добавить</a></li>
-							<?endif?>							
+						<?if( $row['type'] == ( $salon =$this->salon ) ):?>
+							<li><a href="/cabinet/del-ank-salon/a/<?=$row['id']?>/n/<?=$this->salon?>">Убрать</a></li>
+						<?else:?>
+							<li><a href="/cabinet/add-ank-salon/a/<?=$row['id']?>/n/<?=$this->salon?>">Добавить</a></li>
+						<?endif?>
 					</ul>
-				</div>						
+				</div>
 			</div>
 			<?endforeach?>
 		</div>
 	</div>
-	<div class="pages"><?=$this->paginationControl($this->ankets, 'Sliding', 'pages_anks_to_salon.phtml')?></div>
+	<div class="pages"><?=$this->paginationControl($this->ankets, 'Sliding', 'pages_anks_to_salon.phtml', array('salon' => $this->salon, 'filter' => $_GET['filter']))?></div>
 </div>

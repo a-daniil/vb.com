@@ -7,7 +7,7 @@
 					<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
 					<li><input type="submit" value="Фото" name="to_photo" /></li>
 					<?if($this->info['status']):?><li><input type="submit" value="Фото для проверки" name="to_check_photo" /></li><?endif?>
-
+					<li><input type="submit" value="Комментарии" name="to_comments" /></li>
 					<?/*?><li><a href="/">Карта</a></li>
 					<li><a href="/">Комментарии</a></li>*/?>
 				</ul>
@@ -52,7 +52,7 @@ s1.write('video1');
 			</div>
 			<div>
 				<?php if ( $_GET['new'] ) : ?>
-					<input class="button" type="submit" value="Готово"/>
+					<input class="button" type="submit" value="Готово" name="next"/>
 				<?php else : ?>			
 					<input class="button" type="submit" value="Сохранить"/>
 				<?php endif ?>				

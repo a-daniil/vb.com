@@ -7,10 +7,10 @@
 			<a href="/cabinet/users?filter=4" class="<?= $_GET['filter'] == 4 ? "active" : null ?>">Тех. админы</a>
 			<a href="/cabinet/users?filter=8" class="<?= $_GET['filter'] == 8 ? "active" : null ?>">Модераторы</a>
 		</div>	
-		<div style="clear: both;"></div>	
+		<div style="clear: both;"></div>
 		<table class='form-table' cellspacing='0' id="sorter">
 			<thead>
-				<th>Логин&nbsp</th>				
+				<th>Логин&nbsp</th>
 				<th>Баланс</th>
 				<th>Потрачено</th>
 				<th>Анкет</th>
@@ -18,8 +18,8 @@
 				<th>Статутс</th>
 				<th>Email</th>
 				<td>Редактирование</td>
-			</thead>			
-			<?php  
+			</thead>
+			<?php
 				echo $this->partialLoop('cabinet/users-statistic-row.phtml', $this->paginator); 
 			?>
 			<tfoot>
@@ -28,14 +28,14 @@
 						Всего:
 					</td>
 					<td class="digits">
-						<?= $this->showSumBalance( $_GET['filter'] ); ?>
+						<?= round($this->showSumBalance( $_GET['filter'] ), 2); ?>
 					</td>
 					<td class="digits">
-						<?= $this->showSumSpent( $_GET['filter'] ); ?>
+						<?= round($this->showSumSpent( $_GET['filter'] ), 2); ?>
 					</td>
 					<td class="digits">
 						<?= $this->showSumAnkets( $_GET['filter'] ); ?>
-					<td>										
+					<td>
 				</tr>
 			</tfoot>
 		</table>

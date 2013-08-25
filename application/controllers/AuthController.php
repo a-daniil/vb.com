@@ -16,6 +16,11 @@ class AuthController extends Zend_Controller_Action{
 		include_once 'Meta.php';
 		$meta=new Meta;
 		$this->view->meta=$meta->get();
+
+		/* get data for site menu */
+		include_once 'MenuItems.php';
+		$mMenuItems = new MenuItems();
+		$this->view->menu_items = $mMenuItems->get_all_items();
 	}
 	
 	public function indexAction() {
@@ -34,6 +39,13 @@ class AuthController extends Zend_Controller_Action{
 			$username = $filter->filter($username);
 			$password = $filter->filter($password);
 		}	
+
+		/* see in users_log */
+		$user_login = new Model_UsersLog();
+		if ( $user_login->hasBanned( $username ) ) {
+			$this->view->flag = 'error_banned';
+			return;
+		}
 		
 		$aa=new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));		
 		$aa	->setTableName('users')
@@ -45,6 +57,14 @@ class AuthController extends Zend_Controller_Action{
 		$result=$auth->authenticate($aa);
 		if($result->isValid() ) {
 		    $data=$aa->getResultRowObject(array('id','user_login','flags', 'status'));
+
+			 /* log users */
+		    $user_login = new Model_UsersLog();
+		    $user_login->createSuccess($username);
+		    /* end of users log */
+
+		    /* delete cookie */
+		    setcookie("auth_count", "", time() - 3600, "/");
 		    
 		    if ( !$data->status ) {
 		    	$this->view->flag = 'banned';
@@ -59,6 +79,26 @@ class AuthController extends Zend_Controller_Action{
 		    	}
 		    	die;
 		    }
+		}
+
+		/* log users */
+		$user_login = new Model_UsersLog();
+		$user_login->createFailed( $username );
+		/* end of users log */
+
+		/* not successful auth, create cookie */
+		if ( isset( $_COOKIE['auth_count'] ) ) {
+			$auth_count = $_COOKIE['auth_count'];
+			if ( $auth_count > 5 ) {
+				setcookie("auth_count", "banned", time() + 900);
+			} elseif ( $auth_count == "banned" ) {
+				
+			} else {
+				setcookie('auth_count', $auth_count+1, time() + 600, "/");
+			}
+		} else {
+			$auth_count = 0;
+			setcookie('auth_count', $auth_count+1, time() + 600, "/");
 		}
 		
 		$this->view->flag = 'error_credentials';
@@ -168,26 +208,62 @@ class AuthController extends Zend_Controller_Action{
 			"news"       => 1
 		));
 	}
+
 	public function recoveryAction(){
-		$this->captcha_add();
+		$this->captcha_add();		
+
+		if ( $_POST['recovery'] ) {
+			$this->captcha_check();
+			if($this->_hasParam('name')){
+				$name=$this->check_text(substr($this->_getParam('name'),0,16));
+			}
+			if($this->_hasParam('mail')){
+				$mail=$this->check_mail(substr($this->_getParam('mail'),0,64));
+			}
+			else{$this->error('request_error');return;
+			}
+			if(!$mail && !$name){
+				$this->error('request_error');return;
+			}
+			if(!empty($mail) && !$this->check_mail_correct($mail)){
+				$this->error('mail_error');
+			}
+			include_once 'Users.php';
+			$users=new Users();
+
+			// first search by login 
+			$info = null;
+			if ( $name ){
+				$name = md5($name);
+				$info = $users->user_check_by_name($name);
+			}
+			// second search by email
+			if ( !$info && $mail ) {
+				$info = $users->user_check_by_email($mail);
+			}
+
+			// check for not success
+			if( !$info ){
+				$this->error('no_user');return;
+			}
+
+			$confirm=$this->generate_confirm();
+			$users->user_recovery_add($info['id'],$confirm);
+			$link='http://'.$this->config->domen.'/auth/recovery-complete/id/'.$confirm;
+			$message='<p>'.$this->content->mail->message->recovery_req.'</p><br /><a href="'.$link.'">'.$link.'</a><br/>';
+
+			$message.= "<p>Письмо отправлено автоматически отвечать на него не нужно.<br/>";
+			$message.= "С уважением, робот <a href='http://". $this->config->domen ."'>PutanaStars.com</a>";
+
+			$this->send_mail($info['mail'],$this->content->mail->subj->recovery_req,$message,$this->content->mail->from->recovery_req);
+			$this->_redirect('/auth/recovery-req');
+		}
 	}
+
 	public function recoveryReqAction(){
-		$this->captcha_check();
-		if($this->_hasParam('name')){$name=$this->check_text(substr($this->_getParam('name'),0,16));}
-		else{$this->error('request_error');return;}
-		if($this->_hasParam('mail')){$mail=$this->check_mail(substr($this->_getParam('mail'),0,64));}
-		else{$this->error('request_error');return;}
-		if(!empty($mail) && !$this->check_mail_correct($mail)){$this->error('mail_error');}
-		include_once 'Users.php';
-		$users=new Users();
-		$info=$users->user_check(md5($name),$mail);
-		if(!$info){$this->error('no_user');return;}
-		$confirm=$this->generate_confirm();
-		$users->user_recovery_add($info['id'],$confirm);
-		$link='http://'.$this->config->domen.'/auth/recovery-complete/id/'.$confirm;
-		$message='<p>'.$this->content->mail->message->recovery_req.'</p><br /><a href="'.$link.'">'.$link.'</a>';
-		$this->send_mail($info['mail'],$this->content->mail->subj->recovery_req,$message,$this->content->mail->from->recovery_req);
+		
 	}
+
 	public function recoveryCompleteAction(){
 		if($this->_hasParam('id')){$id=$this->check_text(substr($this->_getParam('id'),0,32));}
 		else{$this->error('request_error');return;}

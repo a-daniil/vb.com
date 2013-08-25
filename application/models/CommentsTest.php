@@ -16,7 +16,7 @@ class Model_CommentsTest extends Zend_Db_Table_Abstract {
 		}
 		return $row['count'];
 	}
-	
+
 	public function fetchCommentsPerUsersPaginationAdapter () {
 		$select = $this->select()->setIntegrityCheck(false);
 		$select->from($this->_name, array('COUNT(*) as count', 'users.user_login', 'comments.user_id'));
@@ -26,11 +26,11 @@ class Model_CommentsTest extends Zend_Db_Table_Abstract {
 		$select->where('comments.confirm = false');
 		$select->group('comments.user_id');
 		$select->order('users.balance DESC');
-	
+
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
-	
+
 	public function fetchPaginatorAdapter( $user_id = null )
 	{
 		$select = $this->select();		

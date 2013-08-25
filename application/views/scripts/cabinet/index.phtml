@@ -3,13 +3,18 @@
 		<div class="pages"><?=$this->paginationControl($this->ankets,'Sliding','pages_cab.phtml')?></div>
 	<?php endif ?>
 	<div id="cab_ankets">
-		<ul class="top_info">			
+		<ul class="top_info">
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=all" ?>" <?php if ( $_GET['filter'] == 'all' ) : ?> class="underlined" <?php endif ?>>ВСЕГО АНКЕТ: <?=$this->all ?></a></li>
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=active" ?>" <?php if ( $_GET['filter'] == 'active' ) : ?> class="underlined" <?php endif ?>>ИЗ НИХ АКТИВНЫХ (ПОКАЗЫВАЮТСЯ): <?=$this->active?></a></li>
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=paid" ?>" <?php if ( $_GET['filter'] == 'paid' ) : ?> class="underlined" <?php endif ?>>ПРИОРИТЕТНЫХ (ОПЛАЧИВАЕМЫХ): <?=$this->paid?></a></li>
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=free" ?>" <?php if ( $_GET['filter'] == 'free' ) : ?> class="underlined" <?php endif ?>>БЕСПЛАТНЫХ: <?=$this->active-$this->paid?></a></li>
 			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=not_active" ?>" <?php if ( $_GET['filter'] == 'not_active' ) : ?> class="underlined" <?php endif ?>>СНЯТЫ С ПОКАЗА (ВЫКЛЮЧЕНЫ): <?=$this->all-$this->active?></a></li>
 		</ul>
+		<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/ank-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
+			<ul class="top_info_login">
+				<li>Анкеты <?php echo $this->getUserLoginById($this->user_id); ?><li>
+			</ul>
+		<?php endif ?>
 		<?if($this->user_id):?>
 		<hr />
 		<ul class="top_info_bottom">
@@ -33,7 +38,7 @@
 					else{$photo=array_shift($photolist);}
 				}
 				else{$photo=false;}
-				
+
 				if ( !empty($row['photo_check']) ) {
 					$photo_check = array_filter(unserialize($row['photolist']));
 					$photo_check = array_shift($photo_check);
@@ -59,6 +64,7 @@
 				</div>
 				<br />
 				<div class="cab_anketa_photo">
+					<?if ( $row['active'] == 0 ) : ?><div class="cab_anketa_photo_glass"></div><?php endif ?>
 					<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
 						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top;" <?endif?>></div>
 					</a>
@@ -86,18 +92,18 @@
 								<option value="1">Заблокировать</option>
 								<option value="2">Заблокировать (черный список)</option>
 							</select>
-							<input type="submit" value="применить">		
+							<input type="submit" value="применить" id="submit_status">
 							<div id="comment" style="display: none;">
 								<label for="comm_texarea">	
-								 	Комментарий (не обязательно):
+								 	Комментарий (обязательно):
 								</label>
-								<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>	
+								<textarea id="comm_textarea" name="comm" cols="25" rows="8" ></textarea>
 							</div>	
 						</form>
 						<br />
 						<div class="cab_ank_pan_sub">
 							<ul class="cab_ank_sub_menu">
-								<li><a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">Смотреть</a></li>	
+								<li><a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">Смотреть</a></li>
 							</ul>
 						</div>	
 					</div>
@@ -105,7 +111,7 @@
 				<div class="cab_anketa_panel ca_right">
 					<?if($row['active']==0):?><h2 title="Анкета выключена">АНКЕТА ВЫКЛЮЧЕНА</h2>
 					<?elseif($row['status']==10):?>
-						<h2 title="Не загружены фото">НЕ ПОЛНЫЕ ДАННЫЕ</h2>						
+						<h2 title="Не загружены фото">НЕ ПОЛНЫЕ ДАННЫЕ</h2>
 						<?php if ( !$this->isHaveRequiredPhotos( $row['id'], 3 ) ) : ?><h3>Загрузите минимум 3 фото!</h3><?php  endif ?>
 						<?php if ( !$this->isHavePhotoCheck( $row['id'] ) ) : ?><h3>Загрузите проверочную фотографию!</h3><?php endif ?>
 						<?php if ( $this->isHaveRequiredPhotos( $row['id'], 3 ) && $this->isHavePhotoCheck( $row['id'] ) ) : ?><h3>Загрузите новую проверочную фотографию!</h3><?php endif ?>					
@@ -115,6 +121,10 @@
 					<?elseif($row['status']==12):?>
 						<h2 title="Отклонена модератором">ОТКЛОНЕНА</h2>
 						<h3>Не полная информация</h3>
+						<h4>Результат проверки читайте в моих сообщениях. После изменений отправте на модерацию повторно.</h4>
+						<ul class="cab_ank_sub_menu">
+							<li><a href="/cabinet/to-moderation/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">На модерацию</a></li>
+						</ul>
 					<?elseif($row['status']==20):?><h2 title="Анкета на модерации">НА МОДЕРАЦИИ</h2>
 					<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
 					<?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
@@ -163,9 +173,7 @@
 									<?=	rusdate(strtotime($row['photo_start'])); ?>
 								</li>
 							<? endif; ?>
-						
-					
-							<? if ( $row['photo_finish'] != '0000-00-00 00:00:00' ) : ?>
+							<? if ( $row['photo_finish'] != '0000-00-00 00:00:00' && $row['status'] > 20 ) : ?>
 								<li class="left">
 									<strong>Проверка фото истекает: </strong>
 									<?= rusdate(strtotime($row['photo_finish'])) ?>
@@ -206,4 +214,19 @@
 			$(el).siblings('div').css('display', 'block');
 		}
 	}
+
+	$("#submit_status").click(function(e){
+		s = $('select[name="s"]').val();
+		console.log(s);
+		val = $('#comm_textarea').val();
+		console.log(val);
+		if ( (!val || val.length == 0 || val == "Обязательно оставьте комментарий" ) && s != 30 ) {
+			e.preventDefault();
+			$('#comm_textarea').val('Обязательно оставьте комментарий');
+		}
+	});
+
+	$("#comm_textarea").focus(function (){
+		$(this).val('');
+	})
 </script>

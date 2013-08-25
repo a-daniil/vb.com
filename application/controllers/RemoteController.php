@@ -51,18 +51,26 @@ class RemoteController extends Zend_Controller_Action {
         $this->view->admin=$this->admin;
         $this->config=Zend_Registry::get('config');
         $this->content=Zend_Registry::get('content');
+
+		/* сheck if is user banned */
+        $banned = $_COOKIE['auth_count'];
+        if ( $banned == "banned" ) {
+        	$this->view->banned = true;
+        } else {
+        	$this->view->banned = false;
+        }
     }
 
     public function phoneAction(){
         if(!$this->_hasParam('n')){$this->error('request_error');return;}
 		$ank_id=$this->_hasParam('n')?intval(substr($this->_getParam('n'),0,32)):false;
-		if(!$ank_id){$this->error('request_error');return;}			
+		if(!$ank_id){$this->error('request_error');return;}
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
-		$info=$ankets->get_ank_phone($ank_id);		
+		$info=$ankets->get_ank_phone($ank_id);
         $this->view->info = $info;
     }
-    
+
     public function phoneSalonAction(){
    		if(!$this->_hasParam('n')){$this->error('request_error');return;}
 		$salon_id = $this->_hasParam('n')?intval(substr($this->_getParam('n'),0,32)):false;

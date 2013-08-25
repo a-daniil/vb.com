@@ -1,7 +1,7 @@
 <?php 
 
 class Form_AddSalonForm extends Zend_Form
-{	
+{
 	/* Константы сообщений об ошибках */
 	const NOT_EMPTY = "Это поле обязательно к заполнению.";
 	const NOT_INT = "'%value%' не является целым числом.";
@@ -10,23 +10,23 @@ class Form_AddSalonForm extends Zend_Form
 	const NOT_LESS = "Значение больше максимально возможного.";
 	const NOT_RANGE = "Допустимый дипазон значений от %d до %d.";
 	const NOT_PHONE = "Неверный формат телефона.";
-	
-	
+	const NOT_ENG_LETTERS = "Только английские(латинские) символы";
+
 	/* Типы салонов */
 	const INTIM = 1;
 	const MASS = 2;
 	const BDSM = 3;
-	
+
 	protected $content;
 	protected $params;
-	
+
 	public function __construct( $content = null, $params = array() ){
 		$this->content = $content;
 		$this->params = $params;
-	
+
 		parent::__construct();
 	}
-	
+
 	public function init() {
 		$this->addElement('select', 'type', array(
 			'required' => true,
@@ -146,7 +146,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),			
 				array(
-					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-])?(\d{3})([)-])?(\d{3})(-?)(\d{2})(-?)(\d{2})$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
 				)))
 			),
@@ -168,7 +168,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-])?(\d{3})([)-])?(\d{3})(-?)(\d{2})(-?)(\d{2})$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
 				)))
 			),
@@ -405,6 +405,10 @@ class Form_AddSalonForm extends Zend_Form
 				array(
 					'NotEmpty', false, array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				))),
+				array(
+					'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
 			'required' => true,
