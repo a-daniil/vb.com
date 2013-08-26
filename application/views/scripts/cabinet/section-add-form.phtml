@@ -230,17 +230,15 @@
 	</form>
 </div></div>
 <script>
-    function field_uri_editable(obj){
-      if ($(obj).attr('checked')){
-          $('#field_uri').removeAttr('disabled');
-      }else{
-          $('#field_uri').attr('disabled','disabled');
-      }
-    }
-    field_uri_editable('#field_uri_is_editable');
-    $('#field_uri_is_editable').change(function(){
-       field_uri_editable(this); 
-    });
-    
-    
+	$(document).ready(function(){
+		$('#field_uri').attr('disabled', 'disabled');
+	});
+
+	$('#field_uri_is_editable').change(function(){
+		if ( $('#field_uri').attr('disabled') ) {
+			$('#field_uri').removeAttr('disabled');
+		} else {
+			$('#field_uri').attr('disabled', 'disabled');
+		}
+	});
 </script>
