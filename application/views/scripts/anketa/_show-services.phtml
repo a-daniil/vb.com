@@ -5,7 +5,7 @@
         	<h5><?php echo array_shift($srv) ?></h5>
         	<ul class="red_dot_list">
 				<?foreach($srv as $num=>$val):?>
-					<a href="<?php echo $sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+					<a href="/<?php echo $sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
 					<?if($this->srv_active[$part.'_'.$num]):?>
 						<li><?=$val?></li>
 					<?endif?>
