@@ -1393,11 +1393,11 @@ class CabinetController extends Zend_Controller_Action {
 				$ext=array_pop(explode('.',$file['name']));
 				$path=$dir.'/'.$hash.'.'.$ext;
 				$simage=new SimpleImage();
-				if ( ! $simage->checkFile( $path_tmp, $this->config->limit->min_photo_width, $this->config->limit->min_photo_height ) ){
-					$redirect='/cabinet/edit-photo/n/' . $id . "?unvalfile=" . ($cnt + 1) . "&new=" . $new;
-					$this->_redirect($redirect);
-					die();
-				}
+				//if ( ! $simage->checkFile( $path_tmp, $this->config->limit->min_photo_width, $this->config->limit->min_photo_height ) ){
+				//	$redirect='/cabinet/edit-photo/n/' . $id . "?unvalfile=" . ($cnt + 1) . "&new=" . $new;
+				//	$this->_redirect($redirect);
+				//	die();
+				//}
 				$simage->load($path_tmp);
 				if($simage->getWidth()>$this->config->limit->max_photo_width){
 					$simage->resizeToWidth($this->config->limit->max_photo_width);
@@ -3177,7 +3177,7 @@ class CabinetController extends Zend_Controller_Action {
     	include_once 'Sections.php';
     	$mSections=new Sections();
     	#$this->view->paginator=$mSections->get_list($page);
-    	$this->view->items=$mSections->get_list($page);
+    	$this->view->items=$mSections->get_list($page, array('metro', 'uslugi', 'rajon'));
     }
 
     public function uslugiAction(){

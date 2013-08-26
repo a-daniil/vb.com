@@ -26,4 +26,18 @@ class Model_SectionsTest extends Zend_Db_Table_Abstract {
 		}
 		return array();
 	}
+	
+	public function getUriForServices( $srv) {
+		if (!$srv) return null;
+		
+		$select = $this->select();
+		$select->from($this->_name, array('uri'));
+		$select->where($srv);
+		
+		$row = $this->fetchRow($select);
+		if ( $row ) {
+			return $row['uri'];
+		}
+		return null;
+	}
 }
