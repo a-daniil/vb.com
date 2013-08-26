@@ -33,6 +33,7 @@ class Model_SectionsTest extends Zend_Db_Table_Abstract {
 		$select = $this->select();
 		$select->from($this->_name, array('uri'));
 		$select->where($srv);
+		$select->where("uri LIKE '%uslugi%'");
 		
 		$row = $this->fetchRow($select);
 		if ( $row ) {
