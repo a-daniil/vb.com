@@ -358,8 +358,13 @@ $( '#review_form a, #review_form input[name="photo_original"], select[name="phot
 <script type="text/javascript">
 	$(".add_review").click(function(e){
 		e.preventDefault();
-		
-		$('#hide_register_block').fadeIn();		
-		$('div.comments_common_block').toggleClass('hide');
+
+		var $user_id = <?php if ( $this->user_id ) echo $this->user_id; else echo "null"; ?>;
+				
+		if ( $user_id ) {
+			$('div.comments_common_block').toggleClass('hide');
+		} else {
+			$('#hide_register_block').fadeIn();
+		}
 	});
 </script>
