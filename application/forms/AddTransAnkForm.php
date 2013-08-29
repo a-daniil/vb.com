@@ -226,7 +226,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 		
 		$this->addElement('select', 'exotics', array(			
 			'multiOptions' => $this->content->exotics->toArray(),
-			'label'    => 'Экзотика:',
+			'label'    => 'Национальность:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',

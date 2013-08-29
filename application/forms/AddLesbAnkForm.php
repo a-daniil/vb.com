@@ -205,7 +205,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 		
 		$this->addElement('select', 'exotics', array(			
 			'multiOptions' => $this->content->exotics->toArray(),
-			'label'    => 'Экзотика:',
+			'label'    => 'Национальность:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
@@ -391,7 +391,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 		
 		$this->addElement('select', 'exotics_2', array(
 				'multiOptions' => $this->content->exotics->toArray(),
-				'label'    => 'Экзотика:',
+				'label'    => 'Национальность:',
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',

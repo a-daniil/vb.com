@@ -17,7 +17,11 @@ function rusdate($d, $format = 'j %MONTH% Y', $offset = 0)
 function getLink($value, $boundries, $links) {
 	for ( $i = 0; $i < count($boundries); $i++ ) {
 		if ( $value <= $boundries[$i][1] && $value >=  $boundries[$i][0] ) {
-			return $links[$i];
+			if ( $links[$i] ) {
+				return $links[$i];
+			}
+			
+			return "#";
 		}
 	}
 	return "#";
