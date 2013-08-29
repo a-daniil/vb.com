@@ -13,3 +13,12 @@ function rusdate($d, $format = 'j %MONTH% Y', $offset = 0)
     $format = preg_replace($sarr, $rarr, $format); 
     return date($format, $d);
 }
+
+function getLink($value, $boundries, $links) {
+	for ( $i = 0; $i < count($boundries); $i++ ) {
+		if ( $value <= $boundries[$i][1] && $value >=  $boundries[$i][0] ) {
+			return $links[$i];
+		}
+	}
+	return "#";
+}

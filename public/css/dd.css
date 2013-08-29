@@ -3,6 +3,9 @@
 .borderRadiusBtm{-moz-border-radius:4px; border-radius:4px;}
 
 .ddcommon {position:relative;display:-moz-inline-stack; zoom:1; display:inline-block; *display:inline; cursor:default;}
+.selects_holder .ddcommon {
+	width: 140px !important;
+}
 .ddcommon ul{padding:0;margin:0;}
 .ddcommon ul li{list-style-type:none;}
 /* .borderRadiusTp ul li:last-child{-moz-border-radius:0 0 5px 5px ; border-radius:0 0 5px 5px;border-bottom:0 none #c3c3c3; }

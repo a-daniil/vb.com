@@ -41,8 +41,8 @@
 						</ul>
 						<span class="grey_metro"><span class="grey_metro_icon"></span><?= $this->metro_list[$this->info['metro']]?></span>
 						<h5>Параметры:</h5>
-						<ul class="girl_card_info_list black_list">
-							<li>Возраст..............<?php echo $this->info['age'] ?></li>
+						<ul class="girl_card_info_list black_list">							
+							<li><a href="<?php echo getLink($this->info['age'],array(array(18,21),array(22,30),array(31,40),array(41, 99)),array('vozrast/junye','vozrast/molodye','vozrast/zrelye','vozrast/v-vozraste')); ?>">Возраст..............<?php echo $age ?></a></li>
 							<li>Рост...................<?php echo $this->info['weight'] ?></li>
 							<li>Вес....................<?php echo $this->info['height'] ?></li>
 							<li>Грудь.................<?php echo $this->info['breast'] ?></li>

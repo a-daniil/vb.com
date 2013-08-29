@@ -75,20 +75,3 @@ function showLoginForm() {
 		}
 	});
 }
-
-function showLoginFormByAddReview() {
-	var $message = $('.login_form');
-
-	if ($message.css('display') != 'block') {
-		$message.show();
-
-		var firstClick = true;
-		$(document).bind('click.myEvent', function(e) {
-			if (!firstClick && $(e.target).closest('.login_form').length == 0) {
-				$message.hide();
-				$(document).unbind('click.myEvent');
-			}
-			firstClick = false;
-		});
-	}
-}

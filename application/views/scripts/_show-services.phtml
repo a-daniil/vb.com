@@ -1,11 +1,17 @@
+<?php //get sections for right uri links ?>
+<?php $sections = new Model_SectionsTest(); ?>
 <ul class="red_dot_list">
 <?php
     $count = 0;
 	foreach($this->services as $srv=>$list){
 		array_shift($list);
 		foreach($list as $key=>$value){
-			if( $this->row['srv'.'_'.$srv] & 1<<$key ){
+			if( $this->row['srv'.'_'.$srv] & 1<<$key ) {
+				echo "<a href='/";
+				echo $sections->getUriForServices('srv_' . $srv . '&1<<' . $key) ? $sections->getUriForServices('srv_' . $srv . '&1<<' . $key) : '#';
+				echo "' />";
 				echo "<li>" . $value . "</li>";
+				echo "</a>";		
 				$count++;
 				if ( $count > 2 ) {
 					break 2;

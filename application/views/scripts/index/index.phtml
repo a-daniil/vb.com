@@ -1,3 +1,5 @@
+<?php //get sections for right uri links ?>
+<?php $sections = new Model_SectionsTest(); ?>
 <style>
 	.hidden {
 		visibility: hidden;
@@ -30,6 +32,14 @@
 
 		$( "#amount_breast_size" ).val($( "#slider_breast_size" ).slider( "values", 0 ) +
 		  " - " + $( "#slider_breast_size" ).slider( "values", 1 ));
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.add_review').click(function(){
+			$('#hide_register_block').fadeIn();
+				return false;
+		})
 	});
 </script>
 <div class="fix_width">
@@ -136,8 +146,8 @@
 							<h4 class="girl_card_title"><?php echo $row['name'] ?></h4>
 							<span class="girl_card_price"><?php echo $row['price_1h_ap'] ? $row['price_1h_ap'] : '' ?><span>руб/час</span></span>
 							<span class="grey_metro"><span class="grey_metro_icon"></span><?php echo $this->metro_list[$row['metro']] ?></span>
-							<ul class="girl_card_info_list">
-								<li>Возраст..............<?php echo $row['age'] ?></li>
+							<ul class="girl_card_info_list">								
+								<li><a href="<?php echo getLink($row['age'],array(array(18,21),array(22,30),array(31,40),array(41, 99)),array('vozrast/junye','vozrast/molodye','vozrast/zrelye','vozrast/v-vozraste')); ?>">Возраст..............<?php echo $row['age'] ?></a></li>
 								<li>Рост...................<?php echo $row['height'] ?></li>
 								<li>Вес.....................<?php echo $row['weight'] ?></li>
 								<li>Грудь..................<?php echo $row['breast'] ?></li>
@@ -307,7 +317,9 @@
 						    <?php array_shift($srv); ?>
 							<?php foreach($srv as $num=>$val) : ?>
 								<?php if ($part == 'main' ) : ?>
-									<li><a href="<?php echo $part . '_' . $num?>"><?php echo $val ?></a></li>
+									<a href="/<?php echo $sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+										<li><?php echo $val ?></li>
+									</a>
 								<?php endif ?>
 							<?php endforeach ?>
 						<?php endforeach ?>
@@ -318,7 +330,9 @@
 						    <?php array_shift($srv); ?>
 							<?php foreach($srv as $num=>$val) : ?>
 								<?php if ($part == 'add' ) : ?>
-									<li><a href="<?php echo $part . '_' . $num?>"><?php echo $val ?></a></li>
+									<a href="/<?php echo $sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+										<li><?php echo $val ?></li>
+									</a>
 								<?php endif ?>
 							<?php endforeach ?>
 						<?php endforeach ?>

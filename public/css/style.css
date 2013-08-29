@@ -39,7 +39,7 @@ a{
 }
 a:hover{
 	color: #222;
-	text-decoration: underline;
+	text-decoration: none;
 }
 /* Заголовки */
 h1, h2, h3{font-family: 'AvantiBold', Arial, Verdana, Helvetica, sans-serif;}
@@ -2214,3 +2214,46 @@ and (max-device-width : 480px) {
 	color: #330C0A;
 }
 .copywright_ul li{margin: 0 0 26px;}
+
+#hide_register_block{display: none;}
+.popup_holder{
+	background-color: #EEE;
+	color: #3F3F3F;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 27px;
+	margin: 0 0 15px;
+}
+.
+.root_girl_form {
+	background-color: #EEE;
+	margin: 0 10px;
+	padding: 9px;
+}
+
+.root_girl_form_text {
+	color: #B23535;
+	font-family: "Calibri",Arial,Helvetica,sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 14px;
+	padding-bottom: 10px;
+}
+
+.root_girl_form_elem {
+	overflow: hidden;
+}
+
+.root_girl_form_elem input {
+	border-radius: 0;
+	height: 18px;
+	margin: 0 1px 0 0;
+	padding: 0;
+	width: 90px;
+}
+.btn_reg{
+	display: block;
+	font-size: 12px;
+	line-height: 14px;
+	color: #0088CC;
+}

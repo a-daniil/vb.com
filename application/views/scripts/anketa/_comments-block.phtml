@@ -1,3 +1,11 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.add_review').click(function(){
+			$('#hide_register_block').fadeIn();
+			return false;
+		})
+	});
+</script>
 <?php if ( $this->reviews->getTotalItemCount() ): ?>
 	<div class="ribbon_title_bg">
 		<div class="ribbon_title_overflow">
@@ -21,10 +29,27 @@
 	</ul>	
 <?php endif ?>
 <?=$this->paginationControl($this->reviews,'Sliding','shared/pagination_comm.phtml')?>
-<a href="#" class="add_review"><span class="add_review_icon"></span>Оставить отзыв</a>
-<div class="show_not_autorize hide">
-	<p>Для того что бы оставлять отзывы авторизуйтесь пожалуйста!</p>
+<a href="#" class="add_review">
+	<span class="add_review_icon"></span>Оставить отзыв
+</a>
+<?php if ( !$this->user_id ): ?>
+<div id="hide_register_block">
+	<div class="popup_holder">
+		<div class="root_girl_title">
+			<form action="/auth" method="post" class="root_girl_form">
+				<div class="root_girl_form_text">Отзывы могут оставлять только зарегистрированные пользователи!</div>
+				<div class="root_girl_form_elem">
+					<input type="text" name="username" id="num_phone">
+					<input type="password" name="password" id="num_phone">
+					<input type="hidden" id="url" name="url" value="<?php echo $_SERVER['REQUEST_URI'] ?>">
+					<button class="button">Войти на сайт</button>
+					<a class="btn_reg" href="#">Регистрация</a>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
+<?php endif; ?>
 <div class="comments_common_block hide">
 	<p>Если вы лично побывали у этой девушки вы можете отсавить отзыв и оценить качество оказанных услуг. После этого анкета появится в списке проверенных в Вашем кабинете.</p>
 	<span class="grey_italic">Все поля отмеченые <span class="required">*</span> обязательны для заполнения.</span>
@@ -254,11 +279,9 @@ $("#review_form").submit(function(event) {
 			 }
 		  }
       })
-      
-      /* validation */
-      
-      
-     
+    
+  //debug   
+  /*
   console.dir(services);
   console.log(photo_original);
   console.log(photo_original_select);
@@ -269,7 +292,8 @@ $("#review_form").submit(function(event) {
   console.log(score);
   console.log(owner_id);
   console.log(user_id);
-  console.log(url);  
+  console.log(url); 
+  */ 
  
   /* Send the data using post */
   var posting = $.post( url, {
@@ -283,7 +307,10 @@ $("#review_form").submit(function(event) {
 	"service" : service,
 	"services[]" : services,
 	"score" : score
-  });
+  })
+  	.done(function(){ 
+  		$('div.comments_common_block').toggleClass('hide');
+  	});
 });
 
 $( '#review_form a, #review_form input[name="photo_original"], select[name="photo_original_select"] ' ).bind('click.myEvent checked.myEvent change.myEvent', function(e) {	
@@ -331,14 +358,8 @@ $( '#review_form a, #review_form input[name="photo_original"], select[name="phot
 <script type="text/javascript">
 	$(".add_review").click(function(e){
 		e.preventDefault();
-
-		<?php if ( $this->user_id ) : ?>
-			$('div.comments_common_block').toggleClass('hide');
-		<?php else : ?>
-			$('div.show_not_autorize').toggleClass('hide');
-			if ( !$('div.show_not_autorize').hasClass('hide') ) {
-				showLoginFormByAddReview();
-			}
-		<?php endif ?>
+		
+		$('#hide_register_block').fadeIn();		
+		$('div.comments_common_block').toggleClass('hide');
 	});
 </script>
