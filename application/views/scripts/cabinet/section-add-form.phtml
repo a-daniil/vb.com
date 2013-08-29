@@ -87,11 +87,16 @@
                             <th <?if(isset($this->info['failed']['metro'])):?>class="input_failed" <?endif?>>Метро:</th>
 							<td id="jsmetro">
 								<?php 
-									if ( $this->info['city'] == 2 ) {
-										$array_index = "m2";
-									} else if ( $this->info['city'] == 1) {
-										$array_index = "m1";
-									}
+									switch ($this->info['city']) {
+										case 2 :
+												$array_index = "m2";
+											break;
+										case 3 :
+												$array_index = "m1";
+											break;
+										default: 
+												$array_index = "m1";
+									}									
 								?>
 								<select name="metro">
 									<?foreach($this->metro_list[$array_index] as $value=>$title):?>

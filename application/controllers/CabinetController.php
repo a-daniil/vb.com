@@ -2928,14 +2928,17 @@ class CabinetController extends Zend_Controller_Action {
 					$this->view->srv_active[$srv.'_'.$key]=$info['srv'.'_'.$srv] & 1 << $key ? true : false;
 				}
 			}
-
-			if( $info['city']==1 ){
-				$this->view->metro_list=$this->content->metro_msk->toArray();			
-			}
-			elseif( $info['city']==2 ){
-				$this->view->metro_list=$this->content->metro_spb->toArray();
-				$this->view->district_list=$this->content->district_spb->toArray();
-			}
+			
+			$this->view->metro_list = array(
+				'm1' => $this->content->metro_msk->toArray(),
+				'm2' => $this->content->metro_spb->toArray()
+			);
+			
+			$this->view->district_list = array(
+				//'d1' => $this->content->district_msk->toArray(), // не заполнены в content.ini
+				'd2' => $this->content->district_spb->toArray()
+			);
+		
 			$this->view->metro_list_checkbox = $this->metro_for_checkbox($this->view->metro_list,  unserialize($info['metro']));
             $this->_helper->viewRenderer->setScriptAction('add-section-form');
 			$this->view->info = $info;
@@ -3303,14 +3306,14 @@ class CabinetController extends Zend_Controller_Action {
             $this->_redirect('/cabinet/sections');die;
         }
 
-        public function sectionEditFormAction(){
+        public function sectionEditFormAction() {
             if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
             if(!$this->_hasParam('n')){$this->error('request_error');return;}
             $this->get_config_info();
             include_once 'Sections.php';
             $sections=new Sections();
             $this->view->info = $info = $sections->get(intval(substr($this->_getParam('n'),0,32)));
-            if(!$info){$this->error('no_section');return;}
+            if(!$info){$this->error('no_section');return;}                   
             
             $this->section_return_to_edit($info);
             $this->_helper->viewRenderer->setScriptAction('section-add-form');
