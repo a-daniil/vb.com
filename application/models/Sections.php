@@ -10,7 +10,7 @@ class Sections extends Zend_Db_Table_Abstract{
             'price_1h_ap','price_2h_ap','price_n_ap','price_2h_ex',
             'srv_main',	'srv_add', 'srv_strip',	'srv_extr', 'srv_bdsm', 'srv_mass',
             'timestamp','photolist','videolist', 'status','limit',
-            'with_videos', 'verified',	'with_comments'
+            'with_videos', 'verified',	'with_comments', 'sauna'
             );
  	public function set_items_per_page($perpage){
  		$this->per_page = (int)$perpage;

@@ -9,8 +9,7 @@
                     <input type="text" name="title"<?if(isset($this->info['title'])):?> value='<?=($this->info['title'])?>'<?endif?> />
                     <h3 <?if(isset($this->info['failed']['uri'])):?>class="input_failed" <?endif?>>Section_uri:<b>*</b> 
                         edit: <input style="width:25px;padding: 0px 20px 0px 2px;" type="checkbox" id="field_uri_is_editable" name="field_uri_is_editable" <?=($this->action == 'add') ? 'checked' : ''?>></h3>
-                    <input id="field_uri" style="" type="text" name="uri"<?if(isset($this->info['uri'])):?> value='<?=$this->info['uri']?>'<?endif?> />
-                                              
+                    <input id="field_uri" style="" type="text" name="uri"<?if(isset($this->info['uri'])):?> value='<?=$this->info['uri']?>'<?endif?> />                                              
                     <h3>Мета-тег title:</h3>
                     <input type="text" name="title_meta"<?if(isset($this->info['title_meta'])):?> value='<?=$this->info['title_meta']?>'<?endif?> />
                     <h3>Мета-тег Keywords:</h3>
@@ -25,7 +24,6 @@
                     <textarea name="text_right" id="editor2" rows="6"><?if(isset($this->info['text_right'])):?><?=$this->info['text_right']?><?endif?></textarea>
                     <h3>Подвал:</h3>
                     <textarea name="text_footer" id="editor3" rows="6"><?if(isset($this->info['text_footer'])):?><?=$this->info['text_footer']?><?endif?></textarea>
-
 				    <table>
                         <tr>
                             <th <?if(isset($this->info['failed']['type'])):?>class="input_failed" <?endif?>>Тип:</th>
@@ -106,6 +104,14 @@
 									<?endforeach?>
 								</select>
 							</td>
+                        </tr>
+                        <tr>
+                        	<th></th>
+                        	<td></td>
+                        	<th>Выезд в сауну</th>
+                        	<td><input type="checkbox" name="sauna" <?php if ( $this->info['sauna'] ) : ?> checked="checked" <?php endif; ?> style="width: 15px;" value=1></td>
+                        	<th></th>
+                        	<td></td>
                         </tr>
                         <tr>
                             <th colspan="4">Задать диапазон: NNN - NNN</th>

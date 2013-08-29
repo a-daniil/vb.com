@@ -331,12 +331,23 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 			)
 		));
 		
+		$sauna = $this->addElement('checkbox', 'sauna', array(
+				'label'    => "Возможен выезд в сауну",
+				'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label'),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service hide-service', 'id' => 'sauna-service'))
+				)
+		));
+		
 		$this->addDisplayGroup(array(
 				'phone',
 				'city',
 				'district',
 				'metro',
 				'place',
+				'sauna'
 		),
 				'contact-info',
 				array("legend" => "Контактные данные.")

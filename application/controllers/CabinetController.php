@@ -821,7 +821,7 @@ class CabinetController extends Zend_Controller_Action {
 				/* other params */
 				$other_params = array('exotics', 'hair', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 					'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_an', 'price_i_1h_ap', 'price_i_2h_ap',
-					'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only');
+					'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only', 'sauna');
 				
 				foreach ( $other_params as $op ) {
 					if ( $frmAddAnket->getValue( $op ) != null) {
@@ -942,7 +942,7 @@ class CabinetController extends Zend_Controller_Action {
 				/* other params */
 				$other_params = array('exotics', 'hair', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 						'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_an', 'price_i_1h_ap', 'price_i_2h_ap',
-						'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only');
+						'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only', 'sauna');
 	
 				foreach ( $other_params as $op ) {
 					$data[ $op ] = $frmAddAnket->getValue( $op );
@@ -2863,7 +2863,7 @@ class CabinetController extends Zend_Controller_Action {
                 'age','type','city','district', 'hair', 'exotics','metro','phone','height','weight',
                 'performer','breast','place','price_1h_ap','price_2h_ap',
                 'price_n_ap','price_2h_ex','timestamp','photolist','videolist',
-                'status','with_videos', 'verified',	'with_comments');
+                'status','with_videos', 'verified',	'with_comments', 'sauna');
             foreach ($fields as $field){
                 if (strpos($field, '[]') != 0){
                     $field = rtrim($field,'[]');

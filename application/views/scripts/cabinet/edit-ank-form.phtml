@@ -31,3 +31,24 @@
   		</div>
   	</div>
 </div>
+<script type="text/javascript">
+	$("select[name='place']").change(function(){
+		var $val = $(this).val();
+
+		//debug
+		console.log($val);
+		if ( $val == 2 || $val == 3 ) {
+			$("#sauna-service").removeClass('hide-service');
+		} else {
+			$("#sauna-service").addClass('hide-service');
+		}
+	});
+
+	$(document).ready(function(){
+		var $val = $("select[name='place']").val();
+
+		if ( $val == 2 || $val == 3 ) {
+			$("#sauna-service").removeClass('hide-service');
+		}
+	});
+</script>

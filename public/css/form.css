@@ -223,6 +223,10 @@ a.show-message {
 	margin: 10px 0 10px 0;
 }
 
+.hide-service {
+	display: none;
+}
+
 .form-element-service label {
 	display: inline-block;
 	margin-left: 20px;
