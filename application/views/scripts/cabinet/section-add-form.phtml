@@ -56,11 +56,16 @@
                             <th <?if(isset($this->info['failed']['district'])):?>class="input_failed" <?endif?>>Район:</th>
                             <td id="jsdistrict">
                             	<?php 
-									if ( $this->info['city'] == 2 ) {
-										$array_index = "d2";
-									} else if ( $this->info['city'] == 1) {
-										$array_index = "d1";
-									}
+									switch ($this->info['city']) {
+										case 2 :
+												$array_index = "d2";
+											break;
+										case 3 :
+												$array_index = "d1";
+											break;
+										default: 
+												$array_index = "d1";
+									}	
 								?>
                             	<select name="district">
                                     <?foreach($this->district_list[$array_index] as $value=>$title):?>
