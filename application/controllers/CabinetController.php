@@ -2935,7 +2935,7 @@ class CabinetController extends Zend_Controller_Action {
 			);
 			
 			$this->view->district_list = array(
-				//'d1' => $this->content->district_msk->toArray(), // не заполнены в content.ini
+				'd1' => $this->content->district_msk->toArray(),
 				'd2' => $this->content->district_spb->toArray()
 			);
 		
@@ -3262,7 +3262,7 @@ class CabinetController extends Zend_Controller_Action {
         );
 
         $this->view->district_list = array(
-        	//'d1' => $this->content->district_msk->toArray(), // не заполнены в content.ini
+        	'd1' => $this->content->district_msk->toArray(),
         	'd2' => $this->content->district_spb->toArray()
         );
 
