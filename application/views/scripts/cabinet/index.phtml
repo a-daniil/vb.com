@@ -66,7 +66,7 @@
 				<div class="cab_anketa_photo">
 					<?if ( $row['active'] == 0 ) : ?><div class="cab_anketa_photo_glass"></div><?php endif ?>
 					<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
-						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top;" <?endif?>></div>
+						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 180px !important;" <?endif?>></div>
 					</a>
 					<br />
 					<p><?if($photo && $row['status'] > 20):?>Фото проверены<?elseif($photo && $row['status'] < 30):?>Фото не проверены<?else:?>Нет фотографии<?endif?></p>
