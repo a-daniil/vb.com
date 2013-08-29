@@ -75,7 +75,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => array('2' => 'Санкт-Питербург'),
+			'multiOptions' => array('2' => 'Санкт-Петербург'),
 			'value' => 2,
 			'disabled' => true,
 			//'required' => true,
