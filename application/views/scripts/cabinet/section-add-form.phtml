@@ -43,6 +43,7 @@
                             				metro['m2'] = new Array("<?= implode('","', $this->metro_list['m2']) ?>");
                             			createList(metro, 'jsmetro', 'm', 'metro');
                             			var district = [];
+                            				district['d1'] = new Array("<?= implode('","', $this->district_list['d1']) ?>");
                             				district['d2'] = new Array("<?= implode('","', $this->district_list['d2']) ?>");
                             			createList(district, 'jsdistrict', 'd', 'district')
                             		}
@@ -60,11 +61,9 @@
 										case 2 :
 												$array_index = "d2";
 											break;
-										case 3 :
+										case 1 :
 												$array_index = "d1";
 											break;
-										default: 
-												$array_index = "d1";
 									}	
 								?>
                             	<select name="district">
@@ -96,11 +95,9 @@
 										case 2 :
 												$array_index = "m2";
 											break;
-										case 3 :
+										case 1 :
 												$array_index = "m1";
 											break;
-										default: 
-												$array_index = "m1";
 									}									
 								?>
 								<select name="metro">
