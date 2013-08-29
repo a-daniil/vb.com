@@ -10,8 +10,8 @@
 		$( "#slider_per_hour" ).slider({
 			range: true,
 			min: 0,
-			max: 50000,
-			values: [ 0, 50000 ],
+			max: 25000,
+			values: [ 0, 25000  ],
 			slide: function( event, ui ) {
 				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
 		  }
