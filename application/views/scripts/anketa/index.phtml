@@ -42,10 +42,10 @@
 						<span class="grey_metro"><span class="grey_metro_icon"></span><?= $this->metro_list[$this->info['metro']]?></span>
 						<h5>Параметры:</h5>
 						<ul class="girl_card_info_list black_list">							
-							<li><a href="<?php echo getLink($this->info['age'],array(array(18,21),array(22,30),array(31,40),array(41, 99)),array('vozrast/junye','vozrast/molodye','vozrast/zrelye','vozrast/v-vozraste')); ?>">Возраст..............<?php echo $age ?></a></li>
-							<li>Рост...................<?php echo $this->info['weight'] ?></li>
-							<li>Вес....................<?php echo $this->info['height'] ?></li>
-							<li>Грудь.................<?php echo $this->info['breast'] ?></li>
+							<li><a href="<?php echo getLink($this->info['age'],array(array(18,21),array(22,30),array(31,40),array(41, 99)),array('vozrast/junye','vozrast/molodye','vozrast/zrelye','vozrast/v-vozraste')); ?>">Возраст..............<?php echo $this->info['age'] ?></a></li>
+							<li><a href="<?php echo getLink($this->info['height'], array(array(1,165),array(166,175),array(175, 1000)),array('rost/malenkie','rost/sredego-rosta','rost/vysokie'));?>">Рост...................<?php echo $this->info['height'] ?></a></li>
+							<li><a href="<?php echo getLink($this->info['weight'],array(array(1,49),array(50,60),array(61,300)),array('ves/hudenkie', 'ves/strojnye', 'ves/polnenkie')) ?>">Вес....................<?php echo $this->info['weight'] ?></a></li>
+							<li><a href="<?php echo getLink($this->info['breast'],array(array(0,2),array(3,5),array(6,8)),array('razmer-grudi/s-malenkoj-grudiu','razmer-grudi/s-bolshoj-grudiu','razmer-grudi/s-ochen-bolshoj-grudiu'))?>">Грудь.................<?php echo $this->info['breast'] ?></a></li>
 						</ul>
 						<!-- <div class="without_ret2"></div> -->
 					</div>	

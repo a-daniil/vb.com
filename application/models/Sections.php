@@ -18,7 +18,8 @@ class Sections extends Zend_Db_Table_Abstract{
 	public function get_list($page, $uri = false, $city = false){
 		$select = $this->getAdapter()
 			->select()
-			->from(self::TABLE,$this->fields);
+			->from(self::TABLE,$this->fields)
+		    ->order('title');
 
 		if ( is_array($uri) && !empty($uri) ) {
 			foreach( $uri as $u ) {
