@@ -47,6 +47,16 @@
 							<li><a href="<?php echo getLink($this->info['weight'],array(array(1,49),array(50,60),array(61,300)),array('ves/hudenkie', 'ves/strojnye', 'ves/polnenkie')) ?>">Вес....................<?php echo $this->info['weight'] ?></a></li>
 							<li><a href="<?php echo getLink($this->info['breast'],array(array(0,2),array(3,5),array(6,8)),array('razmer-grudi/s-malenkoj-grudiu','razmer-grudi/s-bolshoj-grudiu','razmer-grudi/s-ochen-bolshoj-grudiu'))?>">Грудь.................<?php echo $this->info['breast'] ?></a></li>
 						</ul>
+						<br/>
+						<h5>Внешность: </h5>
+						<ul class="girl_card_info_list black_list">
+							<?php if ( $this->info['hair'] ) : ?>
+								<li><a href="<?php echo getLink($this->info['hair'],array(array(1,1),array(2,2),array(3,3),array(4,4),array(5,5)),array('tsvet-volos/blondinki', '', 'tsvet-volos/rusye', 'tsvet-volos/ryzhye', ''))?>"><?php echo $this->hair[$this->info['hair']] ?></a></li>
+							<?php endif; ?>
+							<?php if ( $this->info['exotics'] ) : ?>
+								<li><a href="<?php echo getLink($this->info['exotics'],array(array(1,1)), array('')) ?>"><?php echo $this->exotics[$this->info['exotics']] ?></a></li>
+							<?php endif; ?>
+						</ul>						
 						<!-- <div class="without_ret2"></div> -->
 					</div>	
 					<div class="single_girl_main_info_block_r">

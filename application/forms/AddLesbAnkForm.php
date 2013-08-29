@@ -192,6 +192,17 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			)
 		));	
 		
+		$this->addElement('select', 'hair', array(
+				'multiOptions' => $this->content->hair->toArray(),
+				'label'    => 'Цвет волос:',
+				'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label', array('tag' => 'div')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				)
+		));
+		
 		$this->addElement('select', 'exotics', array(			
 			'multiOptions' => $this->content->exotics->toArray(),
 			'label'    => 'Экзотика:',
@@ -210,6 +221,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'age',
 				'clothing',
 				'breast',
+				'hair',
 				'exotics'
 		),
 				'info',
@@ -366,6 +378,17 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				)
 		));
 		
+		$this->addElement('select', 'hair_2', array(
+				'multiOptions' => $this->content->hair->toArray(),
+				'label'    => 'Цвет волос:',
+				'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label', array('tag' => 'div')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				)
+		));
+		
 		$this->addElement('select', 'exotics_2', array(
 				'multiOptions' => $this->content->exotics->toArray(),
 				'label'    => 'Экзотика:',
@@ -384,6 +407,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'age_2',
 				'clothing_2',
 				'breast_2',
+				'hair_2',
 				'exotics_2'
 		),
 				'info2',

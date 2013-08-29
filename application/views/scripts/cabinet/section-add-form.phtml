@@ -145,8 +145,14 @@
                             </select></td>*/?>
                             <th <?if(isset($this->info['failed']['breast'])):?>class="input_failed" <?endif?>>Размер груди:</th>
                             <td><input type="text" name="breast"  title="Цифры: от 0 до 7"<?if(isset($this->info['breast'])):?> value="<?=$this->info['breast']?>"<?endif?> /></td>
-                            <th <?if(isset($this->info['failed']['phone_1']) || isset($this->info['failed']['phone_2'])):?>class="input_failed" <?endif?>></th>
-                            <td colspan="2"></td>
+                            <th <?if(isset($this->info['failed']['hair'])):?>class="input_failed" <?endif?>>Цвет волос:</th>
+                        	<td>
+                            	<select name="hair">
+                                    <?foreach($this->hair as $value=>$title):?>
+                                    <option value="<?=$value?>"<?if(isset($this->info['hair']) && $value==$this->info['hair']):?> selected<?endif?>><?=$title?></option>
+                                    <?endforeach?>
+                            	</select>
+                            </td>
                         </tr>
                         <tr>
                         	<th <?if(isset($this->info['failed']['exotics'])):?>class="input_failed" <?endif?>>Экзотика:</th>

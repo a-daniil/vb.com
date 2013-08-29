@@ -5,7 +5,7 @@ class Sections extends Zend_Db_Table_Abstract{
         public $fields = array(
             'id','user_id','title','uri','title_meta','keywords','descriptions',
             'text','text_left','text_right','text_footer',
-            'age','type','city','district','exotics','metro','phone','height','weight',
+            'age','type','city','district','hair', 'exotics','metro','phone','height','weight',
             'performer','breast','place',
             'price_1h_ap','price_2h_ap','price_n_ap','price_2h_ex',
             'srv_main',	'srv_add', 'srv_strip',	'srv_extr', 'srv_bdsm', 'srv_mass',

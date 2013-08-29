@@ -192,6 +192,17 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 			)
 		));	
 		
+		$this->addElement('select', 'hair', array(
+				'multiOptions' => $this->content->hair->toArray(),
+				'label'    => 'Цвет волос:',
+				'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label', array('tag' => 'div')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				)
+		));
+		
 		$this->addElement('select', 'exotics', array(			
 			'multiOptions' => $this->content->exotics->toArray(),
 			'label'    => 'Экзотика:',
@@ -210,6 +221,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'age',
 				'clothing',
 				'breast',
+				'hair',
 				'exotics'
 		),
 				'info',

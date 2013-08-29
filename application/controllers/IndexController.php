@@ -37,6 +37,8 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->types_of_salon=$this->content->types_of_salon->toArray();
 		$this->view->cities=$this->content->cities->toArray();
 		$this->view->places=$this->content->places->toArray();
+		$this->view->hair=$this->content->hair->toArray();
+		$this->view->exotics=$this->content->exotics->toArray();
 		$this->view->services=$this->content->srv->toArray();
 		$this->view->services_of_salon=$this->content->srv_salon->toArray();
 		$this->view->srv_short=$this->content->srv_short->toArray();

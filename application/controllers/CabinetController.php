@@ -810,6 +810,7 @@ class CabinetController extends Zend_Controller_Action {
 					$data['weight_2']   = $frmAddAnket->getValue('weight_2');
 					$data['clothing_2'] = $frmAddAnket->getValue('clothing_2');
 					$data['exotics_2']  = $frmAddAnket->getValue('exotics_2');
+					$data['hair_2']     = $frmAddAnket->getValue('hair_2');
 				}
 				
 				// grab size of fallos for trans
@@ -818,7 +819,7 @@ class CabinetController extends Zend_Controller_Action {
 				}
 				
 				/* other params */
-				$other_params = array('exotics', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
+				$other_params = array('exotics', 'hair', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 					'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_an', 'price_i_1h_ap', 'price_i_2h_ap',
 					'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only');
 				
@@ -930,6 +931,7 @@ class CabinetController extends Zend_Controller_Action {
 					$data['weight_2']   = $frmAddAnket->getValue('weight_2');
 					$data['clothing_2'] = $frmAddAnket->getValue('clothing_2');
 					$data['exotics_2']  = $frmAddAnket->getValue('exotics_2');
+					$data['hair_2']       = $frmAddAnket->getValue('hair_2');
 				}
 				
 				// grab size of fallos for trans				
@@ -938,7 +940,7 @@ class CabinetController extends Zend_Controller_Action {
 				}
 	
 				/* other params */
-				$other_params = array('exotics', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
+				$other_params = array('exotics', 'hair', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 						'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_an', 'price_i_1h_ap', 'price_i_2h_ap',
 						'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only');
 	
@@ -2802,6 +2804,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->services=$this->content->srv->toArray();
 		$this->view->performer=$this->content->performer->toArray();
 		$this->view->exotics = $this->content->exotics->toArray();
+		$this->view->hair = $this->content->hair->toArray();
 		$this->view->breast=array();
 		$br_sizes=explode('-',$this->content->breast);
 		for($i=$br_sizes[0];$i<=$br_sizes[1];$i++){$this->view->breast[]=$i;}
@@ -2857,7 +2860,7 @@ class CabinetController extends Zend_Controller_Action {
             $fields = array(
                 'title','uri','title_meta','keywords','descriptions',
                 'text','text_left','text_right','text_footer',
-                'age','type','city','district','exotics','metro','phone','height','weight',
+                'age','type','city','district', 'hair', 'exotics','metro','phone','height','weight',
                 'performer','breast','place','price_1h_ap','price_2h_ap',
                 'price_n_ap','price_2h_ex','timestamp','photolist','videolist',
                 'status','with_videos', 'verified',	'with_comments');
