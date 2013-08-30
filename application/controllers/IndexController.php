@@ -343,8 +343,7 @@ class IndexController extends Zend_Controller_Action {
 			$review = new Model_Review();
 			$per = $params['performer'] ? $params['performer'] : false;
 			$top_100 = $review->getTop100( $per );
-			$this->view->top_100 = $top_100;
-			print_r($top_100);die();
+			$this->view->top_100 = $top_100;		
 		} else {
 			$this->view->top_100 = false;
 		}
