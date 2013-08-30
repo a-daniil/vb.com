@@ -25,3 +25,15 @@
   		</div>
   	</div>
 </div>
+<script type="text/javascript">
+	$("select[id='city']").change(function(){		
+		var metro = [];
+			metro['m1'] = new Array("<?= implode('","', $this->content->metro_msk->toArray()) ?>");
+			metro['m2'] = new Array("<?= implode('","', $this->content->metro_spb->toArray()) ?>");
+		createList2Form(metro, 'metro', 'm');
+		var district = [];
+			district['d1'] = new Array("<?= implode('","', $this->content->district_msk->toArray()) ?>");
+			district['d2'] = new Array("<?= implode('","', $this->content->district_spb->toArray()) ?>");
+		createList2Form(district, 'district', 'd')		
+	});
+</script>

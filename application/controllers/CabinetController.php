@@ -742,34 +742,35 @@ class CabinetController extends Zend_Controller_Action {
 	function addAnkFormAction () {		
 		$performer = $this->getParam('performer');	
 		$salons = $this->getUsersSalons();
+		$city = Zend_Registry::get('city');
 		
 		switch ( $performer ) {
 			case self::GIRL :
-				$frmAddAnket = new Form_AddGirlAnkForm(self::GIRL, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddGirlAnkForm(self::GIRL, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'Девушки';
 				break;
 			case self::LESB :
-				$frmAddAnket = new Form_AddLesbAnkForm(self::LESB, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddLesbAnkForm(self::LESB, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'Подружки';
 				break;
 			case self::MASS :
-				$frmAddAnket = new Form_AddMassAnkForm(self::MASS, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddMassAnkForm(self::MASS, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'Массажистки';
 				break;
 			case self::BDSM :
-				$frmAddAnket = new Form_AddBdsmAnkForm(self::BDSM, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddBdsmAnkForm(self::BDSM, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'БДСМ';
 				break;
 			case self::MAN :
-				$frmAddAnket = new Form_AddManAnkForm(self::MAN, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddManAnkForm(self::MAN, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'Мужчины';
 				break;
 			case self::TRANS :
-				$frmAddAnket = new Form_AddTransAnkForm(self::TRANS, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddTransAnkForm(self::TRANS, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'Транса';
 				break;
 			case self::PAIR :
-				$frmAddAnket = new Form_AddPairAnkForm(self::PAIR, $this->content, array('types' => $salons, 'new' => true));
+				$frmAddAnket = new Form_AddPairAnkForm(self::PAIR, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
 				$type_label = 'Пары';								
 				break;
 		}
@@ -862,6 +863,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->form = $frmAddAnket;		
 		$this->view->type_label = $type_label;	
 		$this->view->performer = $performer;
+		$this->view->content = $this->content; 
 	}
 	
 	function editAnkFormAction () {	
