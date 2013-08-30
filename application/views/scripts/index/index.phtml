@@ -91,6 +91,7 @@
 					</ul>
 					<a href="#" class="button all_list_btn">весь список</a>
 				</div>
+				<?php if ( $this->top_100 ) : ?>
 				<div class="best_massage_preview_block">
 					<h2>Рейтинг лучших анкет</h2>
 					<ul class="best_massage_preview">
@@ -111,6 +112,7 @@
 					</ul>
 					<a href="#" class="button all_rate_btn">весь рейтинг</a>
 				</div>
+				<?php endif ?>
 				<div class="pager_holder gray_pager_holder">
 					<div class="pagination">
 						<?php echo $this->paginationControl($this->ankets,'Sliding','shared/pagination_pub.phtml') ?>

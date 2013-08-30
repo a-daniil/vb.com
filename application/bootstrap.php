@@ -88,6 +88,11 @@ foreach ( $ret as $k => $v ) {
 	$compare_v = "/" . $v;
 	if ( $compare_v == $matches[1] ) {
 		$router->addRoute($v , new Zend_Controller_Router_Route("{$v}/:name", array('module' => 'default', 'controller' => 'index', 'action' => 'section', 'id' => $sections->getId($v."/".$id))));
+		// set that we go through element of section
+		Zend_Registry::set('route', 1);
+		break;
+	} else {
+		Zend_Registry::set('route', 0);
 	}
 }
 /* end of all distinct uri for routing */
