@@ -40,13 +40,14 @@ s1.write('video1');
 					<br />
 					<!--  <p>Использовать для превью:
 					<input type="radio" name="preview" class="cab_form_radio" <?if(isset($this->preview) && $key==$this->preview):?>checked="checked" <?endif?>value="<?=$key?>" /></p>
+					-->
 					<a href="/cabinet/del-video-salon/n/<?=$this->info['id']?>/f/<?=$key?>" class="cab_salon_photo_del">Удалить</a>
 				<?endif?>
 			</div>
 			<?endforeach?>
 			<div>&nbsp;</div>
 			</div>
-			<div>
+			<div style="text-align: center;">
 				<?php if ( $_GET['new'] ) : ?>
 					<input class="button" type="submit" value="Готово" name="next"/>
 				<?php else : ?>			
