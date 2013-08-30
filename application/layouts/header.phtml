@@ -46,10 +46,10 @@
 							</li>
 							<li>
 								<label for="area">Район:</label>
-								<select class="head_select" name="area">
-									<option value="1">Москва</option>
-									<option value="2">Санкт-Петербург</option>
-									<option value="3">Оскол</option>
+								<select class="head_select" name="metro" name="d" onchange="if (this.selectedIndex) {submitForm('filters');}">
+									<?$i=0;foreach($this->district_list as $title):?>                       
+                        				<option value="<?=$i?>"<?if($i==$this->filter['d']):?> selected<?endif?>><?=$title?></option>
+                     				<? $i++; endforeach?>
 								</select>
 							</li>
 							<li>

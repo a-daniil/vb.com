@@ -55,16 +55,8 @@ class IndexController extends Zend_Controller_Action {
 		} elseif ( $city == 1 ) {
 			$this->city = 1;
 			$this->view->metro_list = $this->content->metro_msk->toArray();
-		}
-		/*
-        $info['city'] = 2;
-        if($info['city']==1){
-        	$this->view->metro_list=$this->content->metro_msk->toArray();
-        }elseif($info['city']==2){
-        	$this->view->metro_list=$this->content->metro_spb->toArray();
-        	$this->view->district_list=$this->content->district_spb->toArray();        	     
-        }
-        */
+			$this->view->district_list = $this->content->district_msk->toArray();
+		}		
 
 		// Settings
 		include_once 'Settings.php';
@@ -185,11 +177,14 @@ class IndexController extends Zend_Controller_Action {
         if($this->_hasParam('st')) $this->view->menu_sub['active'] = 'st';
         if($this->_hasParam('v')) $this->view->menu_sub['active'] = 'v';
         if($this->_hasParam('rv')) $this->view->menu_sub['active'] = 'rv';
-        $filters = array();
-		if(!$this->_getParam('c')){$this->_setParam('c',2);} // Saint-Petersburg as a default city
+        $filters = array();	
 		if($this->_getParam('st')){$this->_setParam('st','30-40');}
 		$video = false; $metro = false;
 		$params = array();
+		
+		//depends on subdomens
+		$params['city'] = "city = " . $this->city;	
+		
 		$params['performer'] = 'performer ' . ($this->view->info['performer'] ? "=" . $this->view->info['performer'] : "IN (1,2,3,4)");
 
 		if($this->_getParam('m')){
@@ -283,8 +278,7 @@ class IndexController extends Zend_Controller_Action {
                 default:
         }
 
-        $in_params=array(
-        	'c'	=> 'city',
+        $in_params=array(        	
         	'a' => 'age',
         	'h' => 'height',
         	'w'	=> 'weight',
@@ -335,7 +329,6 @@ class IndexController extends Zend_Controller_Action {
 		else{$filters['s']=false;}
 
 		$this->view->filter=$filters;
-
 		/* get ankets */
 		$ankets = new Model_AnketsTest();
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);

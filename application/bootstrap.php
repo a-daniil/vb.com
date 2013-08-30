@@ -25,7 +25,7 @@ Zend_Registry::set('content',$content);
 
 // parse subdomain
 $host = strtolower($_SERVER['HTTP_HOST']);
-if ('spb.' === substr($host, 0, 4)) {
+if ('spbvb.' === substr($host, 0, 6)) {
 	Zend_Registry::set('city', 2);
 } else {
 	Zend_Registry::set('city', 1);
