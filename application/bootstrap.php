@@ -87,7 +87,14 @@ $id = $matches[2];
 foreach ( $ret as $k => $v ) {
 	$compare_v = "/" . $v;
 	if ( $compare_v == $matches[1] ) {
-		$router->addRoute($v , new Zend_Controller_Router_Route("{$v}/:name", array('module' => 'default', 'controller' => 'index', 'action' => 'section', 'id' => $sections->getId($v."/".$id))));
+		$router->addRoute($v , new Zend_Controller_Router_Route("{$v}/:name", 
+			array(
+				'module' => 'default',
+				'controller' => 'index',
+				'action' => 'section', 
+				'id' => $sections->getId($v."/".$id),
+				'r_performer' => $_POST['r_performer'] ? $_POST['r_performer'] : null,
+				'r_type' => $_POST['r_type'] ? $_POST['r_type'] : null)));
 		// set that we go through element of section
 		Zend_Registry::set('route', 1);
 		break;
@@ -95,12 +102,12 @@ foreach ( $ret as $k => $v ) {
 		Zend_Registry::set('route', 0);
 	}
 }
+$route = Zend_Registry::get('route');
 /* end of all distinct uri for routing */
 
 include('models/Arrays.php');
 
 $router->addRoute( 'ankets', new Zend_Controller_Router_Route('anketa/:name', array('module' => 'default', 'controller' => 'anketa', 'action' => 'index') ) );
-$router->addRoute('sections', new Zend_Controller_Router_Route('kategorii/:name', array('module' => 'default', 'controller' => 'index', 'action' => 'section', 'id' => $kategorii[$id])));
 $router->addRoute( 'salon', new Zend_Controller_Router_Route('salon/:name', array('module' => 'default', 'controller' => 'salon', 'action' => 'index') ) );
 
 include('models/MenuItems.php');

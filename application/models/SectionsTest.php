@@ -41,4 +41,18 @@ class Model_SectionsTest extends Zend_Db_Table_Abstract {
 		}
 		return null;
 	}
+	
+	public function getUriForMetro ( $m, $city ) {
+		$select = $this->select();
+		$select->from($this->_name, array('uri'));
+		$select->where("metro = ?", $m);
+		$select->where("city = ?", $city);
+		$select->where("uri LIKE '%metro%'");
+		
+		$row = $this->fetchRow($select);
+		if ( $row ) {
+			return $row['uri'];
+		}
+		return null;
+	}
 }

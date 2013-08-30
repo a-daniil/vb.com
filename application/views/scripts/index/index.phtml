@@ -1,5 +1,3 @@
-<?php //get sections for right uri links ?>
-<?php $sections = new Model_SectionsTest(); ?>
 <style>
 	.hidden {
 		visibility: hidden;
@@ -321,7 +319,7 @@
 						    <?php array_shift($srv); ?>
 							<?php foreach($srv as $num=>$val) : ?>
 								<?php if ($part == 'main' ) : ?>
-									<a href="/<?php echo $sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
 										<li><?php echo $val ?></li>
 									</a>
 								<?php endif ?>
@@ -334,7 +332,7 @@
 						    <?php array_shift($srv); ?>
 							<?php foreach($srv as $num=>$val) : ?>
 								<?php if ($part == 'add' ) : ?>
-									<a href="/<?php echo $sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
 										<li><?php echo $val ?></li>
 									</a>
 								<?php endif ?>

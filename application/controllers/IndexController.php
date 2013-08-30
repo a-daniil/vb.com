@@ -50,10 +50,12 @@ class IndexController extends Zend_Controller_Action {
 		$city = Zend_Registry::get('city');
 		if ( $city == 2 ) {
 			$this->city = 2;
+			$this->view->city = 2;
 			$this->view->metro_list = $this->content->metro_spb->toArray();
 			$this->view->district_list = $this->content->district_spb->toArray();
 		} elseif ( $city == 1 ) {
 			$this->city = 1;
+			$this->view->city = 1;
 			$this->view->metro_list = $this->content->metro_msk->toArray();
 			$this->view->district_list = $this->content->district_msk->toArray();
 		}		
@@ -89,9 +91,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->bannersLeft = $this->mBanners->get_list_left();
 		$this->view->bannersRight= $this->mBanners->get_list_right();
 
-		include_once 'Sections.php';
-		$mSections=new Sections();
-		$this->view->sections=$mSections->get_list($page);
+		$this->view->sections = new Model_SectionsTest();
 
         include_once 'MenuItems.php';
         $mMenuItems = new MenuItems();
@@ -185,8 +185,15 @@ class IndexController extends Zend_Controller_Action {
 		//depends on subdomens
 		$params['city'] = "city = " . $this->city;	
 		
-		$params['performer'] = 'performer ' . ($this->view->info['performer'] ? "=" . $this->view->info['performer'] : "IN (1,2,3,4)");
+		if ( $this->_hasParam('r_performer') ) {
+			$params['performer'] = 'performer = ' . $this->_getParam('r_performer');			
+		} else {
+			$params['performer'] = 'performer ' . ($this->view->info['performer'] ? "=" . $this->view->info['performer'] : "IN (1,2,3,4)");	
+		}				
 
+		$per = $this->_getParam('r_performer');
+		//print_r($per);die();
+		
 		if($this->_getParam('m')){
 			$mtr = $this->content->metro_spb->toArray();
 			$mtr_id = (int)$this->_getParam('m');
@@ -347,6 +354,7 @@ class IndexController extends Zend_Controller_Action {
 		} else {
 			$this->view->top_100 = false;
 		}
+		
         // debug filters
         if ($this->admin) print_r($params);
         if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
@@ -433,7 +441,7 @@ class IndexController extends Zend_Controller_Action {
 	}
 	
     public function sectionAction()
-    {
+    {   
     	$id = (int)substr($this->_getParam('id'),0,8);
         if (!$id) $id = 1;
         include_once 'Sections.php';
@@ -484,6 +492,10 @@ class IndexController extends Zend_Controller_Action {
     	include_once 'MenuItem.php';
     	$mMenuItem=new MenuItems();
     	$this->view->info = $info = $mMenuItem->get_by_uri($uri); 
+    	
+    	//add performer and type ot view
+    	$this->view->r_performer = $info['performer'];
+    	$this->view->r_type = $info['type'];
     	
     	if( $info['type'] != 2){	
     		$this->_helper->viewRenderer->setScriptAction('index');
