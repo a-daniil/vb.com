@@ -55,4 +55,17 @@ class Model_SectionsTest extends Zend_Db_Table_Abstract {
 		}
 		return null;
 	}
+	
+	public function getUriForDistrict ( $d, $city ) {
+		$select = $this->select();
+		$select->from($this->_name, array('uri'));
+		$select->where("district = ?", $d);
+		$select->where("city = ?", $city );
+		$select->where("uri LIKE '%rajon%'");
+		
+		if ( $row ) {
+			return $row['uri'];
+		}
+		return null;
+	}
 }

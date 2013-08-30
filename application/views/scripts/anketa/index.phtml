@@ -36,10 +36,17 @@
 						<span class="big_red_phone"></span>
 						<ul class="single_girl_from">
 							<li><span class="red_col">Санкт-Петербург,</span></li>
-							<li><?php echo $this->district_list[$this->info['district']] ?></li>
-							<li><strong><?php echo $this->places[$this->info['place']] ?></strong></li>
+							<a href="/<?php echo $this->sections->getUriForDistrict($this->info['district'], $this->city ) ?>"><li><?php echo $this->district_list[$this->info['district']] ?></li></a>
+							<br />
+							<h5>Место встречи: </h5>
+							<a href="/<?php echo getLink($this->info['place'], array(array(1,1),array(2,2),array(3,3)),array('mesto-vstrechi/vstrecha-v-apartamentah','mesto-vstrechi/vyezd','mesto-vstrechi/vstrecha-v-saune')) ?>"><li><?php echo $this->places[$this->info['place']] ?></li></a>
 						</ul>
-						<span class="grey_metro"><span class="grey_metro_icon"></span><?= $this->metro_list[$this->info['metro']]?></span>
+						<a href="/<?php echo $this->sections->getUriForMetro($this->info['metro'], $this->city) ?>">
+							<span class="grey_metro">
+								<span class="grey_metro_icon"></span>
+								<?= $this->metro_list[$this->info['metro']]?>
+							</span>
+						</a>
 						<h5>Параметры:</h5>
 						<ul class="girl_card_info_list black_list">							
 							<li><a href="<?php echo getLink($this->info['age'],array(array(18,21),array(22,30),array(31,40),array(41, 99)),array('vozrast/junye','vozrast/molodye','vozrast/zrelye','vozrast/v-vozraste')); ?>">Возраст..............<?php echo $this->info['age'] ?></a></li>
@@ -48,16 +55,15 @@
 							<li><a href="<?php echo getLink($this->info['breast'],array(array(0,2),array(3,5),array(6,8)),array('razmer-grudi/s-malenkoj-grudiu','razmer-grudi/s-bolshoj-grudiu','razmer-grudi/s-ochen-bolshoj-grudiu'))?>">Грудь.................<?php echo $this->info['breast'] ?></a></li>
 						</ul>
 						<br/>
-						<h5>Внешность: </h5>
-						<ul class="girl_card_info_list black_list">
-							<?php if ( $this->info['hair'] ) : ?>
-								<li><a href="/<?php echo getLink($this->info['hair'],array(array(1,1),array(2,2),array(3,3),array(4,4),array(5,5)),array('tsvet-volos/blondinki', '', 'tsvet-volos/rusye', 'tsvet-volos/ryzhye', ''))?>"><?php echo $this->hair[$this->info['hair']] ?></a></li>
-							<?php endif; ?>
-							<?php if ( $this->info['exotics'] ) : ?>
-								<li><a href="/<?php echo getLink($this->info['exotics'],array(array(1,1),array(2,2), array(3,3)), array('nacionalnost/aziatki', '', 'nacionalnost/negrityanki')) ?>"><?php echo $this->exotics[$this->info['exotics']] ?></a></li>
-							<?php endif; ?>
-						</ul>						
+						<h5>Внешность:						
+						<?php if ( $this->info['hair'] ) : ?>
+							<a href="/<?php echo getLink($this->info['hair'],array(array(1,1),array(2,2),array(3,3),array(4,4),array(5,5)),array('tsvet-volos/blondinki', 'tsvet-volos/brunetki', 'tsvet-volos/rusye', 'tsvet-volos/ryzhye', 'tsvet-volos/shatenki'))?>"><?php echo $this->hair[$this->info['hair']] ?></a>
+						<?php endif; ?>
+						<?php if ( $this->info['exotics'] ) : ?>
+							<a href="/<?php echo getLink($this->info['exotics'],array(array(1,1),array(2,2), array(3,3),array(4,4),array(5,5),array(6,6),array(7,7),array(8,8),array(9,9),array(10,10)), array('nacionalnost/aziatki', 'nacionalnost/mulatki', 'nacionalnost/negrityanki', 'nacionalnost/uzbechki', 'nacionalnost/ukrainki', 'nacionalnost/kazashki', 'nacionalnost/tatarki', 'nacionalnost/gruzinki', 'nacionalnost/cyganki', 'nacionalnost/kirgizki')) ?>"><?php echo $this->exotics[$this->info['exotics']] ?></a>
+						<?php endif; ?>											
 						<!-- <div class="without_ret2"></div> -->
+						</h5>
 					</div>	
 					<div class="single_girl_main_info_block_r">
 						<div class="salon_card_another_info">

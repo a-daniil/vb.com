@@ -1,48 +1,52 @@
-<div id="center">
-	<h1 class="center_title">Регистрация на сайте Putanastars.com</h1>
-	<?if(!empty($this->errors)):?>
-	<div class="message">	
-		<?foreach($this->errors as $error):?>
-		<h2><?=$error?></h2>
-		<?endforeach?>
-		</div>
-	<?endif?>	
-	<div id="cab_ankets">
-		<form id="left-margin-form" class="cab_form" method="post" action="/auth/reg-write">
-			<div class="ca_top ca_bottom">
-				<table>
-					<tr>
-						<th>Логин:</th>
-						<td><input type="text" name="name"<?if(isset($this->info['name'])):?> value="<?=$this->info['name']?>"<?endif?>></td>
-						<td width="60%">Может содержать от 4-х до 16-и символов латинского алфавита и цифры, остальные символы будут отфильтрованы.</td>
-					</tr>
-					<tr>
-						<th>Почтовый адрес:</th>
-						<td><input type="text" name="mail"<?if(isset($this->info['mail'])):?> value="<?=$this->info['mail']?>"<?endif?>></td>
-						<td>Адрес вашей электронной почты. Нужен для системы восстановления пароля, если вы его забудите.</td>
-					</tr>
-					<tr>
-						<th>Пароль:</th>
-						<td><input type="password" name="pass"></td>
-						<td>Может содержать от 6-х до 16-и символов латинского алфавита и цифры. Не используйте слишком простые пароли вида "oleg123" - их легко подобрать.</td>
-					</tr>
-					<tr>
-						<th>Пароль повторно:</th>
-						<td><input type="password" name="pass2"></td>
-						<td></td>
-					</tr>
-					<tr>
-						<th>Введите код защиты:</th>
-						<td><input type="text" name="captcha"></td>
-						<td rowspan="2">
-							<img src="/captcha/<?=$this->captcha?>.png" id="captcha-image" />
-							<img src="/img/captcha_refresh.png" id="captcha-refresh" onclick="captchaRefresh();" />
-						</td>
-					</tr>
-				</table>
+<div class="fix_width">
+	<div id="main">
+		<div id="center">
+			<h1 class="center_title">Регистрация на сайте Putanastars.com</h1>
+			<?if(!empty($this->errors)):?>
+			<div class="message">	
+				<?foreach($this->errors as $error):?>
+				<h2><?=$error?></h2>
+				<?endforeach?>
 			</div>
-			<input id="captcha-id" type="hidden" name="id" value="<?=$this->captcha?>" />
-			<input class="button" type="submit" value="Зарегистрироваться">
-		</form>
-	</div>
-</div>
+			<?endif?>	
+			<div id="cab_ankets">
+				<form id="left-margin-form" class="cab_form" method="post" action="/auth/reg-write">
+					<div class="ca_top ca_bottom">
+						<table>
+							<tr>
+								<th>Логин:</th>
+								<td><input type="text" name="name"<?if(isset($this->info['name'])):?> value="<?=$this->info['name']?>"<?endif?>></td>
+								<td width="60%">Может содержать от 4-х до 16-и символов латинского алфавита и цифры, остальные символы будут отфильтрованы.</td>
+							</tr>
+							<tr>
+								<th>Почтовый адрес:</th>
+								<td><input type="text" name="mail"<?if(isset($this->info['mail'])):?> value="<?=$this->info['mail']?>"<?endif?>></td>
+								<td>Адрес вашей электронной почты. Нужен для системы восстановления пароля, если вы его забудите.</td>
+							</tr>
+							<tr>
+								<th>Пароль:</th>
+								<td><input type="password" name="pass"></td>
+								<td>Может содержать от 6-х до 16-и символов латинского алфавита и цифры. Не используйте слишком простые пароли вида "oleg123" - их легко подобрать.</td>
+							</tr>
+							<tr>
+								<th>Пароль повторно:</th>
+								<td><input type="password" name="pass2"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<th>Введите код защиты:</th>
+								<td><input type="text" name="captcha"></td>
+								<td rowspan="2">
+									<img src="/captcha/<?=$this->captcha?>.png" id="captcha-image" />
+									<img src="/img/captcha_refresh.png" id="captcha-refresh" onclick="captchaRefresh();" />
+								</td>
+							</tr>
+						</table>
+					</div>
+					<input id="captcha-id" type="hidden" name="id" value="<?=$this->captcha?>" />
+					<input class="button" type="submit" value="Зарегистрироваться">
+				</form>
+			</div>
+		</div>
+	<div>
+<div>
