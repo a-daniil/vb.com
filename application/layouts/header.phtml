@@ -47,9 +47,11 @@
 											document.redirectForm.action = '/' + $(this).val();
 											submitForm('redirectForm');
 										}">										
-									<?$i=0;foreach($this->metro_list as $title):?>                       
-                        				<option value="<?php echo $this->sections->getUriForMetro($i, $this->city) ?>"<?if($i==$this->filter['m']):?> selected<?endif?> url="<?php echo $this->sections->getUriForMetro($i, $this->city) ?>"><?=$title?></option>
-                     				<? $i++; endforeach?>
+									<?$i=0; foreach($this->metro_list as $title) : ?>                       
+                        				<option value="<?php echo $this->sections->getUriForMetro($i, $this->city) ?>"
+                        						<?if( strpos($_SERVER['REQUEST_URI'], $this->sections->getUriForMetro($i, $this->city)) ):?> selected<?endif?>><?=$title?>
+                        				</option>
+                     				<? $i++; endforeach ?>
 								</select>
 							</li>
 							<li>
