@@ -24,17 +24,25 @@ class Form_AddAnkForm extends Zend_Form
 		$this->performer = $performer;
 		$this->content = $content;
 		$this->params = $params;
-		$this->city = $params['city'];
+		
+		if ( $params['city'] ) {		
+			$this->city = $params['city'];
+		} else {
+			$this->city = 2;
+		}
 		
 		switch ( $params['city'] ) {
 			case 2 :
-					$this->metro_list = $this->content->metro_spb->toArray();
-					$this->district_list = $this->content->district_spb->toArray();
-				break;
+				$this->metro_list = $this->content->metro_spb->toArray();
+				$this->district_list = $this->content->district_spb->toArray();
+			break;
 			case 1 :
-					$this->metro_list = $this->content->metro_msk->toArray();
-					$this->district_list = $this->content->district_msk->toArray();
-				break;
+				$this->metro_list = $this->content->metro_msk->toArray();
+				$this->district_list = $this->content->district_msk->toArray();
+			break;
+			default :
+				$this->metro_list = $this->content->metro_spb->toArray();
+				$this->district_list = $this->content->district_spb->toArray();
 		}
 
 		parent::__construct();

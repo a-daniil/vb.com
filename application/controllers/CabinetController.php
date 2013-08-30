@@ -994,11 +994,13 @@ class CabinetController extends Zend_Controller_Action {
 	
 		$this->view->id   = $id;
 		$this->view->form = $frmAddAnket;		
-		$this->view->type_label = $type_label;		
+		$this->view->type_label = $type_label;	
+		$this->view->content = $this->content;
 	}
 	
 	function addSalonFormAction() {
-		$frmAddSalon = new Form_AddSalonForm( $this->content, array('new' => true) );
+		$city = Zend_Registry::get('city');
+		$frmAddSalon = new Form_AddSalonForm( $this->content, array('new' => true, 'city' => $city) );
 		$frmAddSalon->setMethod("post");
 		
 		if ( $this->getRequest()->isPost() ) {
@@ -1066,7 +1068,8 @@ class CabinetController extends Zend_Controller_Action {
 			}
 		} 
 		
-		$this->view->form = $frmAddSalon;		
+		$this->view->form = $frmAddSalon;
+		$this->view->content = $this->content;
 	}
 	
 	function editSalonFormAction () {
@@ -1151,6 +1154,7 @@ class CabinetController extends Zend_Controller_Action {
 	
 		$this->view->id   = $id;		
 		$this->view->form = $frmAddSalon;
+		$this->view->content = $this->content;
 	}
 	
 	public function financeStatisticAction () {

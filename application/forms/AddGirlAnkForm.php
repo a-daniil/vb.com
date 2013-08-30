@@ -249,11 +249,8 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				array('Label', array('tag' => 'div')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
-		));
+		));		
 		
-		/*
-		  set hardcoded city to Sank-Peterburg		 
-		 */
 		$city = $this->createElement('select', 'city', array(
 			'validators' => array(
 				array(
@@ -261,8 +258,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->cities->toArray(),
-			'value' => 2,			
+			'multiOptions' => $this->content->cities->toArray(),					
 			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
@@ -274,11 +270,8 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 		));	
 		$city->setValue($this->city);		
 		$this->addElement($city);
-		/*
-			end of setting hardcoded city
-		*/
-		
-		$city = $this->addElement('select', 'district', array(
+	
+		$this->addElement('select', 'district', array(
 			'validators' => array(
 				array(
 					'GreaterThan', false, array(0, 'messages' => array(

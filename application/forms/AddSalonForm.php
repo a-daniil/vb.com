@@ -19,10 +19,34 @@ class Form_AddSalonForm extends Zend_Form
 
 	protected $content;
 	protected $params;
+	
+	protected $district_list;
+	protected $metro_list;
+	protected $cityParam;
 
 	public function __construct( $content = null, $params = array() ){
 		$this->content = $content;
 		$this->params = $params;
+		
+		if ( $params['city'] ) {		
+			$this->cityParam = $params['city'];
+		} else {
+			$this->cityParam = 2;
+		}
+		
+		switch ( $params['city'] ) {
+			case 2 :
+				$this->metro_list = $this->content->metro_spb->toArray();
+				$this->district_list = $this->content->district_spb->toArray();
+			break;
+			case 1 :
+				$this->metro_list = $this->content->metro_msk->toArray();
+				$this->district_list = $this->content->district_msk->toArray();
+			break;
+			default :
+				$this->metro_list = $this->content->metro_spb->toArray();
+				$this->district_list = $this->content->district_spb->toArray();
+		}			
 
 		parent::__construct();
 	}
@@ -65,20 +89,15 @@ class Form_AddSalonForm extends Zend_Form
 			)
 		));
 		
-		/*
-		 set hardcoded city to Sank-Peterburg
-		*/
-		$this->addElement('select', 'city', array(
+		$city = $this->createElement('select', 'city', array(
 			'validators' => array(
 				array(
 					'GreaterThan', false, array(0, 'messages' => array(
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => array('2' => 'Санкт-Петербург'),
-			'value' => 2,
-			'disabled' => true,
-			//'required' => true,
+			'multiOptions' => $this->content->cities->toArray(),						
+			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
 				'ViewHelper',
@@ -86,22 +105,10 @@ class Form_AddSalonForm extends Zend_Form
 				array('Label', array('tag' => 'div')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
-		));
-		/*
-		 end of setting hardcoded city
-		*/
-		
-		$this->addElement('text', 'address', array(
-			'filter'     => array('StringTrim'),
-			'label' => 'Адрес:',
-			'decorators' => array(
-				'ViewHelper',
-				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'form-element'))
-			)
-		));
-		
+		));	
+		$city->setValue($this->cityParam);		
+		$this->addElement($city);
+	
 		$this->addElement('select', 'district', array(
 			'validators' => array(
 				array(
@@ -109,7 +116,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->district_spb->toArray(),
+			'multiOptions' => $this->district_list,			
 			'required' => true,
 			'label'    => 'Район:',
 			'decorators' => array(
@@ -122,12 +129,12 @@ class Form_AddSalonForm extends Zend_Form
 		
 		$this->addElement('select', 'metro', array(
 			'validators' => array(
-				array(
-					'GreaterThan', false, array(0, 'messages' => array(
+			    array(
+				    'GreaterThan', false, array(0, 'messages' => array(
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->metro_spb->toArray(),
+			'multiOptions' => $this->metro_list,
 			'required' => true,
 			'label'    => 'Метро:',
 			'decorators' => array(
@@ -137,6 +144,17 @@ class Form_AddSalonForm extends Zend_Form
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
 		));
+		
+		$this->addElement('text', 'address', array(
+			'filter'     => array('StringTrim'),
+			'label' => 'Адрес:',
+			'decorators' => array(
+				'ViewHelper',
+				'Errors',
+				array('Label', array('tag' => 'div')),
+				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'form-element'))
+			)
+		));		
 		
 		$this->addElement('text', 'phone', array(
 			'filter' => array('StringTrim'),

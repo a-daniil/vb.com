@@ -436,20 +436,15 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			)
 		));
 		
-		/*
-		  set hardcoded city to Sank-Peterburg		 
-		 */
-		$this->addElement('select', 'city', array(
+		$city = $this->createElement('select', 'city', array(
 			'validators' => array(
 				array(
 					'GreaterThan', false, array(0, 'messages' => array(
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => array('2' => 'Санкт-Петербург'),
-			'value' => 2,
-			'disabled' => true,
-			//'required' => true,	
+			'multiOptions' => $this->content->cities->toArray(),			
+			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
 				'ViewHelper',
@@ -458,10 +453,9 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
 			)
 		));	
-		/*
-			end of setting hardcoded city
-		*/
-		
+		$city->setValue($this->city);		
+		$this->addElement($city);
+	
 		$this->addElement('select', 'district', array(
 			'validators' => array(
 				array(
@@ -469,7 +463,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->district_spb->toArray(),
+			'multiOptions' => $this->district_list,			
 			'required' => true,
 			'label'    => 'Район:',
 			'decorators' => array(
@@ -487,7 +481,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->metro_spb->toArray(),
+			'multiOptions' => $this->metro_list,
 			'required' => true,
 			'label'    => 'Метро:',
 			'decorators' => array(
