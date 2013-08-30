@@ -35,9 +35,7 @@
 						<ul class="selects_holder">
 							<li>
 								<label for="city">Город:</label>
-								<select class="head_select" name="city" onchange="if (this.selectedIndex) {											
-											window.location = $(this).val();
-										}">
+								<select class="head_select" name="city" onchange="window.location = $(this).val();">
 									<option value="http://vb.arcada-team.ru" <?if ( $this->city == 1 ) :?> selected<?endif?>>Москва</option>
 									<option value="http://spbvb.arcada-team.ru" <?if ( $this->city == 2 ) :?> selected<?endif?>>Санкт-Петербург</option>
 								</select>
