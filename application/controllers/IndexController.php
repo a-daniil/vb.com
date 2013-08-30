@@ -185,14 +185,11 @@ class IndexController extends Zend_Controller_Action {
 		//depends on subdomens
 		$params['city'] = "city = " . $this->city;	
 		
-		if ( $this->_hasParam('r_performer') ) {
+		if ( $this->_getParam('r_performer') ) {
 			$params['performer'] = 'performer = ' . $this->_getParam('r_performer');			
 		} else {
 			$params['performer'] = 'performer ' . ($this->view->info['performer'] ? "=" . $this->view->info['performer'] : "IN (1,2,3,4)");	
-		}				
-
-		$per = $this->_getParam('r_performer');
-		//print_r($per);die();
+		}			
 		
 		if($this->_getParam('m')){
 			$mtr = $this->content->metro_spb->toArray();
@@ -338,6 +335,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->filter=$filters;
 		/* get ankets */
 		$ankets = new Model_AnketsTest();
+
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);
 		
 		$paginator = new Zend_Paginator($adapter);
