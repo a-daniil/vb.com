@@ -344,15 +344,15 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->ankets = $paginator;
 
 		/* get top score */
-		if ( !$route = Zend_Registry::get('route')  ) {		
+		if ( !$route = Zend_Registry::get('route')  ) {
 			$review = new Model_Review();
 			$per = $params['performer'] ? $params['performer'] : false;
 			$top_100 = $review->getTop100( $per );
-			$this->view->top_100 = $top_100;		
+			$this->view->top_100 = $top_100;
 		} else {
 			$this->view->top_100 = false;
 		}
-		
+
         // debug filters
         if ($this->admin) print_r($params);
         if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
@@ -361,11 +361,11 @@ class IndexController extends Zend_Controller_Action {
 	}
 
 	public function clearAction() {
-		
-	}	
+
+	}
 
 	public function commAddFormAction(){
-		$this->_helper->layout->disableLayout();		
+		$this->_helper->layout->disableLayout();
 		$this->captcha_add();
 	}
 	

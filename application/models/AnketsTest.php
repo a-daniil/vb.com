@@ -213,5 +213,19 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		return array();
 	}
 
+	public function getLatestAnkets ( $start_date )
+	{
+		$select = $this->select();
+
+		$select->where('active = 1');
+		$select->where('status >= 30');
+
+		$select->where('photo_start	>= ?', $start_date);
+
+		$select->order('photo_start DESC');
+
+		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+		return $adapter;
+	}
 
 }
