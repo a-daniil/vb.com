@@ -30,7 +30,7 @@ class AnketyController extends IndexController {
 		}
 
 		$ankets = new Model_AnketsTest();
-		$adapter = $ankets->getLatestAnkets( $start_date );
+		$adapter = $ankets->getLatestAnkets( $start_date, $this->city );
 
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage($this->settings['girls_per_page']);

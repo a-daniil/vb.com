@@ -213,13 +213,14 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		return array();
 	}
 
-	public function getLatestAnkets ( $start_date )
+	public function getLatestAnkets ( $start_date, $city )
 	{
 		$select = $this->select();
 
 		$select->where('active = 1');
 		$select->where('status >= 30');
 
+		$select->where('city = ?', $city);
 		$select->where('photo_start	>= ?', $start_date);
 
 		$select->order('photo_start DESC');

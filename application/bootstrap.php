@@ -54,7 +54,7 @@ $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
 		),
 		'model' => array(
 			'path'  => 'models/',
-			'namespace' => 'Model_'		
+			'namespace' => 'Model_'
 		)
 	),
 ));
