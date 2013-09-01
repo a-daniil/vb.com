@@ -545,7 +545,12 @@ class CabinetController extends Zend_Controller_Action {
 		$page = $this->_hasParam('p') ? intval($this->_getParam('p')):1;
 		include_once 'Salons.php';
 		$salons=new Salons();
-		$this->view->info=$salons->get_salon( $this->_getParam( 'n' ) );
+
+		$info = $salons->get_salon( $this->_getParam( 'n' ) );
+
+		$this->hasRights(array('user_admin'), array($info['user_id'], $this->user_id));
+
+		$this->view->info=$info;
 
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
@@ -855,23 +860,26 @@ class CabinetController extends Zend_Controller_Action {
 					$users->update(array('ankets' => new Zend_Db_Expr('ankets + 1')), 'id = ' . $this->user_id);
 					/* end of increment of ankets per user */
 					
-					$this->_redirect('/cabinet/edit-photo/n/'.$result.'?new=1');						
+					$this->_redirect('/cabinet/edit-photo/n/'.$result.'?new=1');
 				}
 			}
-		} 
-		
-		$this->view->form = $frmAddAnket;		
+		}
+
+		$this->view->form = $frmAddAnket;
 		$this->view->type_label = $type_label;	
 		$this->view->performer = $performer;
 		$this->view->content = $this->content; 
 	}
-	
+
 	function editAnkFormAction () {	
 		$id = $this->getParam('id');
-		
+
 		include_once 'Ankets.php';
-		$ankets=new Ankets();		
-		
+		$ankets=new Ankets();
+		$anketa = $ankets->get_anket($id);
+
+		$this->hasRights(array('user_admin', 'user_moder'), array($anketa['user_id'], $this->user_id));
+
 		$performer = $ankets->get_ank_performer($id);
 	    $salons = $this->getUsersSalons();
 		switch ( $performer ) {
@@ -967,7 +975,6 @@ class CabinetController extends Zend_Controller_Action {
 				}
 			}
 		} else {
-			$anketa = $ankets->get_anket($id);			
 			$anketa['phone']     = str_replace("-", '', $anketa['phone']);
 			$type_label .= ' ' . $anketa['name'];
 			
@@ -976,13 +983,13 @@ class CabinetController extends Zend_Controller_Action {
 					$anketa[$srv.'_'.$key] = $anketa['srv'.'_'.$srv] & 1<<$key ? 1 : 0;
 				}
 			}
-			
+
 			foreach( $anketa as $key => $value ) {
 				if ( $value === '0' ) {
 					unset( $anketa[$key] );
 				}
 			}
-			
+
 			unset( $anketa['srv_main'] );
 			unset( $anketa['srv_strip'] );
 			unset( $anketa['srv_add'] );
@@ -991,13 +998,13 @@ class CabinetController extends Zend_Controller_Action {
 			
 			$frmAddAnket->populate($anketa);
 		}
-	
+
 		$this->view->id   = $id;
-		$this->view->form = $frmAddAnket;		
-		$this->view->type_label = $type_label;	
+		$this->view->form = $frmAddAnket;
+		$this->view->type_label = $type_label;
 		$this->view->content = $this->content;
 	}
-	
+
 	function addSalonFormAction() {
 		$city = Zend_Registry::get('city');
 		$frmAddSalon = new Form_AddSalonForm( $this->content, array('new' => true, 'city' => $city) );
@@ -1063,26 +1070,29 @@ class CabinetController extends Zend_Controller_Action {
 					}
 					/* end of some strange requirement from manager */
 					
-					$this->_redirect('/cabinet/edit-photo-salon/n/'.$result.'?new=1');					
+					$this->_redirect('/cabinet/edit-photo-salon/n/'.$result.'?new=1');
 				}
 			}
-		} 
-		
+		}
+
 		$this->view->form = $frmAddSalon;
 		$this->view->content = $this->content;
 	}
-	
+
 	function editSalonFormAction () {
 		$id = $this->getParam('id');
-		
+
 		include_once 'Salons.php';
 		$salon = new Salons();
-		
+		$salon = $salon->get_salon($id);
+
+		$this->hasRights(array('user_admin', 'user_moder'), array($salon['user_id'], $this->user_id));
+
 		$frmAddSalon = new Form_AddSalonForm( $this->content );
 		$frmAddSalon->setMethod("post");
-		
+
 		if ( $this->getRequest()->isPost() ) {
-			if ( $frmAddSalon->isValid( $_POST ) ) {		
+			if ( $frmAddSalon->isValid( $_POST ) ) {
 				/* required params*/
 				$data['type']        = $frmAddSalon->getValue('type');
 				$data['name']        = $frmAddSalon->getValue('name');
