@@ -43,13 +43,13 @@
 							<li>
 								<label for="metro">Рядом с метро:</label>
 								<select form="redirectForm" class="head_select" name="metro" name="m" 
-										onchange="if (this.selectedIndex) {											
+										onchange="if (this.selectedIndex) {
 											document.redirectForm.action = '/' + $(this).val();
 											submitForm('redirectForm');
-										}">										
-									<?$i=0; foreach($this->metro_list as $title) : ?>                       
+										}">
+									<?$i=0; foreach($this->metro_list as $title) : ?>
                         				<option value="<?php echo $this->sections->getUriForMetro($i, $this->city) ?>">
-                        						<?if( strpos($_SERVER['REQUEST_URI'], $this->sections->getUriForMetro($i, $this->city)) ):?> selected<?endif?>><?=$title?>
+                        						<?if( strpos($_SERVER['REQUEST_URI'], $this->sections->getUriForMetro($i, $this->city)) ):?> selected<?endif?><?=$title?>
                         				</option>
                      				<? $i++; endforeach ?>
 								</select>
