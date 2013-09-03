@@ -1,3 +1,244 @@
+<style>
+	.hidden {
+		visibility: hidden;
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$( "#slider_per_hour" ).slider({
+			range: true,
+			min: 0,
+			max: 25000,
+			values: [ 0, 25000  ],
+			slide: function( event, ui ) {
+				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
+		  }
+		});
+
+		$( "#amount_per_hour" ).val($( "#slider_per_hour" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_per_hour" ).slider( "values", 1 ) + " руб");
+
+		$( "#slider_breast_size" ).slider({
+			range: true,
+			min: 0,
+			max: 8,
+			values: [ 0, 8 ],
+			slide: function( event, ui ) {
+				$( "#amount_breast_size" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+		  }
+		});
+
+		$( "#amount_breast_size" ).val($( "#slider_breast_size" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_breast_size" ).slider( "values", 1 ));
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.add_review').click(function(){
+			$('#hide_register_block').fadeIn();
+				return false;
+		})
+	});
+</script>
+<div class="fix_width">
+	<div id="main">
+		<div id="content">
+			<div class="main_title_block">
+				<h1>Мой профиль</h1>
+			</div>
+			<div class="pager_holder gray_pager_holder">
+				<div class="pagination_big_text">
+					<? if ( $this->form instanceof Form_EditPassForm ) :?>
+						<span>Логин: <?= $this->login ?> E-mail: <?= $this->email ?></span>
+					<? elseif ( $this->form instanceof Form_EditUserMessForm ) : ?>
+						<span>Включить уведомление на e-mail: <?= $this->email ?></span>
+					<? endif ?>
+				</div>
+				<ul class="categories_page">
+					<li><a href="/index/profile?type=pass">Смена пароля</a></li>
+					<li><a href="/index/profile?type=mess">Уведомления</a></li>
+				</ul>
+			</div>
+			<? if ( $this->message ) :?>
+				<div class="<?= $this->color ?>">
+					<span><?= $this->message ?></span>
+				</div>
+			<? endif; ?>
+			<? if ( $this->form instanceof Form_EditPassForm ) :?>
+				<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+					<div class="form">
+						<div class="form-left">
+							<div>
+								<span class="search_radius_labe">Старый пароль:</span><input type="password" name="old_pass" id="old_pass" value="" class="user_cabinet_form_input">
+							</div>
+							<div>
+								<span class="search_radius_labe">Новый пароль:</span><input type="password" name="new_pass" id="new_pass" value="" style="float: left;" class="user_cabinet_form_input">
+							</div>
+							<div>
+								<span class="search_radius_labe">Новый пароль (еще раз):</span><input type="password" name="new_pass_repeat" id="new_pass_repeat" value="" class="user_cabinet_form_input">
+							</div>
+  						</div>
+  						<input class="button pink_button main_search_button" type="submit" name="submit" id="submit" value="Сохранить">
+  					</div>
+  				</form>
+			<? elseif ( $this->form instanceof Form_EditUserMessForm ) : ?>
+				<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+					<div class="form">
+						<div class="form-left">
+						<?=$this->form->getElement('balance')?>
+						<?=$this->form->getElement('days_info')?>
+        				<? foreach ($this->form as $element): ?>
+        					<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
+        						<?= $element ?>
+        					<? endif ?>
+  						<? endforeach; ?>
+  						</div>
+  						<input class="button pink_button main_search_button" type="submit" name="submit" id="submit" value="Сохранить">
+  					</div>
+  				</form>
+			<? endif ?>
+		</div>
+		<aside id="sidebar">
+			<?= $this->render('index/_user_admin.phtml') ?>
+			<div class="sidebox">
+				<div class="sidebox_header">
+					<h3>Быстрый поиск</h3>
+				</div>
+				<div class="sidebox_content">
+					<form action="#">
+						<fieldset>
+							<h4 class="red_side_title">Цена за час</h4>
+							<div class="range_slider">
+								<input type="text" id="amount_per_hour" class="grey_price" readonly />
+								<div id="slider_per_hour"></div>
+							</div>
+							<h4 class="red_side_title">Размер груди</h4>
+								<div class="range_slider">
+									<input type="text" id="amount_breast_size" class="grey_price" readonly />
+									<div id="slider_breast_size"></div>
+								</div>
+								<div class="get_all_search_box">
+									<a href="#" class="all_search_label">Pасширенный поиск</a>
+									<button class="button pink_button"><span class="search_icon"></span>Найти</button>
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Фильтровать</h3>
+				</div>
+				<div class="sidebox_content filter_girl_min_height">
+					<h5 class="category_header">Возраст</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/molodye">"Молодые"</a> <span class="small_gray">(18-22)</span></li>
+						<li><a href="/kategorii/starye">"Старые"</a> <span class="small_gray">(23-29)</span></li>
+					</ul>
+					<h5 class="category_header">Телосложение</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/hudye">"Худые"</a></li>
+						<li><a href="/kategorii/tolstye">"Толстые"</a></li>
+					</ul>
+					<h5 class="category_header">Внешность</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/aziatki">Азиатки</a></li>
+						<li><a href="/kategorii/mulatki">Мулатки</a></li>
+						<li><a href="/kategorii/negrityanki">Негритянки</a></li>
+						<li><a href="/kategorii/uzbechki">Узбечечки</a></li>
+					</ul>
+					<h5 class="category_header">Расценки</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/deshevye">Дешевые</a></li>
+						<li><a href="/kategorii/elitnye">Элитные</a></li>
+					</ul>
+					<h5 class="category_header">Место встречи</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/vyezd-na-dom">Выезд на дом</a></li>
+						<li><a href="/kategorii/s-apartamentami">С апартаментами</a></li>
+					</ul>
+					<h5 class="category_header">Анкеты</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Новые</a></li>
+						<li><a href="/?st=30-40">Проверенные</a></li>
+						<li><a href="/?v=1-0">С видео</a></li>
+					</ul>
+					<div class="filter_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Услуги</h3>
+				</div>
+				<div class="sidebox_content servises_girl_min_height">
+					<h5 class="category_header">Основные программы</h5>
+					<ul class="red_dot_list">
+						<?php foreach($this->services as $part=>$srv) : ?>
+						    <?php array_shift($srv); ?>
+							<?php foreach($srv as $num=>$val) : ?>
+								<?php if ($part == 'main' ) : ?>
+									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+										<li><?php echo $val ?></li>
+									</a>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+					<h5 class="category_header">Дополнительные программы</h5>
+					<ul class="red_dot_list">
+						<?php foreach($this->services as $part=>$srv) : ?>
+						    <?php array_shift($srv); ?>
+							<?php foreach($srv as $num=>$val) : ?>
+								<?php if ($part == 'add' ) : ?>
+									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+										<li><?php echo $val ?></li>
+									</a>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+					<div class="servises_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3><span class="white_metro_icon"></span>Станция метро</h3>
+				</div>
+				<div class="sidebox_content">
+					<div class="left_sidebox_content">
+					<h5 class="category_header">Район ЦАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Курская</a></li>
+							<li><a href="#">Красные Ворота</a></li>
+							<li><a href="#">Сухаревская</a></li>
+							<li><a href="#">Чкаловская</a></li>
+							<li><a href="#">Таганская</a></li>
+						</ul>
+					</div>
+					<div class="right_sidebox_content">
+					<h5 class="category_header">Район ЮЗАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Спортивная</a></li>
+							<li><a href="#">Фрунзенская</a></li>
+							<li><a href="#">Университет</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<ul class="see_in_mobile">
+				<li>
+					<div class="first_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+				<li>
+					<div class="second_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+			</ul>
+		</aside>
+	</div>
+</div>
+<!--
 <div class="row">
 	<div class="span10">
     	<ul class="nav nav-tabs bottom_nav_tabs">
@@ -53,18 +294,19 @@
         					<?= $element ?>
         				<? endif ?>
   					<? endforeach; ?>
-  					</div>  
-  					<?= $this->form->getElement('submit') ?> 				 				
+  					</div>
+  					<?= $this->form->getElement('submit') ?>
   				</div>
   			</form>	
   		</div>
     </div>
     <div class="span2">    	
-        <?= $this->render('index/_user_admin.phtml') ?>           
+        <?= $this->render('index/_user_admin.phtml') ?>
         <?= $this->render('index/_filter_right.phtml')?>
         <?#=$this->render('index/_banners_right.phtml')?>
-        <div class="right_block_text word-wrap">                    
+        <div class="right_block_text word-wrap">
         	<p class="word-wrap"><?=nl2br($this->textToView($this->info['text_right']))?></p>
         </div>
     </div>
 </div>
+-->

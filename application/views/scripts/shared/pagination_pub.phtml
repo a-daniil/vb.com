@@ -1,10 +1,10 @@
 <?php if ( $this->pageCount>1 ) : ?>
 	<?php if(isset($this->previous)) : ?>
-		<a id="prev" href="#" class="previouslink"></a>
+		<a id="prev" href="" class="previouslink"></a>
 	<?php endif ?>
 		<a href="#" class="current"><?=$this->current?></a>
 	<?php if(isset($this->next)) : ?>
-		<a id="next" href="#" class="nextlink"></a>
+		<a id="next" href="" class="nextlink"></a>
 	<?php endif ?>
 <script>
     var link_prev = "<?=$this->url(array('p'=>$this->previous),'default')?>";
