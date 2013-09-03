@@ -144,10 +144,6 @@ h1.center_title  {
 	margin: 10px 10px 10px 0px;
 }
 
-.user_cab_message_group input {
-	float: left;
-}
-
 .user_cab_message_group label {
 	float: left;
 	margin-left: 10px;
@@ -156,6 +152,7 @@ h1.center_title  {
 .user_cab_message_text {
 	clear: both;
 	margin: 10px 10px 10px 20px;
+	padding-top: 5px;
 }
 
 .user_cab_message {

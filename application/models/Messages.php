@@ -6,7 +6,7 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 	
 	public function addMessage( $send_to, $subject, $body, $user_id, $file = null )
 	{
-		$row = $this->createRow();		
+		$row = $this->createRow();
 		
 		$row->send_to = $send_to;
 		$row->subject = $subject;
@@ -55,13 +55,13 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 	public function getNewMessagesCount( $user_id )
 	{
 		$select = $this->select()->from($this->_name, 'COUNT(*) as count');
-		$select->where('send_to = ?', $user_id );		
+		$select->where('send_to = ?', $user_id );
 		$select->where('viewed IS NOT TRUE');
 
 		$row = $this->fetchRow($select);
 		return $row['count'];
 	}
-	
+
 	public function getMessageUserId ( $id )
 	{
 		$row = $this->find($id)->current();

@@ -33,17 +33,17 @@ class Model_CommentsTest extends Zend_Db_Table_Abstract {
 
 	public function fetchPaginatorAdapter( $user_id = null )
 	{
-		$select = $this->select();		
+		$select = $this->select();
 		$select->where('confirm = false');
 		if ( $user_id ) {
-			$select->where('user_id = ?', $user_id);		
+			$select->where('user_id = ?', $user_id);
 		}
 		
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
-	
-	public function getUserComments( $user_id = null) 
+
+	public function getUserComments( $user_id = null)
 	{
 		$select = $this->select()->setIntegrityCheck(false);
 		$select->from($this->_name, array(
@@ -52,30 +52,33 @@ class Model_CommentsTest extends Zend_Db_Table_Abstract {
 			'comments.text as text',
 			'comments.timestamp as time',
 			'comments.id as id'));
-		
+
 		$select->join('ankets',
 				'ankets.id = comments.owner_id',
 				'name');
 		$select->where('confirm = true');
 		if ( $user_id ) {
 			$select->where('comments.user_id = ?', $user_id);
-		}	
+		}
 		$select->order('comments.timestamp DESC');
-		
+
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
-	
+
 	public function getNewComments( $user_id = null )
 	{
-		$select = $this->select()->from($this->_name, 'COUNT(*) as count');
-		$select->where('user_id = ?', $user_id );
-		$select->where('confirm = true');
-		
+		$select = $this->select()->setIntegrityCheck(false);
+		$select->from($this->_name, 'COUNT(*) as count');
+		$select->join('ankets',
+				'ankets.id = comments.owner_id');
+		$select->where('comments.user_id = ?', $user_id );
+		$select->where('comments.confirm = true');
+
 		$row = $this->fetchRow($select);
 		return $row['count'];
 	}
-	
+
 	public function getOwnerId ( $id ) 
 	{
 		$select = $this->select()->from($this->_name, 'owner_id');

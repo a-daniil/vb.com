@@ -1,88 +1,24 @@
 <?php
 
-class NewSearchController extends Zend_Controller_Action {
-	
+require_once 'IndexController.php';
+
+class NewSearchController extends IndexController {
+
 	const USR_ADM = 0;
-	
+
 	protected $config, $content, $settings, $admin;
 	protected $mBanner;
-	
-	public function init() {
-		$auth = Zend_Auth::getInstance()->getIdentity();
-				
-		if ($auth ) {
-			$this->view->auth = $auth->user_login;
-			($this->admin = $auth->flags & 1<<self::USR_ADM) ? true : false;
-		} 
-		else {
-			$this->admin = false;
-		}
-		
-		$this->view->admin = $this->admin;
-		$this->config = Zend_Registry::get('config');
-		$this->content = Zend_Registry::get('content');
-		
-		$this->view->controller = $this->_request->getControllerName();
-		$this->view->performer = $this->content->performer->toArray();
-		$this->view->types = $this->content->types->toArray();
-		$this->view->cities = $this->content->cities->toArray();
-		$this->view->places = $this->content->places->toArray();
-		$this->view->novelty = $this->content->novelty->toArray();
-		$this->view->exotics = $this->content->exotics->toArray();
-		$this->view->districts = $this->content->district_spb->toArray();		
-		$this->view->services = $this->content->srv->toArray();
-		$this->view->srv_short = $this->content->srv_short->toArray();
-		$this->view->url_user_ph = $this->config->path->url_user_ph;		
-		$this->view->banner_path = $this->config->path->url_banners;
-		$this->view->srv_short_list = true;
-		$this->view->errors = array();
-		
-		$info['city'] = 2;
-		if ( $info['city'] == 1 ) {
-			$this->view->metro_list = $this->content->metro_msk->toArray();
-		} 
-		elseif ( $info['city'] == 2 ) {
-			$this->view->metro_list = $this->content->metro_spb->toArray();
-		}
-		
-		include_once 'Settings.php';
-		$settings = new Settings;
-		$this->settings = $settings->get();
-		
-		include_once 'Meta.php';
-		$meta = new Meta;
-		$this->view->meta = array();
-		$meta_data = $meta->get();		
-		
-		foreach ( $meta_data as $key => $value ) {
-			$tmp1=explode('{',$value);
-			$string=array_shift($tmp1);
-			foreach($tmp1 as $tmp2){
-				$tmp3=explode('}',$tmp2);
-				$tmp4=explode(',',$tmp3[0]);
-				$string.=$tmp4[rand(0,count($tmp4)-1)];
-				$string.=$tmp3[1];
-			}
-			$this->view->meta[$key]=$string;			
-		}
-		unset( $meta, $meta_data, $settings, $auth );
-		$page = $this->_hasParam('ap') ? intval( $this->_getParam('ap') ) : 1;		
-		
-		include_once 'MenuItems.php';
-		$mMenuItems = new MenuItems();
-		$this->view->menu_items = $mMenuItems->get_all_items();
-	}
-	
+
 	public function indexAction() {	
 		$this->view->price_options = $this->content->price_options->toArray();
 		$this->view->breast_options = $this->content->breast_options->toArray();
 		$this->view->weight_options = $this->content->weight_options->toArray();
 		$this->view->height_options = $this->content->height_options->toArray();
-		$this->view->age_options = $this->content->age_options->toArray();		
+		$this->view->age_options = $this->content->age_options->toArray();
 		$this->view->menu_sub = array( 'active' => 'default' );	
 	}
-	
-	public function resultAction() {	
+
+	public function resultAction() {
 		if ( $this->_hasParam( 'st' ) ) $this->view->menu_sub['active'] = 'st';
 		if ( $this->_hasParam( 'v' ) ) $this->view->menu_sub['active'] = 'v';
 		if ( $this->_hasParam( 'comments' ) ) $this->view->menu_sub['active'] = 'rv';
@@ -211,7 +147,7 @@ class NewSearchController extends Zend_Controller_Action {
 				}
 			}
 		}
-			
+
 		if ( $this->_hasParam('novelty') ) {
 			switch ( $this->_getParam('novelty') ) {
 				case '1' :
@@ -237,7 +173,6 @@ class NewSearchController extends Zend_Controller_Action {
 			}
 		}
 
-		print_r($params);
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$ankets->set_items_per_page( ( $this->_hasParam( 'limit' ) ) ? (int)$this->_getParam( 'limit' ) : $this->settings['girls_per_page']);

@@ -550,18 +550,13 @@ class IndexController extends Zend_Controller_Action {
 		 *  Need to implement rights check
 		 * 
 		 */
-		
+
 		if ( !$this->user_id ) {
 			$this->_redirect("/");
 		}
-		
-		/*
-		 *
-		 *
-		 */
-		
+
 		$comments = new Model_CommentsTest();
-		
+
 		if ( $this->getRequest()->isPost() ) {
 			foreach ( $_POST as $key => $value ) {
 				if ( preg_match('/del_/', $key) ) {
@@ -569,14 +564,14 @@ class IndexController extends Zend_Controller_Action {
 					$where[] = $id;
 				}
 			}
-			
+
 			$result = $comments->delete('id IN (' . implode(',', $where) . ')');
-			
+
 			if ( !$result ) {
 				throw new Delete_User_Messages();
 			}
-		}		
-		
+		}
+
 		$adapter = $comments->getUserComments( $this->user_id );
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage(10);
