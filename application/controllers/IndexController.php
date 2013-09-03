@@ -548,7 +548,6 @@ class IndexController extends Zend_Controller_Action {
 	public function userCommentsAction() {
 		/*
 		 *  Need to implement rights check
-		 * 
 		 */
 
 		if ( !$this->user_id ) {
@@ -573,6 +572,25 @@ class IndexController extends Zend_Controller_Action {
 		}
 
 		$adapter = $comments->getUserComments( $this->user_id );
+		$paginator = new Zend_Paginator($adapter);
+		$paginator->setItemCountPerPage(10);
+		$page = $this->_request->getParam('p', 1);
+		$paginator->setCurrentPageNumber($page);
+		$this->view->paginator = $paginator;
+	}
+
+	public function userReviewsAction() {
+		/*
+		 *  Need to implement rights check
+		*/
+		
+		if ( !$this->user_id ) {
+			$this->_redirect("/");
+		}
+
+		$reviews = new Model_Review();
+
+		$adapter = $reviews->getUserReviews( $this->user_id );
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage(10);
 		$page = $this->_request->getParam('p', 1);
@@ -611,15 +629,10 @@ class IndexController extends Zend_Controller_Action {
 		 * Need to implement rights check
 		 *
 		 */
-		
+
 		if ( !$this->user_id ) {
 			$this->_redirect("/");
 		}
-		
-		/*
-		 *
-		 *
-		 */
 
 		$id = $this->_getParam('id');
 			
@@ -647,35 +660,30 @@ class IndexController extends Zend_Controller_Action {
 			$this->_redirect("/");
 		}
 
-		/*
-		 *
-		 *
-		 */
-		
 		$type = $this->_getParam('type');
-		
+
 		switch ($type) {
 			case 'pass' : 
 				$frm = new Form_EditPassForm();
 				break;
 			case 'mess' :
-				$frm = new Form_EditUserMessForm();				
+				$frm = new Form_EditUserMessForm();
 				break;
 			default :
 				$frm = new Form_EditPassForm();
 				break;
-		}		
-		
+		}
+
 		include_once 'Users.php';
 		$users = new Users();
 		$email = $users->get_email($this->user_id);
 		$login = $this->user_login;
-		
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
 				if ( $frm instanceof Form_EditPassForm ) {
 					$oldpass = $frm->getValue('old_pass');
-					$pass = $frm->getValue('new_pass');					
+					$pass = $frm->getValue('new_pass');
 					if ( $users->user_check_password($this->user_id,md5($oldpass) ) ) {
 						$users->user_change_password($this->user_id,md5($pass));
 						$this->view->message = Form_EditPassForm::SUCCESS;

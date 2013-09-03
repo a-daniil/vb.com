@@ -145,7 +145,65 @@ class Model_Review extends Zend_Db_Table_Abstract {
 	{
 		$select = $this->select();
 		$select->where('owner_id = ?' , $owner_id);
-	
+
+		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+		return $adapter;
+	}
+
+	public function countNewReviews( $user_id = null ) {
+		$select = $this->select()->setIntegrityCheck(false);
+		$select->from($this->_name, 'COUNT(*) as count');
+		$select->join('ankets',
+			'ankets.id = review.owner_id');
+		$select->where('review.user_id = ?', $user_id);
+		//$select->where('review.confirm = true');
+
+		$row = $this->fetchRow($select);
+		return $row['count'];
+	}
+
+	public function getUserReviews( $user_id = null)
+	{
+		$select = $this->select()->setIntegrityCheck(false);
+		$select->from($this->_name, array(
+			'ankets.name as name',
+			'ankets.id as ank_id',
+			'ankets.name',
+			'ankets.price_1h_ap',
+			'ankets.price_1h_ex',
+			'ankets.metro',
+			'ankets.photolist',
+			'ankets.age',
+			'ankets.height',
+			'ankets.weight',
+			'ankets.breast',
+			'ankets.real',
+			'ankets.status',
+			'ankets.videolist',
+			'review.ratio as r_ratio',
+			'review.photo_original as r_photo_original',
+			'review.real_individual as r_real_individual',
+			'review.comment as r_comment',
+			'review.apartment as r_apartment',
+			'review.service as r_service',
+			'review.score as r_score',
+			'review.services as r_services',
+			'review.date as r_date',
+			'review.photo_original_select as r_photo_original_select'
+			));
+
+		$select->join('ankets',
+			'ankets.id = review.owner_id');
+		// must be uncommited after implement review moderation
+		//$select->where('confirm = true');
+		if ( $user_id ) {
+			$select->where('review.user_id = ?', $user_id);
+		}
+		//select reviews only by active ankets
+
+		//
+		$select->order('review.date DESC');
+
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
