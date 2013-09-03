@@ -1,16 +1,16 @@
 <?php
 
 class CabinetController extends Zend_Controller_Action {
-	
+
 	protected $content,$config,$user_id,$user_admin,$admin_flags;
-	
+
 	/* constants for user types */
 	const USR_ADM=0;
 	const COM_ADM=1;
 	const TECH_ADM=2;
 	const MODER = 3;
 	const USER = 4;
-	
+
 	/* constants for ankets's type */
 	const GIRL = 1;
 	const LESB = 2;

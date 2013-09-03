@@ -12,54 +12,53 @@
 	}
 
 ?>
-<div class="<?= $class ?>" >
-	<div class="right_aside_title">Кабинет посетителя</div>
-	
-	<div class="user_cabinet_links">
-		<a href="/index/postpone">Отложенные анкеты<?= $this->countPostpone( $this->user_id ) ?></a>
-		<a href="/index/user-comments">Мои отзывы<?= $this->countNewComments( $this->user_id ) ?></a>
-		<a href="/index/profile">Настройки профиля</a>
+<div class="sidebox pink <?= $class ?>">
+	<div class="sidebox_header">
+		<h3>Кабинет посетителя</h3>
 	</div>
-	
-	<span>Сообщения:</span>
-	<div class="user_cabinet_links">
-		<a href="/index/user-connect">Связь с администрацией</a>
-		<a href="/index/user-messages">Мои сообщения
-			<? if ( $count = $this->countNewMessages() ) { 
-					echo "(+" . $count . ")"; 
-			   } 
+	<div class="sidebox_content">
+		<ul class="red_dot_list">
+			<li><a href="/index/postpone">Отложенные анкеты<?= $this->countPostpone( $this->user_id ) ?></a></li>
+			<li><a href="/index/user-comments">Мои отзывы<?= $this->countNewComments( $this->user_id ) ?></a></li>
+			<li><a href="/index/profile">Настройки профиля</a></li>
+		</ul>
+		<h5>Сообщения:</h5>
+		<ul class="red_dot_list">
+			<li><a href="/index/user-connect">Связь с администрацией</a></li>
+			<li>
+				<a href="/index/user-messages">Мои сообщения
+					<? if ( $count = $this->countNewMessages() ) {
+						echo "(+" . $count . ")";
+					   }
+					?>
+				</a>
+			</li>
+		</ul>
+		<h5>Рекламодателю:</h5>
+		<ul class="red_dot_list">
+			<?
+				if ( $this->user_id ) {
+					$users = new Model_UsersTest();
+					$flags = $users->getFlags( $this->user_id );
+				} else {
+					$flags = null;
+				}
 			?>
-		</a>		
-	</div>
-	
-	<span>Рекламодателю:</span>
-	<div class="user_cabinet_links">
-		<?
-			if ( $this->user_id ) {
-				$users = new Model_UsersTest();
-				$flags = $users->getFlags( $this->user_id );
-			} else {
-				$flags = null;
-			}
-		?>
-		<? if ( $flags == 2 ) : ?>
-			<a href="/cabinet">Перейти в кабинет рекламодателя</a>
-		<? elseif( $flags == 0 ) : ?>
-			<a href="/cabinet">Разместить анкету</a>
-		<? endif ?>		
-	</div>
-	
-	<br />
-	<div class="user_cabinet_links">
-		<a href="javascript:void(0)" id="hide_user_cab">Свернуть</a>
+			<? if ( $flags == 2 ) : ?>
+				<li><a href="/cabinet">Перейти в кабинет рекламодателя</a></li>
+			<? elseif( $flags == 0 ) : ?>
+				<li><a href="/cabinet">Разместить анкету</a></li>
+			<? endif ?>
+			<li><a href="javascript:void(0)" id="hide_user_cab">Свернуть</a></li>
+		</ul>
 	</div>
 </div>
-<script type="text/javascript">			
+<script type="text/javascript">
 	<? if ( $this->user_id ) : ?>
 		$("#hide_user_cab").click(function() {
 			$.get("/remote/show-user-cabinet", { show : "false", user_id : <?= $this->user_id ?> }, function(){
 				$(".right_user_cabinet_show").removeClass("right_user_cabinet_show").addClass("right_user_cabinet_hide");			
 			});
-		});	
-	<? endif ?>					
+		});
+	<? endif ?>
 </script>

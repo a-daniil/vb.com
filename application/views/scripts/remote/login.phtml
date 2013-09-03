@@ -9,7 +9,25 @@
 						<div class="input_row">
 							<span>Вы вошли как: <?php echo $this->auth ?></span>
 						</div>
-						<a href="/cabinet">Перейти в личный кабинет</a>
+						<?php if (!$this->user_simple && !$this->com_user) : ?>
+							<a href="/cabinet">Перейти в личный кабинет</a>
+						<?php else : ?>
+							<a id="show_user_cab" href="javascript:void(0)">Перейти в личный кабинет</a>
+							<script type="text/javascript">	
+								<?php if ( !preg_match("/\/anketa|\/salon|\/payment|\/auth/", $_SERVER['HTTP_REFERER']) ) : ?> 
+									$("#show_user_cab").click(function() {
+										//$(".right_user_cabinet").css("display", "block");
+										$.get("/remote/show-user-cabinet", { show : "true", user_id : <?= $this->user_id ?> }, function(){ 
+											$(".right_user_cabinet_hide").removeClass("right_user_cabinet_hide").addClass("right_user_cabinet_show");
+										});
+									});
+								<?php else : ?>
+									$("#show_user_cab").click(function() {
+										window.open("/index/postpone");
+									});
+								<?php endif ?>
+							</script>
+						<?php endif ?>
 						<a href="/auth/logout" class="forgot_pass">Выход</a>
 					</div>
 				</div>
