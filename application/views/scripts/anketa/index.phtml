@@ -10,7 +10,22 @@
                		<?endif?>
 				</h1>
 				<span class="button pink_button float_pink_button">Новенькая</span>
-				<a class="add_favorites" href="#"><span class="add_favorites_icon"></span>В избранное</a>
+				<?php
+         			if ( $this->flags == '0' || $this->flags == '2' ) :
+            			$postpone = new Model_Postpone();
+            			$ids = $postpone->getUserAnkPostponeIds( $this->user_id );
+
+            			if ( !in_array($this->info['id'], $ids) ) :
+        		 ?>
+							<a class="add_favorites" href="javascript:void(0)" id="postpone" >
+								<span class="add_favorites_icon"></span>В избранное
+							</a>
+					<?php else : ?>
+							<a class="add_favorites" href="javascript:void(0)">
+								<span class="add_favorites_icon"></span>Уже в избранном
+							</a>
+					<?php endif ?>
+				<?php endif ?>
 			</div>
 			<aside id="left_sidebar">
 				<? if($this->info['photolist']):?>
@@ -48,23 +63,23 @@
 							</span>
 						</a>
 						<h5>Параметры:</h5>
-						<ul class="girl_card_info_list black_list">							
+						<ul class="girl_card_info_list black_list">
 							<li><a href="<?php echo getLink($this->info['age'],array(array(18,21),array(22,30),array(31,40),array(41, 99)),array('vozrast/junye','vozrast/molodye','vozrast/zrelye','vozrast/v-vozraste')); ?>">Возраст..............<?php echo $this->info['age'] ?></a></li>
 							<li><a href="<?php echo getLink($this->info['height'], array(array(1,165),array(166,175),array(175, 1000)),array('rost/malenkie','rost/sredego-rosta','rost/vysokie'));?>">Рост...................<?php echo $this->info['height'] ?></a></li>
 							<li><a href="<?php echo getLink($this->info['weight'],array(array(1,49),array(50,60),array(61,300)),array('ves/hudenkie', 'ves/strojnye', 'ves/polnenkie')) ?>">Вес....................<?php echo $this->info['weight'] ?></a></li>
 							<li><a href="<?php echo getLink($this->info['breast'],array(array(0,2),array(3,5),array(6,8)),array('razmer-grudi/s-malenkoj-grudiu','razmer-grudi/s-bolshoj-grudiu','razmer-grudi/s-ochen-bolshoj-grudiu'))?>">Грудь.................<?php echo $this->info['breast'] ?></a></li>
 						</ul>
 						<br/>
-						<h5>Внешность:						
+						<h5>Внешность:
 						<?php if ( $this->info['hair'] ) : ?>
 							<a href="/<?php echo getLink($this->info['hair'],array(array(1,1),array(2,2),array(3,3),array(4,4),array(5,5)),array('tsvet-volos/blondinki', 'tsvet-volos/brunetki', 'tsvet-volos/rusye', 'tsvet-volos/ryzhye', 'tsvet-volos/shatenki'))?>"><?php echo $this->hair[$this->info['hair']] ?></a>
 						<?php endif; ?>
 						<?php if ( $this->info['exotics'] ) : ?>
 							<a href="/<?php echo getLink($this->info['exotics'],array(array(1,1),array(2,2), array(3,3),array(4,4),array(5,5),array(6,6),array(7,7),array(8,8),array(9,9),array(10,10)), array('nacionalnost/aziatki', 'nacionalnost/mulatki', 'nacionalnost/negrityanki', 'nacionalnost/uzbechki', 'nacionalnost/ukrainki', 'nacionalnost/kazashki', 'nacionalnost/tatarki', 'nacionalnost/gruzinki', 'nacionalnost/cyganki', 'nacionalnost/kirgizki')) ?>"><?php echo $this->exotics[$this->info['exotics']] ?></a>
-						<?php endif; ?>											
+						<?php endif; ?>	
 						<!-- <div class="without_ret2"></div> -->
 						</h5>
-					</div>	
+					</div>
 					<div class="single_girl_main_info_block_r">
 						<div class="salon_card_another_info">
 							<div class="salon_card_rating_block">
@@ -308,4 +323,14 @@
 	$.get("/remote/phone/n/<?=$this->info['id']?>", function(data){
 		$(".big_red_phone").html(data); 
 	},"");
+
+	<? if ( $this->user_id ) : ?>
+   	$("#postpone").click(function (){
+        var user_id = <?= $this->user_id ?>;
+        var ank_id = <?= $this->info['id']; ?>;
+		$.get("/remote/postpone", {user_id : user_id , ank_id : ank_id }, function(data) {
+			$("#postpone").html(data);
+		});
+    });
+    <? endif ?>
 </script>

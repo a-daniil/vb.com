@@ -577,45 +577,40 @@ class IndexController extends Zend_Controller_Action {
 			}
 		}		
 		
-		$adapter = $comments->getUserComments( $this->user_id );		
+		$adapter = $comments->getUserComments( $this->user_id );
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage(10);
 		$page = $this->_request->getParam('p', 1);
 		$paginator->setCurrentPageNumber($page);
-		$this->view->paginator = $paginator;		
+		$this->view->paginator = $paginator;
 	}
-	
+
 	public function postponeAction() {
 		/*
 		 * Need to implement rights check
-		 *  
+		 *
 		 */
-		
+
 		if ( !$this->user_id ) {
 			$this->_redirect("/");
 		}
-		
-		/*
-		 * 
-		 * 
-		 */
-		
+
 		$postpone = new Model_Postpone();
 		$ankets = new Model_AnketsTest();
-		
-		$ids = $postpone->getUserAnkPostponeIds( $this->user_id ); 
+
+		$ids = $postpone->getUserAnkPostponeIds( $this->user_id );
 		if ( $ids ) {
 			$adapter = $ankets->fetchAnketsByIds( $ids );
 			$paginator = new Zend_Paginator($adapter);
-			$paginator->setItemCountPerPage( $this->settings['girls_per_page'] );
+			$paginator->setItemCountPerPage( $this->settings['girls_per_page'] * 2 );
 			$page = $this->_request->getParam('p', 1);
 			$paginator->setCurrentPageNumber($page);
-			$this->view->paginator = $paginator;			
+			$this->view->paginator = $paginator;
 		} else {
 			$ankets = null;
-		}		
+		}
 	}
-	
+
 	public function delPostponeAction() {
 		/*
 		 * Need to implement rights check

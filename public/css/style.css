@@ -809,6 +809,9 @@ and (max-device-width : 480px) {
 	padding: 10px;
 	margin: 0 0 25px;
 }
+.pager_holder_postpone{
+	clear: both;
+}
 .pager_holder.gray_pager_holder{
 	background: #f5f5f2;
 }
@@ -882,6 +885,11 @@ and (max-device-width : 480px) {
 	margin: 0 0 45px;
 	position: relative;
 }
+.girl_card_postpone {
+	margin: 0 0 45px 5px;
+	float: left;
+	padding-left: 5px;
+}
 .girl_card:after, salon_card:after{
 	display:block;
 	content:"";
@@ -949,6 +957,9 @@ and (max-device-width : 480px) {
 .girl_card_info_list, .salon_card_info_list{
 	color: #767676;
 	margin: 0 0 34px;
+}
+.gir_card_info_list_postpont {
+	margin: 0 0 24px;
 }
 .girl_card_info_list.black_list{
 	color: #212121;
