@@ -3366,7 +3366,6 @@ class CabinetController extends Zend_Controller_Action {
 				return;
 			}
 
-			$sections->add($info);
 			if ( preg_match('/uslugi/', $info['uri']) ) {
 				$this->_redirect('/cabinet/uslugi');die;
 			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
