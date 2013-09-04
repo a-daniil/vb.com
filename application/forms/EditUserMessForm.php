@@ -12,7 +12,7 @@ class Form_EditUserMessForm extends Zend_Form
 		
 		$elements[] = 'comments';
 		$this->addElement('checkbox', 'comments', array(
-			'label'    => 'о новых комментариях к вашим анкетам',
+			'label'    => 'О новых комментариях к вашим анкетам',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
@@ -23,7 +23,7 @@ class Form_EditUserMessForm extends Zend_Form
 		
 		$elements[] = 'messages';
 		$this->addElement('checkbox', 'messages', array(
-			'label'    => 'о новых сообщениях в переписке',
+			'label'    => 'О новых сообщениях в переписке',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
@@ -34,7 +34,7 @@ class Form_EditUserMessForm extends Zend_Form
 		
 		$elements[] = 'news';
 		$this->addElement('checkbox', 'news', array(
-			'label'    => 'о новостях на портале PutanaStars.com',
+			'label'    => 'О новостях на портале Vbordele.com',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',

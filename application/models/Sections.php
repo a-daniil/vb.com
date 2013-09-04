@@ -66,12 +66,17 @@ class Sections extends Zend_Db_Table_Abstract{
 		$this->getAdapter()->delete(self::TABLE,'id = '.$id);
 	}
         
-        public function check_uri($uri){
+        public function check_uri($uri, $city = false){
                 $select=$this->getAdapter()
 			->select()
 			->from(self::TABLE,array('id','title','uri'))
-			->where('uri = ?',$uri)
+			->where('BINARY uri = ?',$uri)
 			->limit(1);
+		
+        if ( $city ) {
+        	$select->where('city = ?', $city);
+        }
+
 		$return=$this->getAdapter()->query($select)->fetch();
 		if(!$return){return false;}
 		return $return;

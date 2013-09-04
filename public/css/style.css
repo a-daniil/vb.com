@@ -2289,3 +2289,9 @@ and (max-device-width : 480px) {
 	line-height: 14px;
 	color: #0088CC;
 }
+.postpone_del_ank {
+	position: absolute;
+	text-align: right;
+	bottom: 5px;
+	right: 5px;	
+}

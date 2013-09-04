@@ -187,8 +187,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="girl_card_text">
-							<span><?=nl2br($row['about'])?></span>
+						<div class="girl_card_text_unpadding">
+							<span><?=substr($row['about'], 0, 233)."..."?></span>
 						</div>
 					</div>
 						<?php if ($row['score']) : ?>

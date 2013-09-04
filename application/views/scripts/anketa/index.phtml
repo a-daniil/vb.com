@@ -221,6 +221,7 @@
 									<div class="black">
 										<ul class="rating_stars">
 											<?php echo str_repeat("<li></li>", $review['service']) ?>
+											<?php echo str_repeat("<li class=\"bad\"></li>", 5 - $review['service']) ?>
 										</ul>
 									</div>
 								</li>
@@ -229,6 +230,8 @@
 									<div class="black">
 										<ul class="rating_stars">
 											<?php echo str_repeat("<li></li>", $review['apartment']) ?>
+											<?php echo str_repeat("<li class=\"bad\"></li>", 5 - $review['apartment']) ?>
+											
 										</ul>
 									</div>
 								</li>
@@ -240,6 +243,7 @@
 									<div class="black">
 										<ul class="rating_stars">
 											<?php echo str_repeat("<li></li>", $score ) ?>
+											<?php echo str_repeat("<li class=\"bad\"></li>", 5 - $score ) ?>
 										</ul>
 									</div>
 								</li>

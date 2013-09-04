@@ -3,7 +3,7 @@
 class Form_NewMessageForm extends Zend_Form
 {
 	const NOT_EMPTY = "Это поле обязательно к заполнению.";
-	const NOT_SELECTED = "Выберите одно из значение выпадающего списка.";
+	const NOT_SELECTED = "Выберите одно из значений выпадающего списка.";
 	const SUCCESS = "Сообщение отправлено успешно";
 	const FAILED = "Не удалось отправить сообщение";
 	const SUCCESS_COLOR = "green";

@@ -2892,7 +2892,7 @@ class CabinetController extends Zend_Controller_Action {
 
             if (empty($current['objSections']) || !$current['objSections'] instanceof Sections) throw new Zend_Exception(__METHOD__.'Exception: $current[\'objSections\'] must be a member of Sections model!');
             $objSections = $current['objSections'];
-            if (empty($params['uri']) || $data = $objSections->check_uri($params['uri'])){
+            if (empty($params['uri']) || $data = $objSections->check_uri($params['uri'], $params['city'])){
                 $info['failed']['uri'] = true;
                 // check for unset failed uri if section edit
                 $id=intval(substr($this->_getParam('n'),0,32));
