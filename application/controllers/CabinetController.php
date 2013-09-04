@@ -3185,7 +3185,7 @@ class CabinetController extends Zend_Controller_Action {
     	$this->_helper->viewRenderer->setScriptAction('menu-items-add-form');
     	$this->view->action = 'edit';
     }
-    
+
     public function sectionsAction(){
     	$this->get_config_info();
 		//if(!$this->_hasParam('n')){$this->error('request_error');return;}
@@ -3289,38 +3289,38 @@ class CabinetController extends Zend_Controller_Action {
         $this->view->info = $this->arr_stripslashes($this->view->info);
         $this->view->types = $this->content->types->toArray();
     }
-        
-        public function sectionAddAction(){
-            if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
-            include_once 'Sections.php';
-            $sections=new Sections();
-            if(!$info=$this->get_section_info_from_form(array('objSections'=>$sections))){return;}
-            if($info['failed']){
-                    $this->section_return_to_edit($info);
-                    $this->_helper->viewRenderer->setScriptAction('section-add-form');
-                    $this->view->action='add';
-                    $this->view->types = $this->content->types->toArray();
-                    return;
-            }
-            unset($info['failed']);
-            if (empty($info['title_meta'])){
-                $info['title_meta'] = $info['title'];
-            }
 
-            $sections->add($info);
+    public function sectionAddAction(){
+		if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
+			include_once 'Sections.php';
+			$sections=new Sections();
+			if(!$info=$this->get_section_info_from_form(array('objSections'=>$sections))){return;}
+			if($info['failed']){
+				$this->section_return_to_edit($info);
+				$this->_helper->viewRenderer->setScriptAction('section-add-form');
+				$this->view->action='add';
+				$this->view->types = $this->content->types->toArray();
+				return;
+			}
+			unset($info['failed']);
+			if (empty($info['title_meta'])){
+				$info['title_meta'] = $info['title'];
+			}
+
+			$sections->add($info);
 			if ( preg_match('/uslugi/', $info['uri']) ) {
-            	$this->_redirect('/cabinet/uslugi');die;
-            } else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
-            	$this->_redirect('/cabinet/metro-msk');die;
-            } else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 2) {
-            	$this->_redirect('/cabinet/metro-spb');die;
-            } else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 1) {
-            	$this->_redirect('/cabinet/district-msk');die;
-            } else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 2) {
-            	$this->_redirect('/cabinet/district-spb');die;
-            }
-            $this->_redirect('/cabinet/sections');die;
-        }
+				$this->_redirect('/cabinet/uslugi');die;
+			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
+				$this->_redirect('/cabinet/metro-msk');die;
+			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 2) {
+				$this->_redirect('/cabinet/metro-spb');die;
+			} else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 1) {
+				$this->_redirect('/cabinet/district-msk');die;
+			} else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 2) {
+				$this->_redirect('/cabinet/district-spb');die;
+			}
+			$this->_redirect('/cabinet/sections');die;
+	}
 
         public function sectionEditFormAction() {
             if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
@@ -3329,8 +3329,8 @@ class CabinetController extends Zend_Controller_Action {
             include_once 'Sections.php';
             $sections=new Sections();
             $this->view->info = $info = $sections->get(intval(substr($this->_getParam('n'),0,32)));
-            if(!$info){$this->error('no_section');return;}                   
-            
+            if(!$info){$this->error('no_section');return;}
+
             $this->section_return_to_edit($info);
             $this->_helper->viewRenderer->setScriptAction('section-add-form');
             $this->view->action='edit';
@@ -3343,14 +3343,14 @@ class CabinetController extends Zend_Controller_Action {
             	die;
             }
 			$id=intval(substr($this->_getParam('n'),0,32));
-                
+
             include_once 'Sections.php';
 			$sections=new Sections();
             $current['objSections'] = $sections;
 			$info = $this->get_section_info_from_form($current);
 			/* trim uri */
 			$info['uri'] = trim($info['uri']);
-			
+
 			if($info['failed']){
             	$this->section_return_to_edit($info);
                 $this->_helper->viewRenderer->setScriptAction('section-add-form');
@@ -3360,25 +3360,27 @@ class CabinetController extends Zend_Controller_Action {
             }
             unset($info['failed']);
 			$sections->upd($id,$info);
-            if(!$info){
+			if(!$info){
 				$this->_helper->viewRenderer->setScriptAction('error');
 				$this->error('no_section');
 				return;
 			}
+
+			$sections->add($info);
 			if ( preg_match('/uslugi/', $info['uri']) ) {
 				$this->_redirect('/cabinet/uslugi');die;
 			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 1) {
 				$this->_redirect('/cabinet/metro-msk');die;
 			} else if ( preg_match('/metro/', $info['uri']) && $info['city'] == 2) {
 				$this->_redirect('/cabinet/metro-spb');die;
-			} else if ( preg_match('/district/', $info['uri']) && $info['city'] == 1) {
+			} else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 1) {
 				$this->_redirect('/cabinet/district-msk');die;
-			} else if ( preg_match('/district/', $info['uri']) && $info['city'] == 2) {
+			} else if ( preg_match('/rajon/', $info['uri']) && $info['city'] == 2) {
 				$this->_redirect('/cabinet/district-spb');die;
 			}
 			$this->_redirect('/cabinet/sections');die;
         }
-        
+
         public function sectionDelReqAction(){
             if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
             if(!$this->_hasParam('n')){$this->error('request_error');return;}
