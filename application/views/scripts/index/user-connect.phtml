@@ -240,7 +240,7 @@ $("#submit").click(function(event) {
   	var isBreak = false;
   	if ( $form.find( 'select[name="send_to"]' ).val() == "0" ) {
     	input = $form.find( 'select[name="send_to"]' );
-    	input.after('<p class="not_valid">Выберите одно из значение выпадающего списка.</p>');
+    	input.after('<p class="not_valid">Укажите получателя.</p>');
     	isBreak = true;
   	}
 
