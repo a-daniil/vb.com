@@ -431,7 +431,7 @@ table tbody tr td:first-child{text-align: left;}
 }
 .middle_header_block .fix_width{
 	background: url(../img/header_filter_block_bg.png) no-repeat -28px 0;
-	padding: 11px 0 17px;
+	padding: 11px 0 0px;
 }
 .selects_holder:after{
 	display:block;
@@ -2297,4 +2297,13 @@ and (max-device-width : 480px) {
 }
 .user_cabinet_element_wrapper {
 	margin-top: 4px;
+}
+.logo{
+	background: url(../img/logo.png) no-repeat;
+	width: 190px;
+	height: 65px;
+	bottom: 10px;
+	display: inline-block;
+	position: relative;
+	cursor:pointer;
 }
