@@ -60,40 +60,50 @@
 				</ul>
 			</div>
 			<? if ( $this->message ) :?>
-				<div class="<?= $this->color ?>">
-					<span><?= $this->message ?></span>
-				</div>
+				<?php if ( $this->success ) : ?>
+					<div style="margin-left: 10px;">
+						<span class="photo_verified"><?= $this->message ?></span>
+					</div>
+				<?php else : ?>
+					<div style="margin-left: 10px;">
+						<span class="real_individual"><?= $this->message ?></span>
+					</div>
+				<?php endif; ?>
 			<? endif; ?>
 			<? if ( $this->form instanceof Form_EditPassForm ) :?>
-				<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+				<form id="change_password" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
 					<div class="form">
 						<div class="form-left">
-							<div>
-								<span class="search_radius_labe">Старый пароль:</span><input type="password" name="old_pass" id="old_pass" value="" class="user_cabinet_form_input">
-							</div>
-							<div>
-								<span class="search_radius_labe">Новый пароль:</span><input type="password" name="new_pass" id="new_pass" value="" style="float: left;" class="user_cabinet_form_input">
-							</div>
-							<div>
-								<span class="search_radius_labe">Новый пароль (еще раз):</span><input type="password" name="new_pass_repeat" id="new_pass_repeat" value="" class="user_cabinet_form_input">
-							</div>
+							<div class="user_cabinet_form_wrap">
+								<div>
+									<span class="search_radius_labe">Старый пароль:</span><input type="password" name="old_pass" id="old_pass" value="">
+								</div>
+								<div>
+									<span class="search_radius_labe">Новый пароль:</span><input type="password" name="new_pass" id="new_pass" value="">
+								</div>
+								<div>
+									<span class="search_radius_labe">Новый пароль (еще раз):</span><input type="password" name="new_pass_repeat" id="new_pass_repeat" value="">
+								</div>
+  							</div>
   						</div>
-  						<input class="button pink_button main_search_button" type="submit" name="submit" id="submit" value="Сохранить">
+  						<input class="button pink_button main_search_button" type="submit" name="submit" id="submit_pass" value="Сохранить">
   					</div>
   				</form>
 			<? elseif ( $this->form instanceof Form_EditUserMessForm ) : ?>
 				<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
 					<div class="form">
 						<div class="form-left">
-						<?=$this->form->getElement('balance')?>
-						<?=$this->form->getElement('days_info')?>
-        				<? foreach ($this->form as $element): ?>
-        					<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
-        						<?= $element ?>
-        					<? endif ?>
-  						<? endforeach; ?>
+							<div class="user_cabinet_form_wrap">
+							<?=$this->form->getElement('balance')?>
+								<?=$this->form->getElement('days_info')?>
+        					<? foreach ($this->form as $element): ?>
+        						<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
+        							<?= $element ?>
+        						<? endif ?>
+  							<? endforeach; ?>
+  							</div>
+  							<input class="button pink_button main_search_button" type="submit" name="submit" id="submit" value="Сохранить">
   						</div>
-  						<input class="button pink_button main_search_button" type="submit" name="submit" id="submit" value="Сохранить">
   					</div>
   				</form>
 			<? endif ?>
@@ -238,75 +248,47 @@
 		</aside>
 	</div>
 </div>
-<!--
-<div class="row">
-	<div class="span10">
-    	<ul class="nav nav-tabs bottom_nav_tabs">
-        	<li class="<?=($this->menu_sub['active'] == 'default')?'active':''?>"><a href="/" class="bnt1">Все</a></li>
-            <li class="<?=($this->menu_sub['active'] == 'st')?'active':''?>"><a href="?st=50-0" class="bnt2">Фото проверено</a></li>
-            <li class="<?=($this->menu_sub['active'] == 'v')?'active':''?>"><a href="?v=1-0" class="bnt4">Анкеты с видео</a></li>
-            <li class="<?=($this->menu_sub['active'] == 'rv')?'active':''?>"><a href="/?rv=1-0" class="bnt3">С отзывами</a></li>
-        </ul>
-    </div>
-</div>
-<div class="row bg_line">
-	<div class="span2">
-    	<?= $this->render('index/_filter_left.phtml')?>
-        <?#= $this->render('index/_sections_list.phtml')?>
-        <?#= $this->render('index/_banners_left.phtml')?>
-        <?= $this->render('index/_articles_list.phtml')?>
-    	<div class="left_block_text">               
-        	<?if($_SERVER['REQUEST_URI'] == '/'):?>
-            	<?=nl2br(stripslashes($this->meta['column_left']))?>
-            <?endif;?>
-			<? if(isset($this->info['text_left'])): ?>
-            	<p class="word-wrap"><?=nl2br(stripslashes($this->info['text_left']))?></p>
-            <? endif ?>
-        </div>
-    </div>
-    <div class="span6">
-    	<div class="user_profile">
-    		<div class="right_aside_title">Настройки профиля</div>
-    		<div class="form-buttons">
-				<a href="/index/profile?type=pass">Смена пароля</a>|<a href="/index/profile?type=mess">Уведомления</a>
-			</div>
-			<? if ( $this->form instanceof Form_EditPassForm ) :?>
-				<div class="info">
-					<span>Логин: <?= $this->login ?> E-mail: <?= $this->email ?></span>
-				</div>
-			<? elseif ( $this->form instanceof Form_EditUserMessForm ) : ?>
-				<div class="info">
-					<span>Включить уведомление на e-mail: <?= $this->email ?></span>
-				</div>
-			<? endif ?>
-			<? if ( $this->message ) :?>
-				<div class="<?= $this->color ?>">
-					<span><?= $this->message ?></span>
-				</div>
-			<? endif; ?>
-			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
-				<div class="form">
-					<div class="form-left">
-					<?=$this->form->getElement('balance')?>
-					<?=$this->form->getElement('days_info')?>
-        			<? foreach ($this->form as $element): ?>
-        				<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
-        					<?= $element ?>
-        				<? endif ?>
-  					<? endforeach; ?>
-  					</div>
-  					<?= $this->form->getElement('submit') ?>
-  				</div>
-  			</form>	
-  		</div>
-    </div>
-    <div class="span2">    	
-        <?= $this->render('index/_user_admin.phtml') ?>
-        <?= $this->render('index/_filter_right.phtml')?>
-        <?#=$this->render('index/_banners_right.phtml')?>
-        <div class="right_block_text word-wrap">
-        	<p class="word-wrap"><?=nl2br($this->textToView($this->info['text_right']))?></p>
-        </div>
-    </div>
-</div>
--->
+<script type="text/javascript">
+$("#submit_pass").click(function(event) {
+	event.preventDefault();
+
+	var $form = $('#change_password');
+
+	/* remove old valid messages */
+    $(".not_valid").each(function(){
+		$(this).remove();
+  	})
+
+  	/* validation */
+  	var isBreak = false;
+  	if ( !$form.find( 'input[name="old_pass"]' ).val() ) {
+    	input = $form.find( 'input[name="old_pass"]' );
+    	input.after('<p class="not_valid">Заполните</p>');
+    	isBreak = true;
+  	}
+
+  	if ( !$form.find( 'input[name="new_pass"]' ).val() ) {
+  		input = $form.find( 'input[name="new_pass"]' );
+  		input.after('<p class="not_valid">Заполните</p>');
+    	isBreak = true;
+  	}
+
+  	if ( !$form.find( 'input[name="new_pass_repeat"]' ).val() ) {
+  		input = $form.find( 'input[name="new_pass_repeat"]' );
+  		input.after('<p class="not_valid">Заполните</p>');
+    	isBreak = true;
+  	}
+
+  	if ( $form.find( 'input[name="new_pass"]' ).val() != $form.find('input[name="new_pass_repeat"]').val() ) {
+  		input = $form.find( 'input[name="new_pass_repeat"]' );
+  		input.after('<p class="not_valid">Пароли должны совпадать</p>');
+    	isBreak = true;
+  	}
+
+  	if (isBreak) {
+        return;
+    } else {
+    	$form.submit();
+    }
+});
+</script>

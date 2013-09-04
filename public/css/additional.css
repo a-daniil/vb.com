@@ -120,6 +120,12 @@ h1.center_title  {
 	color:#b23535;
 }
 
+.user_cabinet_form_wrap {
+	/* float: left; */
+	width: 300px;
+	margin-left: 10px;
+}
+
 .user_cabinet_links {
 	padding-left: 15px;
 }

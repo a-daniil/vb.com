@@ -687,41 +687,41 @@ class IndexController extends Zend_Controller_Action {
 					if ( $users->user_check_password($this->user_id,md5($oldpass) ) ) {
 						$users->user_change_password($this->user_id,md5($pass));
 						$this->view->message = Form_EditPassForm::SUCCESS;
-						$this->view->color = Form_EditPassForm::SUCCESS_COLOR;				
+						$this->view->success = true;
 					} else {
 						$this->view->message = Form_EditPassForm::FAILED;
-						$this->view->color = Form_EditPassForm::FAILED_COLOR;
+						$this->view->success = false;
 					}
-					
+
 				} elseif ( $frm instanceof Form_EditUserMessForm ) {
-					$user_config = new Model_UsersConfig();					
-					$result = $user_config->addUserCabMessagesConfig(						
-						$frm->getValue('comments'),						
+					$user_config = new Model_UsersConfig();
+					$result = $user_config->addUserCabMessagesConfig(
+						$frm->getValue('comments'),
 						$frm->getValue('messages'),
 						$frm->getValue('news'),
 						$this->user_id
 					);
-					
+
 					if ( $result ) {
 						$this->view->message = Form_EditUserMessForm::SUCCESS;
-						$this->view->color = Form_EditUserMessForm::SUCCESS_COLOR;
+						$this->view->success = true;
 					} else {
 						$this->view->message = Form_EditUserMessForm::FAILED;
-						$this->view->color = Form_EditUserMessForm::FAILED_COLOR;
+						$this->view->success = false;
 					}
 				}
 			}
 		} elseif ( $frm instanceof Form_EditUserMessForm) {
 			$user_config = new Model_UsersConfig();
 			$data = $user_config->getUserMessagesConfig($this->user_id);
-			$frm->populate($data);	
+			$frm->populate($data);
 		}
-		
+
 		$this->view->login = $login;
 		$this->view->email = $email;
 		$this->view->form = $frm;
 	}
-	
+
 	public function userMessagesAction() {
 		/*
 		 * Need to implement rights check
