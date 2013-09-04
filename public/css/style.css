@@ -965,7 +965,7 @@ and (max-device-width : 480px) {
 	margin: 0 0 34px;
 }
 .gir_card_info_list_postpont {
-	margin: 0 0 21px;
+	margin: 0 0 20px;
 }
 .girl_card_info_list.black_list{
 	color: #212121;
@@ -1010,6 +1010,12 @@ and (max-device-width : 480px) {
 	font-style: italic;
 	line-height: 16px;
 	padding: 0 0 30px;
+	text-align: justify;
+}
+.girl_card_text_unpadding {
+	color: #868686;
+	font-style: italic;
+	line-height: 16px;
 	text-align: justify;
 }
 .girl_card_rating_block{
