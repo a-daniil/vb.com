@@ -2295,3 +2295,6 @@ and (max-device-width : 480px) {
 	bottom: 5px;
 	right: 5px;	
 }
+.user_cabinet_element_wrapper {
+	margin-top: 4px;
+}
