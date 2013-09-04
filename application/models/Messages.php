@@ -24,7 +24,7 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 		$row =  $this->fetchRow($select);
 		return $row['id'];
 	}	
-	
+
 	public function fetchPaginatorAdapter( $send_to, $user_id = null )
 	{
 		$select = $this->select();
@@ -35,14 +35,14 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 		} else {
 			$select->orWhere('user_id = ?', $send_to);
 		}
-		
-		$select->order('timestamp DESC');		
-		
+
+		$select->order('timestamp DESC');
+
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
-	
-	public function markViewed( $id ) {			
+
+	public function markViewed( $id ) {	
 		$row = $this->find($id)->current();
 		
 		if( $row ){
@@ -51,7 +51,7 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 			return true;
 		}
 	}
-	
+
 	public function getNewMessagesCount( $user_id )
 	{
 		$select = $this->select()->from($this->_name, 'COUNT(*) as count');

@@ -727,19 +727,14 @@ class IndexController extends Zend_Controller_Action {
 		 * Need to implement rights check
 		 *
 		 */
-		
+
 		if ( !$this->user_id ) {
 			$this->_redirect("/");
 		}
-		
-		/*
-		 *
-		 *
-		 */
-		
+
 		$frm = new Form_MessagesForm();
 		$this->view->form = $frm;
-		
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
 				$messages = new Model_Messages();
@@ -749,13 +744,13 @@ class IndexController extends Zend_Controller_Action {
 						$where[] = $id;
 					}
 				}
-		
+
 				$result = $messages->delete('id IN ('. implode(',',$where) .')');
 			}
 		}
-		
+
 		$messages = new Model_Messages();
-		
+
 		if ( $this->user_admin) {
 			$adapter = $messages->fetchPaginatorAdapter(Form_NewMessageForm::TO_ADMIN, $this->user_id);
 		} elseif ($this->user_moder) {
@@ -763,14 +758,14 @@ class IndexController extends Zend_Controller_Action {
 		} else {
 			$adapter = $messages->fetchPaginatorAdapter($this->user_id);
 		}
-		
+
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage(10);
-		$page = $this->_request->getParam('page', 1);
+		$page = $this->_request->getParam('p', 1);
 		$paginator->setCurrentPageNumber($page);
 		$this->view->paginator = $paginator;
 	}
-	
+
 	function deleteMessageAction()  {
 		/*
 		 * Need to implement rights check
@@ -797,40 +792,35 @@ class IndexController extends Zend_Controller_Action {
 		 * Need to implement rights check
 		 *
 	     */
-		
+
 		if ( !$this->user_id ) {
 			$this->_redirect("/");
 		}
-		
-		/*
-		 *
-		 *
-		 */
-		
+
 		$id = $this->_getParam('id');
 		$frm = new Form_ShowMessagesForm();
-		$messages = new Model_Messages();		
+		$messages = new Model_Messages();
 		$message = $messages->find($id)->current();
-	
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
 				$values = $frm->getValues();
 				$file = urlencode($values['upload']);
-	
+
 				$element = $frm->getElement('upload');
 				$element->addFilter('Rename',array('target' => 'download/' . $file ));
-	
+
 				$send_to = $this->sendTo( $this->getAdminType( $this->user_id ), $this->user_id );
-	
+
 				$messages = new Model_Messages();
 				$result = $messages->addMessage(
 					$send_to,
 					"Re: " . $message['subject'],
-					$frm->getValue('answer'),
+					trim($frm->getValue('answer')),
 					$this->user_id,
 					$file
 				);
-	
+
 				if ( $element->receive() && $result ) {
 					$this->view->message = Form_NewMessageForm::SUCCESS;
 					$this->view->color = Form_NewMessageForm::SUCCESS_COLOR;
@@ -840,28 +830,28 @@ class IndexController extends Zend_Controller_Action {
 				}
 			}
 		}
-	
+
 		if ( $this->user_admin  ) {
 			$users = new Model_UsersTest();
 			$this->view->from = "От пользователя: " . $users->getLogin( $message['user_id'] );
 		}
-	
+
 		$this->view->subject = $message['subject'];
 		$this->view->body = $message['body'];
 		$this->view->timestamp = $message['timestamp'];
-		
+
 		if ( $message['file'] ) {
 			$this->view->file = $message['file'];
 		}
-		
+
 		if ( $message['user_id'] == $this->user_id ) {
-			$this->view->form = null;
+			$this->view->form = $frm;
 		} else {
 			$this->view->form = $frm;
 			$messages->markViewed($id);
-		}	
+		}
 	}
-	
+
 	function getAdminType( $user_id ) {
 	
 		$users = new Model_UsersTest();
@@ -912,54 +902,49 @@ class IndexController extends Zend_Controller_Action {
 				break;
 		}
 	}
-	
+
 	public function userConnectAction() {
 		/*
 		 * Need to implement rights check
 		 *
 		 */
-		
-		 if ( !$this->user_id ) {
+
+		if ( !$this->user_id ) {
 			$this->_redirect("/");
-		 }
-		
-		/*
-		 *
-		 *
-		 */
-		
+		}
+
 		$frm = new Form_NewMessageForm();
 		
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
-					
+
 				$values = $frm->getValues();
 				$file = urlencode($values['upload']);
-				
+
 				$element = $frm->getElement('upload');
 				$element->addFilter('Rename',array('target' => 'user_messages_photos/' . $file ));
-				
+
 				$messages = new Model_Messages();
 				$result = $messages->addMessage(
 					$frm->getValue('send_to'),
 					$frm->getValue('subject'),
 					$frm->getValue('body'),
 					$this->user_id,
-					$file                			
+					$file
 				);
-				
+
 				if ( $result ) {
 					// redirect to my messages 
-					$this->_redirect('/index/user-messages');				
+					$this->_redirect('/index/user-messages');
 					//$this->view->message = "Ваше сообщение отправлено " . $this->view->auth;
 					//$this->view->color = Form_NewMessageForm::SUCCESS_COLOR;
 				} else {
-					$this->view->message = "Ваше сообщение отправлено " . $this->view->auth;
-					$this->view->color = Form_NewMessageForm::FAILED_COLOR;
+					$this->view->message = "Ваше сообщение не отправлено " . $this->view->auth;
+					$this->view->success = false;
 				}
 			}
 		}
-		
+
 		$this->view->form = $frm;
 	}
 }

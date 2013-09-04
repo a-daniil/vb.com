@@ -965,7 +965,7 @@ and (max-device-width : 480px) {
 	margin: 0 0 34px;
 }
 .gir_card_info_list_postpont {
-	margin: 0 0 24px;
+	margin: 0 0 21px;
 }
 .girl_card_info_list.black_list{
 	color: #212121;
@@ -1249,6 +1249,11 @@ and (max-device-width : 480px) {
 	display: block;
 	width: 210px;
 	margin: 100px auto 0;
+}
+.main_search_button_user_cabinet {
+	display: inline-block;
+	width: 210px;
+	margin-top: 20px;
 }
 .common_tools_block{
 	margin: 0 0 30px;

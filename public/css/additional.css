@@ -194,12 +194,18 @@ h1.center_title  {
 	float: right;
 }
 
+.show_message_element {
+	margin: 10px 0px 0px 0px;
+}
+
 #subject {
 	width: 380px;
 }
-
+#upload {
+	width: 380px;
+}
 #body {
-	width: 530px;
+	width: 580px;
 }
 
 #answer {

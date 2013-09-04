@@ -1,54 +1,263 @@
-<div class="row">
-	<div class="span10">
-    	<ul class="nav nav-tabs bottom_nav_tabs">
-        	<li class="<?=($this->menu_sub['active'] == 'default')?'active':''?>"><a href="/" class="bnt1">Все</a></li>
-            <li class="<?=($this->menu_sub['active'] == 'st')?'active':''?>"><a href="?st=50-0" class="bnt2">Фото проверено</a></li>
-            <li class="<?=($this->menu_sub['active'] == 'v')?'active':''?>"><a href="?v=1-0" class="bnt4">Анкеты с видео</a></li>
-            <li class="<?=($this->menu_sub['active'] == 'rv')?'active':''?>"><a href="/?rv=1-0" class="bnt3">С отзывами</a></li>
-        </ul>
-    </div>
-</div>
-<div class="row bg_line">
-	<div class="span2">
-    	<?= $this->render('index/_filter_left.phtml')?>
-        <?#= $this->render('index/_sections_list.phtml')?>
-        <?#= $this->render('index/_banners_left.phtml')?>
-        <?= $this->render('index/_articles_list.phtml')?>
-    	<div class="left_block_text">               
-        	<?if($_SERVER['REQUEST_URI'] == '/'):?>
-            	<?=nl2br(stripslashes($this->meta['column_left']))?>
-            <?endif;?>
-			<? if(isset($this->info['text_left'])): ?>
-            	<p class="word-wrap"><?=nl2br(stripslashes($this->info['text_left']))?></p>
-            <? endif ?>
-        </div>
-    </div>
-    <div class="span6">
-    	<div class="right_aside_title">Форма отправки сообщений администрации</div>    
-    	<? if ( $this->message ) :?>
-			<div class="<?= $this->color ?>">
-				<span><?= $this->message ?></span>
+<style>
+	.hidden {
+		visibility: hidden;
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$( "#slider_per_hour" ).slider({
+			range: true,
+			min: 0,
+			max: 25000,
+			values: [ 0, 25000  ],
+			slide: function( event, ui ) {
+				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
+		  }
+		});
+
+		$( "#amount_per_hour" ).val($( "#slider_per_hour" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_per_hour" ).slider( "values", 1 ) + " руб");
+
+		$( "#slider_breast_size" ).slider({
+			range: true,
+			min: 0,
+			max: 8,
+			values: [ 0, 8 ],
+			slide: function( event, ui ) {
+				$( "#amount_breast_size" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+		  }
+		});
+
+		$( "#amount_breast_size" ).val($( "#slider_breast_size" ).slider( "values", 0 ) +
+		  " - " + $( "#slider_breast_size" ).slider( "values", 1 ));
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.add_review').click(function(){
+			$('#hide_register_block').fadeIn();
+				return false;
+		})
+	});
+</script>
+<div class="fix_width">
+	<div id="main">
+		<div id="content">
+			<div class="main_title_block">
+				<h1>Форма отправки сообщений администрации</h1>
 			</div>
-		<? endif; ?>	
-		<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>" enctype="multipart/form-data">
-			<div class="form">
-				<div class="form-left">
-        			<? foreach ($this->form as $element): ?>
-        				<? if ( !preg_match('/submit/', $element->getName() ) ) :?>
-        					<?= $element ?>
-        				<? endif ?>
-  					<? endforeach; ?>
-  				</div>  
-  				<?= $this->form->getElement('submit') ?> 				 				
-  			</div>
-  		</form>
-    </div>
-    <div class="span2">
-       	<?= $this->render('index/_user_admin.phtml') ?>
-        <?= $this->render('index/_filter_right.phtml')?>
-        <?#=$this->render('index/_banners_right.phtml')?>
-        <div class="right_block_text word-wrap">                    
-        	<p class="word-wrap"><?=nl2br($this->textToView($this->info['text_right']))?></p>
-        </div>
-    </div>
+			<? if ( $this->message ) :?>
+				<?php if ( $this->success ) : ?>
+					<div style="margin-left: 10px;">
+						<span class="photo_verified"><?= $this->message ?></span>
+					</div>
+				<?php else : ?>
+					<div style="margin-left: 10px;">
+						<span class="real_individual"><?= $this->message ?></span>
+					</div>
+				<?php endif ?>
+			<? endif; ?>
+			<form id="send_message" action="/index/user-connect" method="post" enctype="multipart/form-data">
+				<div class="form">
+					<div class="form-left">
+						<div class="user_cabinet_form_wrap">
+							<div>
+								<span class="search_radius_labe">Кому:</span>
+								<select name="send_to" id="send_to">
+    								<option value="0" label="Выбрать" selected="selected">Выбрать</option>
+    								<option value="TO_MODERATION" label="Модерация анкет">Модерация анкет</option>
+    								<option value="TO_ADMIN" label="Финансовые вопросы">Финансовые вопросы</option>
+								</select>
+							</div>
+							<div>
+								<span class="search_radius_labe">Тема сообщения:</span>
+								<input type="text" name="subject" id="subject" value="">
+							</div>
+							<div>
+								<span class="search_radius_labe">Текст сообщения:</span>
+								<textarea name="body" id="body"></textarea>
+							</div>
+							<div>
+								<span class="search_radius_labe">Прикрепить фото:</span>
+								<input type="file" name="upload" id="upload">
+							</div>
+  						</div>
+  					</div>
+  					<input class="button pink_button main_search_button" type="submit" name="submit" id="submit" value="Отправить">
+  				</div>
+  			</form>
+		</div>
+		<aside id="sidebar">
+			<?= $this->render('index/_user_admin.phtml') ?>
+			<div class="sidebox">
+				<div class="sidebox_header">
+					<h3>Быстрый поиск</h3>
+				</div>
+				<div class="sidebox_content">
+					<form action="#">
+						<fieldset>
+							<h4 class="red_side_title">Цена за час</h4>
+							<div class="range_slider">
+								<input type="text" id="amount_per_hour" class="grey_price" readonly />
+								<div id="slider_per_hour"></div>
+							</div>
+							<h4 class="red_side_title">Размер груди</h4>
+								<div class="range_slider">
+									<input type="text" id="amount_breast_size" class="grey_price" readonly />
+									<div id="slider_breast_size"></div>
+								</div>
+								<div class="get_all_search_box">
+									<a href="#" class="all_search_label">Pасширенный поиск</a>
+									<button class="button pink_button"><span class="search_icon"></span>Найти</button>
+								</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Фильтровать</h3>
+				</div>
+				<div class="sidebox_content filter_girl_min_height">
+					<h5 class="category_header">Возраст</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/molodye">"Молодые"</a> <span class="small_gray">(18-22)</span></li>
+						<li><a href="/kategorii/starye">"Старые"</a> <span class="small_gray">(23-29)</span></li>
+					</ul>
+					<h5 class="category_header">Телосложение</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/hudye">"Худые"</a></li>
+						<li><a href="/kategorii/tolstye">"Толстые"</a></li>
+					</ul>
+					<h5 class="category_header">Внешность</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/aziatki">Азиатки</a></li>
+						<li><a href="/kategorii/mulatki">Мулатки</a></li>
+						<li><a href="/kategorii/negrityanki">Негритянки</a></li>
+						<li><a href="/kategorii/uzbechki">Узбечечки</a></li>
+					</ul>
+					<h5 class="category_header">Расценки</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/deshevye">Дешевые</a></li>
+						<li><a href="/kategorii/elitnye">Элитные</a></li>
+					</ul>
+					<h5 class="category_header">Место встречи</h5>
+					<ul class="red_dot_list">
+						<li><a href="/kategorii/vyezd-na-dom">Выезд на дом</a></li>
+						<li><a href="/kategorii/s-apartamentami">С апартаментами</a></li>
+					</ul>
+					<h5 class="category_header">Анкеты</h5>
+					<ul class="red_dot_list">
+						<li><a href="#">Новые</a></li>
+						<li><a href="/?st=30-40">Проверенные</a></li>
+						<li><a href="/?v=1-0">С видео</a></li>
+					</ul>
+					<div class="filter_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>Услуги</h3>
+				</div>
+				<div class="sidebox_content servises_girl_min_height">
+					<h5 class="category_header">Основные программы</h5>
+					<ul class="red_dot_list">
+						<?php foreach($this->services as $part=>$srv) : ?>
+						    <?php array_shift($srv); ?>
+							<?php foreach($srv as $num=>$val) : ?>
+								<?php if ($part == 'main' ) : ?>
+									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+										<li><?php echo $val ?></li>
+									</a>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+					<h5 class="category_header">Дополнительные программы</h5>
+					<ul class="red_dot_list">
+						<?php foreach($this->services as $part=>$srv) : ?>
+						    <?php array_shift($srv); ?>
+							<?php foreach($srv as $num=>$val) : ?>
+								<?php if ($part == 'add' ) : ?>
+									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
+										<li><?php echo $val ?></li>
+									</a>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endforeach ?>
+					</ul>
+					<div class="servises_girl_bg"></div>
+				</div>
+			</div>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3><span class="white_metro_icon"></span>Станция метро</h3>
+				</div>
+				<div class="sidebox_content">
+					<div class="left_sidebox_content">
+					<h5 class="category_header">Район ЦАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Курская</a></li>
+							<li><a href="#">Красные Ворота</a></li>
+							<li><a href="#">Сухаревская</a></li>
+							<li><a href="#">Чкаловская</a></li>
+							<li><a href="#">Таганская</a></li>
+						</ul>
+					</div>
+					<div class="right_sidebox_content">
+					<h5 class="category_header">Район ЮЗАО</h5>
+						<ul class="red_dot_list">
+							<li><a href="#">Спортивная</a></li>
+							<li><a href="#">Фрунзенская</a></li>
+							<li><a href="#">Университет</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<ul class="see_in_mobile">
+				<li>
+					<div class="first_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+				<li>
+					<div class="second_phone"></div>
+					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
+				</li>
+			</ul>
+		</aside>
+	</div>
 </div>
+<script type="text/javascript">
+$("#submit").click(function(event) {
+	var $form = $('#send_message');
+
+	/* remove old valid messages */
+    $(".not_valid").each(function(){
+		$(this).remove();
+  	})
+
+  	/* validation */
+  	var isBreak = false;
+  	if ( $form.find( 'select[name="send_to"]' ).val() == "0" ) {
+    	input = $form.find( 'select[name="send_to"]' );
+    	input.after('<p class="not_valid">Выберите одно из значение выпадающего списка.</p>');
+    	isBreak = true;
+  	}
+
+  	if ( !$form.find( 'input[name="subject"]' ).val() ) {
+    	input = $form.find( 'input[name="subject"]' );
+    	input.after('<p class="not_valid">Это поле обязательно к заполнению.</p>');
+    	isBreak = true;
+  	}
+
+  	if ( !$form.find( 'textarea[name="body"]' ).val() ) {
+    	input = $form.find( 'textarea[name="body"]' );
+    	input.after('<p class="not_valid">Это поле обязательно к заполнению.</p>');
+    	isBreak = true;
+  	}
+
+  	if (isBreak) {
+  		event.preventDefault();
+    }
+});
+</script>
