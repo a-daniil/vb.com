@@ -44,12 +44,16 @@ class Model_Review extends Zend_Db_Table_Abstract {
 		return $row['summa'];
 	}
 
-	public function getTop100( $performer = false )
+	public function getTop100( $performer = false, $city = false )
 	{
 		if ($performer) {
 			$per_query = "AND a." . $performer . " ";
 		} else {
 			$per_query = "";
+		}
+
+		if ($city) {
+			$per_query.= "AND a." . $city . " ";
 		}
 
 		$sql = "SELECT r.owner_id, avg(r.ratio) as avg_ratio, a.photolist, a.user_id, a.name_eng, count(*) as count FROM

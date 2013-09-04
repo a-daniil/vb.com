@@ -181,16 +181,16 @@ class IndexController extends Zend_Controller_Action {
 		if($this->_getParam('st')){$this->_setParam('st','30-40');}
 		$video = false; $metro = false;
 		$params = array();
-		
+
 		//depends on subdomens
-		$params['city'] = "city = " . $this->city;	
-		
+		$params['city'] = "city = " . $this->city;
+
 		if ( $this->_getParam('r_performer') ) {
-			$params['performer'] = 'performer = ' . $this->_getParam('r_performer');			
+			$params['performer'] = 'performer = ' . $this->_getParam('r_performer');
 		} else {
-			$params['performer'] = 'performer ' . ($this->view->info['performer'] ? "=" . $this->view->info['performer'] : "IN (1,2,3,4)");	
-		}			
-		
+			$params['performer'] = 'performer ' . ($this->view->info['performer'] ? "=" . $this->view->info['performer'] : "IN (1,2,3,4)");
+		}
+
 		if($this->_getParam('m')){
 			$mtr = $this->content->metro_spb->toArray();
 			$mtr_id = (int)$this->_getParam('m');
@@ -282,7 +282,7 @@ class IndexController extends Zend_Controller_Action {
                 default:
         }
 
-        $in_params=array(        	
+        $in_params=array(
         	'a' => 'age',
         	'h' => 'height',
         	'w'	=> 'weight',
@@ -347,7 +347,7 @@ class IndexController extends Zend_Controller_Action {
 		if ( !$route = Zend_Registry::get('route')  ) {
 			$review = new Model_Review();
 			$per = $params['performer'] ? $params['performer'] : false;
-			$top_100 = $review->getTop100( $per );
+			$top_100 = $review->getTop100( $per, $params['city'] );
 			$this->view->top_100 = $top_100;
 		} else {
 			$this->view->top_100 = false;

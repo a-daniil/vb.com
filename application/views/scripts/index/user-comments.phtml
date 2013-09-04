@@ -54,6 +54,7 @@
 					<ul class="categories_page">
 						<li>Выделить:</li>
 						<li><a href="javascript:void(0)" class="choose_all">Все</a></li>
+						<li><a href="javascript:void(0)" class="unchoose_all">Снять выделение</a></li>
 						<li><a href="javascript:void(0)" class="del_all">Удалить отмеченные</a></li>
 					</ul>
 				</div>
@@ -73,6 +74,7 @@
 					<ul class="categories_page">
 						<li>Выделить:</li>
 						<li><a href="javascript:void(0)" class="choose_all">Все</a></li>
+						<li><a href="javascript:void(0)" class="unchoose_all">Снять выделение</a></li>
 						<li><a href="javascript:void(0)" class="del_all">Удалить отмеченные</a></li>
 					</ul>
 				</div>
@@ -225,9 +227,15 @@
 <script type="text/javascript">
 	$(".choose_all").click(function(){
 		$("input[name^='del_']").each(function(){
-			$(this).attr("checked", "checked");
+			$(this).click();
 		});
 	});	
+
+	$(".unchoose_all").click(function(){
+		$("input[name^='del_']").each(function(){
+			$(this).removeAttr("checked");
+		});
+	});
 
 	$(".del_all").click(function() {
 		$("form#user_messages_form").submit();

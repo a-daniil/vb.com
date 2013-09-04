@@ -8,8 +8,8 @@
 		$( "#slider_per_hour" ).slider({
 			range: true,
 			min: 0,
-			max: 25000,
-			values: [ 0, 25000  ],
+			max: 20000,
+			values: [ 0, 20000  ],
 			slide: function( event, ui ) {
 				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
 		  }
@@ -192,7 +192,7 @@
 						</div>
 					</div>
 						<?php if ($row['score']) : ?>
-							<span class="good_score in_preview"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
+							<span class="good_score in_preview"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span>
 						<?php endif ?>
 						<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>
 				</div>
@@ -218,7 +218,6 @@
 						</tr>
 					</thead>
 					<tbody>
-					
 					</tbody>
 				</table>
 				<div class="clear">
