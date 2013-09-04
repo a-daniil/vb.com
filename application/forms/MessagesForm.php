@@ -10,7 +10,7 @@ class Form_MessagesForm extends Zend_Form
 						array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),
 				)
 		));
-		
+
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
 				'Fieldset',
@@ -18,22 +18,22 @@ class Form_MessagesForm extends Zend_Form
 				array(array('row'=>'HtmlTag'), array('tag' => 'div', 'class' => 'form-fieldset'))
 		));
 	}
-	
+
 	public function isValid($data)
 	{
 		$isValid = parent::isValid($data);
-	
+
 		foreach ( $_POST as $key => $value ) {
 			if ( preg_match('/del_/', $key) ) {
 				list($prefix, $id) = explode('_', $key);
 				$where[] = $id;
 			}
 		}
-	    
+
 		if ( empty($where) ) {
 			$isValid = false;
-		} 	
-			
-		return $isValid;		
+		}
+
+		return $isValid;
 	}
 }

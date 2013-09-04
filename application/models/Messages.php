@@ -29,7 +29,7 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 	{
 		$select = $this->select();
 		$select->where('send_to = ?' , $send_to);
-		
+
 		if ( $user_id ) {
 			$select->orWhere('user_id = ?', $user_id);
 		} else {
@@ -42,9 +42,9 @@ class Model_Messages extends Zend_Db_Table_Abstract {
 		return $adapter;
 	}
 
-	public function markViewed( $id ) {	
+	public function markViewed( $id ) {
 		$row = $this->find($id)->current();
-		
+
 		if( $row ){
 			$row->viewed = true;
 			$row->save();
