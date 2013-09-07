@@ -1,45 +1,3 @@
-<style>
-	.hidden {
-		visibility: hidden;
-	}
-</style>
-<script type="text/javascript">
-	$(function(){
-		$( "#slider_per_hour" ).slider({
-			range: true,
-			min: 0,
-			max: 20000,
-			values: [ 0, 20000  ],
-			slide: function( event, ui ) {
-				$( "#amount_per_hour" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] + " руб");
-		  }
-		});
-
-		$( "#amount_per_hour" ).val($( "#slider_per_hour" ).slider( "values", 0 ) +
-		  " - " + $( "#slider_per_hour" ).slider( "values", 1 ) + " руб");
-
-		$( "#slider_breast_size" ).slider({
-			range: true,
-			min: 0,
-			max: 8,
-			values: [ 0, 8 ],
-			slide: function( event, ui ) {
-				$( "#amount_breast_size" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
-		  }
-		});
-
-		$( "#amount_breast_size" ).val($( "#slider_breast_size" ).slider( "values", 0 ) +
-		  " - " + $( "#slider_breast_size" ).slider( "values", 1 ));
-	});
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.add_review').click(function(){
-			$('#hide_register_block').fadeIn();
-				return false;
-		})
-	});
-</script>
 <div class="fix_width">
 	<div id="main">
 		<div id="content">
@@ -53,63 +11,66 @@
                     	Проститутки Санкт-Петербурга, индивидуалки
                		<? endif; ?>
 				</h1>
-				<h2>новые анкеты</h2>
-				<div class="new_ankets_block">
-					<ul class="new_ankets">
-						<?php foreach($this->ankets as $row): $i++;
-							if ($i > 6) {break;}
-							$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
-							$meta_replace=array();
-							foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
-							foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
-							$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
-							$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
-							if(!empty($row['photolist'])){
-								$photolist=unserialize($row['photolist']);
-							if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
-								else{$photo=array_shift($photolist);}
-							}else{
-								$photo=false;
-							}
-						?>
-						<li>
-							<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
-							<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="new_ankets_girl_name">Алена, 21
-							<div class="new_ribbon"></div>
-							<div class="tooltip">
-								<div class="tooltip_corner"></div>
-								<div class="tooltip_content">
-									<span class="tooltip_girl_name"><a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">Катя</a>, 18</span>
-									<span class="tooltip_girl_place">Россия, Москва</span>
-									<span>Ищу парня 25-36</span>
+				
+				<?php if ( !isset($this->search_by_phone) && !$this->search_by_phone) : ?>
+					<h2>новые анкеты</h2>
+					<div class="new_ankets_block">
+						<ul class="new_ankets">
+							<?php foreach($this->ankets as $row): $i++;
+								if ($i > 6) {break;}
+								$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
+								$meta_replace=array();
+								foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
+								foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
+								$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
+								$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
+								if(!empty($row['photolist'])){
+									$photolist=unserialize($row['photolist']);
+								if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+									else{$photo=array_shift($photolist);}
+								}else{
+									$photo=false;
+								}
+							?>
+							<li>
+								<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
+								<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="new_ankets_girl_name">Алена, 21
+								<div class="new_ribbon"></div>
+								<div class="tooltip">
+									<div class="tooltip_corner"></div>
+									<div class="tooltip_content">
+										<span class="tooltip_girl_name"><a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">Катя</a>, 18</span>
+										<span class="tooltip_girl_place">Россия, Москва</span>
+										<span>Ищу парня 25-36</span>
+									</div>
 								</div>
-							</div>
-						</li>
-						<?php endforeach ?>
-					</ul>
-					<a href="/ankety/novye" class="button all_list_btn">весь список</a>
-				</div>
-				<?php if ( $this->top_100 ) : ?>
-				<div class="best_massage_preview_block">
-					<h2>Рейтинг лучших анкет</h2>
-					<ul class="best_massage_preview">
-						<?php foreach($this->top_100 as $top):
-							$j++;
-							if(!empty($top['photolist'])){
-								$photolist=unserialize($top['photolist']);
-							if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
-								else{$photo=array_shift($photolist);}
-							}else{
-								$photo=false;
-							}
-						?>
-						<li <?php if ( $j > 24 ) echo "class='hidden'"?>>
-							<a href="/anketa/<?=$top['name_eng']?>-<?=$top['owner_id']?>" target="_blank"><img src="<?php echo $this->url_user_ph. '/' . $top['user_id'] . '/th_' . $photo ?>" width="55" height="55" alt="descritpion"></a>
-						</li>
-						<?php endforeach ?>
-					</ul>
-					<a href="#" class="button all_rate_btn">весь рейтинг</a>
-				</div>
+							</li>
+							<?php endforeach ?>
+						</ul>
+						<a href="/ankety/novye" class="button all_list_btn">весь список</a>
+					</div>
+					<?php if ( $this->top_100 ) : ?>
+						<div class="best_massage_preview_block">
+						<h2>Рейтинг лучших анкет</h2>
+						<ul class="best_massage_preview">
+							<?php foreach($this->top_100 as $top):
+								$j++;
+								if(!empty($top['photolist'])){
+									$photolist=unserialize($top['photolist']);
+								if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
+									else{$photo=array_shift($photolist);}
+								}else{
+									$photo=false;
+								}
+							?>
+							<li <?php if ( $j > 24 ) echo "class='hidden'"?>>
+								<a href="/anketa/<?=$top['name_eng']?>-<?=$top['owner_id']?>" target="_blank"><img src="<?php echo $this->url_user_ph. '/' . $top['user_id'] . '/th_' . $photo ?>" width="55" height="55" alt="descritpion"></a>
+							</li>
+							<?php endforeach ?>
+						</ul>
+						<a href="#" class="button all_rate_btn">весь рейтинг</a>
+						</div>
+					<?php endif ?>
 				<?php endif ?>
 				<div class="pager_holder gray_pager_holder">
 					<div class="pagination">
@@ -225,144 +186,7 @@
 				</div>
 			</div>
 		</div>
-		<aside id="sidebar">
-			<?= $this->render('index/_user_admin.phtml') ?>
-			<div class="sidebox">
-				<div class="sidebox_header">
-					<h3>Быстрый поиск</h3>
-				</div>
-				<div class="sidebox_content">
-					<form action="#">
-						<fieldset>
-							<h4 class="red_side_title">Цена за час</h4>
-							<div class="range_slider">
-								<input type="text" id="amount_per_hour" class="grey_price" readonly />
-								<div id="slider_per_hour"></div>
-							</div>
-							<h4 class="red_side_title">Размер груди</h4>
-								<div class="range_slider">
-									<input type="text" id="amount_breast_size" class="grey_price" readonly />
-									<div id="slider_breast_size"></div>
-								</div>
-								<div class="get_all_search_box">
-									<a href="#" class="all_search_label">Pасширенный поиск</a>
-									<button class="button pink_button"><span class="search_icon"></span>Найти</button>
-								</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-			<div class="sidebox pink">
-				<div class="sidebox_header">
-					<h3>Фильтровать</h3>
-				</div>
-				<div class="sidebox_content filter_girl_min_height">
-					<h5 class="category_header">Возраст</h5>
-					<ul class="red_dot_list">
-						<li><a href="/kategorii/molodye">"Молодые"</a> <span class="small_gray">(18-22)</span></li>
-						<li><a href="/kategorii/starye">"Старые"</a> <span class="small_gray">(23-29)</span></li>
-					</ul>
-					<h5 class="category_header">Телосложение</h5>
-					<ul class="red_dot_list">
-						<li><a href="/kategorii/hudye">"Худые"</a></li>
-						<li><a href="/kategorii/tolstye">"Толстые"</a></li>
-					</ul>
-					<h5 class="category_header">Внешность</h5>
-					<ul class="red_dot_list">
-						<li><a href="/kategorii/aziatki">Азиатки</a></li>
-						<li><a href="/kategorii/mulatki">Мулатки</a></li>
-						<li><a href="/kategorii/negrityanki">Негритянки</a></li>
-						<li><a href="/kategorii/uzbechki">Узбечечки</a></li>
-					</ul>
-					<h5 class="category_header">Расценки</h5>
-					<ul class="red_dot_list">
-						<li><a href="/kategorii/deshevye">Дешевые</a></li>
-						<li><a href="/kategorii/elitnye">Элитные</a></li>
-					</ul>
-					<h5 class="category_header">Место встречи</h5>
-					<ul class="red_dot_list">
-						<li><a href="/kategorii/vyezd-na-dom">Выезд на дом</a></li>
-						<li><a href="/kategorii/s-apartamentami">С апартаментами</a></li>
-					</ul>
-					<h5 class="category_header">Анкеты</h5>
-					<ul class="red_dot_list">
-						<li><a href="#">Новые</a></li>
-						<li><a href="/?st=30-40">Проверенные</a></li>
-						<li><a href="/?v=1-0">С видео</a></li>
-					</ul>
-					<div class="filter_girl_bg"></div>
-				</div>
-			</div>
-			<div class="sidebox pink">
-				<div class="sidebox_header">
-					<h3>Услуги</h3>
-				</div>
-				<div class="sidebox_content servises_girl_min_height">
-					<h5 class="category_header">Основные программы</h5>
-					<ul class="red_dot_list">
-						<?php foreach($this->services as $part=>$srv) : ?>
-						    <?php array_shift($srv); ?>
-							<?php foreach($srv as $num=>$val) : ?>
-								<?php if ($part == 'main' ) : ?>
-									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
-										<li><?php echo $val ?></li>
-									</a>
-								<?php endif ?>
-							<?php endforeach ?>
-						<?php endforeach ?>
-					</ul>
-					<h5 class="category_header">Дополнительные программы</h5>
-					<ul class="red_dot_list">
-						<?php foreach($this->services as $part=>$srv) : ?>
-						    <?php array_shift($srv); ?>
-							<?php foreach($srv as $num=>$val) : ?>
-								<?php if ($part == 'add' ) : ?>
-									<a href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
-										<li><?php echo $val ?></li>
-									</a>
-								<?php endif ?>
-							<?php endforeach ?>
-						<?php endforeach ?>
-					</ul>
-					<div class="servises_girl_bg"></div>
-				</div>
-			</div>
-			<div class="sidebox pink">
-				<div class="sidebox_header">
-					<h3><span class="white_metro_icon"></span>Станция метро</h3>
-				</div>
-				<div class="sidebox_content">
-					<div class="left_sidebox_content">
-					<h5 class="category_header">Район ЦАО</h5>
-						<ul class="red_dot_list">
-							<li><a href="#">Курская</a></li>
-							<li><a href="#">Красные Ворота</a></li>
-							<li><a href="#">Сухаревская</a></li>
-							<li><a href="#">Чкаловская</a></li>
-							<li><a href="#">Таганская</a></li>
-						</ul>
-					</div>
-					<div class="right_sidebox_content">
-					<h5 class="category_header">Район ЮЗАО</h5>
-						<ul class="red_dot_list">
-							<li><a href="#">Спортивная</a></li>
-							<li><a href="#">Фрунзенская</a></li>
-							<li><a href="#">Университет</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<ul class="see_in_mobile">
-				<li>
-					<div class="first_phone"></div>
-					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
-				</li>
-				<li>
-					<div class="second_phone"></div>
-					<span>Вы можете просматривать сайт на экране своего <a href="#">портативного компьютера</a></span>
-				</li>
-			</ul>
-		</aside>
+		<?= $this->render('index/_sidebar.phtml') ?>
 	</div>
 </div>
 <script type="text/javascript">

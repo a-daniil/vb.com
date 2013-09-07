@@ -69,7 +69,7 @@
 							<li>
 								<label for="phone_number">Номер телефона:</label>
 								<div class="header_filter_phone_box">
-									<input type="text" class="header_filter_phone" name="tel">
+									<input type="text" class="header_filter_phone" name="tel" value="<?php echo $this->filter['tel'] ?>">
 									<input type="submit" class="header_filter_phone_btn">
 								</div>
 							</li>
@@ -92,7 +92,7 @@
 
 						foreach ( $this->menu_items as $item ) {
             		    	if ( $id == substr( $item['uri'],0 ) ) {
-            					echo '<li class="active"><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>'; 
+            					echo '<li class="active"><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>';
             		    	} else {
             		       		echo '<li><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>';
             		    	}

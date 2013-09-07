@@ -1494,6 +1494,7 @@ and (max-device-width : 480px) {
 .additional_skils_left{
 	float: left;
 	width: 210px;
+	margin-bottom: 10px;
 }
 .additional_skils_right{
 	float: right;

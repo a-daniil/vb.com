@@ -56,3 +56,10 @@
 		</div>
     <?endif?>
 </noindex>
+<script type="text/javascript">
+	$(".login_form_button").click(function(e){
+		if ( !$('input[name="username"]').val() || !$('input[name="password"]').val() ) {
+			e.preventDefault();
+		}
+	})
+</script>

@@ -226,6 +226,8 @@ class IndexController extends Zend_Controller_Action {
 	    	}
 
 	    	$filters['tel'] = $this->_getParam('tel');
+
+	    	$this->view->search_by_phone = true;
 	    }
 
        if ( $this->_hasParam('metro') ) {
@@ -242,8 +244,8 @@ class IndexController extends Zend_Controller_Action {
                unset($i, $metro_str, $metro);
            }
            unset($metro_arr);
-        } 
-            
+        }
+
 		if($this->_getParam('v')){$video = true;}
 		if($this->_getParam('rv')){$params[] = "comments <> 0";}
 		$page=$this->_hasParam('p')?intval($this->_getParam('p')):1;
@@ -311,7 +313,7 @@ class IndexController extends Zend_Controller_Action {
 			}
 			else{$filters[$param]=false;}
 		}
-		
+
 		// get services from sections
 		foreach( $this->content->srv->toArray() as $srv=>$list ) {
         	foreach( $list as $key=>$null ) {
@@ -337,7 +339,7 @@ class IndexController extends Zend_Controller_Action {
 		$ankets = new Model_AnketsTest();
 
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);
-		
+
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage($this->settings['girls_per_page']);
 		$paginator->setCurrentPageNumber($page);

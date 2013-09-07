@@ -21,7 +21,7 @@ class CabinetController extends Zend_Controller_Action {
 	const PAIR = 5;
 
 	public function init() {
-    	$this->_helper->layout->setLayout('cabinet');
+    	$this->_helper->layout->setLayout('cabinet_new');
         $auth=Zend_Auth::getInstance()->getIdentity();
         if(!$auth){$this->_redirect('/');die;}
         $this->user_id=$auth->id;
@@ -33,7 +33,7 @@ class CabinetController extends Zend_Controller_Action {
         if ( $auth->flags & 1<<self::COM_ADM || $auth->flags == 0 ) {
         	$this->user_com = true;
         }
-        
+
         $this->view->auth=$auth->user_login;
         $this->view->admin=$this->user_admin;
         $this->view->com_admin = $this->user_com;
@@ -47,7 +47,7 @@ class CabinetController extends Zend_Controller_Action {
         $this->view->photos_path=$this->config->path->url_user_ph;
         $this->view->videos_path=$this->config->path->url_user_vi;
         $this->view->banners_path=$this->config->path->url_banners;
-        $this->view->errors=array();      
+        $this->view->errors=array();
         $this->admin_flags=new Zend_Session_Namespace('admin');
         if(!isset($this->admin_flags->all_anks)){$this->admin_flags->all_anks=false;}
         $this->view->all_anks=$this->admin_flags->all_anks;
@@ -55,7 +55,7 @@ class CabinetController extends Zend_Controller_Action {
         	'-1' => 'UnSelect',
             // '0'  => 'No',
             '1'  => 'Yes'
-        ); 
+        );
  
         include_once 'Settings.php';
         $settings=new Settings;

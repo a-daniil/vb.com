@@ -22,23 +22,23 @@ class AuthController extends Zend_Controller_Action{
 		$mMenuItems = new MenuItems();
 		$this->view->menu_items = $mMenuItems->get_all_items();
 	}
-	
+
 	public function indexAction() {
 		if(!$this->_request->isPost()){return;}
 		$username = $this->_request->getPost('username');
 		$password = $this->_request->getPost('password');
 		if( empty($username) || empty($password) ){
 			return;
-		} 
-		
+		}
+
 		$strip_tags          = new Zend_Filter_StripTags();
 		$string_trim_filter  = new Zend_Filter_StringTrim();
-		
-		$filters = array($strip_tags, $string_trim_filter);		
+
+		$filters = array($strip_tags, $string_trim_filter);
 		foreach ( $filters as $filter ) {
 			$username = $filter->filter($username);
 			$password = $filter->filter($password);
-		}	
+		}
 
 		/* see in users_log */
 		$user_login = new Model_UsersLog();
@@ -46,8 +46,8 @@ class AuthController extends Zend_Controller_Action{
 			$this->view->flag = 'error_banned';
 			return;
 		}
-		
-		$aa=new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));		
+
+		$aa=new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));
 		$aa	->setTableName('users')
 			->setIdentityColumn('user_hash')
 			->setCredentialColumn('user_pass')
@@ -69,12 +69,12 @@ class AuthController extends Zend_Controller_Action{
 		    if ( !$data->status ) {
 		    	$this->view->flag = 'banned';
 		    	return;
-		    } else {		    
+		    } else {
 		        $auth->getStorage()->write($data);
 		    
 		   	    if ( $this->_hasParam('url') ) {
 		    		$this->_redirect( $this->_getParam('url') );
-		    	} else {		    
+		    	} else {
 		   	    	$this->_redirect('/');
 		    	}
 		    	die;
@@ -100,36 +100,36 @@ class AuthController extends Zend_Controller_Action{
 			$auth_count = 0;
 			setcookie('auth_count', $auth_count+1, time() + 600, "/");
 		}
-		
+
 		$this->view->flag = 'error_credentials';
 	}
-	
+
 	public function logoutAction() {
 		/*
 		 * For simple and advertise users
 		 */		
-		$auth = Zend_Auth::getInstance()->getIdentity();		
+		$auth = Zend_Auth::getInstance()->getIdentity();
 		$usettings = new Model_USettings();
 		
-		if ( $auth->id ) {		
+		if ( $auth->id ) {
 			if ( $usettings->getConfig( $auth->id, 'show_user_cab' ) == 'true' ) {
 				$result = $usettings->setConfig( $auth->id, "show_user_cab" , "false");
 			
 				if ( !$result ) {
 					throw new ShowCabAuth_Exception();
 				}
-			}	 
+			}
 		}
-		
+
 		Zend_Auth::getInstance()->clearIdentity();
         $this->_redirect('/');
         die;
 	}
-	
+
 	public function registrationAction(){
 		$this->captcha_add();
 	}
-	
+
 	public function regWriteAction() {
 		$this->captcha_check();
 		if($this->_hasParam('name')){$name=$this->check_text(substr($this->_getParam('name'),0,16));}
@@ -173,7 +173,7 @@ class AuthController extends Zend_Controller_Action{
 		$message='<p>'.str_replace($vars,$replace,$this->content->mail->message->reg_conf).'</p>';
 		$this->send_mail($mail,$this->content->mail->subj->reg_conf,$message,$this->content->mail->from->reg_conf);
 	}
-	
+
 	public function regConfirmAction(){
 		if($this->_hasParam('id')){$id=$this->check_text(substr($this->_getParam('id'),0,32));}
 		else{$this->error('request_error');return;}
@@ -195,7 +195,7 @@ class AuthController extends Zend_Controller_Action{
 			'shops'			=> 0,
 			'status'		=> 1,
 		);
-		$id = $users->insert($info);	
+		$id = $users->insert($info);
 
 		$user_config = new Model_UsersConfig();
 		$user_config->insert(array(
@@ -210,7 +210,7 @@ class AuthController extends Zend_Controller_Action{
 	}
 
 	public function recoveryAction(){
-		$this->captcha_add();		
+		$this->captcha_add();
 
 		if ( $_POST['recovery'] ) {
 			$this->captcha_check();
