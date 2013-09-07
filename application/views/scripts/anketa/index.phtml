@@ -107,12 +107,6 @@
 								$this->row = $this->info;
 								echo $this->render('_show-services.phtml');
 							?>
-							<?php if ( $this->info['score'] === "1" ) : ?>
-								<span class="good_score"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span>
-							<?php endif ?>
-							<?php if ( $this->info['score'] === "-1" ) : ?>
-								<span class="bad_score"><span class="bad_score_icon"></span>&nbsp;Не рекомендуют</span>
-							<?php endif ?>
 						</div>
 					</div>
 				</div>
