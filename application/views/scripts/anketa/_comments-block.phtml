@@ -22,7 +22,7 @@
 	<ul class="reviews">
 	<?php foreach ( $this->reviews as $review) : ?>
 		<li>
-			<?php echo rusdate(strtotime($review['date'])) ?> | <?php echo $this->getUserLoginById($review['user_id']) ?><br/>
+			<?php echo rusdate(strtotime($review['date']), 'j %MONTH% Y H:i') ?> | <?php echo $this->getUserLoginById($review['user_id']) ?><br/>
 			<?=$review['comment']?>
 		</li>
 	<?php endforeach; ?>
@@ -56,12 +56,20 @@
 	<form action="/remote/review/" id="review_form">
 		<fieldset>
 			<div class="question_title_box">
-				<h5 class="question_title">Фотографии оригинал?<span class="required">*</span></h5>
+				<h5 class="question_title question_title_fl">Фотографии оригинал?<span class="required">*</span></h5>
+				<div class="question_tip_icon on_your_wish" id="question_photo_original">
+					<div class="question_tip_block">
+						<div class="question_tip_block_corner"></div>
+						<div class="question_tip_block_cont">
+							<span>На ваше усмотрение</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="check_photo_original">
 				<div class="check_photo_original_l">
-					<label class="comment_label"><input type="radio" name="photo_original" value="4" checked="checked">Да, фото оригинальные</label>
-					<label class="comment_label"><input type="radio" name="photo_original" value="0" >Нет, фото чужие</label>
+					<label class="comment_label"><input type="radio" name="photo_original" value="4">Да, фото оригинальные</label>
+					<label class="comment_label"><input type="radio" name="photo_original" value="0">Нет, фото чужие</label>
 				</div>
 				<div class="check_photo_original_r">
 					<select name="photo_original_select">
@@ -72,9 +80,17 @@
 			</div>
 			<div class="question_title_box">
 				<h5 class="question_title question_title_fl">Реальная индивидуалка?<span class="required">*</span></h5>
+				<div class="question_tip_icon on_your_wish" id="question_real_individual">
+					<div class="question_tip_block">
+						<div class="question_tip_block_corner"></div>
+						<div class="question_tip_block_cont">
+							<span>На ваше усмотрение</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="check_real_individual">
-				<label class="comment_label"><input type="radio" name="real_individual" value="0" checked="checked">Не знаю</label>
+				<label class="comment_label"><input type="radio" name="real_individual" value="0">Не знаю</label>
 				<label class="comment_label"><input type="radio" name="real_individual" value="1">Да</label>
 				<label class="comment_label"><input type="radio" name="real_individual" value="-1">Нет, это салон</label>
 			</div>
@@ -112,41 +128,67 @@
 								</ul>
 								<input type="hidden" name="apartment">
 							</div>
-						<li>
+						</li>
 					</ul>
 				</div>
 			</div>
-			<?php foreach( $this->services as $part=>$srv ) : 
-				$i++;
-			?>
-			<?php if ( $i % 2 == 0 ) : ?><div class="select_rating_girl_block_r"><?php else : ?><div class="select_rating_girl_block"><div class="select_rating_girl_block_l"><?php endif ?>
-				<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
-				<ul class="select_rating_ul hidden">
-					<?php foreach($srv as $num=>$val) : ?>
-					<li>
-						<span class="select_rate_label"><?php echo $val ?></span>
-						<div class="select_rating_star">
-							<ul class="rating_stars_dinamic">
-								<?php for ( $y = 0; $y<5; $y++ ) : ?>
-									<li><a class="star" href="#" ></a></li>	
-								<?php endfor ?>
-							</ul>
-							<input type="hidden" class="posted" name="<?php echo $val ?>">
-						</div>
-					</li>
-					<?php endforeach ?>
-				</ul>
-			<?php if ( $i % 2 == 0 ) : ?></div></div><?php else : ?></div><?php endif ?>
-			<?php endforeach ?>	
+			<?php if ( is_array($this->place_services) && !empty($this->place_services) ) :
+				  foreach ( $this->place_services as $place ) : ?>
+				<div class="select_rating_girl_block">
+					<?php if ( !empty($place[0]) ) : ?>
+					<div class="select_rating_girl_block_l">
+						<?php $srv = $this->services[$place[0]['name']] ?>
+						<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
+						<ul class="select_rating_ul hidden">
+							<?php foreach( $srv as $num=>$val ) : ?>
+							<li>
+								<span class="select_rate_label"><?php echo $val ?></span>
+								<div class="select_rating_star">
+									<ul class="rating_stars_dinamic">
+										<?php for ( $y = 0; $y<5; $y++ ) : ?>
+											<li><a class="star" href="#" ></a></li>	
+										<?php endfor ?>
+									</ul>
+									<input type="hidden" class="posted" name="<?php echo $val ?>">
+								</div>
+							</li>
+							<?php endforeach ?>
+						</ul>
+					</div>
+					<?php endif ?>
+					<?php if ( !empty($place[1]) ) : ?>
+					<div class="select_rating_girl_block_r">
+						<?php $srv = $this->services[$place[1]['name']] ?>
+						<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
+						<ul class="select_rating_ul hidden">
+							<?php foreach( $srv as $num=>$val ) : ?>
+							<li>
+								<span class="select_rate_label"><?php echo $val ?></span>
+								<div class="select_rating_star">
+									<ul class="rating_stars_dinamic">
+										<?php for ( $y = 0; $y<5; $y++ ) : ?>
+											<li><a class="star" href="#" ></a></li>	
+										<?php endfor ?>
+									</ul>
+									<input type="hidden" class="posted" name="<?php echo $val ?>">
+								</div>
+							</li>
+							<?php endforeach ?>
+						</ul>
+					</div>
+					<?php endif ?>
+				</div>
+			<?php endforeach; ?>
+			<?php endif; ?>
 			<div class="select_rate_common_stage">
 				<h5 class="question_title question_title_fl">Общее впечатление<span class="required">*</span></h5 >
 				<a href="#" class="good_score_icon select_rate_common_stage_left_ico"></a>
 				<a href="#" class="bad_score_icon select_rate_common_stage_left_ico"></a>
 				<input type="hidden" name="score">
-				<div class="question_tip_icon on_your_wish">
+				<div class="question_tip_icon on_your_wish" id="question_score">
 					<div class="question_tip_block">
 						<div class="question_tip_block_corner"></div>
-						<div class="question_tip_block_cont">
+						<div class="question_tip_block_cont" id="score_question_tip_block_cont">
 							<span>На ваше усмотрение</span>
 						</div>
 					</div>
@@ -166,13 +208,19 @@ $(document).on("click", ".star", function(e){
 	e.preventDefault();
 
 	var el = $(this);
+	var input = el.closest("div").children("input");
 	var current_index = parseInt(el.parent().index()) + 1;
 
-	el.closest("div").children("input").val(current_index);
-	
-	el.parent().prevAll().children().addClass("active");
-	el.addClass("active");
-	el.parent().nextAll().children().removeClass("active");
+	if ( current_index == parseInt(input.val()) ) {
+		input.val("");
+		el.removeClass("active");
+	} else {
+		el.closest("div").children("input").val(current_index);
+
+		el.parent().prevAll().children().addClass("active");
+		el.addClass("active");
+		el.parent().nextAll().children().removeClass("active");
+	}
 });
 
 $('.hidden_service').click(function(e){
@@ -243,15 +291,29 @@ $("#review_form").submit(function(event) {
 		 }
 	  }
   })
-  
+
   if ( services.length < 1 ) {
       $(".hidden_service").after('<p class="not_valid">Необходимо оценить минимум одну услугу</p>');
       isBreak = true;
   }
 
   if ( !$form.find( 'input[name="score"]' ).val() ) {
-	  $(".question_tip_icon").after('<p class="not_valid"> Выберите</p>');
+	  $("#question_score").after('<p class="not_valid"> Выберите</p>');
 	  isBreak = true;
+  }
+
+  // validate readio real_individual
+  var real_individual_value = parseInt($form.find( 'input[name="real_individual"]:checked' ).val());
+  if ( isNaN(real_individual_value) ) {
+		$("#question_real_individual").after('<p class="not_valid"> Выберите</p>');
+		isBreak = true;
+  }
+
+  // validate photo original
+  var photo_original_value = parseInt($form.find( 'input[name="photo_original"]:checked' ).val());
+  if ( isNaN(photo_original_value) ) {
+		$("#question_photo_original").after('<p class="not_valid"> Выберите</p>');
+		isBreak = true;
   }
 
   if (isBreak) {
@@ -280,7 +342,7 @@ $("#review_form").submit(function(event) {
 		  }
       })
 
-  //debug   
+  //debug
   /*
   console.dir(services);
   console.log(photo_original);
@@ -343,14 +405,14 @@ $( '#review_form a, #review_form input[name="photo_original"], select[name="phot
 		if ( parseInt($('input[name="score"]').val()) == 1 ) {
 			$('input[name="score"]').val(0);
 		}
-		$('.question_tip_block_cont > span').html("Суммарная оценка отрицательна, укажите Не советую или на Ваше усмотрение, или измените оценки");
+		$('#score_question_tip_block_cont > span').html("Суммарная оценка отрицательна, укажите Не советую или на Ваше усмотрение, или измените оценки");
 	} else {
 		$('.good_score_icon').show();
 		$('.bad_score_icon').hide();
 		if ( parseInt($('input[name="score"]').val()) == -1 ) {
 			$('input[name="score"]').val(0);
 		}
-		$('.question_tip_block_cont > span').html("Суммарная оценка положительна, укажите На ваше усмотрение или Рекомендую, или измените оценки.");
+		$('#score_question_tip_block_cont > span').html("Суммарная оценка положительна, укажите На ваше усмотрение или Рекомендую, или измените оценки.");
 	}
 });
 </script>

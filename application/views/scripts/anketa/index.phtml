@@ -51,10 +51,11 @@
 						<span class="big_red_phone"></span>
 						<ul class="single_girl_from">
 							<li><span class="red_col">Санкт-Петербург,</span></li>
-							<a href="/<?php echo $this->sections->getUriForDistrict($this->info['district'], $this->city ) ?>"><li><?php echo $this->district_list[$this->info['district']] ?></li></a>
-							<br />
-							<h5>Место встречи: </h5>
-							<a href="/<?php echo getLink($this->info['place'], array(array(1,1),array(2,2),array(3,3)),array('mesto-vstrechi/vstrecha-v-apartamentah','mesto-vstrechi/vyezd','mesto-vstrechi/vstrecha-v-saune')) ?>"><li><?php echo $this->places[$this->info['place']] ?></li></a>
+							<li><a href="/<?php echo $this->sections->getUriForDistrict($this->info['district'], $this->city ) ?>"><?php echo $this->district_list[$this->info['district']] ?></a></li>
+						</ul>
+						<h5>Место встречи:</h5>
+						<ul class="single_girl_from">
+							<li><a href="/<?php echo getLink($this->info['place'], array(array(1,1),array(2,2),array(3,3)),array('mesto-vstrechi/vstrecha-v-apartamentah','mesto-vstrechi/vyezd','mesto-vstrechi/vstrecha-v-saune')) ?>"><?php echo $this->places[$this->info['place']] ?></a></li>	
 						</ul>
 						<a href="/<?php echo $this->sections->getUriForMetro($this->info['metro'], $this->city) ?>">
 							<span class="grey_metro">
@@ -178,6 +179,7 @@
 					</div>
 				<?php endif ?>
 			</div>
+			<?php if ( count($this->latest2reviews) > 0 ) : ?>
 			<div class = "sidebox pink">
 				<div class="sidebox_header">
 					<h3>оценки клиентов</h3>
@@ -201,11 +203,11 @@
 											, есть фотошоп
 										<?php endif ?>
 									<?php else : ?>
-										Чужие
+										Нет, чужие фото
 									<?php endif ?>
 									</span>
 								</li>
-								<li>Реальна индивидуалка: 
+								<li>Реальна индивидуалка:
 									<span class="black">
 										<?php if ($review['real_individual'] == 1) : ?>
 											Да
@@ -249,13 +251,18 @@
 								</li>
 								<?php endforeach ?>
 							</ul>
-							<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
+							<?php if ( $review['score'] == "1" ) : ?>
+								<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
+							<?php elseif ( $review['score'] === "-1" ) : ?>
+								<span class="single_reviewer_total_score">Общая оценка: <span class="bad_score">не рекомендую <span class="bad_score_icon"></span></span></span>
+							<?php endif; ?>
 						</li>
 						<?php endforeach ?>	
 					</ul>
 					<a href="#" class="more_reviews">Показать все отзывы</a>
 				</div>
 			</div>
+			<?php endif ?>
 			<div class="sidebox pink">
 				<div class="sidebox_header">
 					<h3>ищи меня на карте</h3>
@@ -299,7 +306,7 @@
 						<div class="salon_anket_sidebox_more_left">
 							<?php 
 								$this->row = $salon;
-								echo $this->render('_show-services-salon.phtml'); 
+								echo $this->render('_show-services-salon.phtml');
 							?>
 							<ul class="salon_anket_sidebox_more_left">
 								<li></li>

@@ -4,7 +4,7 @@ class Ps_Anketa_Exception extends Zend_View_Exception {};
 
 include_once 'IndexController.php';
 class AnketaController extends IndexController {
-	
+
 	public function indexAction() {
 		if(!$this->_hasParam('name')){
 			throw new Ps_Anketa_Exception();
@@ -26,7 +26,7 @@ class AnketaController extends IndexController {
 		if($this->_hasParam('l')) {
 			$this->view->srv_short_list=false;
 		}
-		
+
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($ank_id);
@@ -34,7 +34,7 @@ class AnketaController extends IndexController {
 		if ( !$info ) {
 			throw new Ps_Anketa_Exception();
 		}
-			
+
 		$age_conf=$this->content->age_post->toArray();
 		switch($info['age'][1]){
 			case 0: $age_post=$age_conf[0];break;
@@ -111,11 +111,40 @@ class AnketaController extends IndexController {
 		} else {
 			$info['type']=$this->view->types[$info['type']];
 		}
-		
+
+		// prepare placing of services for comments block
+		if ( $info['performer'] != 3 ) {
+			$this->view->place_services = array(
+				array(
+					'0' => array('name' => 'main'),
+					'1' => array('name' => 'add'),
+				),
+				array(
+					'0' => array('name' => 'strip'),
+					'1' => array('name' => 'extr'),
+				),
+				array(
+					'0' => array('name' => 'bdsm'),
+					'1' => array('name' => 'mass'),
+				),
+			);
+		} else {
+			$this->view->place_services = array(
+				array(
+					'0' => array('name' => 'add'),
+					'1' => array('name' => 'strip'),
+				),
+				array(
+					'0' => array('name' => 'mass'),
+				),
+			);
+		}
+
 		$info['performer']=$this->view->performer_out[$info['performer']];
+
 		$info['city']=$this->view->cities[$info['city']];
 		$this->view->info=$info;
-		
+
 		$meta_process=array(
 				'start_logo_alt',
 				'ank_title',
@@ -153,7 +182,7 @@ class AnketaController extends IndexController {
 				default:
 					$meta_replace[$key]=$info[$key];
 					break;
-			}		
+			}
 		}
 		foreach($meta_tags as $key=>$value){
 			$meta_tags[$key]='%'.strtoupper($value).'%';
@@ -175,12 +204,12 @@ class AnketaController extends IndexController {
 		$comments = new Comments();
 		$this->view->comments = $comments->get_list($commpage,$ank_id, $info['priority']);	
 		$this->view->services = $services;	
-		
+
 		// Reviews for latest two section in sidebar
 		$reviews = new Model_Review();
 		$latest2reviews = $reviews->getLatest2Reviews($ank_id);
 		$this->view->latest2reviews = $latest2reviews;
-		
+
 		// Reviews
 		$cp = $this->_getParam('cp');
 		$adapter = $reviews->fetchPaginatorAdapter($info['id']);

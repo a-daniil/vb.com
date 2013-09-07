@@ -1619,7 +1619,7 @@ and (max-device-width : 480px) {
 .check_photo_original_r{
 	float: left;
 	width: 250px;
-	margin: -7px 0 0;
+	margin: -5px 0 0;
 }
 .comment_label{
 	display: block;
@@ -1680,7 +1680,7 @@ and (max-device-width : 480px) {
 	float: left;
 }
 .select_rating_girl_block{
-	margin: 0 0 40px;
+	margin: 0 0 20px;
 }
 .select_rating_girl_block:after{
 	display:block;
@@ -1697,7 +1697,7 @@ and (max-device-width : 480px) {
 
 }
 .select_rating_ul{
-	
+	padding-top: 10px;
 }
 .select_rating_ul > li{
 	overflow: hidden;
