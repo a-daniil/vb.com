@@ -73,7 +73,7 @@
 						<br/>
 						<h5>Внешность:
 						<?php if ( $this->info['hair'] ) : ?>
-							<a href="/<?php echo getLink($this->info['hair'],array(array(1,1),array(2,2),array(3,3),array(4,4),array(5,5)),array('tsvet-volos/blondinki', 'tsvet-volos/brunetki', 'tsvet-volos/rusye', 'tsvet-volos/ryzhye', 'tsvet-volos/shatenki'))?>"><?php echo $this->hair[$this->info['hair']] ?></a>
+							<a href="/<?php echo getLink($this->info['hair'],array(array(1,1),array(2,2),array(3,3),array(4,4),array(5,5)),array('tsvet-volos/blondinki', 'tsvet-volos/brunetki', 'tsvet-volos/rusye', 'tsvet-volos/ryzhye', 'tsvet-volos/shatenki'))?>"><?php echo $this->hair[$this->info['hair']] ?>,</a>
 						<?php endif; ?>
 						<?php if ( $this->info['exotics'] ) : ?>
 							<a href="/<?php echo getLink($this->info['exotics'],array(array(1,1),array(2,2), array(3,3),array(4,4),array(5,5),array(6,6),array(7,7),array(8,8),array(9,9),array(10,10)), array('nacionalnost/aziatki', 'nacionalnost/mulatki', 'nacionalnost/negrityanki', 'nacionalnost/uzbechki', 'nacionalnost/ukrainki', 'nacionalnost/kazashki', 'nacionalnost/tatarki', 'nacionalnost/gruzinki', 'nacionalnost/cyganki', 'nacionalnost/kirgizki')) ?>"><?php echo $this->exotics[$this->info['exotics']] ?></a>
@@ -107,6 +107,12 @@
 								$this->row = $this->info;
 								echo $this->render('_show-services.phtml');
 							?>
+							<?php if ( $this->info['score'] === "1" ) : ?>
+								<span class="good_score"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span>
+							<?php endif ?>
+							<?php if ( $this->info['score'] === "-1" ) : ?>
+								<span class="bad_score"><span class="bad_score_icon"></span>&nbsp;Не рекомендуют</span>
+							<?php endif ?>
 						</div>
 					</div>
 				</div>

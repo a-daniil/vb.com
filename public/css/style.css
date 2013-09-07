@@ -2105,6 +2105,11 @@ and (max-device-width : 480px) {
 	color: #05bb02;
 	font-weight: bold;
 }
+.good_score_in_preview {
+	position: absolute;
+	bottom: 5px;
+	left: 360px;
+}
 .bad_score{
 	color: #d84a2e;
 	font-weight: bold;

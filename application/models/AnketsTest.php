@@ -48,11 +48,10 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		if ( $per ) {	
 			$select->where('performer = ?', $per);
 		}	
-					
+
 		$select->where('active = 1');
 		$select->where('status >= 30');
-	
-		
+
 		if ( is_array($params) ) {
 			foreach( $params as $key => $value ) {
 				$select->where($value);
@@ -65,36 +64,35 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 			$counters->inc_common(1);
 			$select->where('videolist <> ""');
 		}
-	
+
 		if ( $mtr_id ) {
 			$select->where("metro = ?", $mtr_id);
-			$select->where("metro = ?", $mtr_id);	
-			
+			$select->where("metro = ?", $mtr_id);
+
 			$statsMetro = new Model_StatsMetro();
 			$statsMetro->incMetro( $mtr_id );
 		}
-		
+
 		if ( $params[2] === 'status>=50' ) {
 			include_once 'CountersAnkets.php';
 			$counters=new CountersAnkets();
 			$counters->inc_common(2);
 		}
-		
+
 		if( $params[2] === 'breast=0' ) {
 			include_once 'CountersAnkets.php';
 			$counters=new CountersAnkets();
 			$counters->inc_common(3);
 		}
-		
+
 		$select->order('
 			priority DESC,
 			case priority when 1 then RAND() end DESC,
 			case priority when 0 then timestamp end DESC
 		');
-				
-		
+
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
-		return $adapter;		
+		return $adapter;s
 	}
 
 	public function fetchPaginatorAdapter( $user_id )
