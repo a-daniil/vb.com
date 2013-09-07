@@ -92,7 +92,7 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		');
 
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
-		return $adapter;s
+		return $adapter;
 	}
 
 	public function fetchPaginatorAdapter( $user_id )
