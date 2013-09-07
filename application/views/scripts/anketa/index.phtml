@@ -191,7 +191,10 @@
 					<h3>оценки клиентов</h3>
 				</div>
 				<div class="sidebox_content no_side_padding">
-					<?php if ($this->info['score']) : ?>
+					<?php if ( $this->info['score'] === "1" ) : ?>
+						<span class="total_score"><span class="good_score"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
+					<?php endif ?>
+					<?php if ( $this->info['score'] === "-1" ) : ?>
 						<span class="total_score"><span class="good_score"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
 					<?php endif ?>
 					<ul class="reviews_sidebar_item">
