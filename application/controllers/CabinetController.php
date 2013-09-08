@@ -29,7 +29,7 @@ class CabinetController extends Zend_Controller_Action {
         $this->user_admin=( $auth->flags & 1<<self::USR_ADM ) ? true : false;
         $this->user_tech = ( $auth->flags & 1<<self::TECH_ADM ) ? true : false;
         $this->user_moder = ( $auth->flags & 1<<self::MODER ) ? true : false;
-       	
+
         if ( $auth->flags & 1<<self::COM_ADM || $auth->flags == 0 ) {
         	$this->user_com = true;
         }
@@ -56,10 +56,14 @@ class CabinetController extends Zend_Controller_Action {
             // '0'  => 'No',
             '1'  => 'Yes'
         );
- 
+
         include_once 'Settings.php';
         $settings=new Settings;
         $this->settings=$settings->get();
+
+        //set variables to the layout
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->user_login = $auth->user_login;
 	}
 
 	public function indexAction() {
