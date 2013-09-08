@@ -21,13 +21,23 @@
 		<?php echo $this->mail; ?>
 	</td>
 	<td class="center_content">
-		<a href="/cabinet/change-user-pass/id/<?= $this->id; ?>"><img src="../img/key.png" alt="Установить пароль" title="Установить пароль" /></a>
+		<a class="btn btn-info" href="/cabinet/change-user-pass/id/<?= $this->id; ?>">
+			<i class="icon-key"></i>
+		</a>
 		<? if ( $this->status || is_null($this->status) ) :?>
-			<a class="blocking" href="/cabinet/block-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>"><img alt="Заблокировать" title="Заблокировать" src="../img/banned.png" /></a>
+			<a class="btn btn-danger blocking" href="/cabinet/block-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>">
+				<i class="icon-ban-circle"></i>
+			</a>
 		<? else : ?>
-			<a class="activating" href="/cabinet/activate-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>"><img alt="Активировать" title="Активировать" src="../img/activate.png" /></a>
+			<a class="btn btn-success activating" href="/cabinet/activate-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>">
+				<i class="icon-ok"></i>
+			</a>
 		<? endif; ?>
-		<a href="/cabinet/change-user-type/id/<?= $this->id; ?>"><img src="../img/users.png" alt="Сменить тип" title="Сменить тип" /></a>
-		<a href="/cabinet/connect<?php echo "?uid=" . $this->id . "&login=" . $this->user_login ?>"><img src="../img/messages.png" alt="Написать сообщение" title="Написать сообщение" /></a>
+		<a class="btn btn-inverse" href="/cabinet/change-user-type/id/<?= $this->id; ?>">
+			<i class="icon-user"></i>
+		</a>
+		<a class="btn btn-primary" href="/cabinet/connect<?php echo "?uid=" . $this->id . "&login=" . $this->user_login ?>">
+			<i class="icon-envelope"></i>
+		</a>
 	</td>
 </tr>
