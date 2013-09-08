@@ -21,7 +21,7 @@ class CabinetController extends Zend_Controller_Action {
 	const PAIR = 5;
 
 	public function init() {
-    	$this->_helper->layout->setLayout('cabinet_new');
+    	$this->_helper->layout->setLayout('cabinet');
         $auth=Zend_Auth::getInstance()->getIdentity();
         if(!$auth){$this->_redirect('/');die;}
         $this->user_id=$auth->id;
