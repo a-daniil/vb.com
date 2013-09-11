@@ -1,38 +1,95 @@
-<div class="center">
-	<div id = "centerwrap" >
-		<div class="form-buttons">
-			<a href="/cabinet/profile?type=pass">Смена пароля</a><a href="/cabinet/profile?type=mess">Уведомления</a>
-		</div>
-		<? if ( $this->form instanceof Form_EditPassForm ) :?>
-			<div class="info">
-				<span>Логин: <?= $this->login ?> E-mail: <?= $this->email ?></span>
-			</div>
-		<? elseif ( $this->form instanceof Form_EditMessForm ) : ?>
-			<div class="info">
-				<span>Включить уведомление на e-mail: <?= $this->email ?></span>
-			</div>
-		<? endif ?>
-		<? if ( $this->message ) :?>
-			<div class="<?= $this->color ?>">
-				<span><?= $this->message ?></span>
-			</div>
-		<? endif; ?>
-		<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
-			<div class="form">
-				<div class="form-left">
-					<?=$this->form->getElement('balance')?>
-					<?=$this->form->getElement('days_info')?>
-        			<? foreach ($this->form as $element): ?>
-        				<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
-        					<?= $element ?>
-        				<? endif ?>
-  					<? endforeach; ?>
-  				</div>  
-  				<?= $this->form->getElement('submit') ?> 				 				
-  			</div>
-  		</form>
-  	</div>
+<style>
+	.errors {
+		list-style-type: none;
+		color: #b94a48;
+		margin-left: 160px;
+		margin-top: 5px;
+	}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Настройки профиля
+		</h3>
+	</div>
 </div>
-<script type="text/javascript">
-	$("#days-info-element").css("float", "left");
-</script>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="navbar navbar-static" id="">
+        	<div class="navbar-inner">
+            	<div style="width: auto;" class="container">
+                    <ul role="navigation" class="nav">
+                    	<li class="<?= $_GET['type'] == "pass" ? "active" : null ?>">
+							<a href="/cabinet/profile?type=pass">Смена пароля</a>
+                    	</li>
+                        <li class="<?= $_GET['type'] == "mess" ? "active" : null ?>">
+							<a href="/cabinet/profile?type=mess">Уведомления</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    	</div>
+	</div>
+</div>
+<div id="page-wraper">
+	<div class="row-fluid">	
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+						<? if ( $this->form instanceof Form_EditPassForm ) :?>
+							Логин: <?= $this->login ?> E-mail: <?= $this->email ?>
+						<? elseif ( $this->form instanceof Form_EditMessForm ) : ?>
+							Включить уведомление на e-mail: <?= $this->email ?>
+						<? endif ?>
+					</h4>
+                    <span class="tools">
+                    	<a href="javascript:;" class="icon-chevron-down"></a>
+                        <a href="javascript:;" class="icon-remove"></a>
+                    </span>
+				</div>
+				<div class="widget-body">
+				<? if ( $this->form instanceof Form_EditPassForm ) :?>
+					<? if ( $this->message == Form_EditPassForm::SUCCESS ) :?>
+						<div class="alert alert-success">
+							<button class="close" data-dismiss="alert">×</button>
+							<strong>Успешно!</strong>&nbsp;<?php echo $this->message ?>
+						 </div>
+					<? elseif ( $this->message == Form_EditPassForm::FAILED ) : ?>
+						<div class="alert alert-error">
+							<button class="close" data-dismiss="alert">×</button>
+							<strong>Ошибка!</strong>&nbsp;<?php echo $this->message ?>
+						</div>
+					<? endif ?>
+				<? elseif ( $this->form instanceof Form_EditMessForm ) : ?>
+					<? if ( $this->message == Form_EditMessForm::SUCCESS ) :?>
+						<div class="alert alert-success">
+							<button class="close" data-dismiss="alert">×</button>
+							<strong>Успешно!</strong>&nbsp;<?php echo $this->message ?>
+						 </div>
+					<? elseif ( $this->message == Form_EditMessForm::FAILED ) : ?>
+						<div class="alert alert-error">
+							<button class="close" data-dismiss="alert">×</button>
+							<strong>Ошибка!</strong>&nbsp;<?php echo $this->message ?>
+						</div>
+					<? endif ?>
+				<? endif ?>
+					<form class="form-horizontal" method="post">
+						<div class="tab-content">
+						<? if ( $this->form instanceof Form_EditMessForm ) :?>
+							<?=$this->form->getElement('balance')?>
+							<?=$this->form->getElement('days_info')?>
+						<?php endif; ?>
+						<? foreach ($this->form as $element): ?>
+        					<? if ( !preg_match('/submit|balance|days_info/', $element->getName() ) ) :?>
+        				<?= $element ?>
+        				<? endif ?>
+  						<? endforeach; ?>
+  						<?= $this->form->getElement('submit') ?>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

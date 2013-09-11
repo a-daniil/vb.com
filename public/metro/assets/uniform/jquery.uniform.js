@@ -263,9 +263,11 @@ Enjoy!
           if(!$(elem).attr("checked")){
             //box was just unchecked, uncheck span
             spanTag.removeClass(options.checkedClass);
+            elem.removeAttr("checked");
           }else{
             //box was just checked, check span.
             spanTag.addClass(options.checkedClass);
+            elem.attr("checked", "checked");
           }
         },
         "mousedown.uniform touchbegin.uniform": function() {

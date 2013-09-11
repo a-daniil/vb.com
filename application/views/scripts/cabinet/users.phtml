@@ -1,9 +1,43 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Пользователи
+		</h3>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="navbar navbar-static" id="">
+        	<div class="navbar-inner">
+            	<div style="width: auto;" class="container">
+                    <ul role="navigation" class="nav">
+                    	<li class="<?= $_GET['filter'] == 2 ? "active" : null ?>">
+							<a href="/cabinet/users?filter=2">Рекламодатели</a>
+                    	</li>
+                        <li class="<?= $_GET['filter'] == 0 ? "active" : null ?>">
+							<a href="/cabinet/users?filter=0">Посетители</a>
+                        </li>
+                        <li class="<?= $_GET['filter'] == 1 ? "active" : null ?>">
+							<a href="/cabinet/users?filter=1">Админы</a>
+                        </li>
+                        <li class="<?= $_GET['filter'] == 4 ? "active" : null ?>">
+							<a href="/cabinet/users?filter=4">Тех. админы</a>
+                        </li>
+                        <li class="<?= $_GET['filter'] == 8 ? "active" : null ?>">
+							<a href="/cabinet/users?filter=8">Модераторы</a>
+                         </li>
+                    </ul>
+                </div>
+            </div>
+    	</div>
+	</div>
+</div>
 <div id="page-wraper">
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="widget purple">
 				<div class="widget-title">
-					<h4><i class="icon-reorder"></i>Пользователи</h4>
+					<h4><i class="icon-reorder"></i></h4>
 					<span class="tools">
 						<a href="javascript:;" class="icon-chevron-down"></a>
 						<a href="javascript:;" class="icon-remove"></a>
@@ -51,50 +85,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-<div id="center">
-	<div id = "centerwrap-table" >
-		<div class="form-buttons">
-			<a href="/cabinet/users?filter=2" class="<?= $_GET['filter'] == 2 ? "active" : null ?>">Рекламодатели</a>
-			<a href="/cabinet/users?filter=0" class="<?= $_GET['filter'] == 0 ? "active" : null ?>">Посетители</a>
-			<a href="/cabinet/users?filter=1" class="<?= $_GET['filter'] == 1 ? "active" : null ?>">Админы</a>
-			<a href="/cabinet/users?filter=4" class="<?= $_GET['filter'] == 4 ? "active" : null ?>">Тех. админы</a>
-			<a href="/cabinet/users?filter=8" class="<?= $_GET['filter'] == 8 ? "active" : null ?>">Модераторы</a>
-		</div>	
-		<div style="clear: both;"></div>
-		<table class='form-table' cellspacing='0' id="sorter">
-			<thead>
-				<th>Логин&nbsp</th>
-				<th>Баланс</th>
-				<th>Потрачено</th>
-				<th>Анкет</th>
-				<th>Дата регистрации</th>
-				<th>Статутс</th>
-				<th>Email</th>
-				<td>Редактирование</td>
-			</thead>
-			<?php
-				echo $this->partialLoop('cabinet/users-statistic-row.phtml', $this->paginator); 
-			?>
-			<tfoot>
-				<tr>
-					<td>
-						Всего:
-					</td>
-					<td class="digits">
-						<?= round($this->showSumBalance( $_GET['filter'] ), 2); ?>
-					</td>
-					<td class="digits">
-						<?= round($this->showSumSpent( $_GET['filter'] ), 2); ?>
-					</td>
-					<td class="digits">
-						<?= $this->showSumAnkets( $_GET['filter'] ); ?>
-					<td>
-				</tr>
-			</tfoot>
-		</table>
 	</div>
 </div>
 <script type="text/javascript" src="/metro/assets/data-tables/jquery.dataTables.js"></script>

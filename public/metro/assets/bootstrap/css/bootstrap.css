@@ -5947,7 +5947,7 @@ a.badge:focus {
 }
 
 .accordion-heading .accordion-toggle {
-  display: block;
+  display: inline-block;
   padding: 8px 15px;
 }
 

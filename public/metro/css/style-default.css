@@ -3,6 +3,16 @@ body {
     /*background: #404040;*/
 }
 
+a.grey {
+	text-shadow: none !important;
+	color: #d5d5d5;
+}
+
+a.grey:hover {
+	text-shadow: none !important;
+	color: #505050;
+}
+
 a, a:hover {
     text-shadow: none !important;
     color: #4a8bc2;

@@ -1,36 +1,36 @@
-<?php if( $this->pageCount ){ 
+<?php if( $this->pageCount ) :
 	$params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
 	unset($params['module']);
 	unset($params['controller']);
 	unset($params['action']);
 ?>
-<div class="paginationControl">
-	<?php if( isset( $this->previous ) ){ ?>
-		<a href="<?php echo $this->url(array_merge(
-			$params, array('page' => $this->previous ))); ?>">
-			Предидущая	
-		</a> |
-	<?php } else { ?>
-		<span class="disabled"> Предидущая</span> |
-	<?php } ?>
-	
-	<?php foreach($this->pagesInRange as $page){ ?>
-		<?php if( $page != $this->current){ ?>
-			<a href="<?php echo $this->url(array_merge($params,
-				array('page' => $page ))); ?>">
-				<?php echo $page; ?>	
-			</a> | 
-		<?php } else { ?>
-			<?php echo $page; ?> |
-		<?php }} ?>
-		
-		<?php if( isset( $this->next ) ){ ?>
-			<a href="<?php echo $this->url(
-				array_merge($params, array('page' => $this->next))); ?>">
-				Следующая
-			</a>
-		<?php } else { ?>
-			<span class="disabled">Следующая</span>
-		<?php } ?>	
+<div class="pagination pagination-small">
+	<ul>
+	<?php if( isset( $this->previous ) ) : ?>
+		<li>
+			<a href="<?php echo $this->url(array_merge($params, array('page' => $this->previous ))); ?>">«</a>
+		</li>
+	<?php else : ?>
+		<li>
+			<a href="javascript:void(0)">«</a>
+		</li>
+	<?php endif; ?>
+	<?php foreach($this->pagesInRange as $page) : ?>
+		<?php if( $page != $this->current) : ?>
+			<li><a href="<?php echo $this->url(array_merge($params,array('page' => $page ))); ?>"><?php echo $page; ?></a></li>
+		<?php else : ?>
+			<li><a href="javascript:void(0)" style="background: #e8e8e8"><?php echo $page; ?></a></li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	<?php if( isset( $this->next ) ) : ?>
+		<li>
+			<a href="<?php echo $this->url(array_merge($params, array('page' => $this->next))); ?>">»</a>
+		</li>
+	<?php else : ?>
+		<li>
+			<a href="javascript:void(0)">»</a>
+		</li>
+	<?php endif; ?>
+	</ul>
 </div>
-<?php } ?>
+<?php endif; ?>
