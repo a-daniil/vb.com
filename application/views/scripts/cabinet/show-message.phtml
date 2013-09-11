@@ -26,7 +26,7 @@
 					<a class="icon-chevron-down" href="javascript:void(0)"></a>
 				</span>
 			</div>
-			<div class="widget-body">
+			<div class="widget-body" style="overflow: hidden;">
 				<span><?=$this->body?></span>
 				<br>
 				<?php if ( $this->file ) : ?>
@@ -42,7 +42,7 @@
 					<a href="javascript:;" class="icon-remove"></a>
 				</span>
 			</div>
-			<div class="widget-body">
+			<div class="widget-body" >
 				<form method="<?= $this->form->getMethod() ?>" enctype="multipart/form-data" class="form-horizontal">
 					<div class="tab-content">
 						<? if ( $this->message == Form_NewMessageForm::SUCCESS ) :?>
@@ -95,7 +95,7 @@
 					<a class="icon-chevron-down" href="javascript:void(0)"></a>
 				</span>
 			</div>
-			<div class="widget-body">
+			<div class="widget-body" style="overflow: hidden;">
 				<span><?=$this->body?></span>
 				<br>
 				<?php if ( $this->file ) : ?>
