@@ -1,61 +1,216 @@
-<div id="center"><div id="cab_ankets">
-	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array(action=>'finance-settings-write'))?>">
-		<div class="ca_top ca_bottom">
-			<h2>Стоимость размещения анкет (ед. сутки)</h2>
-			<br>
-			<table class="finance-settings-table">
-				<thead>
-					<th>Тип</th>
-					<th>Стоимость (сутки)</th>
-					<th>Скидака</th>
-				</thead>
-				<tr>
-					<th>Девушки:</th>
-					<td><input type="text" name="girl_hour_price" <?if(isset($this->data['girl_hour_price'])):?>value="<?=$this->data['girl_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="girl_hour_discount" <?if (isset($this->data['girl_hour_discount'])):?>value="<?=$this->data['girl_hour_discount']?>"<?endif?>/><td>
-				</tr>
-				<tr>
-					<th>Подружки:</th>
-					<td><input type="text" name="lesb_hour_price" <?if(isset($this->data['lesb_hour_price'])):?>value="<?=$this->data['lesb_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="lesb_hour_discount" <?if (isset($this->data['lesb_hour_discount'])):?>value="<?=$this->data['lesb_hour_discount']?>"<?endif?>/></td>
-				</tr>
-				<tr>
-					<th>Массажистки:</th>
-					<td><input type="text" name="mass_hour_price" <?if(isset($this->data['mass_hour_price'])):?>value="<?=$this->data['mass_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="mass_hour_discount" <?if (isset($this->data['mass_hour_discount'])):?>value="<?=$this->data['mass_hour_discount']?>"<?endif?>/></td>
-				</tr>
-				<tr>
-					<th>БДСМ:</th>
-					<td><input type="text" name="bdsm_hour_price" <?if(isset($this->data['bdsm_hour_price'])):?>value="<?=$this->data['bdsm_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="bdsm_hour_discount" <?if (isset($this->data['bdsm_hour_discount'])):?>value="<?=$this->data['bdsm_hour_discount']?>"<?endif?>/></td>
-				</tr>
-				<tr>
-					<th>Мужчина:</th>
-					<td><input type="text" name="man_hour_price" <?if(isset($this->data['man_hour_price'])):?>value="<?=$this->data['man_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="man_hour_discount" <?if (isset($this->data['man_hour_discount'])):?>value="<?=$this->data['man_hour_discount']?>"<?endif?>/></td>
-				</tr>
-				<tr>
-					<th>Транс:</th>
-					<td><input type="text" name="trans_hour_price" <?if(isset($this->data['trans_hour_price'])):?>value="<?=$this->data['trans_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="trans_hour_discount" <?if (isset($this->data['trans_hour_discount'])):?>value="<?=$this->data['trans_hour_discount']?>"<?endif?>/></td>
-				</tr>
-				<tr>
-					<th>Пары:</th>
-					<td><input type="text" name="pair_hour_price" <?if(isset($this->data['pair_hour_price'])):?>value="<?=$this->data['pair_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="pair_hour_discount" <?if (isset($this->data['pair_hour_discount'])):?>value="<?=$this->data['pair_hour_discount']?>"<?endif?>/></td>
-				</tr>				
-			</table>
-			<br />
-			<h2>Стоимость размещения салонов (ед. сутки)</h2>
-			<br />
-			<table class="finance-settings-table">
-				<tr>
-					<th>Салон:</th>
-					<td><input type="text" name="salon_hour_price" <?if(isset($this->data['salon_hour_price'])):?>value="<?=$this->data['salon_hour_price']?>" <?endif?>/></td>
-					<td><input type="text" name="salon_hour_discount" <?if (isset($this->data['salon_hour_discount'])):?>value="<?=$this->data['salon_hour_discount']?>"<?endif?>/></td>
-				</tr>
-			</table>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			
+		</h3>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Стоимость размещения анкет и салонов
+		</h3>
+	</div>
+</div>
+<div id="page-wraper">
+	<form action="<?=$this->url(array(action=>'finance-settings-write'))?>" class="form-horizontal" method="post">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4>
+						<i class="icon-reorder"></i>
+						Стоимость размещения анкет (ед. сутки)
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Девушки</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="girl_hour_price" <?if(isset($this->data['girl_hour_price'])):?>value="<?=$this->data['girl_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Девушки</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="girl_hour_discount" <?if (isset($this->data['girl_hour_discount'])):?>value="<?=$this->data['girl_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Подружки</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="lesb_hour_price" <?if(isset($this->data['lesb_hour_price'])):?>value="<?=$this->data['lesb_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Подружки</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="lesb_hour_discount" <?if (isset($this->data['lesb_hour_discount'])):?>value="<?=$this->data['lesb_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Массажистки</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="mass_hour_price" <?if(isset($this->data['mass_hour_price'])):?>value="<?=$this->data['mass_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Массажистки</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="mass_hour_discount" <?if (isset($this->data['mass_hour_discount'])):?>value="<?=$this->data['mass_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">БДСМ</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="bdsm_hour_price" <?if(isset($this->data['bdsm_hour_price'])):?>value="<?=$this->data['bdsm_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">БДСМ</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="bdsm_hour_discount" <?if (isset($this->data['bdsm_hour_discount'])):?>value="<?=$this->data['bdsm_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Мужчина</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="man_hour_price" <?if(isset($this->data['man_hour_price'])):?>value="<?=$this->data['man_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Мужчина</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="man_hour_discount" <?if (isset($this->data['man_hour_discount'])):?>value="<?=$this->data['man_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Мужчина</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="trans_hour_price" <?if(isset($this->data['trans_hour_price'])):?>value="<?=$this->data['trans_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Мужчина</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="trans_hour_discount" <?if (isset($this->data['trans_hour_discount'])):?>value="<?=$this->data['trans_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Пары</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="pair_hour_price" <?if(isset($this->data['pair_hour_price'])):?>value="<?=$this->data['pair_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Пары</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="pair_hour_discount" <?if (isset($this->data['pair_hour_discount'])):?>value="<?=$this->data['pair_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<input class="button" type="submit" value="Сохранить" />
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box purple">
+				<div class="widget-title">
+					<h4>
+						<i class="icon-reorder"></i>
+						Стоимость размещения салонов (ед. сутки
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Салон</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="salon_hour_price" <?if(isset($this->data['salon_hour_price'])):?>value="<?=$this->data['salon_hour_price']?>" <?endif?>>
+									<span class="help-inline">Стоимость (сутки)</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Салон</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="salon_hour_discount" <?if (isset($this->data['salon_hour_discount'])):?>value="<?=$this->data['salon_hour_discount']?>"<?endif?>>
+									<span class="help-inline">Скидка</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="submit" class="btn btn-large" name="submit" id="submit" value="Сохранить">
 	</form>
-</div></div>
+</div>

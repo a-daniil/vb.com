@@ -2404,14 +2404,14 @@ class CabinetController extends Zend_Controller_Action {
 			$this->_redirect('/cabinet');die;
 		}
 		$input=array(
-				'girl_hour_price', 'girl_hour_discount',
-				'lesb_hour_price', 'lesb_hour_discount',
-				'mass_hour_price', 'mass_hour_discount',
-				'bdsm_hour_price', 'bdsm_hour_discount',
-				'man_hour_price', 'man_hour_discount',
-				'trans_hour_price', 'trans_hour_discount',
-				'pair_hour_price', 'pair_hour_discount',
-				'salon_hour_price', 'salon_hour_discount'
+			'girl_hour_price', 'girl_hour_discount',
+			'lesb_hour_price', 'lesb_hour_discount',
+			'mass_hour_price', 'mass_hour_discount',
+			'bdsm_hour_price', 'bdsm_hour_discount',
+			'man_hour_price', 'man_hour_discount',
+			'trans_hour_price', 'trans_hour_discount',
+			'pair_hour_price', 'pair_hour_discount',
+			'salon_hour_price', 'salon_hour_discount'
 		);
 		$data=array();
 		foreach($input as $value){
@@ -2424,7 +2424,7 @@ class CabinetController extends Zend_Controller_Action {
 		include_once 'FinanceSettings.php';
 		$settings=new FinanceSettings;
 		$settings->set($data);
-		$this->_redirect('/cabinet/admin');
+		$this->_redirect('/cabinet/finance-settings');
 		die;
 	}
 
@@ -2432,16 +2432,16 @@ class CabinetController extends Zend_Controller_Action {
 		if ( !$this->user_admin ) {
 			$this->_redirect('/cabinet'); die;
 		}
-		
+
 		$input = array(
 			'WMR',
 			'WMZ',
 			'WMU',
 			'WME',
 			'DESC',
-			'SECRET_KEY'	
+			'SECRET_KEY'
 		);
-		
+
 		$data = array();
 		foreach( $input as $value ){
 			if ( $this->_hasParam($value) ) {
@@ -2450,14 +2450,14 @@ class CabinetController extends Zend_Controller_Action {
 				$data[$value] = false;
 			}
 		}
-		
+
 		include_once 'WebMoneySettings.php';
 		$webmoney_settings = new WebMoneySettings();
 		$webmoney_settings->set($data);
-		$this->_redirect('/cabinet/');
+		$this->_redirect('/cabinet/webmoney-settings');
 		die;
 	}
-	
+
 	public function priorityWriteAction(){
 		$this->_helper->viewRenderer->setScriptAction('error');
 		$id=intval(substr($this->_getParam('n'),0,32));
@@ -3202,6 +3202,9 @@ class CabinetController extends Zend_Controller_Action {
     	$mSections=new Sections();
     	#$this->view->paginator=$mSections->get_list($page);
     	$this->view->items=$mSections->get_list($page, array('metro', 'uslugi', 'rajon'));
+
+    	//set page title
+    	$this->view->page_title = "Категории";
     }
 
     public function uslugiAction(){
@@ -3228,8 +3231,11 @@ class CabinetController extends Zend_Controller_Action {
     	$mSections=new Sections();
     	$this->view->items = $mSections->get_list($page, 'metro', 2);
     	$this->_helper->viewRenderer->setScriptAction('sections');
+
+    	//set page title
+    	$this->view->page_title = "Метро СПБ";
     }
-    
+
     public function metroMskAction(){
     	$this->get_config_info();
     	$page=intval(substr($this->_getParam('p'),0,3));
@@ -3241,8 +3247,11 @@ class CabinetController extends Zend_Controller_Action {
     	$mSections=new Sections();
     	$this->view->items = $mSections->get_list($page, 'metro', 1 );
     	$this->_helper->viewRenderer->setScriptAction('sections');
+    	
+    	//set page title
+    	$this->view->page_title = "Метро МСК";
     }
-    
+
     public function districtSpbAction(){
     	$this->get_config_info();
     	$page=intval(substr($this->_getParam('p'),0,3));
@@ -3254,8 +3263,11 @@ class CabinetController extends Zend_Controller_Action {
     	$mSections=new Sections();
     	$this->view->items = $mSections->get_list($page, 'rajon', 2 );
     	$this->_helper->viewRenderer->setScriptAction('sections');
+
+    	//set page title
+    	$this->view->page_title = "Районы СПБ";
     }
-    
+
     public function districtMskAction(){
     	$this->get_config_info();
     	$page=intval(substr($this->_getParam('p'),0,3));
@@ -3267,6 +3279,9 @@ class CabinetController extends Zend_Controller_Action {
     	$mSections=new Sections();
     	$this->view->items = $mSections->get_list($page, 'rajon', 1 );
     	$this->_helper->viewRenderer->setScriptAction('sections');
+
+    	//set page title
+    	$this->view->page_title = "Районы МСК";
     }
 
     public function sectionAddFormAction(){
