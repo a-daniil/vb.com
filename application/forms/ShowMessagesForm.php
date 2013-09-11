@@ -16,6 +16,7 @@ class Form_ShowMessagesForm extends Zend_Form
 		
 	function init() {		
 		$this->addElement('textarea', 'answer', array(
+			'class' => 'input-xxlarge',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -26,42 +27,44 @@ class Form_ShowMessagesForm extends Zend_Form
 				)))
 			),
 			'required' => true,
-			'label'    => '',
+			'label'    => 'Ответ:',
 			'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'form-about')),
-					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+					array('Label', array('class' => 'control-label', 'style' => 'width: 180px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group')),
 			)
 		));
-		
+
 		$file = new Zend_Form_Element_File('upload');
 		$file->setLabel('Прикрепить фото:')
-			->setDestination('../public/user_messages_photos');			
+			->setDestination('../public/user_messages_photos');
 		$this->addElement($file);
-		
+
 		$this->addElement (new Zend_Form_Element_Button('delete', array(
+			'class' => 'btn blue',
 			'label'	=> 'Удалить',
 			'id'	=>	'delete-button',
 			'decorators' => array(
 				'ViewHelper',
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-delete-button')),
+				array('HtmlTag',array('tag'=>'div', 'class' => 'form-actions')),
 			)
 		)));
-			
+
 		$this->addElement( 'submit', 'submit', array(
-				'label' => 'Ответить',
-				'decorators' => array(
-						'ViewHelper',
-						array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit-button')),
-				)
+			'class' => 'btn blue',
+			'label' => 'Ответить',
+			'decorators' => array(
+				'ViewHelper',
+				array('HtmlTag',array('tag'=>'div', 'class' => 'form-actions')),
+			)
 		));
-		
+
 		$this->addDisplayGroup(array('delete', 'submit'), 'submitButtons', array(
 				'decorators' => array(
-						'FormElements',
-						array('HtmlTag', array('tag' => 'div', 'class' => 'form-bottom-buttons')),
-				),
+					'FormElements',
+					array('HtmlTag',array('tag'=>'div', 'class' => 'form-actions')),
+			),
 		));
 	}
 }

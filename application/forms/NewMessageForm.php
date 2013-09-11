@@ -32,16 +32,17 @@ class Form_NewMessageForm extends Zend_Form
 				'multiOptions' => array(
 					$this->_uid => $this->_login
 				),
-				'label' => 'Кому:',
+				'label' => 'Кому',
 				'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('tag' => 'div')),
-					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+					array('Label', array('class' => 'control-label', 'style' => 'width: 180px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 			));
 		} else {
 			$this->addElement('select', 'send_to', array(
+					'class' => 'input-large m-wrap',
 					'validators' => array(
 							array(
 									'Regex', false, array('pattern' => '/^TO_(.*)$/', 'messages' => array(
@@ -54,17 +55,18 @@ class Form_NewMessageForm extends Zend_Form
 							self::TO_MODER => 'Модерация анкет',
 							self::TO_ADMIN => 'Финансовые вопросы'
 					),
-					'label' => 'Кому:',
+					'label' => 'Кому',
 					'decorators' => array(
 							'ViewHelper',
 							'Errors',
-							array('Label', array('tag' => 'div')),
-							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+							array('Label', array('class' => 'control-label', 'style' => 'width: 180px')),
+							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group')),
 					)
 			));
 		}
 
 		$this->addElement('text', 'subject', array(
+			'class' => 'input-xxlarge',
 			'filter' => array('StrignTrim'),
 			'validators' => array(
 			 	 array(
@@ -73,16 +75,17 @@ class Form_NewMessageForm extends Zend_Form
 				)))
 			),
 			'required' => true,
-			'label'    => 'Тема сообщения:',
+			'label'    => 'Тема сообщения',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 180px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group')),
 			)
 		));
 
 		$this->addElement('textarea', 'body', array(
+			'class' => "input-xxlarge",
 			'rows' => 10,
 			'cols' => 85,
 			'filter' => array('StringTrim'),
@@ -97,8 +100,8 @@ class Form_NewMessageForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 180px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group')),
 			)
 		));	
 
@@ -108,10 +111,11 @@ class Form_NewMessageForm extends Zend_Form
 		$this->addElement($file);
 
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn blue',
 			'label' => 'Отправить',
 			'decorators' => array(
 				'ViewHelper',
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),
+				array('HtmlTag',array('tag'=>'div', 'class' => 'form-actions')),
 			)
 		));
 

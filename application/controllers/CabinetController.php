@@ -21,7 +21,7 @@ class CabinetController extends Zend_Controller_Action {
 	const PAIR = 5;
 
 	public function init() {
-    	$this->_helper->layout->setLayout('cabinet');
+    	$this->_helper->layout->setLayout('cabinet_new');
         $auth=Zend_Auth::getInstance()->getIdentity();
         if(!$auth){$this->_redirect('/');die;}
         $this->user_id=$auth->id;
@@ -253,16 +253,16 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->login = $users->getLogin($id);
 		$this->view->form = $frm;
 	}
-	
-	function connectAction () {			
-		$frm = new Form_NewMessageForm( $this->getParam( 'uid' ), $this->getParam('login') );
-		
+
+	function connectAction () {
+		$frm = new Form_NewMessageForm( $this->getParam( 'uid' ), $this->getParam('login') );		
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
-				
+
 				$values = $frm->getValues();
 				$file = urlencode($values['upload']);
-				
+
 				$element = $frm->getElement('upload');
 				$element->addFilter('Rename',array('target' => 'user_messages_photos/' . $file ));
 				
@@ -274,17 +274,15 @@ class CabinetController extends Zend_Controller_Action {
 					$this->user_id,
 					$file
 				);
-				
+
 				if ( $result ) {
 					$this->view->message = Form_NewMessageForm::SUCCESS;
-					$this->view->color = Form_NewMessageForm::SUCCESS_COLOR;
 				} else {
 					$this->view->message = Form_NewMessageForm::FAILED;
-					$this->view->color = Form_NewMessageForm::FAILED_COLOR;
 				}
 			}
 		}
-		
+
 		$this->view->form = $frm;
 	}
 
@@ -332,32 +330,32 @@ class CabinetController extends Zend_Controller_Action {
 	}
 	
 	function showMessageAction() {
-		$id = $this->getParam('id');		
+		$id = $this->getParam('id');
 		$frm = new Form_ShowMessagesForm();
-		$messages = new Model_Messages();		
-		$message = $messages->find($id)->current();		
+		$messages = new Model_Messages();
+		$message = $messages->find($id)->current();	
 		
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
 				$values = $frm->getValues();
 				$file = urlencode($values['upload']);
-				
-				$element = $frm->getElement('upload'); 				        		
+
+				$element = $frm->getElement('upload');
         		$element->addFilter('Rename',array('target' => 'user_messages_photos/' . $file ));       		
-        		
-        		$send_to = $this->sendTo( $this->getAdminType( $message['user_id'] ), $message['user_id'] );
-        		
-        		$messages = new Model_Messages();
-        		$result = $messages->addMessage(
-        			$send_to,
-        			"Re: " . $message['subject'],
-        			$frm->getValue('answer'),
-        			$this->user_id,
-        			$file        			
-        		);
-        		
-        		if ( $element->receive() && $result ) {
-        			$this->view->message = Form_NewMessageForm::SUCCESS;
+
+				$send_to = $this->sendTo( $this->getAdminType( $message['user_id'] ), $message['user_id'] );
+
+				$messages = new Model_Messages();
+				$result = $messages->addMessage(
+					$send_to,
+					"Re: " . $message['subject'],
+					$frm->getValue('answer'),
+					$this->user_id,
+					$file
+				);
+
+				if ( $element->receive() && $result ) {
+					$this->view->message = Form_NewMessageForm::SUCCESS;
 					$this->view->color = Form_NewMessageForm::SUCCESS_COLOR;
 				} else {
 					$this->view->message = Form_NewMessageForm::FAILED;
@@ -365,7 +363,7 @@ class CabinetController extends Zend_Controller_Action {
 				}
 			}
 		}
-		
+
 		if ( $this->user_admin  ) {
 			$users = new Model_UsersTest();
 			$this->view->from = "От пользователя: " . $users->getLogin( $message['user_id'] );
@@ -373,21 +371,21 @@ class CabinetController extends Zend_Controller_Action {
 
 		$this->view->subject = $message['subject'];
 		$this->view->body = $message['body'];
-		
+
 		if ( $message['file'] ) {
 			$this->view->file = $message['file'];
-		}		
-		
+		}
+
 		$this->view->timestamp = $message['timestamp'];
-		
+
 		if ( $message['user_id'] == $this->user_id ) {
 			$this->view->form = null;
 		} else {
 			$this->view->form = $frm;
 			$messages->markViewed($id);
-		}		
+		}
 	}
-	
+
 	function getAdminType( $user_id ) {
 		
 		$users = new Model_UsersTest();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Form_EditMessForm extends Zend_Form
 {
@@ -9,19 +9,21 @@ class Form_EditMessForm extends Zend_Form
 	const NOT_INT = "Введите  целое число";
 	const SUCCESS_COLOR = "green";
 	const FAILED_COLOR = "red";
-	
-	public function init() {		
-		
+
+	private $_content;
+
+	public function init() {
+
 		$this->addElement('checkbox', 'balance', array(
-			'label'    => 'о нехватке баланса за',			
+			'label'    => 'о нехватке баланса',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service', 'id' => 'balance-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'id' => 'balance-element'))
 			)
-		));		
-	
+		));
+
 		$this->addElement('text', 'days_info', array(
 				'filter' => array('StringTrim'),
 				'size' => 2,
@@ -46,30 +48,30 @@ class Form_EditMessForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service', 'id' => "days-info-element"))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'id' => "days-info-element"))
 				)
-		));				
-		
+		));
+
 		$elements[] = 'comments';
 		$this->addElement('checkbox', 'comments', array(
 				'label'    => 'о новых комментариях к вашим анкетам',
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));	
-		
+
 		$elements[] = 'moderation';
 		$this->addElement('checkbox', 'moderation', array(
 				'label'    => 'о проверке фотографий и модерации анкет',
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -79,27 +81,28 @@ class Form_EditMessForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
 		$elements[] = 'news';
 		$this->addElement('checkbox', 'news', array(
-				'label'    => 'о новостях на портале PutanaStars.com',
+				'label'    => 'о новостях на портале Vbordele.com',
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
 		$this->addElement( 'submit', 'submit', array(
+				'class' => 'btn blue',
 				'label' => 'Сохранить',
 				'decorators' => array(
 					'ViewHelper',
-					array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),
+					array('HtmlTag',array('tag'=>'div', 'class' => 'form-actions')),
 				)
 		));
 		
@@ -115,7 +118,6 @@ class Form_EditMessForm extends Zend_Form
 			'Description',
 			array(array('row'=>'HtmlTag'), array('tag' => 'div', 'class' => 'form-fieldset', 'id' => 'edit-mess-fieldset'))
 		));
-		
-		
+
 	}
 }
