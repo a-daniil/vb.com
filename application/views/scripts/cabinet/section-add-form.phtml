@@ -1,253 +1,512 @@
-<div id="content-cab">
-    <div id="cab_ankets">
-	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array('action'=>isset($this->action)?('section-'.$this->action):'section-add'))?>"  
-              onkeydown="return ctrlEnter(event,'submit');"
-              onSubmit="$('#field_uri').removeAttr('disabled');">
-		<div class="ca_top ca_bottom">
-                    <?// textToFormEdit helper apply in CabinetController.php:1306 arr_htmlentities() ?>
-                    <h3 <?if(isset($this->info['failed']['title'])):?>class="input_failed" <?endif?>>Название раздела:<b>*</b></h3>
-                    <input type="text" name="title"<?if(isset($this->info['title'])):?> value='<?=($this->info['title'])?>'<?endif?> />
-                    <h3 <?if(isset($this->info['failed']['uri'])):?>class="input_failed" <?endif?>>Section_uri:<b>*</b> 
-                        edit: <input style="width:25px;padding: 0px 20px 0px 2px;" type="checkbox" id="field_uri_is_editable" name="field_uri_is_editable" <?=($this->action == 'add') ? 'checked' : ''?>></h3>
-                    <input id="field_uri" style="" type="text" name="uri"<?if(isset($this->info['uri'])):?> value='<?=$this->info['uri']?>'<?endif?> />                                              
-                    <h3>Мета-тег title:</h3>
-                    <input type="text" name="title_meta"<?if(isset($this->info['title_meta'])):?> value='<?=$this->info['title_meta']?>'<?endif?> />
-                    <h3>Мета-тег Keywords:</h3>
-                    <input type="text" name="keywords"<?if(isset($this->info['keywords'])):?> value='<?=$this->info['keywords']?>'<?endif?> />
-                    <h3>Мета-тег Descriptions:</h3>
-                    <input type="text" name="descriptions"<?if(isset($this->info['descriptions'])):?> value='<?=$this->info['descriptions']?>'<?endif?> />
-                    <h3>Текст раздела:</h3>
-                    <textarea name="text" id="editor" rows="6"><?if(isset($this->info['text'])):?><?=$this->info['text']?><?endif?></textarea>
-                    <h3>Левая колонка:</h3>
-                    <textarea name="text_left" id="editor1" rows="6"><?if(isset($this->info['text_left'])):?><?=$this->info['text_left']?><?endif?></textarea>
-                    <h3>Правая колонка:</h3>
-                    <textarea name="text_right" id="editor2" rows="6"><?if(isset($this->info['text_right'])):?><?=$this->info['text_right']?><?endif?></textarea>
-                    <h3>Подвал:</h3>
-                    <textarea name="text_footer" id="editor3" rows="6"><?if(isset($this->info['text_footer'])):?><?=$this->info['text_footer']?><?endif?></textarea>
-				    <table>
-                        <tr>
-                            <th <?if(isset($this->info['failed']['type'])):?>class="input_failed" <?endif?>>Тип:</th>
-                            <td><select name="type">
-                                    <?foreach($this->types as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['type']) && $value==$this->info['type']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            </select></td>
-                            <th <?if(isset($this->info['failed']['city'])):?>class="input_failed" <?endif?>>Город:</th>
-                            <td>
-                            	<script type="text/javascript">
-									function createLists() {
-                        				var metro = [];
-                            				metro['m1'] = new Array("<?= implode('","', $this->metro_list['m1']) ?>");
-                            				metro['m2'] = new Array("<?= implode('","', $this->metro_list['m2']) ?>");
-                            			createList(metro, 'jsmetro', 'm', 'metro');
-                            			var district = [];
-                            				district['d1'] = new Array("<?= implode('","', $this->district_list['d1']) ?>");
-                            				district['d2'] = new Array("<?= implode('","', $this->district_list['d2']) ?>");
-                            			createList(district, 'jsdistrict', 'd', 'district')
-                            		}
-                            	</script>
-                            	<select id="jscity" name="city" onchange="createLists();">
-                                    <?foreach($this->cities as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['city']) && $value==$this->info['city']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            	</select>
-                            </td>
-                            <th <?if(isset($this->info['failed']['district'])):?>class="input_failed" <?endif?>>Район:</th>
-                            <td id="jsdistrict">
-                            	<?php 
-									switch ($this->info['city']) {
-										case 2 :
-												$array_index = "d2";
-											break;
-										case 1 :
-												$array_index = "d1";
-											break;
-									}	
-								?>
-                            	<select name="district">
-                                    <?foreach($this->district_list[$array_index] as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['district']) && $value==$this->info['district']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            	</select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th <?if(isset($this->info['failed']['performer'])):?>class="input_failed" <?endif?>>Исполнитель:</th>
-                            <td><select name="performer">
-                                    <?foreach($this->performer as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['performer']) && $value==$this->info['performer']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            </select></td>
-                            <th <?if(isset($this->info['failed']['place'])):?>class="input_failed" <?endif?>>Место встречи:</th>
-                            <td>
-                            	<select name="place">
-                                    <?foreach($this->places as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['place']) && $value==$this->info['place']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            	</select>
-                            </td>
-                            <th <?if(isset($this->info['failed']['metro'])):?>class="input_failed" <?endif?>>Метро:</th>
-							<td id="jsmetro">
-								<?php 
-									switch ($this->info['city']) {
-										case 2 :
-												$array_index = "m2";
-											break;
-										case 1 :
-												$array_index = "m1";
-											break;
-									}									
-								?>
-								<select name="metro">
+<style>
+	b {
+		color: red;
+	}
+
+	.controls .error {
+		border-color: #B94A48;
+	}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Добавить/Редактировать
+		</h3>
+	</div>
+</div>
+
+<form class="form-horizontal" id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array('action'=>isset($this->action)?('section-'.$this->action):'section-add'))?>" onSubmit="$('#field_uri').removeAttr('disabled');">
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+						Название раздела, Section_uri, Мета-тег title, Мета-тег Keywords, Мета-тег Description, Текст раздела, Левая колонка, Правая колонка, Подвал.
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+
+					<!-- menu_title -->
+					<div class="control-group <?= $this->info['failed']['title']['class'] ?>">
+						<label class="control-label">Название раздела: <b>*</b></label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['title']['class'] ?>" name="title" <?if(isset($this->info['title'])):?> value='<?=($this->info['title'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['title']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- uri -->
+					<div class="control-group <?= $this->info['failed']['uri']['class'] ?>">
+						<label class="control-label">Section_uri: <b>*</b></label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['uri']['class'] ?>" id="field_uri" name="uri" <?if(isset($this->info['uri'])):?> value='<?=($this->info['uri'])?>'<?endif?>>
+							<label class="checkbox" style="display: inline; margin: 0px !important;">
+								<input type="checkbox" id="field_uri_is_editable" name="field_uri_is_editable" <?=($this->action == 'add') ? 'checked' : ''?>/>
+								<a class="show-message" href="javascript:;">
+									Редактировать
+								</a>
+							</label>
+							<span class="help-inline"><?= $this->info['failed']['uri']['message'] ?></span>
+						</div>
+					</div>
+
+					<!--title_meta -->
+					<div class="control-group <?= $this->info['failed']['title_meta']['class'] ?>">
+						<label class="control-label">Мета-тег title:</label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['title_meta']['class'] ?>" name="title_meta" <?if(isset($this->info['title_meta'])):?> value='<?=($this->info['title_meta'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['title_meta']['message'] ?></span>
+						</div>
+					</div>
+
+					<!--keywords -->
+					<div class="control-group <?= $this->info['failed']['keywords']['class'] ?>">
+						<label class="control-label">Мета-тег Keywords:</label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['keywords']['class'] ?>" name="keywords" <?if(isset($this->info['keywords'])):?> value='<?=($this->info['keywords'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['keywords']['message'] ?></span>
+						</div>
+					</div>
+
+					<!--descriptions -->
+					<div class="control-group <?= $this->info['failed']['descriptions']['class'] ?>">
+						<label class="control-label">Мета-тег Description:</label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['descriptions']['class'] ?>" name="descriptions" <?if(isset($this->info['descriptions'])):?> value='<?=($this->info['descriptions'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['descriptions']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- text -->
+					<div class="control-group <?= $this->info['failed']['text']['class'] ?>">
+						<label class="control-label">Текст раздела:</label>
+						<div class="controls">
+							<textarea class="span6 ckeditor" name="text" rows="6"><?if(isset($this->info['text'])){ echo $this->info['text']; }?></textarea>
+							<span class="help-inline"><?= $this->info['failed']['text']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- text_left -->
+					<div class="control-group <?= $this->info['failed']['text_left']['class'] ?>">
+						<label class="control-label">Левая колонка:</label>
+						<div class="controls">
+							<textarea class="span6 <?= $this->info['failed']['text_left']['class'] ?>" name="text_left" rows="6"><?if(isset($this->info['text_left'])){ echo $this->info['text_left']; }?></textarea>
+							<span class="help-inline"><?= $this->info['failed']['text_left']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- text_right -->
+					<div class="control-group <?= $this->info['failed']['text_right']['class'] ?>">
+						<label class="control-label">Правая колонка:</label>
+						<div class="controls">
+							<textarea class="span6 <?= $this->info['failed']['text_right']['class'] ?>" name="text_right" rows="6"><?if(isset($this->info['text_right'])){ echo $this->info['text_right']; }?></textarea>
+							<span class="help-inline"><?= $this->info['failed']['text_right']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- text_footer -->
+					<div class="control-group <?= $this->info['failed']['text_footer']['class'] ?>">
+						<label class="control-label">Подвал:</label>
+						<div class="controls">
+							<textarea class="span6 <?= $this->info['failed']['text_footer']['class'] ?>" name="text_right" rows="6"><?if(isset($this->info['text_footer'])){ echo $this->info['text_footer']; }?></textarea>
+							<span class="help-inline"><?= $this->info['failed']['text_footer']['message'] ?></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+						Тип, Исполнитель, Город, Район, Метро, Место встречи, Выезд в сауну
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<!-- type -->
+					<div class="control-group <?= $this->info['failed']['type']['class'] ?>">
+						<label class="control-label">Тип: </label>
+						<div class="controls">
+							<select class="span6" name="type">
+								<?foreach($this->types_menu as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['type']) && $value==$this->info['type']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['type']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- performer -->
+					<div class="control-group <?= $this->info['failed']['performer']['class'] ?>">
+						<label class="control-label">Исполнитель: </label>
+						<div class="controls">
+							<select class="span6" name="performer">
+								<?foreach($this->performer as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['performer']) && $value==$this->info['performer']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['performer']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- city -->
+					<script type="text/javascript">
+						function createLists() {
+							var metro = [];
+							metro['m1'] = new Array("<?= implode('","', $this->metro_list['m1']) ?>");
+							metro['m2'] = new Array("<?= implode('","', $this->metro_list['m2']) ?>");
+							createList(metro, 'jsmetro', 'm', 'metro');
+							var district = [];
+							district['d1'] = new Array("<?= implode('","', $this->district_list['d1']) ?>");
+							district['d2'] = new Array("<?= implode('","', $this->district_list['d2']) ?>");
+							createList(district, 'jsdistrict', 'd', 'district')
+						}
+					</script>
+					<div class="control-group <?= $this->info['failed']['city']['class'] ?>">
+						<label class="control-label">Город: </label>
+						<div class="controls">
+							<select class="span6" id="jscity" name="city" onchange="createLists();">
+								<?foreach($this->cities as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['city']) && $value==$this->info['city']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['city']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- district  -->
+					<?php
+						switch ($this->info['city']) {
+							case 2 :
+								$array_index = "d2";
+							break;
+							case 1 :
+								$array_index = "d1";
+							break;
+						}
+					?>
+					<div class="control-group <?= $this->info['failed']['district']['class'] ?>">
+						<label class="control-label">Район: </label>
+						<div class="controls">
+							<div id="jsdistrict">
+								<select class="span6" name="district">
+										<?foreach($this->district_list[$array_index] as $value=>$title):?>
+											<option value="<?=$value?>"<?if(isset($this->info['district']) && $value==$this->info['district']):?> selected<?endif?>><?=$title?></option>
+										<?endforeach?>
+								</select>
+								<span class="help-inline"><?= $this->info['failed']['district']['message'] ?></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- metro -->
+				   <?php 
+						switch ($this->info['city']) {
+							case 2 :
+								$array_index = "m2";
+							break;
+							case 1 :
+								$array_index = "m1";
+							break;
+						}
+					?>
+					<div class="control-group <?= $this->info['failed']['metro']['class'] ?>">
+						<label class="control-label">Метро: </label>
+						<div class="controls">
+							<div id="jsmetro">
+								<select class="span6" name="metro">
 									<?foreach($this->metro_list[$array_index] as $value=>$title):?>
 										<option value="<?=$value?>"<?if(isset($this->info['metro']) && $value==$this->info['metro']):?> selected<?endif?>><?=$title?></option>
 									<?endforeach?>
 								</select>
-							</td>
-                        </tr>
-                        <tr>
-                        	<th></th>
-                        	<td></td>
-                        	<th>Выезд в сауну</th>
-                        	<td><input type="checkbox" name="sauna" <?php if ( $this->info['sauna'] ) : ?> checked="checked" <?php endif; ?> style="width: 15px;" value=1></td>
-                        	<th></th>
-                        	<td></td>
-                        </tr>
-                        <tr>
-                            <th colspan="4">Задать диапазон: NNN - NNN</th>
-                        </tr>
-                        <tr>
-                            <th <?if(isset($this->info['failed']['height'])):?>class="input_failed" <?endif?>>Рост:</th>
-                            <td><input type="text" name="height" title="Цифры: от 120 до 230"<?if(isset($this->info['height'])):?> value="<?=$this->info['height']?>"<?endif?> /></td>
-                            <th <?if(isset($this->info['failed']['weight'])):?>class="input_failed" <?endif?>>Вес:</th>
-                            <td><input type="text" name="weight" title="Цифры: от 25 до 300"<?if(isset($this->info['weight'])):?> value="<?=$this->info['weight']?>"<?endif?> /></td>
-                            <!-- 
-                           	<td rowspan="3" colspan="2" id="jsmetro"><?if(isset($this->info['city']) || isset($this->info['metro'])):?>
-                                <?if($this->info['city']==1 || $this->info['city']==2):?>
-                                <ul id="metro" style="height: 100px; overflow-y: scroll; overflow-x: hidden;">
-                                    <?$i=0;foreach($this->metro_list_checkbox as $item):$i++;?> 
-                                    <li><nobr>
-                                        <input id="metro_<?=$i?>" style="width: 30px;" type="checkbox" <?=$item['checked']?> name="metro[<?=$i?>]" value="<?=$item['title']?>" />
-                                        <label for="metro_<?=$i?>"><?=$item['title']?></label>
-                                        </nobr>
-                                    </li>        
-                                    <?endforeach?>
-                                    <?else:?>
-                                    <input type="text" name="metro" value="<?=$this->info['metro']?>" />
-                                    <?endif?>
-                                </ul>
-                            <?else:?>
-                            <input type="hidden" name="metro" value="" />
-                            Выберите город
-                            <?endif?>
-                            </td>
-                            -->
-                            <th <?if(isset($this->info['failed']['age'])):?>class="input_failed" <?endif?>>Возраст:</th>
-                            <td><input type="text" name="age" title="Цифры: от 18 до 99"<?if(isset($this->info['age'])):?> value="<?=$this->info['age']?>"<?endif?> /></td>
-                        </tr>
-                        <tr>
-                            <?/*<th <?if(isset($this->info['failed']['hair'])):?>class="input_failed" <?endif?>>Волосы:</th>
-                            <td><input type="text" name="hair"<?if(isset($this->info['hair'])):?> value="<?=$this->info['hair']?>"<?endif?> /></td>*/?>
-                            <th <?if(isset($this->info['failed']['clothing'])):?>class="input_failed" <?endif?>>Размер одежды:</th>
-                            <td><input type="text" name="clothing"  title="Цифры: от 30 до 300"<?if(isset($this->info['clothing'])):?> value="<?=$this->info['clothing']?>"<?endif?> /></td>
-                            <?/*<th <?if(isset($this->info['failed']['condom'])):?>class="input_failed" <?endif?>>Презерватив:</th>
-                            <td><select name="condom">
-                                    <option value="0"<?if(isset($this->info['condom']) && 0==$this->info['condom']):?> selected<?endif?>>Не указано</option>
-                                    <option value="1"<?if(isset($this->info['condom']) && 1==$this->info['condom']):?> selected<?endif?>>Не обязательно</option>
-                                    <option value="2"<?if(isset($this->info['condom']) && 2==$this->info['condom']):?> selected<?endif?>>Обязательно</option>
-                            </select></td>*/?>
-                            <th <?if(isset($this->info['failed']['breast'])):?>class="input_failed" <?endif?>>Размер груди:</th>
-                            <td><input type="text" name="breast"  title="Цифры: от 0 до 7"<?if(isset($this->info['breast'])):?> value="<?=$this->info['breast']?>"<?endif?> /></td>
-                            <th <?if(isset($this->info['failed']['hair'])):?>class="input_failed" <?endif?>>Цвет волос:</th>
-                        	<td>
-                            	<select name="hair">
-                                    <?foreach($this->hair as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['hair']) && $value==$this->info['hair']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            	</select>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th <?if(isset($this->info['failed']['exotics'])):?>class="input_failed" <?endif?>>Национальность:</th>
-                        	<td>
-                            	<select name="exotics">
-                                    <?foreach($this->exotics as $value=>$title):?>
-                                    <option value="<?=$value?>"<?if(isset($this->info['exotics']) && $value==$this->info['exotics']):?> selected<?endif?>><?=$title?></option>
-                                    <?endforeach?>
-                            	</select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th colspan="4">Задать диапазон: 1 - NNN</th>
-                        </tr>
-                        <tr>
-                            <th <?if(isset($this->info['failed']['price_1h_ap'])):?>class="input_failed" <?endif?>>Стоим Час:</th>
-                            <td><input type="text" name="price_1h_ap"  title="Цифры"<?if(isset($this->info['price_1h_ap'])):?> value="<?=$this->info['price_1h_ap']?>"<?endif?> /></td>
-                            <th <?if(isset($this->info['failed']['price_2h_ap'])):?>class="input_failed" <?endif?>>2 часа:</th>
-                            <td><input type="text" name="price_2h_ap"  title="Цифры"<?if(isset($this->info['price_2h_ap'])):?> value="<?=$this->info['price_2h_ap']?>"<?endif?> /></td>
-                            <th <?if(isset($this->info['failed']['price_n_ap'])):?>class="input_failed" <?endif?>>Ночь:</th>
-                            <td><input type="text" name="price_n_ap"  title="Цифры"<?if(isset($this->info['price_n_ap'])):?> value="<?=$this->info['price_n_ap']?>"<?endif?> /></td>
-                             
-                        </tr>
-                        <tr>
-                            <th <?if(isset($this->info['failed']['with_videos'])):?>class="input_failed" <?endif?>>c видео:</th>
-                            <td>
-                                <select name="with_videos">
-                                            <?foreach($this->yesNoNullOptions as $val => $title):?>
-                                            <option value="<?=$val?>"<?if($val==$this->info['with_videos']):?> selected<?endif?>><?=$title?></option>
-                                            <?endforeach?>
-                                </select>
-                            </td>
-                            <th <?if(isset($this->info['failed']['verified'])):?>class="input_failed" <?endif?>>проверенные:</th>
-                            <td>
-                                <select name="verified">
-                                            <?foreach($this->yesNoNullOptions as $val => $title):?>
-                                            <option value="<?=$val?>"<?if($val==$this->info['verified']):?> selected<?endif?>><?=$title?></option>
-                                            <?endforeach?>
-                                </select>
-                            </td>
-                            <th <?if(isset($this->info['failed']['with_comments'])):?>class="input_failed" <?endif?>>c отзывами:</th>
-                            <td>
-                                <select name="with_comments">
-                                            <?foreach($this->yesNoNullOptions as $val => $title):?>
-                                            <option value="<?=$val?>"<?if($val==$this->info['with_comments']):?> selected<?endif?>><?=$title?></option>
-                                            <?endforeach?>
-                                </select>
-                            </td>
-                             
-                        </tr>
-                    </table>
-                    <table>
-              			<tr><th <?if(isset($this->info['failed']['services'])):?>class="input_failed" <?endif?>>Укажите услиги:</th>
-                    <?foreach($this->services as $part=>$srv):?>
-                        <?$nn=-1?>
-                        <tr><th colspan="6" class="cab_table_title"><?=array_shift($srv)?></th></tr>
-                        <?while($val=array_shift($srv)):?>
-                        <tr>
-                            <th><?=$val?></th>
-                            <td><input style="width:15px;" type="checkbox" name="<?=$part?>_<?=++$nn?>"<?if(isset($this->srv_active[$part.'_'.$nn]) && $this->srv_active[$part.'_'.$nn]):?> checked="checked"<?endif?> /></td>
-                            <?if($val=array_shift($srv)):?>
-                                    <th><?=$val?></th>
-                                    <td><input style="width:15px;" type="checkbox" name="<?=$part?>_<?=++$nn?>"<?if(isset($this->srv_active[$part.'_'.$nn]) && $this->srv_active[$part.'_'.$nn]):?> checked="checked"<?endif?> /></td>
-                            <?endif?>
-                            <?if($val=array_shift($srv)):?>
-                                    <th><?=$val?></th>
-                                    <td><input style="width:15px;" type="checkbox" name="<?=$part?>_<?=++$nn?>"<?if(isset($this->srv_active[$part.'_'.$nn]) && $this->srv_active[$part.'_'.$nn]):?> checked="checked"<?endif?> /></td>
-                            <?endif?>
-                        </tr>
-                        <?endwhile?>
-                    <?endforeach?>
-                    </table>
-                    
-                    <!-- 
-                    <h3>Кол-во анкет на раздел:</h3>
-                    <input style='width: 150px;' type="number" name="limit"<?if(isset($this->info['limit'])):?> value="<?=$this->info['limit']?>"<?endif?> />
-                    -->
-                    
-                </div>
-		<input id="submit" class="button" type="submit" value="Сохранить (Ctrl + Enter)" />
-	</form>
-</div></div>
+								<span class="help-inline"><?= $this->info['failed']['metro']['message'] ?></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- place -->
+					<div class="control-group <?= $this->info['failed']['place']['class'] ?>">
+						<label class="control-label">Место встречи: </label>
+						<div class="controls">
+							<select class="span6" name="place">
+								<?foreach($this->places as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['place']) && $value==$this->info['place']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['place']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- sauna -->
+					<div class="control-group <?= $this->info['failed']['place']['class'] ?>">
+						<label class="checkbox" style="display: inline; margin: 0px !important;">
+							<input type="checkbox" value="1" />
+							<a class="show-message" href="javascript:;">
+								Выезд в сауну
+							</a>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+						Рост, Вес, Возраст, Размер одежды, Размер груди, Цвет волос, Национальность. 
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+
+					<div class="alert alert-info">
+						<button class="close" data-dismiss="alert">×</button>
+						<strong>Информация!</strong> Задать диапазон: NNN-NNN
+					</div>
+
+					<!-- height -->
+					<div class="control-group <?= $this->info['failed']['height']['class'] ?>">
+						<label class="control-label">Рост: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['height']['class'] ?>" name="height" <?if(isset($this->info['height'])):?> value='<?=($this->info['height'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['height']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- weight -->
+					<div class="control-group <?= $this->info['failed']['weight']['class'] ?>">
+						<label class="control-label">Вес: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['weight']['class'] ?>" name="weight" <?if(isset($this->info['weight'])):?> value='<?=($this->info['weight'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['weight']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- age -->
+					<div class="control-group <?= $this->info['failed']['age']['class'] ?>">
+						<label class="control-label">Возраст: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['age']['class'] ?>" name="age" <?if(isset($this->info['age'])):?> value='<?=($this->info['age'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['age']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- clothing -->
+					<div class="control-group <?= $this->info['failed']['clothing']['class'] ?>">
+						<label class="control-label">Размер одежды: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['clothing']['class'] ?>" name="clothing" <?if(isset($this->info['clothing'])):?> value='<?=($this->info['clothing'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['clothing']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- breast -->
+					<div class="control-group <?= $this->info['failed']['breast']['class'] ?>">
+						<label class="control-label">Размер груди: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['breast']['class'] ?>" name="breast" <?if(isset($this->info['breast'])):?> value='<?=($this->info['breast'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['breast']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- hair -->
+					<div class="control-group <?= $this->info['failed']['hair']['class'] ?>">
+						<label class="control-label">Цвет волос: </label>
+						<div class="controls">
+							<select class="span6" name="hair">
+								<?foreach($this->hair as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['hair']) && $value==$this->info['hair']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['hair']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- exotics -->
+					<div class="control-group <?= $this->info['failed']['exotics']['class'] ?>">
+						<label class="control-label">Национальность: </label>
+						<div class="controls">
+							<select class="span6" name="exotics">
+								<?foreach($this->exotics as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['exotics']) && $value==$this->info['exotics']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['exotics']['message'] ?></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+						Стоим Час, 2 Часа, Ночь, С видео, Проверенные, С отзывами
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+
+					<div class="alert alert-info">
+						<button class="close" data-dismiss="alert">×</button>
+						<strong>Информация!</strong> Задать диапазон: 1-NNN
+					</div>
+
+					<!-- price_1h_ap -->
+					<div class="control-group <?= $this->info['failed']['price_1h_ap']['class'] ?>">
+						<label class="control-label">Стоим Час: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['price_1h_ap']['class'] ?>" name="height" <?if(isset($this->info['price_1h_ap'])):?> value='<?=($this->info['price_1h_ap'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['price_1h_ap']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- price_2h_ap -->
+					<div class="control-group <?= $this->info['failed']['price_2h_ap']['class'] ?>">
+						<label class="control-label">2 Часа: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['price_2h_ap']['class'] ?>" name="height" <?if(isset($this->info['price_2h_ap'])):?> value='<?=($this->info['price_2h_ap'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['price_2h_ap']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- price_n_ap -->
+					<div class="control-group <?= $this->info['failed']['price_n_ap']['class'] ?>">
+						<label class="control-label">Ночь: </label>
+						<div class="controls">
+							<input type="text" class="span6 <?= $this->info['failed']['price_n_ap']['class'] ?>" name="height" <?if(isset($this->info['price_n_ap'])):?> value='<?=($this->info['price_n_ap'])?>'<?endif?>>
+							<span class="help-inline"><?= $this->info['failed']['price_n_ap']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- with_videos -->
+					<div class="control-group <?= $this->info['failed']['with_videos']['class'] ?>">
+						<label class="control-label">С видео: </label>
+						<div class="controls">
+							<select class="span6" name="with_videos">
+								<?foreach($this->yesNoNullOptions as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['with_videos']) && $value==$this->info['with_videos']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['with_videos']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- verified -->
+					<div class="control-group <?= $this->info['failed']['verified']['class'] ?>">
+						<label class="control-label">Проверенные: </label>
+						<div class="controls">
+							<select class="span6" name="verified">
+								<?foreach($this->yesNoNullOptions as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['verified']) && $value==$this->info['verified']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['verified']['message'] ?></span>
+						</div>
+					</div>
+
+					<!-- with_comments -->
+					<div class="control-group <?= $this->info['failed']['with_comments']['class'] ?>">
+						<label class="control-label">С отзывами: </label>
+						<div class="controls">
+							<select class="span6" name="with_comments">
+								<?foreach($this->yesNoNullOptions as $value=>$title):?>
+									<option value="<?=$value?>"<?if(isset($this->info['with_comments']) && $value==$this->info['with_comments']):?> selected<?endif?>><?=$title?></option>
+								<?endforeach?>
+							</select>
+							<span class="help-inline"><?= $this->info['failed']['with_comments']['message'] ?></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+						Основные услуги
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+
+					<?foreach($this->services as $part=>$srv):?>
+						<?$nn=-1?>
+						<div class="row_fluid">
+							<div class="alert alert-info">
+								<button class="close" data-dismiss="alert">×</button>
+								<strong><?=array_shift($srv)?></strong>
+							</div>	
+						</div>
+						<?while($val=array_shift($srv)):?>
+							<div class="control-group">
+					
+								<label class="checkbox" style="display: inline; margin: 0px !important;">
+									<input type="checkbox" value="1" name="<?=$part?>_<?=++$nn?>"<?if(isset($this->srv_active[$part.'_'.$nn]) && $this->srv_active[$part.'_'.$nn]):?> checked="checked"<?endif?> />
+									<a class="show-message" href="javascript:;">
+										<?=$val?>
+									</a>
+								</label>
+							</div>
+							<?if($val=array_shift($srv)):?>
+							<div class="control-group">
+								<label class="checkbox" style="display: inline; margin: 0px !important;">
+									<input type="checkbox" value="1" name="<?=$part?>_<?=++$nn?>"<?if(isset($this->srv_active[$part.'_'.$nn]) && $this->srv_active[$part.'_'.$nn]):?> checked="checked"<?endif?> />
+									<a class="show-message" href="javascript:;">
+										<?=$val?>
+									</a>
+								</label>
+							</div>
+							<?endif?>
+							<?if($val=array_shift($srv)):?>
+							<div class="control-group">
+								<label class="checkbox" style="display: inline; margin: 0px !important;">
+									<input type="checkbox" value="1" name="<?=$part?>_<?=++$nn?>"<?if(isset($this->srv_active[$part.'_'.$nn]) && $this->srv_active[$part.'_'.$nn]):?> checked="checked"<?endif?> />
+									<a class="show-message" href="javascript:;">
+										<?=$val?>
+									</a>
+								</label>
+							</div>
+							<?endif?>
+							
+						<?endwhile?>
+					<?endforeach?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="submit" name="submit" id="submit" value="Сохранить" class="btn btn-large blue">
+</div>
+</form>
 <script>
 	$(document).ready(function(){
 		$('#field_uri').attr('disabled', 'disabled');
@@ -259,5 +518,9 @@
 		} else {
 			$('#field_uri').attr('disabled', 'disabled');
 		}
+	});
+
+	$(function () {
+		$("input[type=radio], input[type=checkbox]").uniform();
 	});
 </script>

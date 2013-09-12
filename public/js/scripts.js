@@ -96,31 +96,7 @@ function createList( list, id, q, name ) {
 		opt.innerHTML=list[ln][i];
 		input.appendChild(opt);
 	}
-	select.appendChild(input);
-}
-
-function createList( list, id, q, name ) {
-	var select=getId(id);
-	var value=getId('jscity').value;
-	select.innerHTML='';
-	switch(value){
-		case '1': var ln= q + '1'; break;
-		case '2': var ln= q + '2'; break;
-		default:
-			input=document.createElement('input');
-			input.setAttribute('name','metro');
-			select.appendChild(input);
-			return;
-	}
-	input=document.createElement('select');
-	input.setAttribute('name', name);
-	var len=list[ln].length;
-	for(var i=0;i<len;i++){
-		var opt=document.createElement('option');
-		opt.value = i + 1;
-		opt.innerHTML=list[ln][i];
-		input.appendChild(opt);
-	}
+	input.className = 'span6';
 	select.appendChild(input);
 }
 

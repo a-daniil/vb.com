@@ -2829,113 +2829,176 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->metro_list=$this->content->metro_spb->toArray();
 		$this->view->district_list=$this->content->district_spb->toArray();
 		$this->view->metro=json_encode(array('m1'=>$this->content->metro_msk->toArray(),'m2'=>$this->content->metro_spb->toArray()));
-		$this->view->district=json_encode(array('d2'=>$this->content->district_spb->toArray()));		
+		$this->view->district=json_encode(array('d2'=>$this->content->district_spb->toArray()));
 	}
-	
-		protected function get_menu_items_info_from_form(array $current = array()){
-			$params = $this->_getAllParams();
-			$info = array();
-			$fields = array(
-				'menu_title', 'title','uri','title_meta','keywords','descriptions',
-				'text','text_left','text_right','text_footer',
-				'type','performer', 'priority');
-			
-			foreach ($fields as $field){
-				if (strpos($field, '[]') != 0){
-					$field = rtrim($field,'[]');
-					$info[$field] = serialize($params[$field]);
-				}else{
-					$info[$field] = $this->check_text_adm($params[$field]);
-				}
-			}
-			
-			if (empty($current['objMenuItems']) || !$current['objMenuItems'] instanceof MenuItems) throw new Zend_Exception(__METHOD__.'Exception: $current[\'objMenuItems\'] must be a member of Sections model!');
+
+	protected function get_menu_items_info_from_form(array $current = array()) {
+		$params = $this->_getAllParams();
+		$info = array();
+		$fields = array(
+			'menu_title' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'title' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'uri' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'title_meta' => array(),
+			'keywords' => array(),
+			'descriptions' => array(),
+			'text' => array(),
+			'text_left' => array(),
+			'text_right' => array(),
+			'text_footer' => array(),
+			'type' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'performer' =>array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'priority' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+				array('condition' => 'int', 'message' => 'Значением этого поля должно быть целое число', 'class' => 'error'),
+				array('condition' => 'positive_int', 'message' => 'Значением этого поля должно быть целое число больше нуля', 'class' => 'error'),
+			),
+		);
+
+		$info = $this->checkParams($fields);
+
+		//first check uri on duplicate
+		if (empty($current['objMenuItems']) || !$current['objMenuItems'] instanceof MenuItems) throw new Zend_Exception(__METHOD__.'Exception: $current[\'objMenuItems\'] must be a member of Sections model!');
 			$objMenuItems = $current['objMenuItems'];
-			
-			if ( empty($params['uri']) || $data = $objMenuItems->check_uri($params['uri'])){
-				$info['failed']['uri'] = true;
-				$id=intval(substr($this->_getParam('n'),0,32));
-				if ($id > 0 && $data['id'] == $id && $data['uri'] == $params['uri']){
-				
-					unset($info['failed']['uri']);
-				}
+
+		if ( empty($params['uri']) || $data = $objMenuItems->check_uri($params['uri'])){
+			$info['failed']['uri']['class'] = 'error';
+			$info['failed']['uri']['message'] = 'Uri должно быть уникальным';
+			$id=intval(substr($this->_getParam('n'),0,32));
+			if ($id > 0 && $data['id'] == $id && $data['uri'] == $params['uri']){
+				unset($info['failed']['uri']);
 			}
-			
-			if ( empty($params['title']) ) {
-				$info['failed']['title'] = true;
-			}
-			
-			if( isset($info['failed']) ){
-				$this->error('requireds');return $info;
-			}
-			return $info;
 		}
 
-        protected function get_section_info_from_form(array $current=array()){
+		if( isset($info['failed']) ){
+			$this->error('requireds');return $info;
+		}
+		return $info;
+	}
 
-            $params=$this->_getAllParams();
-            $info = array();
-            $fields = array(
-                'title','uri','title_meta','keywords','descriptions',
-                'text','text_left','text_right','text_footer',
-                'age','type','city','district', 'hair', 'exotics','metro','phone','height','weight',
-                'performer','breast','place','price_1h_ap','price_2h_ap',
-                'price_n_ap','price_2h_ex','timestamp','photolist','videolist',
-                'status','with_videos', 'verified',	'with_comments', 'sauna');
-            foreach ($fields as $field){
-                if (strpos($field, '[]') != 0){
-                    $field = rtrim($field,'[]');
-                    $info[$field] = serialize($params[$field]);
-                }else{
-                    $info[$field] = $this->check_text_adm($params[$field]);
-                    //$info[$field] = htmlentities($params[$field]);
-                }
-            }
+	protected function checkParams($fields_opt_map) {
+		$params = $this->_getAllParams();
+		foreach ($fields_opt_map as $key => $opts){
+			$empty = false;
+			foreach ( $opts as $opt ) {
+				switch ($opt['condition']) {
+					case 'required' :
+						if ( empty($params[$key]) ) {
+							$info['failed'][$key]['class'] = $opt['class'] ? $opt['class'] : null;
+							$info['failed'][$key]['message'] = $opt['message'] ? $opt['message'] : null;
+							$empty = true;
+							break 2;
+						}
+						break;
+					case 'int' :
+						if ( !preg_match("/^[\-\+0-9]*$/", $params[$key] ) ) {
+							$info['failed'][$key]['class'] = $opt['class'] ? $opt['class'] : null;
+							$info['failed'][$key]['message'] = $opt['message'] ? $opt['message'] : null;
+							$empty = true;
+							break 2;
+						}
+						break;
+					case 'positive_int' :
+						if ( !preg_match("/^[0-9]*$/", $params[$key] ) || intval($params[$key]) < 1 ) {
+							$info['failed'][$key]['class'] = $opt['class'] ? $opt['class'] : null;
+							$info['failed'][$key]['message'] = $opt['message'] ? $opt['message'] : null;
+							$empty = true;
+							break 2;
+						}
+						break;
+				}
+			}
 
-            if (empty($current['objSections']) || !$current['objSections'] instanceof Sections) throw new Zend_Exception(__METHOD__.'Exception: $current[\'objSections\'] must be a member of Sections model!');
-            $objSections = $current['objSections'];
-            if (empty($params['uri']) || $data = $objSections->check_uri($params['uri'], $params['city'])){
-                $info['failed']['uri'] = true;
-                // check for unset failed uri if section edit
-                $id=intval(substr($this->_getParam('n'),0,32));
-                if ($id > 0 && $data['id'] == $id && $data['uri'] == $params['uri']){
-            
-                    unset($info['failed']['uri']);
-                }
-                    
-                #$this->_helper->viewRenderer->setScriptAction('section-add-form');
-                #$this->error('section_bad_or_non_unique_uri');
-                #if(isset($info['failed'])){$this->error('requireds');return $info;}
-                #$this->error('requireds');
-   
-                }
-            if (empty($params['title'])) {
-                $info['failed']['title'] = true;
-            }  
-            
-            $services = $this->content->srv->toArray(); // services math
-            foreach($services as $srv => $list){
-                    $serv = 0;
-                    foreach($list as $key => $null){
-                            if(isset($params[$srv.'_'.$key])){$serv += 1 << $key;}
-                    }
-                    $info['srv_'.$srv] = $serv;
-            }
-            //if( !$info['srv_main'] && !$info['srv_add'] && !$info['srv_strip'] && !$info['srv_extr'] && !$info['srv_bdsm'] && !$info['srv_mass'])
-            //{
-            // 	$info['failed']['services'] = true;
-            //}                
-            
-            if(isset($info['failed'])){
-            	$this->error('requireds');
-            	return $info;
-            }
-            return $info;
-        }
-        
-        protected function menu_items_return_to_edit($info){
-        	
-        }
+			if ( !$empty) {
+				$info[$key] = addslashes($params[$key]);
+			}
+		}
+
+		return $info;
+	}
+
+	protected function get_section_info_from_form(array $current=array()) {
+
+		$params=$this->_getAllParams();
+		$fields = array(
+			'title' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'uri' => array(
+				array('condition' => 'required', 'message' => 'Это поле обязательно для заполнения', 'class' => 'error'),
+			),
+			'title_meta' => array(),
+			'keywords' => array(),
+			'descriptions' => array(),
+			'text' => array(),
+			'text_left' => array(),
+			'text_right' => array(),
+			'text_footer' => array(),
+			'age' => array(),
+			'type' => array(),
+			'city' => array(),
+			'district' => array(),
+			'hair' => array(), 
+			'exotics' => array(),
+			'metro' => array(),
+			'phone' => array(),
+			'height' => array(),
+			'weight' => array(),
+			'performer' => array(),
+			'breast' => array(),
+			'place' => array(),
+			'price_1h_ap' => array(),
+			'price_2h_ap' => array(),
+			'price_n_ap' => array(),
+			'price_2h_ex' => array(),
+			'timestamp' => array(),
+			'photolist' => array(),
+			'videolist' => array(),
+			'status' => array(),
+			'with_videos' => array(),
+			'verified' => array(),
+			'with_comments' => array(),
+			'sauna' => array(),
+		);
+
+		$info = $this->checkParams($fields);
+
+		if (empty($current['objSections']) || !$current['objSections'] instanceof Sections) throw new Zend_Exception(__METHOD__.'Exception: $current[\'objSections\'] must be a member of Sections model!');
+			$objSections = $current['objSections'];
+		if ($data = $objSections->check_uri($params['uri'], $params['city'])){
+			$info['failed']['uri']['class'] = 'error';
+			$info['failed']['uri']['message'] = 'Uri должно быть уникальным';
+			$id=intval(substr($this->_getParam('n'),0,32));
+			if ($id > 0 && $data['id'] == $id && $data['uri'] == $params['uri']){
+				unset($info['failed']['uri']);
+			}
+		}
+
+		$services = $this->content->srv->toArray(); // services math
+		foreach($services as $srv => $list){
+			$serv = 0;
+			foreach($list as $key => $null){
+				if(isset($params[$srv.'_'.$key])){$serv += 1 << $key;}
+			}
+			$info['srv_'.$srv] = $serv;
+		}
+
+		if(isset($info['failed'])){
+			$this->error('requireds');
+			return $info;
+		}
+		return $info;
+	}
 
         protected function section_return_to_edit($info){
 			$this->get_config_info();
@@ -3135,11 +3198,12 @@ class CabinetController extends Zend_Controller_Action {
     	$mMenuItems->del($id);
     	$this->_redirect('/cabinet/menu-items');die;
     }
-    
+
     public function menuItemsEditAction(){
     	if( !$this->user_admin && !$this->user_tech ){
     		$this->_redirect('/cabinet');die;
     	}
+    	$this->get_config_info();
     	$id = intval(substr($this->_getParam('n'),0,32));
     	
     	include_once 'MenuItems.php';
@@ -3147,7 +3211,7 @@ class CabinetController extends Zend_Controller_Action {
     	$current['objMenuItems'] = $mMenuItems;
     	$info = $this->get_menu_items_info_from_form($current);
     	if($info['failed']){
-    		//$this->section_return_to_edit($info);
+    		$this->view->info= $info;
     		$this->_helper->viewRenderer->setScriptAction('menu-items-add-form');
     		$this->view->action='edit';
     		return;
@@ -3161,7 +3225,7 @@ class CabinetController extends Zend_Controller_Action {
     	}
     	$this->_redirect('/cabinet/menu-items');die;
     }
-    
+
     public function menuItemsAddFormAction(){
     	$this->get_config_info();
     	
@@ -3354,16 +3418,16 @@ class CabinetController extends Zend_Controller_Action {
             $this->view->types = $this->content->types->toArray(); 
         }
 
-        public function sectionEditAction(){
-            if( !$this->user_admin && !$this->user_tech ){
-            	$this->_redirect('/cabinet');
-            	die;
-            }
+		public function sectionEditAction(){
+			if( !$this->user_admin && !$this->user_tech ){
+				$this->_redirect('/cabinet');
+				die;
+			}
 			$id=intval(substr($this->_getParam('n'),0,32));
 
-            include_once 'Sections.php';
+			include_once 'Sections.php';
 			$sections=new Sections();
-            $current['objSections'] = $sections;
+			$current['objSections'] = $sections;
 			$info = $this->get_section_info_from_form($current);
 			/* trim uri */
 			$info['uri'] = trim($info['uri']);
@@ -3395,7 +3459,7 @@ class CabinetController extends Zend_Controller_Action {
 				$this->_redirect('/cabinet/district-spb');die;
 			}
 			$this->_redirect('/cabinet/sections');die;
-        }
+		}
 
         public function sectionDelReqAction(){
             if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}

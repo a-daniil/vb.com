@@ -5,21 +5,33 @@
 		</h3>
 	</div>
 </div>
-<div id="center">
-	<div id="cab_ankets"><div id="cab_ankets_wrap">
-		<ul class="menu" style="margin:5px;">
-			<li><a href="/cabinet/section-add-form">Добавить</a></li>
-		</ul>
-		<table class="info_table">
-			<?php $count = 1; ?>
-			<?foreach($this->items as $item):?>
-			<tr>
-            	<td><?= $count++ ?> . <?=  $this->textToView($item['title'])?> (<?= $item['uri'] ?> )</td>
-                <td class="table_del_act" width="5%"><a href="#">Удалить</a></td>
-				<td class="table_ed_act" width="5%"><a href="/cabinet/section-edit-form/n/<?=$item['id']?>">Редактировать</a></td>
-			</tr>
-			<?endforeach?>
-		</table>
-	</div></div>
-	<div class="pages"><?=$this->paginationControl($this->items,'Sliding','pages_cab.phtml')?></div>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget purple">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div>
+						<div class="space15"></div>
+						<table class="table table-striped table-hover table-bordered" id="editable-sample">
+							<?php $count = 1; ?>
+							<?foreach($this->items as $item):?>
+							<tr>
+								<td><?= $count++ ?> . <?=  $this->textToView($item['title'])?> (<?= $item['uri'] ?> )</td>
+								<td width="7%"><a class="btn" href="#"><i class="icon-remove-sign"></i>&nbsp;Удалить</a></td>
+								<td width="10%"><a class="btn" href="/cabinet/section-edit-form/n/<?=$item['id']?>"><i class="icon-pencil"></i>&nbsp;Редактировать</a></td>
+							</tr>
+							<?endforeach?>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
