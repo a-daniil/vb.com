@@ -1,3 +1,52 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Добавление анкеты <?php echo $this->type_label ?>
+		</h3>
+	</div>
+</div>
+<form class="form-horizontal" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascritp:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<? foreach ($this->form as $element): ?>
+						<? if ( !preg_match('/service_group(.*)|only|submit/', $element->getName() ) ) :?>
+							<?= $element ?>
+						<? endif; ?>
+					<? endforeach; ?>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<? foreach ($this->form as $element): ?>
+						<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
+							<?= $element ?>
+						<? endif; ?>
+					<? endforeach; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
 <div class="center">
 	<div id = "centerwrap">
 		<h2 class="ank_title">Добавление анкеты <?php echo $this->type_label ?></h2>
@@ -26,7 +75,7 @@
   	</div>
 </div>
 <script type="text/javascript">
-	$("select[id='city']").change(function(){		
+	$("select[id='city']").change(function(){
 		var metro = [];
 			metro['m1'] = new Array("<?= implode('","', $this->content->metro_msk->toArray()) ?>");
 			metro['m2'] = new Array("<?= implode('","', $this->content->metro_spb->toArray()) ?>");
@@ -34,6 +83,10 @@
 		var district = [];
 			district['d1'] = new Array("<?= implode('","', $this->content->district_msk->toArray()) ?>");
 			district['d2'] = new Array("<?= implode('","', $this->content->district_spb->toArray()) ?>");
-		createList2Form(district, 'district', 'd')		
+		createList2Form(district, 'district', 'd')
+	});
+
+	$(function () {
+		$("input[type=radio], input[type=checkbox]").uniform();
 	});
 </script>

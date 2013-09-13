@@ -746,11 +746,11 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect('/cabinet/comment-moderation?uid=' . $uid);
 	}
 
-	function addAnkFormAction () {		
-		$performer = $this->getParam('performer');	
+	function addAnkFormAction () {
+		$performer = $this->getParam('performer');
 		$salons = $this->getUsersSalons();
 		$city = Zend_Registry::get('city');
-		
+
 		switch ( $performer ) {
 			case self::GIRL :
 				$frmAddAnket = new Form_AddGirlAnkForm(self::GIRL, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
@@ -778,12 +778,12 @@ class CabinetController extends Zend_Controller_Action {
 				break;
 			case self::PAIR :
 				$frmAddAnket = new Form_AddPairAnkForm(self::PAIR, $this->content, array('types' => $salons, 'new' => true, 'city' => $city));
-				$type_label = 'Пары';								
+				$type_label = 'Пары';
 				break;
 		}
-		
+
 		$frmAddAnket->setMethod("post");
-		
+
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		if ( $this->getRequest()->isPost() ) {
@@ -793,7 +793,7 @@ class CabinetController extends Zend_Controller_Action {
 				$data['priority']      = 0;
 				$data['status']        = Ps_Statuses_ControlStatuses::getStatus(0, 'addAnket');
 				$data['end_timestamp'] = date('Y-m-d H:i:s',time()+$this->config->ank_autodisable);
-				
+
 				/* required params*/
 				$data['name']      = $frmAddAnket->getValue('name');
 				$data['name_eng']  = $frmAddAnket->getValue('name_eng');
@@ -808,7 +808,7 @@ class CabinetController extends Zend_Controller_Action {
 				$data['height']    = $frmAddAnket->getValue('height');
 				$data['weight']    = $frmAddAnket->getValue('weight');
 				$data['phone']     = $this->preparePhone( $frmAddAnket->getValue('phone') );
-				
+
 				if ( $performer == 2 || $performer == 5 ) {
 					$data['name_2']     = $frmAddAnket->getValue('name_2');
 					$data['name_eng_2'] = $frmAddAnket->getValue('name_eng_2');
@@ -820,12 +820,12 @@ class CabinetController extends Zend_Controller_Action {
 					$data['exotics_2']  = $frmAddAnket->getValue('exotics_2');
 					$data['hair_2']     = $frmAddAnket->getValue('hair_2');
 				}
-				
+
 				// grab size of fallos for trans
 				if ( $performer == 7 ) {
 					$data['breast_2']   = $frmAddAnket->getValue('breast_2'); 
 				}
-				
+
 				/* other params */
 				$other_params = array('exotics', 'hair', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 					'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_an', 'price_i_1h_ap', 'price_i_2h_ap',
@@ -834,7 +834,7 @@ class CabinetController extends Zend_Controller_Action {
 				foreach ( $other_params as $op ) {
 					if ( $frmAddAnket->getValue( $op ) != null) {
 						$data[ $op ] = $frmAddAnket->getValue( $op );
-					}					
+					}
 				}
 
 				foreach ( $this->content->srv->toArray() as $srv=>$list ) {
@@ -846,22 +846,22 @@ class CabinetController extends Zend_Controller_Action {
 					}
 					$data['srv_'.$srv]=$serv;
 				}
-				
+
 				$result = $ankets->add_anket($data);
-				
+
 				if ( $result ) {
 					/* some strange requirement from manager */	
 					$users = new Model_UsersTest();
-					
+
 					if ( $users->getFlags( $this->user_id ) == 0 ) {
 						$res = $users->update(array("flags" => 2), "id = " . $this->user_id);
 					}
 					/* end of some strange requirement from manager */
-					
+
 					/* increment ankets per user */
 					$users->update(array('ankets' => new Zend_Db_Expr('ankets + 1')), 'id = ' . $this->user_id);
 					/* end of increment of ankets per user */
-					
+
 					$this->_redirect('/cabinet/edit-photo/n/'.$result.'?new=1');
 				}
 			}
@@ -2984,7 +2984,7 @@ class CabinetController extends Zend_Controller_Action {
 			}
 		}
 
-		$services = $this->content->srv->toArray(); // services math
+		$services = $this->content->srv->toArray(); //services math
 		foreach($services as $srv => $list){
 			$serv = 0;
 			foreach($list as $key => $null){
