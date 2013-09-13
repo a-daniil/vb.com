@@ -22,8 +22,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		/*
@@ -37,8 +37,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -55,8 +55,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)	
 		));	
 
@@ -86,8 +86,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -117,8 +117,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -148,8 +148,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -165,8 +165,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -187,8 +187,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		
@@ -198,8 +198,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -233,8 +233,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -251,8 +251,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		$city->setValue($this->city);		
@@ -271,8 +271,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -289,8 +289,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -307,8 +307,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -317,8 +317,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service hide-service', 'id' => 'sauna-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group-service hide-service', 'id' => 'sauna-service'))
 				)
 		));
 		
@@ -346,8 +346,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -363,8 +363,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -380,8 +380,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -397,8 +397,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -424,8 +424,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -441,8 +441,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -458,8 +458,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -473,6 +473,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 		);
 		
 		$this->addElement('textarea', 'about', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -487,7 +488,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -508,8 +509,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -525,8 +526,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -542,8 +543,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -559,8 +560,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -576,8 +577,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -603,8 +604,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -620,8 +621,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -637,8 +638,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -652,6 +653,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 		);
 		
 		$this->addElement('textarea', 'about_i', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -666,10 +668,10 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'add-ank-form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		foreach ( $this->content->srv->toArray() as $part => $srv ) {
 			$legend = array_shift($srv);
 			$nn=-1;
@@ -681,19 +683,19 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 					'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
-						
+
 			$service_group = $this->addDisplayGroup(
 				$elements,
 				'service_group_' . $part,
 				array("legend" => $legend)
-			);				
-		}	
-				
+			);
+		}
+
 		$this->addElement('text', 'only', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -706,8 +708,8 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -715,7 +717,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 			'label' => $this->getSubmitLabel(),
 			'decorators' => array(		
 				'ViewHelper',                
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),	
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group-submit')),	
 			) 
 		));		
 		

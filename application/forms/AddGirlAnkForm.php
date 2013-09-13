@@ -4,8 +4,8 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 {
 	public function init() {
 		/*
-		  Permanently set hardcoded perfomrer		  
-		*/		
+		  Permanently set hardcoded perfomrer
+		*/
 		$values = $this->content->performer->toArray();
 		$this->addElement('select', 'performer_el', array(
 			'validators' => array(
@@ -376,7 +376,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group')) 
 			)
 		));
 
@@ -413,7 +413,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addDisplayGroup(array(
 			'price_an',
 			'price_1h_ap',
@@ -556,7 +556,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'сontrol-group'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -603,7 +603,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'price_ap_i_info',
 				array("legend" => "Апартаменты:")
 		);
-		
+
 		$this->addElement('text', 'price_i_1h_ex', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -612,7 +612,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 						Zend_Validate_Int::NOT_INT => self::NOT_INT
 				)))
 			),
-			'label'    => 'Один час:',
+			'label'    => 'Два часа:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
@@ -696,7 +696,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 						'ViewHelper',
 						'Errors',
 						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
@@ -720,27 +720,27 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 
 		$this->addElement( 'submit', 'submit', array(
 			'label' => $this->getSubmitLabel(),
-			'decorators' => array(		
-				'ViewHelper',                
+			'decorators' => array(
+				'ViewHelper',
 				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),	
 			) 
-		));		
-		
+		));
+
 		$this->setDisplayGroupDecorators(array(
-				'FormElements',
-				'Fieldset',
-				'Description',
-				array(array('row'=>'HtmlTag'), array('tag' => 'div', 'class' => 'form-fieldset'))
+			'FormElements',
+			'Fieldset',
+			'Description',
+			array(array('row'=>'HtmlTag'), array('tag' => 'div', 'class' => 'form-fieldset'))
 		));	
 	}
-	
+
 	public function isValid($data)
 	{
 		$isValid = parent::isValid($data);

@@ -1,3 +1,11 @@
+<style>
+	.errors {
+		list-style-type: none;
+		color: #b94a48;
+		margin-left: 270px;
+		margin-top: 5px;
+	}
+</style>
 <div class="row-fluid">
 	<div class="span12">
 		<h3 class="page-title">
@@ -45,35 +53,9 @@
 			</div>
 		</div>
 	</div>
+	<input type="submit" name="submit" id="submit" value="Сохранить" class="btn btn-large blue">
 </div>
 </form>
-<div class="center">
-	<div id = "centerwrap">
-		<h2 class="ank_title">Добавление анкеты <?php echo $this->type_label ?></h2>
-		<div id="cab_ankets_wrap" style="padding: 10px;">
-			<br />
-			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
-				<div class="form">
-					<div class="form-left">
-        				<? foreach ($this->form as $element): ?>
-                			<? if ( !preg_match('/service_group(.*)|only|submit/', $element->getName() ) ) :?>
-               	 				<?= $element ?>
-               	 			<? endif; ?>
-  						<? endforeach; ?>
-  					</div>
-  					<div class="form-right">
-        				<? foreach ($this->form as $element): ?>
-        					<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
-               	 				<?= $element ?>
-               	 			<? endif; ?>
-  						<? endforeach; ?>
-  					</div>
-  					<?= $this->form->getElement('submit') ?>
-  				</div>
-  			</form>
-  		</div>
-  	</div>
-</div>
 <script type="text/javascript">
 	$("select[id='city']").change(function(){
 		var metro = [];

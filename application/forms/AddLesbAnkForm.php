@@ -4,7 +4,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 {
 	public function init() {
 		/*
-		  Permanently set hardcoded perfomrer		  
+		  Permanently set hardcoded perfomrer
 		*/		
 		$values = $this->content->performer->toArray();
 		$this->addElement('select', 'performer_el', array(
@@ -14,7 +14,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				))),
 			),
-			//'required' => true,				
+			//'required' => true,
 			'multiOptions' => array_slice($values, $this->performer, 1),
 			'value' => $this->performer,
 			'label'    => 'Исполнитель:',
@@ -22,45 +22,45 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		/*
 		  end of setting permanently hardcoded perfomer
 		*/
-		
+
 		$this->addElement('select', 'type', array(
-			'required' => true,				
+			'required' => true,
 			'multiOptions' => $this->params['types'],
 			'label'    => 'Салон:',
 			'decorators' => array(
 				'ViewHelper',
-				'Errors',				
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				'Errors',
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'name', array(
 			'filter' => array('StringTrim'),
 			'validators' => array( 
 			 	 array(
 					'NotEmpty', false, array('messages' => array(
-						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY		
-				)))		
+						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY	
+				)))	
 			),
 			'required' => true,
 			'label'    => 'Имя:',
-			'decorators' => array(		
-				'ViewHelper',		
-				'Errors',		
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))		
-			)	
+			'decorators' => array(
+				'ViewHelper',
+				'Errors',
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+			)
 		));	
-		
-		list($height_min,$height_max)=explode('-',$this->content->height);		
+
+		list($height_min,$height_max)=explode('-',$this->content->height);
 		$this->addElement('text', 'height', array(
 			'filter' => array('StringTrim'),
 			'validators' => array( 
@@ -86,12 +86,12 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
-		list($weight_min,$weight_max)=explode('-',$this->content->weight);		
+
+		list($weight_min,$weight_max)=explode('-',$this->content->weight);
 		$this->addElement('text', 'weight', array(
 			'filter' => array('StringTrim'),
 			'validators' => array( 
@@ -111,17 +111,17 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 					'LessThan', false, array($weight_max, 'messages' => array(
 						Zend_Validate_LessThan::NOT_LESS => sprintf( self::NOT_RANGE, $weight_min, $weight_max)
 				)))
-			),	
+			),
 			'required' => true,
 			'label'    => 'Вес:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		list($age_min,$age_max)=explode('-',$this->content->age);
 		$this->addElement('text', 'age', array(
 			'filter' => array('StringTrim'),
@@ -148,29 +148,29 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'clothing', array(
 			'filter' => array('StringTrim'),
-			'validators' => array( 				
+			'validators' => array(
 				array(
 				    'Int', false, array('messages' => array(
 					    Zend_Validate_Int::NOT_INT => self::NOT_INT
 				)))
-			),	
+			),
 			'label'    => 'Размер одежды:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
-		list($breast_min,$breast_max)=explode('|',$this->content->breast);		
+		list($breast_min,$breast_max)=explode('|',$this->content->breast);
 		$this->addElement('select', 'breast', array(
 			'validators' => array(				
 				array(
@@ -182,38 +182,38 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 						Zend_Validate_LessThan::NOT_LESS => sprintf( self::NOT_RANGE, $breast_min, $breast_max)
 				)))
 			),	
-			'multiOptions' => $this->content->breast_form->toArray(),		
+			'multiOptions' => $this->content->breast_form->toArray(),
 			'label'    => 'Размер груди:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
-		
+
 		$this->addElement('select', 'hair', array(
-				'multiOptions' => $this->content->hair->toArray(),
-				'label'    => 'Цвет волос:',
-				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
-				)
+			'multiOptions' => $this->content->hair->toArray(),
+			'label'    => 'Цвет волос:',
+			'decorators' => array(
+				'ViewHelper',
+				'Errors',
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+			)
 		));
-		
-		$this->addElement('select', 'exotics', array(			
+
+		$this->addElement('select', 'exotics', array(
 			'multiOptions' => $this->content->exotics->toArray(),
 			'label'    => 'Национальность:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addDisplayGroup(array(
 				'name',
 				'height',
@@ -227,25 +227,25 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'info',
 				array("legend" => "Параметры 1-ой девушки.")
 		);	
-		
+
 		$this->addElement('text', 'name_2', array(
 				'filter' => array('StringTrim'),
 				'validators' => array(
-						array(
-								'NotEmpty', false, array('messages' => array(
-										Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
-								)))
+					array(
+						'NotEmpty', false, array('messages' => array(
+						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+					)))
 				),
 				'required' => true,
 				'label'    => 'Имя:',
 				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+					'ViewHelper',
+					'Errors',
+					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
-		
+
 		list($height_min,$height_max)=explode('-',$this->content->height);
 		$this->addElement('text', 'height_2', array(
 				'filter' => array('StringTrim'),
@@ -270,13 +270,13 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'required' => true,
 				'label'    => 'Рост:',
 				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
-				)
+					'ViewHelper',
+					'Errors',
+					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+			)
 		));
-		
+
 		list($weight_min,$weight_max)=explode('-',$this->content->weight);
 		$this->addElement('text', 'weight_2', array(
 				'filter' => array('StringTrim'),
@@ -301,10 +301,10 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'required' => true,
 				'label'    => 'Вес:',
 				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+					'ViewHelper',
+					'Errors',
+					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -334,8 +334,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -351,8 +351,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -373,8 +373,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -384,8 +384,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -395,8 +395,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -432,8 +432,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -444,19 +444,19 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->cities->toArray(),				
+			'multiOptions' => $this->content->cities->toArray(),
 			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
-		$city->setValue($this->city);		
+		$city->setValue($this->city);
 		$this->addElement($city);
-	
+
 		$this->addElement('select', 'district', array(
 			'validators' => array(
 				array(
@@ -464,17 +464,17 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->district_list,			
+			'multiOptions' => $this->district_list,
 			'required' => true,
 			'label'    => 'Район:',
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('select', 'metro', array(
 			'validators' => array(
 			    array(
@@ -488,8 +488,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -506,33 +506,33 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$sauna = $this->addElement('checkbox', 'sauna', array(
-				'label'    => "Возможен выезд в сауну",
-				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service hide-service', 'id' => 'sauna-service'))
-				)
+			'label'    => "Возможен выезд в сауну",
+			'decorators' => array(
+				'ViewHelper',
+				'Errors',
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group hide-service', 'id' => 'sauna-service'))
+			)
 		));
-		
+
 		$this->addDisplayGroup(array(
-				'phone',
-				'city',
-				'district',
-				'metro',
-				'place',
-				'sauna'
+			'phone',
+			'city',
+			'district',
+			'metro',
+			'place',
+			'sauna'
 		),
-				'contact-info',
-				array("legend" => "Контактные данные.")
+			'contact-info',
+			array("legend" => "Контактные данные.")
 		);
-		
+
 		$this->addElement('text', 'price_an', array(
 				'filter' => array('StringTrim'),
 				'validators' => array(
@@ -543,13 +543,13 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				),
 				'label'    => 'Доплата за анал:',
 				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+					'ViewHelper',
+					'Errors',
+					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
-		
+
 		$this->addElement('text', 'price_1h_ap', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -562,8 +562,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -579,8 +579,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -596,8 +596,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -623,8 +623,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -640,14 +640,14 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
 		$this->addElement('text', 'price_n_ex', array(
 			'filter' => array('StringTrim'),
-			'validators' => array(				
+			'validators' => array(
 				array(
 					'Int', false, array('messages' => array(
 						Zend_Validate_Int::NOT_INT => self::NOT_INT
@@ -657,11 +657,11 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addDisplayGroup(array(
 				'price_1h_ex',
 				'price_2h_ex',
@@ -670,8 +670,9 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'price-ex-info',
 				array("legend" => "Выезд:")
 		);
-		
+
 		$this->addElement('textarea', 'about', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -685,11 +686,11 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'name_eng', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -707,8 +708,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -727,13 +728,13 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'required' => true,
 				'label'    => 'Имя 2-ой девушки: (на англ.)',
 				'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
-				)
+					'ViewHelper',
+					'Errors',
+					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+			)
 		));
-		
+
 		$this->addElement('text', 'price_i_an', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -746,11 +747,11 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'price_i_1h_ap', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(				
@@ -763,8 +764,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -780,8 +781,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -797,8 +798,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -824,8 +825,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -841,8 +842,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -858,8 +859,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -873,6 +874,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 		);
 		
 		$this->addElement('textarea', 'about_i', array(
+			'class'  => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -887,7 +889,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -902,8 +904,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 					'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
@@ -927,8 +929,8 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 
@@ -936,7 +938,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'label' => $this->getSubmitLabel(),
 			'decorators' => array(		
 				'ViewHelper',                
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),	
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group-submit')),	
 			) 
 		));		
 		

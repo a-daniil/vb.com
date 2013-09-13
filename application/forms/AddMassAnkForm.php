@@ -4,8 +4,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 {
 	public function init() {
 		/*
-		  Permanently set hardcoded perfomrer		  
-		*/		
+		  Permanently set hardcoded perfomrer
+		*/
 		$values = $this->content->performer->toArray();
 		$this->addElement('select', 'performer_el', array(
 			'validators' => array(
@@ -14,7 +14,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				))),
 			),
-			//'required' => true,				
+			//'required' => true,
 			'multiOptions' => array_slice($values, $this->performer, 1),
 			'value' => $this->performer,
 			'label'    => 'Исполнитель:',
@@ -22,44 +22,44 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		/*
 		  end of setting permanently hardcoded perfomer
 		*/
-		
+
 		$this->addElement('select', 'type', array(
-			'required' => true,				
+			'required' => true,
 			'multiOptions' => $this->params['types'],
 			'label'    => 'Салон:',
 			'decorators' => array(
 				'ViewHelper',
-				'Errors',				
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				'Errors',
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'name', array(
 			'filter' => array('StringTrim'),
-			'validators' => array( 
+			'validators' => array (
 			 	 array(
 					'NotEmpty', false, array('messages' => array(
-						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY		
-				)))		
+						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
+				)))
 			),
 			'required' => true,
 			'label'    => 'Имя:',
-			'decorators' => array(		
-				'ViewHelper',		
-				'Errors',		
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))		
-			)	
+			'decorators' => array(
+				'ViewHelper',
+				'Errors',
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+			)
 		));	
-		
+
 		list($height_min,$height_max)=explode('-',$this->content->height);		
 		$this->addElement('text', 'height', array(
 			'filter' => array('StringTrim'),
@@ -86,8 +86,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -117,8 +117,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -148,8 +148,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -165,8 +165,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
@@ -187,8 +187,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		
@@ -198,8 +198,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -209,8 +209,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -246,8 +246,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -264,8 +264,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		$city->setValue($this->city);		
@@ -284,8 +284,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -302,8 +302,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -320,8 +320,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -330,8 +330,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label'),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service hide-service', 'id' => 'sauna-service'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group-service hide-service', 'id' => 'sauna-service'))
 				)
 		));
 		
@@ -359,8 +359,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -376,8 +376,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -393,8 +393,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -410,8 +410,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -437,8 +437,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -454,8 +454,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -471,8 +471,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -484,8 +484,9 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'price-ex-info',
 				array("legend" => "Выезд:")
 		);
-		
+
 		$this->addElement('textarea', 'about', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -500,10 +501,10 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'add-ank-form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'name_eng', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -521,8 +522,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -538,8 +539,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -555,8 +556,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -572,8 +573,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -589,8 +590,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -616,8 +617,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -633,8 +634,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -650,11 +651,11 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addDisplayGroup(array(
 				'price_i_1h_ex',
 				'price_i_2h_ex',
@@ -663,8 +664,9 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'price_ex_i_info',
 				array("legend" => "Выезд:")
 		);
-		
+
 		$this->addElement('textarea', 'about_i', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -679,15 +681,15 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
-		foreach ( $this->content->srv->toArray() as $part => $srv ) {	
-			if ( in_array( $part, array( 'add', 'mass', 'strip' ) ) ) {			
+
+		foreach ( $this->content->srv->toArray() as $part => $srv ) {
+			if ( in_array( $part, array( 'add', 'mass', 'strip' ) ) ) {
 				$legend = array_shift($srv);
 				$nn=-1;
-				$elements = array();	
+				$elements = array();
 				while( $val = array_shift($srv) ) {
 					$part_el = $part . '_' . ++$nn;
 					if ( in_array( $part_el, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) || preg_match('/^mass_(.*)$/', $part_el) ) {
@@ -697,8 +699,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 							'decorators' => array(
 								'ViewHelper',
 								'Errors',
-								array('Label'),
-								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+								array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 							)
 						));
 					}
@@ -711,9 +713,9 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 						array("legend" => $legend)
 					);
 				}	
-			}			
-		}	
-				
+			}
+		}
+
 		$this->addElement('text', 'only', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -726,8 +728,8 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 
@@ -735,7 +737,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			'label' => $this->getSubmitLabel(),
 			'decorators' => array(		
 				'ViewHelper',                
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),	
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group-submit')),	
 			) 
 		));		
 		
