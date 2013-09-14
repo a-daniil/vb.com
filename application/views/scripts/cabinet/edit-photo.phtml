@@ -1,3 +1,134 @@
+<style>
+	.wrap_photo {
+		width: 200px;
+		height: 302px;
+		margin: 10px 0px 10px 50px;
+	}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Фотографии: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)
+		</h3>
+	</div>
+</div>
+<form class="form-horizontal" action="/cabinet/add-photo/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+<p>
+	<input type="submit" class="btn btn-large" value="Данные анкеты" name="to_ank_edit" />
+	<input type="submit" class="btn btn-large" value="Фото для проверки" name="to_check_photo" />
+	<input type="submit" class="btn btn-large" value="Видео" name="to_video" />
+	<input type="submit" class="btn btn-large" value="Комментарии" name="to_comments" />
+</p>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>Прикрепить фото</h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<?if ( $this->status > 20 ): ?>
+					<div class="alert alert-block alert-warning fade in">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						<h4 class="alert-heading">Фото проверено</h4>
+						<p>
+							Фотографии в данной анкете были проверенны. Если вы загрузите в нее новое фото, то проверка будет аннулирована. При удаление фото проверка сохраняется.
+						</p>
+					</div>
+					<?endif?>
+					<div class="alert alert-block alert-info fade in">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						<h4 class="alert-heading">Новая фотография</h4>
+						<p>Уважаемые рекламодатели, на сайте не допускается размещение чужих фотографий, порнографических фотографий, фотографий c логотипами других сайтов.</p>
+						<p>Порнографией считается:</p>
+						<ul>
+							<li>изображение полового сношения.</li>
+							<li>изображение сопоставимого с половым сношением действия сексуального характера.</li>
+						<li>изображение половых органов (если есть заретушируйте или наложите изображение).</li>
+						</ul>
+						<p>Фотографии: 8 шт</p>
+						<p>
+							<span>Выберите фото на вашем компьютере через кнопку обзор и нажмите "Сохранить"</span>
+							<span>Запрещено в анкету загружать одинаковые фотографии.</span>
+							<span>Загружайте фотографии в самом высоком разрешении и максимальном качестве, на сервере они будут автоматически сжаты до оптимального размера.</span>
+							<span>Загружаемый файл должен быть не более 3 МБ, формата JPG, GIF, PNG. Минимальное разрешение не менее 400x400.</span>
+							<span>Для включения анкеты необходимо минимум 3 фото.</span>
+						</p>
+					</div>
+					<?php foreach($this->info['photolist'] as $key=>$photo): $i++; ?>
+						<?if(!$photo):?> 
+							<div class="control-group">
+								<label class="control-label" style="width: 180px;">Прикрепить фото</label>
+								<div class="controls">
+									<div data-provides="fileupload" class="fileupload fileupload-new">
+										<span class="btn btn-file">
+											<span class="fileupload-new">Select file</span>
+											<span class="fileupload-exists">Change</span>
+											<input type="hidden" name="MAX_FILE_SIZE" value="2097152" id="MAX_FILE_SIZE">
+											<input type="file" name="file_<?php echo $key; ?>" class="default">
+										</span>
+										<span class="fileupload-preview"></span>
+										<a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">×</a>
+									</div>
+								</div>
+							</div>
+						<?php endif; ?>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>Загруженные фото</h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<?foreach($this->info['photolist'] as $key=>$photo): $i++;?>
+						<?if($photo):?> 
+						<div class="" style="display: inline-block; margin: 10px;">
+							<div class="wrap_photo" style="background:url('<?=$this->photos_path.'/th_'.$photo?>') no-repeat scroll center top transparent;"></div>
+							<div class="control-group">
+								<label class="control-label" style="width: 180px;">Заменить фото</label>
+								<div class="controls">
+									<div data-provides="fileupload" class="fileupload fileupload-new">
+										<span class="btn btn-file">
+											<span class="fileupload-new">Select file</span>
+											<span class="fileupload-exists">Change</span>
+											<input type="hidden" name="MAX_FILE_SIZE" value="2097152" id="MAX_FILE_SIZE">
+											<input type="file" name="file_<?php echo $key; ?>" class="default">
+										</span>
+										<span class="fileupload-preview"></span>
+										<a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">×</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php if ( $_GET['new'] ) : ?>
+		<input class="btn btn-large" type="submit" value="Далее" id="save" name="next" />
+	<?php else : ?>
+		<input class="btn btn-large" type="submit" id="save" value="Сохранить"/>
+	<?php endif ?>
+</div>
+</form>
+
+
+<!-- 
 <div id="center">
 	<div id="cab_ankets">
 		<h2 id="cab_photo_title">Фотографии: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
@@ -90,3 +221,4 @@
 	}
 </script>
 <? endif; ?>
+-->
