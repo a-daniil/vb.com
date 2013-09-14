@@ -102,7 +102,6 @@ foreach ( $ret as $k => $v ) {
 		Zend_Registry::set('route', 0);
 	}
 }
-$route = Zend_Registry::get('route');
 /* end of all distinct uri for routing */
 
 include('models/Arrays.php');
