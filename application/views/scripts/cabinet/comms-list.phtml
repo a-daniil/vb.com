@@ -1,3 +1,27 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Комментарии к анкете
+		</h3>
+		<h4></h4>
+	</div>
+</div>
+<div class="alert alert-block alert-info fade in">
+	<button data-dismiss="alert" class="close" type="button">×</button>
+	<h4 class="alert-heading">Скрыть комментарий</h4>
+	<p>
+		Вы можете скрыть комментарии к анкете, на тот момент когда она показывается в приоритетном(платном) показе
+	</p>
+</div>
+<p>
+	<a class="btn btn-large" href="/cabinet/edit-ank-form/id/<?php echo $this->ank_id ?>">Данные анкеты</a>
+	<a class="btn btn-large" href="/cabinet/edit-photo/n/<?=$this->ank_id ?>">Фото</a>
+	<a class="btn btn-large" href="/cabinet/check-photo/n/<?=$this->ank_id ?>">Фото для проверки</a>
+	<a class="btn btn-large" href="/cabinet/edit-video/n/<?=$this->ank_id ?>">Видео</a>
+</p>
+
+
+
 <div id="center">
 	<?if(!empty($this->errors)):?>
 		<div class="message">

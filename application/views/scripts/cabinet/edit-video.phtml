@@ -1,62 +1,79 @@
-<div id="content-cab">
-	<div id="cab_ankets">
-		<h2 id="cab_photo_title">Видео: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
-		<form id="cab_ankets_wrap" action="/cabinet/add-video/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
-			<div class="cab_form"><div class="cab_anketa_header">
-				<ul>
-					<li><input type="submit" value="Данные анкеты" name="to_ank_edit" /></li>
-					<li><input type="submit" value="Фото" name="to_photo" /></li>
-					<?if($this->info['status']):?><li><input type="submit" value="Фото для проверки" name="to_check_photo" /></li><?endif?>
-					<li><input type="submit" value="Комментарии" name="to_comments" /></li>
-					<?/*?><li><a href="/">Карта</a></li>
-					<li><a href="/">Комментарии</a></li>*/?>
-				</ul>
-			</div></div>
-			<p style="text-align: left; font-weight: bold;">Видеоролик</p>
-			<p style="text-align: left;">Допустимые форматы файлов: FLV, AVI, WMV, MPG.</p>
-			<p style="text-align: left;">Максимальный размер пересылаемого файла: 40МБ.</p>
-			<div class="cab_photos_form_wrap">
-			<?foreach($this->info['videolist'] as $key=>$item):?>
-			<div class="cab_anketa_video cab_ank_video_ed<?if(!$item):?> cab_video_add<?endif;?>" >
-				<!--<div<?if($item):?> style="background:url('<?=$this->videos_path.'/th_'.$item?>') no-repeat top;" onclick="showPhoto('<?=$this->videos_path.'/'.$item?>')"<?endif?>></div>-->
-			<?$swflink = 'file='.$this->videos_path.'/'.$item.'&image=/img/videoprev.jpg&author=vipkisa.ru&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
-<?if($item):?>
-<span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="480" height="380" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
-<script type="text/javascript" src="/js/swfobject.js"></script>
-<script type="text/javascript"> 
-var s1 = new SWFObject('/player.swf','player','480','380','9'); 
-s1.addParam('allowfullscreen','true'); 
-s1.addParam('allowscriptaccess','always'); 
-s1.addParam('flashvars','<?=$swflink;?>');
-s1.write('video1'); 
-</script>
-<?else:?>
-<div style="width: 100%;"></div>
-<?endif;?>
-				<br />
-				<br />
-				<p><?if($item):?>Заменить<?else:?>Добавить<?endif?>:</p>
-				<br />
-				<input type="file" size="20" name="file_<?=$key?>" />
-				<input type="hidden" name="MAX_FILE_SIZE" value="40000" />
-				<br />
-				<?if($item):?>
-					<br />
-					<!--  <p>Использовать для превью:
-					<input type="radio" name="preview" class="cab_form_radio" <?if(isset($this->preview) && $key==$this->preview):?>checked="checked" <?endif?>value="<?=$key?>" /></p> -->
-					<a href="/cabinet/del-video/n/<?=$this->info['id']?>/f/<?=$key?>" class="cab_anketa_photo_del">Удалить</a>
-				<?endif?>
-			</div>
-			<?endforeach?>
-			<div>&nbsp;</div>
-			</div>
-			<div style="text-align: center;">
-				<?php if ( $_GET['new'] ) : ?>
-					<input class="button" type="submit" value="Готово" name="next"/>
-				<?php else : ?>			
-					<input class="button" type="submit" value="Сохранить"/>
-				<?php endif ?>				
-			</div>
-		</form>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Видео: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)
+		</h3>
 	</div>
 </div>
+<form class="form-horizontal" action="/cabinet/check-photo-add/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+<p>
+	<input type="submit" class="btn btn-large" value="Данные анкеты" name="to_ank_edit" />
+	<input type="submit" class="btn btn-large" value="Фото" name="to_photo" />
+	<?if($this->info['status']):?><input type="submit" class="btn btn-large" value="Фото для проверки" name="to_check_photo" /><?endif?>
+	<input type="submit" class="btn btn-large" value="Комментарии" name="to_comments" />
+</p>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="alert alert-block alert-info fade in">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						<p>Допустимые форматы файлов: FLV, AVI, WMV, MPG.</p>
+						<p>Максимальный размер пересылаемого файла: 40МБ.</p>
+					</div>
+					<?foreach($this->info['videolist'] as $key=>$item):?>
+						<div class="cab_anketa_video cab_ank_video_ed<?if(!$item):?> cab_video_add<?endif;?>" >
+						<!--<div<?if($item):?> style="background:url('<?=$this->videos_path.'/th_'.$item?>') no-repeat top;" onclick="showPhoto('<?=$this->videos_path.'/'.$item?>')"<?endif?>></div>-->
+						<?$swflink = 'file='.$this->videos_path.'/'.$item.'&image=/img/videoprev.jpg&author=vipkisa.ru&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
+						<?if($item):?>
+							<span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="480" height="380" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
+							<script type="text/javascript" src="/js/swfobject.js"></script>
+							<script type="text/javascript"> 
+								var s1 = new SWFObject('/player.swf','player','480','380','9'); 
+								s1.addParam('allowfullscreen','true'); 
+								s1.addParam('allowscriptaccess','always'); 
+								s1.addParam('flashvars','<?=$swflink;?>');
+								s1.write('video1'); 
+							</script>
+						<?else:?>
+							<div style="width: 100%;"></div>
+						<?endif;?>
+						<div class="control-group">
+							<label class="control-label" style="width: 180px;"><?if($item):?>Заменить<?else:?>Добавить<?endif?>:</label>
+							<div class="controls">
+								<div data-provides="fileupload" class="fileupload fileupload-new">
+									<span class="btn btn-file">
+										<span class="fileupload-new">Select file</span>
+										<span class="fileupload-exists">Change</span>
+										<input type="hidden" name="MAX_FILE_SIZE" value="40000" id="MAX_FILE_SIZE">
+										<input type="file" name="file_<?=$key?>" class="default">
+									</span>
+									<span class="fileupload-preview"></span>
+									<a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">×</a>
+								</div>
+							</div>
+						</div>
+						<?if($item):?>
+							<a href="/cabinet/del-video/n/<?=$this->info['id']?>/f/<?=$key?>" class="btn btn-danger">Удалить</a>
+						<?endif?>
+						</div>
+					<?endforeach?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php if ( $_GET['new'] ) : ?>
+		<input class="btn btn-large" type="submit" value="Готово" name="next"/>
+	<?php else : ?>			
+		<input class="btn btn-large" type="submit" value="Сохранить"/>
+	<?php endif ?>
+</div>
+</form>

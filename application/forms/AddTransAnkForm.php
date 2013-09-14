@@ -706,11 +706,11 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		foreach ( $this->content->srv->toArray() as $part => $srv ) {
 			$legend = array_shift($srv);
 			$nn=-1;
-			$elements = array();			
+			$elements = array();
 			while( $val = array_shift($srv) ) {
 				$elements[] = $part . '_' . ++$nn;
 				$service = $this->addElement('checkbox', $part. '_' . $nn, array(
@@ -719,16 +719,38 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 						'ViewHelper',
 						'Errors',
 						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span6', 'style' => 'margin-bottom: 5px;'))
+					)
+				));
+
+				$elements[] = $part . '_' . $nn . '_add';
+				$add = $this->addElement('checkbox', $part. '_' . $nn . '_add', array(
+					'label'    => 'Доп',
+					'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label', array('class' => 'control-label add-label', 'style' => 'display: inline-block; width: 40px;')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span2',))
+					)
+				));
+
+				$elements[] = $part . '_' . $nn . '_add_input';
+				$add_input = $this->addElement('text', $part. '_' . $nn . '_add_input', array(
+					'disabled' => 'disabled',
+					'label'    => '',
+						'decorators' => array(
+							'ViewHelper',
+							'Errors',
+							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span3', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
-						
+
 			$service_group = $this->addDisplayGroup(
 				$elements,
 				'service_group_' . $part,
 				array("legend" => $legend)
-			);				
+			);
 		}	
 				
 		$this->addElement('text', 'only', array(
@@ -756,6 +778,31 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
 			) 
 		));	
+
+		if ( !empty($this->params['only_add']) ) {
+			$only_add = unserialize($this->params['only_add']);
+
+			foreach ($only_add as $k => $v) {
+				$this->addElement('text', $k, array(
+						'filter' => array('StringTrim'),
+						'label'    => 'Только у меня',
+						'decorators' => array(
+								'ViewHelper',
+								'Errors',
+								array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+						)
+				));
+			}
+
+			//create only count hidden
+			$this->addElement('hidden', 'only_count', array('decorators' => array(
+					'ViewHelper',
+					'Errors',
+					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'hidden'))
+			)));
+		}
 
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
