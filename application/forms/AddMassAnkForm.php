@@ -734,13 +734,14 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 		));	
 
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
 			'label' => $this->getSubmitLabel(),
-			'decorators' => array(		
-				'ViewHelper',                
-				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group-submit')),	
-			) 
-		));		
-		
+			'decorators' => array(
+				'ViewHelper',
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
+			)
+		));	
+
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
 				'Fieldset',

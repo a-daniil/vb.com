@@ -352,7 +352,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group-service hide-service', 'id' => 'sauna-service'))
 				)
 		));
@@ -706,11 +706,11 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-
+		
 		foreach ( $this->content->srv->toArray() as $part => $srv ) {
 			$legend = array_shift($srv);
 			$nn=-1;
-			$elements = array();
+			$elements = array();			
 			while( $val = array_shift($srv) ) {
 				$elements[] = $part . '_' . ++$nn;
 				$service = $this->addElement('checkbox', $part. '_' . $nn, array(
@@ -723,14 +723,14 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 					)
 				));
 			}
-
+						
 			$service_group = $this->addDisplayGroup(
 				$elements,
 				'service_group_' . $part,
 				array("legend" => $legend)
-			);
-		}
-
+			);				
+		}	
+				
 		$this->addElement('text', 'only', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -749,13 +749,14 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 		));
 
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
 			'label' => $this->getSubmitLabel(),
-			'decorators' => array(		
-				'ViewHelper',                
-				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group-submit')),	
+			'decorators' => array(
+				'ViewHelper',
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
 			) 
-		));		
-		
+		));	
+
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
 				'Fieldset',

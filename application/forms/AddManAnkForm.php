@@ -684,7 +684,7 @@ class Form_AddManAnkForm extends Form_AddAnkForm
 						'ViewHelper',
 						'Errors',
 						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
-								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
@@ -714,13 +714,14 @@ class Form_AddManAnkForm extends Form_AddAnkForm
 		));
 
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
 			'label' => $this->getSubmitLabel(),
-			'decorators' => array(		
-				'ViewHelper',                
+			'decorators' => array(
+				'ViewHelper',
 				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
-			) 
-		));		
-		
+			)
+		));	
+
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
 				'Fieldset',

@@ -66,8 +66,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -84,8 +84,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -102,8 +102,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		$city->setValue($this->cityParam);		
@@ -122,8 +122,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -140,8 +140,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -151,8 +151,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));		
 		
@@ -173,8 +173,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -194,8 +194,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		
@@ -211,8 +211,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -228,8 +228,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -245,8 +245,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -271,8 +271,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -288,8 +288,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -305,8 +305,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -336,8 +336,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -358,8 +358,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -373,8 +373,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -384,8 +384,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));		
 		
@@ -399,6 +399,7 @@ class Form_AddSalonForm extends Zend_Form
 		);
 		
 		$this->addElement('textarea', 'about', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -413,7 +414,7 @@ class Form_AddSalonForm extends Zend_Form
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -434,12 +435,13 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
 		$this->addElement('textarea', 'about_i', array(
+			'class' => 'span12',
 			'rows' => 9,
 			'cols' => 41,
 			'filter' => array('StringTrim'),
@@ -454,7 +456,7 @@ class Form_AddSalonForm extends Zend_Form
 				'ViewHelper',
 				'Errors',
 				array('Label', array('class' => 'form-about')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -470,8 +472,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -487,8 +489,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -504,8 +506,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -530,8 +532,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -547,8 +549,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -564,8 +566,8 @@ class Form_AddSalonForm extends Zend_Form
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
 		
@@ -585,8 +587,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -596,8 +598,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -607,8 +609,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -618,8 +620,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -629,8 +631,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -640,8 +642,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label'),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 		
@@ -663,8 +665,8 @@ class Form_AddSalonForm extends Zend_Form
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element'))
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
 		
@@ -680,8 +682,8 @@ class Form_AddSalonForm extends Zend_Form
 							'decorators' => array(
 								'ViewHelper',
 								'Errors',
-								array('Label'),
-								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'form-element-service'))
+								array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 							)
 						));
 					}
@@ -695,10 +697,11 @@ class Form_AddSalonForm extends Zend_Form
 		}
 		
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
 			'label' => $this->getSubmitLabel(),
 			'decorators' => array(
 				'ViewHelper',
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
 			)
 		));
 		

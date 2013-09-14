@@ -726,10 +726,11 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 		));	
 
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
 			'label' => $this->getSubmitLabel(),
 			'decorators' => array(
 				'ViewHelper',
-				array('HtmlTag',array('tag'=>'div', 'class' => 'form-element-submit')),	
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
 			) 
 		));
 

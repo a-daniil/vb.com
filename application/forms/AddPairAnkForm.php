@@ -22,7 +22,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -37,7 +37,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',				
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -55,7 +55,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(		
 				'ViewHelper',		
 				'Errors',		
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))		
 			)	
 		));	
@@ -86,7 +86,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -117,7 +117,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -148,7 +148,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -165,7 +165,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -187,7 +187,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -198,7 +198,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -209,7 +209,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -241,7 +241,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -272,7 +272,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -303,7 +303,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -334,7 +334,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -351,7 +351,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -372,7 +372,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -383,7 +383,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -394,7 +394,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -431,7 +431,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -449,7 +449,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -469,7 +469,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -487,7 +487,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -505,7 +505,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -544,7 +544,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -561,7 +561,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -578,7 +578,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -595,7 +595,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -622,7 +622,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -639,7 +639,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -656,7 +656,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -685,7 +685,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'form-about')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -707,7 +707,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -729,7 +729,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('tag' => 'div')),
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -746,7 +746,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -763,7 +763,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -780,7 +780,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -797,7 +797,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -824,7 +824,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -841,7 +841,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -858,7 +858,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -887,7 +887,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'form-about')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -904,7 +904,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 						'ViewHelper',
 						'Errors',
 						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
@@ -928,19 +928,20 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('tag' => 'div')),
+				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
 
 		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
 			'label' => $this->getSubmitLabel(),
-			'decorators' => array(		
-				'ViewHelper',                
-				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group-submit')),	
-			) 
-		));		
-		
+			'decorators' => array(
+				'ViewHelper',
+				array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
+			)
+		));	
+
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
 				'Fieldset',
