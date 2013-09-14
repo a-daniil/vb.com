@@ -764,11 +764,11 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'), array('tag' => 'div', 'class' => 'form-fieldset'))
 		));	
 	}
-	
+
 	public function isValid($data)
 	{
 		$isValid = parent::isValid($data);
-	
+
 		foreach ( $this->content->srv->toArray() as $srv=>$list ) {
 			$serv=0;
 			foreach ( $list as $key=>$null ) {
@@ -778,24 +778,24 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 			}
 			$data['srv_'.$srv]=$serv;
 		}
-	
+
 		if ( !$data['srv_main'] && !$data['srv_add'] && !$data['srv_strip'] && !$data['srv_mass'] && !$data['srv_bdsm'] ) {
 			$this->getElement('main_0')->addError('Хотя бы одна услуга должна быть указана');				
 			$isValid = false;
 		}
-	
+
 		if ( $this->getElement('place')->getValue() == 1 ) {
 			if ( !$this->getElement('price_1h_ap')->getValue() && !$this->getElement('price_2h_ap')->getValue() && !$this->getElement('price_n_ap')->getValue() ) {
 				$this->getElement('price_1h_ap')->addError('Должно быть заполнено хотя бы одно поле по указаному месту встречи. Цены должны быть указанны в рублях.');
 				$isValid = false;
 			}
 		}
-	
+
 		if ( !$this->getElement('price_1h_ex')->getValue() && !$this->getElement('price_2h_ex')->getValue() && !$this->getElement('price_n_ex')->getValue() ) {
 			$this->getElement('price_1h_ex')->addError('Должно быть заполнено хотя бы одно поле по указаному месту встречи. Цены должны быть указанны в рублях.');
 			$isValid = false;
 		}
-	
+
 		/* for validation international prices
 		if ( !$this->getElement('price_i_1h_ap')->getValue() && !$this->getElement('price_i_2h_ap')->getValue() && !$this->getElement('price_i_n_ap')->getValue() ) {
 			$this->getElement('price_i_1h_ap')->addError('Должно быть заполнено хотя бы одно поле по указаному месту встречи. Цены должны быть указанны в долларах США.');
