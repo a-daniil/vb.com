@@ -842,9 +842,32 @@ class CabinetController extends Zend_Controller_Action {
 					foreach ( $list as $key=>$null ) {
 						if ( $frmAddAnket->getValue( $srv.'_'.$key ) ) {
 							$serv+=1<<$key;
+
+							if ( $val_add_input = $frmAddAnket->getValue( $srv . '_' . $key . '_add_input' ) ) {
+								$data['srv_add_text'][$srv . '_' . $key . '_add_input'] = $val_add_input;
+							}
 						}
 					}
 					$data['srv_'.$srv]=$serv;
+				}
+
+				// serialize add_input if exists
+				if ( !empty($data['srv_add_text']) ) {
+					$data['srv_add_text'] = serialize($data['srv_add_text']);
+				}
+
+				for ( $i = 1, $j = 0; $i <= $_POST["only_count"]; $i++ ) {
+					if ( $only = $_POST['only_'.$i] ) {
+						$j++;
+						$data['only_add']['only_'.$j] = $only;
+					}
+				}
+
+				//serialize only_add if exists
+				if ( !empty($data['only_add']) ) {
+					$data['only_add'] = serialize($data['only_add']);
+				} else {
+					$data['only_add'] = serialize(array());
 				}
 
 				$result = $ankets->add_anket($data);
@@ -886,39 +909,39 @@ class CabinetController extends Zend_Controller_Action {
 	    $salons = $this->getUsersSalons();
 		switch ( $performer ) {
 			case self::GIRL :
-				$frmAddAnket = new Form_AddGirlAnkForm(self::GIRL, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddGirlAnkForm(self::GIRL, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'девушки';
 				break;
 			case self::LESB :
-				$frmAddAnket = new Form_AddLesbAnkForm(self::LESB, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddLesbAnkForm(self::LESB, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'подружки';
 				break;
 			case self::MASS :
-				$frmAddAnket = new Form_AddMassAnkForm(self::MASS, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddMassAnkForm(self::MASS, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'массажистки';
 				break;
 			case self::BDSM :
-				$frmAddAnket = new Form_AddBdsmAnkForm(self::BDSM, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddBdsmAnkForm(self::BDSM, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'БДСМ';
 				break;
 			case self::MAN :
-				$frmAddAnket = new Form_AddManAnkForm(self::MAN, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddManAnkForm(self::MAN, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'пары';
 				break;
 			case self::TRANS :
-				$frmAddAnket = new Form_AddTransAnkForm(self::TRANS, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddTransAnkForm(self::TRANS, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'мужчины';
 				break;
 			case self::PAIR :
-				$frmAddAnket = new Form_AddPairAnkForm(self::PAIR, $this->content, array('types' => $salons));
+				$frmAddAnket = new Form_AddPairAnkForm(self::PAIR, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add']));
 				$type_label = 'транса';
 				break;
 		}
-	
-		$frmAddAnket->setMethod("post");	
+
+		$frmAddAnket->setMethod("post");
 
 		if ( $this->getRequest()->isPost() ) {
-			if ( $frmAddAnket->isValid( $_POST ) ) {	
+			if ( $frmAddAnket->isValid( $_POST ) ) {
 				/* required params*/
 				$data['name']      = $frmAddAnket->getValue('name');
 				$data['name_eng']  = $frmAddAnket->getValue('name_eng');
@@ -933,7 +956,7 @@ class CabinetController extends Zend_Controller_Action {
 				$data['height']    = $frmAddAnket->getValue('height');
 				$data['weight']    = $frmAddAnket->getValue('weight');
 				$data['phone']     = $this->preparePhone( $frmAddAnket->getValue('phone') );
-	
+
 				if ( $performer == 2 || $performer == 5 ) {
 					$data['name_2']     = $frmAddAnket->getValue('name_2');
 					$data['name_eng_2'] = $frmAddAnket->getValue('name_eng_2');
@@ -945,33 +968,57 @@ class CabinetController extends Zend_Controller_Action {
 					$data['exotics_2']  = $frmAddAnket->getValue('exotics_2');
 					$data['hair_2']       = $frmAddAnket->getValue('hair_2');
 				}
-				
-				// grab size of fallos for trans				
+
+				// grab size of fallos for trans
 				if ( $performer == 7 ) {
 					$data['breast_2']   = $frmAddAnket->getValue('breast_2');
 				}
-	
+
 				/* other params */
 				$other_params = array('exotics', 'hair', 'clothing', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 						'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_an', 'price_i_1h_ap', 'price_i_2h_ap',
 						'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'price_i_an', 'about', 'about_i', 'only', 'sauna');
-	
+
 				foreach ( $other_params as $op ) {
 					$data[ $op ] = $frmAddAnket->getValue( $op );
 				}
-	
+
 				foreach ( $this->content->srv->toArray() as $srv=>$list ) {
 					$serv=0;
 					foreach ( $list as $key=>$null ) {
 						if ( $frmAddAnket->getValue( $srv.'_'.$key ) ) {
 							$serv+=1<<$key;
+
+							if ( $val_add_input = $frmAddAnket->getValue( $srv . '_' . $key . '_add_input' ) ) {
+								$data['srv_add_text'][$srv . '_' . $key . '_add_input'] = $val_add_input;
+							}
 						}
 					}
 					$data['srv_'.$srv]=$serv;
 				}
-	
+
+				// serialize add_input if exists
+				if ( !empty($data['srv_add_text']) ) {
+					$data['srv_add_text'] = serialize($data['srv_add_text']);
+				}
+
+				//get additional input only
+				for ( $i = 1, $j = 0; $i <= $_POST["only_count"]; $i++ ) {
+					if ( $only = $_POST['only_'.$i] ) {
+						$j++;
+						$data['only_add']['only_'.$j] = $only;
+					}
+				}
+
+				//serialize only_add if exists
+				if ( !empty($data['only_add']) ) {
+					$data['only_add'] = serialize($data['only_add']);
+				} else {
+					$data['only_add'] = serialize(array());
+				}
+
 				$result = $ankets->upd_anket($id, $data);
-	
+
 				if ( $result ) {
 					$this->_redirect('/cabinet?performer=' . $performer);
 				}
@@ -979,10 +1026,13 @@ class CabinetController extends Zend_Controller_Action {
 		} else {
 			$anketa['phone']     = str_replace("-", '', $anketa['phone']);
 			$type_label .= ' ' . $anketa['name'];
-			
+
+			//get srv_add_text
+			$anketa['srv_add_text'] = unserialize($anketa['srv_add_text']);
 			foreach( $this->content->srv->toArray() as $srv=>$list ) {
 				foreach( $list as $key=>$null ){
 					$anketa[$srv.'_'.$key] = $anketa['srv'.'_'.$srv] & 1<<$key ? 1 : 0;
+					$anketa[$srv.'_'.$key.'_add_input'] = $anketa['srv_add_text'][$srv.'_'.$key.'_add_input'] ? $anketa['srv_add_text'][$srv.'_'.$key.'_add_input'] : "";
 				}
 			}
 
@@ -992,12 +1042,26 @@ class CabinetController extends Zend_Controller_Action {
 				}
 			}
 
+			//prepare populate values for additional onlies
+			$only_add = unserialize($anketa['only_add']);
+
+			if ( !empty($only_add) ) {
+				foreach ($only_add as $k => $v) {
+					$anketa[$k] = $v;
+				}
+
+				$anketa['only_count'] = count($only_add) + 1;
+			} else {
+				$anketa['only_count'] = 1;
+			}
+
+			unset( $anketa['only_add'] );
 			unset( $anketa['srv_main'] );
 			unset( $anketa['srv_strip'] );
 			unset( $anketa['srv_add'] );
 			unset( $anketa['srv_bdsm'] );
 			unset( $anketa['srv_mass'] );
-			
+
 			$frmAddAnket->populate($anketa);
 		}
 
@@ -1013,7 +1077,7 @@ class CabinetController extends Zend_Controller_Action {
 		$frmAddSalon->setMethod("post");
 		
 		if ( $this->getRequest()->isPost() ) {
-			if ( $frmAddSalon->isValid( $_POST ) ) {				
+			if ( $frmAddSalon->isValid( $_POST ) ) {
 				$data['user_id']       = $this->user_id;
 				$data['active']        = 1;
 				$data['priority']      = 0;

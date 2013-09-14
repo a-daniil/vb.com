@@ -5,6 +5,14 @@
 		margin-left: 270px;
 		margin-top: 5px;
 	}
+
+	.hide-service {
+		display: none;
+	}
+
+	.checker {
+		padding-top: 5px;
+	}
 </style>
 <div class="row-fluid">
 	<div class="span12">
@@ -43,12 +51,16 @@
 						<a href="javascript:;" class="icon-remove"></a>
 					</span>
 				</div>
-				<div class="widget-body">
+				<div class="widget-body" id="widget-body-add-here">
 					<? foreach ($this->form as $element): ?>
 						<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
 							<?= $element ?>
 						<? endif; ?>
 					<? endforeach; ?>
+					<div class="control-group">
+						<button id="add_only" class="btn"><i class="icon-plus"></i></button>
+						<input type="hidden" name="only_count" value="1">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -56,6 +68,32 @@
 	<?= $this->form->getElement('submit') ?>
 </div>
 </form>
+<script type="text/javascript">
+	$("#add_only").click(function(e){
+		e.preventDefault();	
+
+		var $val = $("input[name='only_count']").val();
+
+		$('#widget-body-add-here').append("<div class='control-group'>");
+		$('#widget-body-add-here').append("<label for='only' class='control-label optional' style='width: 270px'>Только у меня</label>");
+		$('#widget-body-add-here').append("<input type='text' name='only_" + $val + "' value='' filter='StringTrim'>");
+		$('#widget-body-add-here').append("</div>");
+
+		$("input[name='only_count']").val(parseInt($val)+1);
+	})
+</script>
+<script type="text/javascript">
+	$("input[name$='_add']").change(function(){
+		var $el_id = $(this).attr('id') + "_input";
+		console.log($el_id);
+		
+		if ( $('#' + $el_id).attr('disabled') ) {
+			$('#' + $el_id).removeAttr('disabled');
+		} else {
+			$('#' + $el_id).attr('disabled', 'disabled');
+		}
+	});
+</script>
 <script type="text/javascript">
 	$("select[id='city']").change(function(){
 		var metro = [];
@@ -65,10 +103,30 @@
 		var district = [];
 			district['d1'] = new Array("<?= implode('","', $this->content->district_msk->toArray()) ?>");
 			district['d2'] = new Array("<?= implode('","', $this->content->district_spb->toArray()) ?>");
-		createList2Form(district, 'district', 'd')
+		createList2Form(district, 'district', 'd');
 	});
 
 	$(function () {
 		$("input[type=radio], input[type=checkbox]").uniform();
+	});
+
+	$("select[name='place']").change(function(){
+		var $val = $(this).val();
+
+		//debug
+		//console.log($val);
+		if ( $val == 2 || $val == 3 ) {
+			$("#sauna-service").removeClass('hide-service');
+		} else {
+			$("#sauna-service").addClass('hide-service');
+		}
+	});
+
+	$(document).ready(function(){
+		var $val = $("select[name='place']").val();
+
+		if ( $val == 2 || $val == 3 ) {
+			$("#sauna-service").removeClass('hide-service');
+		}
 	});
 </script>

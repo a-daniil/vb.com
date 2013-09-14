@@ -1,42 +1,108 @@
-<div class="center">
-	<div id = "centerwrap" >
-		<h3 class="ank_title">Анкета <?php echo $this->type_label ?></h3>
-		<div id="cab_ankets_wrap" style="padding: 10px;">
-			<br />
-			<div class="form-links">
-				<a href="/cabinet/edit-photo/n/<?=$this->id?>">Фото</a>
-				<a href="/cabinet/check-photo/n/<?=$this->id?>">Фото для проверки</a>
-				<a href="/cabinet/edit-video/n/<?=$this->id?>">Видео</a>
-				<a href="/cabinet/comms-list/n/<?php echo $this->id ?>">Комментарии</a>
-			</div>
-			<form id="<?= $this->form->getId() ?>" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
-				<div class="form">
-					<div class="form-left">
-        				<? foreach ($this->form as $element): ?>
-                			<? if ( !preg_match('/service_group(.*)|only|submit/', $element->getName() ) ) :?>
-               	 				<?= $element ?>
-               	 			<? endif; ?>
-  						<? endforeach; ?>
-  					</div>
-  					<div class="form-right">
-        				<? foreach ($this->form as $element): ?>
-        					<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
-               	 				<?= $element ?>
-               	 			<? endif; ?>
-  						<? endforeach; ?>
-  					</div>
-  					<?= $this->form->getElement('submit') ?> 
-				</div>
-  			</form>
-  		</div>
-  	</div>
+<style>
+	.errors {
+		list-style-type: none;
+		color: #b94a48;
+		margin-left: 270px;
+		margin-top: 5px;
+	}
+	
+	.hide-service {
+		display: none;
+	}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Редактирование анкеты <?php echo $this->type_label ?>
+		</h3>
+	</div>
 </div>
+<form class="form-horizontal" action="<?= $this->form->getAction() ?>" method="<?= $this->form->getMethod() ?>">
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span6">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascritp:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<? foreach ($this->form as $element): ?>
+						<? if ( !preg_match('/service_group(.*)|only|submit/', $element->getName() ) ) :?>
+							<?= $element ?>
+						<? endif; ?>
+					<? endforeach; ?>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="widget box green">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body" id="widget-body-add-here">
+					<? foreach ($this->form as $element): ?>
+						<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
+							<?= $element ?>
+						<? endif; ?>
+					<? endforeach; ?>
+					<div class="control-group">
+						<button id="add_only" class="btn"><i class="icon-plus"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?= $this->form->getElement('submit') ?>
+</div>
+</form>
+<script type="text/javascript">
+	$("#add_only").click(function(e){
+		e.preventDefault();	
+
+		var $val = $("input[name='only_count']").val();
+
+		$('#widget-body-add-here').append("<div class='control-group'>");
+		$('#widget-body-add-here').append("<label for='only' class='control-label optional' style='width: 270px'>Только у меня</label>");
+		$('#widget-body-add-here').append("<input type='text' name='only_" + $val + "' value='' filter='StringTrim'>");
+		$('#widget-body-add-here').append("</div>");
+
+		$("input[name='only_count']").val(parseInt($val)+1);
+	})
+</script>
+<script type="text/javascript">
+	$("input[name$='_add']").change(function(){
+		var $el_id = $(this).attr('id') + "_input";
+		console.log($el_id);
+		
+		if ( $('#' + $el_id).attr('disabled') ) {
+			$('#' + $el_id).removeAttr('disabled');
+		} else {
+			$('#' + $el_id).attr('disabled', 'disabled');
+		}
+	});
+
+	$(document).ready(function(){
+		$("input[name$='_add_input']").each(function(){
+			if ( $(this).val() ) {
+				$(this).removeAttr('disabled');
+			}
+		});
+	});
+</script>
 <script type="text/javascript">
 	$("select[name='place']").change(function(){
 		var $val = $(this).val();
 
 		//debug
-		console.log($val);
+		//console.log($val);
 		if ( $val == 2 || $val == 3 ) {
 			$("#sauna-service").removeClass('hide-service');
 		} else {

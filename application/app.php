@@ -26,3 +26,12 @@ function getLink($value, $boundries, $links) {
 	}
 	return "#";
 }
+
+function debugVarDump ( $par ) {
+	echo "<html><head>";
+	echo "<meta http-equiv='Content-Type' content='text/html;charset=utf-8'>";
+	echo "</head><body>";
+	var_dump($par);
+	echo "</body></head>";
+	die();
+}
