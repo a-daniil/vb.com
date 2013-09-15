@@ -35,3 +35,17 @@ function debugVarDump ( $par ) {
 	echo "</body></head>";
 	die();
 }
+
+function checkIfArrayHasValues ( $arr ) {
+	foreach ( $arr as $k => $v ) {
+		if ( is_array($v) ) {
+			$res = checkIfArrayHasValues( $v );
+			
+			if ( $res ) return true;
+		}
+
+		if ( !empty($v) ) return true;
+	}
+
+	return false;
+}

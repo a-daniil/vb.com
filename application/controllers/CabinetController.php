@@ -1203,8 +1203,6 @@ class CabinetController extends Zend_Controller_Action {
 				}
 			}
 		} else {
-			$salon = $salon->get_salon($id);
-			
 			$salon['phone']     = str_replace("-", '', $salon['phone']);
 			$salon['phone_add'] = str_replace("-", '', $salon['phone_add']);
 			
@@ -1451,11 +1449,13 @@ class CabinetController extends Zend_Controller_Action {
 		if ( $this->_hasParam('next') ) {
 			$new = 1;
 		}
-
+	
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$info=$ankets->get_anket($id);
 
+		// do sort here
+		ksort($_FILES, SORT_NUMERIC);
 		$err_nm=0;
 		foreach($_FILES as $file){if($file['error']){$err_nm++;}}
 		if( $err_nm<count($_FILES) ){
@@ -1552,6 +1552,8 @@ class CabinetController extends Zend_Controller_Action {
 		$salons = new Salons();
 		$info = $salons->get_salon($id);
 
+		// do sort here
+		ksort($_FILES, SORT_NUMERIC);
 		$err_nm = 0;
 		foreach ( $_FILES as $file ) {
 			if ( $file['error'] ) {
@@ -1920,7 +1922,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect($redirect);
 		die;
 	}
-	
+
 	public function editVideoAction(){
 		$this->get_config_info();
 		if(!$this->_hasParam('n')){$this->error('request_error');return;}
@@ -1936,12 +1938,13 @@ class CabinetController extends Zend_Controller_Action {
 			if(isset($info['videolist']['preview'])){
 				$this->view->preview=$info['videolist']['preview'];
 				unset($info['videolist']['preview']);
-			}			
+			}
 		}
+
 		$this->view->videos_path.='/'.$info['user_id'];
 		$this->view->info=$info;
 	}
-	
+
 	public function editVideoSalonAction(){
 		$this->get_salon_info();
 		if(!$this->_hasParam('n')){
@@ -2103,7 +2106,7 @@ class CabinetController extends Zend_Controller_Action {
 			$new_info=array('videolist'=>serialize($items));
 			$salons->upd_salon($id,$new_info);
 		}
-		$redirect='/cabinet/salons';
+		$redirect='/cabinet';
 		if($this->_hasParam('next')){
 			$redirect='/cabinet/finish-salon/n/'.$id;
 		} elseif ($this->_hasParam('to_salon_edit')){
@@ -2827,12 +2830,12 @@ class CabinetController extends Zend_Controller_Action {
 			$info=array(
 				'owner_id'	=> $ank_id,
 				'user_id'	=> $info['user_id'],
-				'name'		=> se,
+				'name'		=> $name,
 				'text'		=> $text,
 				'flags'		=> $flags
 			);
 			$comments->add($info);
-                        $ankets->incr($ank_id);
+ 			$ankets->incr($ank_id);
 		}
 		else{$this->view->comm_info=array('name'=>$name,'text'=>$text);}
 		$this->commsListAction();
