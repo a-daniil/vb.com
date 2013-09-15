@@ -706,7 +706,7 @@ class Form_AddBdsmAnkForm extends Form_AddAnkForm
 						'decorators' => array(
 							'ViewHelper',
 							'Errors',
-							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span3', 'style' => 'margin-bottom: 5px;'))
+							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span4', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
 			}
