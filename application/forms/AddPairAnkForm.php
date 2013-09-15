@@ -698,7 +698,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^[^а-яА-Я]+$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
@@ -720,7 +720,7 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 								Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 						))),
 						array(
-							'Regex', false, array('pattern' => '/^[A-Za-z\s]+$/', 'messages' => array(
+							'Regex', false, array('pattern' => '/^[^а-яА-Я]+$/', 'messages' => array(
 								Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 						)))
 				),

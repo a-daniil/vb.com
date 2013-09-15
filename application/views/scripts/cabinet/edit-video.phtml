@@ -5,7 +5,7 @@
 		</h3>
 	</div>
 </div>
-<form class="form-horizontal" action="/cabinet/check-photo-add/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+<form class="form-horizontal" action="/cabinet/add-video/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
 <p>
 	<input type="submit" class="btn btn-large" value="Данные анкеты" name="to_ank_edit" />
 	<input type="submit" class="btn btn-large" value="Фото" name="to_photo" />
@@ -17,7 +17,7 @@
 		<div class="span12">
 			<div class="widget red">
 				<div class="widget-title">
-					<h4><i class="icon-reorder"></i></h4>
+					<h4><i class="icon-reorder"></i>Загрузить/Заменить видео</h4>
 					<span class="tools">
 						<a href="javascript:;" class="icon-chevron-down"></a>
 						<a href="javascript:;" class="icon-remove"></a>
@@ -53,7 +53,7 @@
 									<span class="btn btn-file">
 										<span class="fileupload-new">Select file</span>
 										<span class="fileupload-exists">Change</span>
-										<input type="hidden" name="MAX_FILE_SIZE" value="40000" id="MAX_FILE_SIZE">
+										<input type="hidden" name="MAX_FILE_SIZE" value="4000960" id="MAX_FILE_SIZE">
 										<input type="file" name="file_<?=$key?>" class="default">
 									</span>
 									<span class="fileupload-preview"></span>

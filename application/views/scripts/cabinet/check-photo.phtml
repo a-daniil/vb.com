@@ -24,7 +24,7 @@
 		<div class="span12">
 			<div class="widget red">
 				<div class="widget-title">
-					<h4><i class="icon-reorder"></i></h4>
+					<h4><i class="icon-reorder"></i>Услоия проверки</h4>
 					<span class="tools">
 						<a href="javascript:;" class="icon-chevron-down"></a>
 						<a href="javascript:;" class="icon-remove"></a>
@@ -81,6 +81,7 @@
 		</div>
 	</div>
 	<!-- moderations -->
+	<?php if ( checkIfArrayHasValues($this->moderations) ) :?>
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="widget red">
@@ -119,6 +120,7 @@
 			</div>
 		</div>
 	</div>
+	<?php endif; ?>
 	<!-- add photo -->
 	<div class="row-fluid">
 		<div class="span12">

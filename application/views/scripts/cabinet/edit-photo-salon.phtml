@@ -1,79 +1,120 @@
-<div id="center">
-	<div id="cab_ankets">
-		<h2 id="cab_photo_title">Фотографии салона <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)</h2>
-		<form id="cab_ankets_wrap" action="/cabinet/add-photo-salon/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
-			<div class="cab_form"><div class="cab_anketa_header">
-				<ul>
-					<li><input type="submit" value="Данные салона" name="to_salon_edit" /></li>
-					<li><input type="submit" value="Видео" name="to_video" /></li>
-					<li><input type="submit" value="Анкеты" name="to_ankets" /></li>
-				</ul>
-			</div>
-			</div>
-			<div class="edit-photo-text">
-				<h3>Новая фотография</h3>
-				<p>Уважаемые рекламодатели, на сайте не допускается размещение чужих фотографий, порнографических фотографий, фотографий c логотипами других сайтов.</p>	
-				<p>Порнографией считается:</p>
-				<ul>
-					<li>изображение полового сношения.</li>
-					<li>изображение сопоставимого с половым сношением действия сексуального характера.</li>		
-					<li>изображение половых органов (если есть заретушируйте или наложите изображение).</li>	
-				</ul>
-				<p>Фотографии: 8 шт</p>
-				<p>
-					<span>Выберите фото на вашем компьютере через кнопку обзор и нажмите "Сохранить"</span>
-					<span>Запрещено в анкету загружать одинаковые фотографии.</span>
-					<span>Загружайте фотографии в самом высоком разрешении и максимальном качестве, на сервере они будут автоматически сжаты до оптимального размера.</span>
-					<span>Загружаемый файл должен быть не более 3 МБ, формата JPG, GIF, PNG. Минимальное разрешение не менее 400x400.</span>
-					<span>Для включения анкеты необходимо минимум 3 фото.</span>
-				</p>
-			</div>
-			<div class="cab_photos_form_wrap">
-			<?foreach($this->info['photolist'] as $key=>$photo):?>
-			<div class="cab_anketa_photo cab_ank_photo_ed">
-				<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/th_'.$photo?>') no-repeat top;" onclick="showPhoto('<?=$this->photos_path.'/'.$photo?>')"<?endif?>></div>
-				<br />
-				<p><?if($photo):?>Заменить<?else:?>Добавить<?endif?>:</p>
-				<br />
-				<input type="file" size="20" name="file_<?=$key?>" <? if ( $this->info['status'] >= 30 ) :?> onchange="bindEasyconfirmToSaveButton(this)" <? endif; ?> />
-				<br />
-				<?if($photo):?>
-					<br />
-					<p>Использовать для превью:
-					<input type="radio" name="preview" class="cab_form_radio" <?if(isset($this->preview) && $key==$this->preview):?>checked="checked" <?endif?>value="<?=$key?>" /></p>
-					<a href="/cabinet/del-photo-salon/n/<?=$this->info['id']?>/f/<?=$key?>" class="cab_anketa_photo_del remove">Удалить</a>
-				<?endif?>
-			</div>
-			<?endforeach?>
-			</div>
-			<?php if ( $_GET['new'] ) : ?>
-				<input class="button" type="submit" value="Далее" name="next" />
-			<?php else : ?>			
-				<input class="button" type="submit" id="save" value="Сохранить"/>
-			<?php endif ?>
-		</form>
+<style>
+	.wrap_photo {
+		width: 200px;
+		height: 302px;
+		margin: 10px 0px 10px 50px;
+	}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Фотографии: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)
+		</h3>
 	</div>
 </div>
-<? if ( $this->info['status'] >= 30 ) :?>
-<script type="text/javascript">
-	$(".remove").easyconfirm({locale: {
-		title: 'Удалить?',
-		text: 'Анкете присвоен статус "Фото проверенно",<br/> при изменении фотографий - добалении/удалении<br/> статус "Фото проверенно" будет снят<br/> и анкета отправиться на модерацию! Продолжить?',
-		button: ['Нет', 'Да']
-	}});
-
-	var can_bind = true;
-	
-	function bindEasyconfirmToSaveButton ( el ) {
-		if ( can_bind ) {		
-			$("#save").easyconfirm({locale: {
-				title: 'Добавить/Изменить фото?',
-				text: 'Анкете присвоен статус "Фото проверенно",<br/> при изменении фотографий - добалении/удалении<br/> статус "Фото проверенно" будет снят<br/> и анкета отправиться на модерацию! Продолжить?',
-				button: ['Нет', 'Да']
-			}});	
-
-			can_bind = false;
-		}
-	}
-</script>
-<? endif; ?>
+<form class="form-horizontal" action="/cabinet/add-photo-salon/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+<p>
+	<input type="submit" class="btn btn-large" value="Данные салона" name="to_salon_edit" />
+	<input type="submit" class="btn btn-large" value="Видео" name="to_video" />
+	<input type="submit" class="btn btn-large" value="Анкеты" name="to_ankets" />
+</p>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>Прикрепить фото</h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="alert alert-block alert-info fade in">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						<h4 class="alert-heading">Новая фотография</h4>
+						<p>Уважаемые рекламодатели, на сайте не допускается размещение чужих фотографий, порнографических фотографий, фотографий c логотипами других сайтов.</p>
+						<p>Порнографией считается:</p>
+						<ul>
+							<li>изображение полового сношения.</li>
+							<li>изображение сопоставимого с половым сношением действия сексуального характера.</li>
+						<li>изображение половых органов (если есть заретушируйте или наложите изображение).</li>
+						</ul>
+						<p>Фотографии: 8 шт</p>
+						<p>
+							<span>Выберите фото на вашем компьютере через кнопку обзор и нажмите "Сохранить"</span>
+							<span>Запрещено в анкету загружать одинаковые фотографии.</span>
+							<span>Загружайте фотографии в самом высоком разрешении и максимальном качестве, на сервере они будут автоматически сжаты до оптимального размера.</span>
+							<span>Загружаемый файл должен быть не более 3 МБ, формата JPG, GIF, PNG. Минимальное разрешение не менее 400x400.</span>
+							<span>Для включения анкеты необходимо минимум 3 фото.</span>
+						</p>
+					</div>
+					<?php foreach($this->info['photolist'] as $key=>$photo): $i++; ?>
+						<?if(!$photo):?> 
+							<div class="control-group">
+								<label class="control-label" style="width: 180px;">Прикрепить фото</label>
+								<div class="controls">
+									<div data-provides="fileupload" class="fileupload fileupload-new">
+										<span class="btn btn-file">
+											<span class="fileupload-new">Select file</span>
+											<span class="fileupload-exists">Change</span>
+											<input type="hidden" name="MAX_FILE_SIZE" value="2097152" id="MAX_FILE_SIZE">
+											<input type="file" name="<?php echo $key; ?>" class="default">
+										</span>
+										<span class="fileupload-preview"></span>
+										<a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">×</a>
+									</div>
+								</div>
+							</div>
+						<?php endif; ?>
+					<?php endforeach ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php if ( checkIfArrayHasValues($this->info['photolist']) ) :?>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>Загруженные фото</h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<?foreach($this->info['photolist'] as $key=>$photo):?>
+						<?if($photo):?> 
+						<div class="" style="display: inline-block; margin: 10px;">
+							<div class="wrap_photo" style="background:url('<?=$this->photos_path.'/th_'.$photo?>') no-repeat scroll center top transparent;"></div>
+							<div class="control-group">
+								<label class="control-label" style="width: 180px;">Заменить фото</label>
+								<div class="controls">
+									<div data-provides="fileupload" class="fileupload fileupload-new">
+										<span class="btn btn-file">
+											<span class="fileupload-new">Select file</span>
+											<span class="fileupload-exists">Change</span>
+											<input type="hidden" name="MAX_FILE_SIZE" value="2097152" id="MAX_FILE_SIZE">
+											<input type="file" name="<?php echo $key; ?>" class="default">
+										</span>
+										<span class="fileupload-preview"></span>
+										<a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">×</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php endif; ?>
+	<?php if ( $_GET['new'] ) : ?>
+		<input class="btn btn-large" type="submit" value="Далее" id="save" name="next" />
+	<?php else : ?>
+		<input class="btn btn-large" type="submit" id="save" value="Сохранить"/>
+	<?php endif ?>
+</div>
+</form>

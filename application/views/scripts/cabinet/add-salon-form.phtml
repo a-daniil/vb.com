@@ -17,9 +17,9 @@
 <div id="page-wraper">
 	<div class="row-fluid">
 		<div class="span6">
-			<div class="widget box green">
+			<div class="widget box red">
 				<div class="widget-title">
-					<h4><i class="icon-reorder"></i></h4>
+					<h4><i class="icon-reorder"></i>Основные данные</h4>
 					<span class="tools">
 						<a class="icon-chevron-down" href="javascritp:void(0)"></a>
 						<a href="javascript:;" class="icon-remove"></a>
@@ -35,9 +35,9 @@
 			</div>
 		</div>
 		<div class="span6">
-			<div class="widget box green">
+			<div class="widget box red">
 				<div class="widget-title">
-					<h4><i class="icon-reorder"></i></h4>
+					<h4><i class="icon-reorder"></i>Услуги и удобства</h4>
 					<span class="tools">
 						<a class="icon-chevron-down" href="javascript:void(0)"></a>
 						<a href="javascript:;" class="icon-remove"></a>
@@ -60,7 +60,7 @@
 	window.onload = function () {
 		changeView();
 
-		$("#fieldset-worktime > legend").after("<div class='form-element'><div id='24hour-label'><label for='24hour' class='optional'>24 часа:</div><input type='checkbox' name='24hour' id='24hour' checked='checked' /></div>");
+		$("#fieldset-worktime > legend").after("<div class='control-group'><label for='24hour' class='control-label optional' style='width: 270px'>24 часа:</label><input type='checkbox' name='24hour' id='24hour' checked='checked' /></div>");
 		$("#time_from").attr("disabled", "disabled");
 		$("#time_to").attr("disabled", "disabled");	
 	}	

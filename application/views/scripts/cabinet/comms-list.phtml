@@ -2,6 +2,10 @@
 	<div class="span12">
 		<h3 class="page-title">
 			Комментарии к анкете
+			<?=$this->info['name']?> (
+			<?=$this->cities[$this->info['city']]?>)
+			<?list($phone_p1,$phone_p2)=explode('-',$this->info['phone'])?>
+			+7(<?=$phone_p1?>)<?=$phone_p2?>
 		</h3>
 		<h4></h4>
 	</div>
@@ -19,84 +23,88 @@
 	<a class="btn btn-large" href="/cabinet/check-photo/n/<?=$this->ank_id ?>">Фото для проверки</a>
 	<a class="btn btn-large" href="/cabinet/edit-video/n/<?=$this->ank_id ?>">Видео</a>
 </p>
-
-
-
-<div id="center">
-	<?if(!empty($this->errors)):?>
-		<div class="message">
-		<?foreach($this->errors as $error):?>
-		<h2><?=$error?></h2>
-		<?endforeach?>
-		</div>
-	<?endif?>
-	<div id="cab_ankets">
-		<h3 class="h3_cabinet_title">Комментарии к анкете</h3>
-		<div style="text-align: left; margin: 10px 0px 10px 5px;">
-			<span style="color: #757575">Вы можете скрыть комментарии к анкете, на тот момент когда она показывается в приоритетном(платном) показе</span>
-		</div>
-		<div class="form-buttons">
-			<a href="/cabinet/edit-ank-form/id/<?php echo $this->ank_id ?>">Данные анкеты</a>
-			<a href="/cabinet/edit-photo/n/<?=$this->ank_id ?>">Фото</a>
-			<a href="/cabinet/check-photo/n/<?=$this->ank_id ?>">Фото для проверки</a>
-			<a href="/cabinet/edit-video/n/<?=$this->ank_id ?>">Видео</a>
-		</div>
-		<div id="cab_ankets_wrap">
-		<div class="cab_anketa_header">
-			<h2>
-				<?=$this->info['name']?> (
-				<?=$this->cities[$this->info['city']]?>)
-				<?list($phone_p1,$phone_p2)=explode('-',$this->info['phone'])?>
-				+7(<?=$phone_p1?>)<?=$phone_p2?>
-			</h2>
-		</div>
-		<?if(count($this->comments)):?>
-			<form action="/cabinet/comms-hide-show?ank_id=<?php echo $this->ank_id ?>&cp=<?php echo $_GET['cp'] ?>"  method="POST" name="comms-hide-show" id="comms-hide-show"></form>
-			<div class="comments">
-			<?foreach($this->comments as $comment):?>
-			<div class="comment">
-				<h4><?if($this->admin || !$comment['flags'] & 1<<$this->adm_flag):?>
-					<!--  <a href="<?=$this->url(array('action'=>'comm-del-req','n'=>$comment['id']))?>" class="del">УДАЛИТЬ</a><?endif?>	-->
-					<input form="comms-hide-show" type="checkbox" name="sh_<?php echo $comment['id'] ?>" value="1">
-					<?=$comment['user_login']?> | <i><?=date('d.m.y G:i',strtotime($comment['timestamp']))?></i>
-				</h4>
-				<?php if ( !$comment['hide'] ) : ?>
-					<p><?=$comment['text']?></p>
-				<?php else : ?>
-					<p><del><?=$comment['text']?></del></p>
-				<?php endif; ?>
-				<a href="#" user_login="<?php echo $comment['user_login'] ?>" class="create_answear">
-					<img src="/img/messages.png" alt="Ответить" title="Ответить" />
-				</a>
+<?php if ( checkIfArrayHasValues( $this->comments ) ) :?>
+<form action="/cabinet/comms-hide-show?ank_id=<?php echo $this->ank_id ?>&cp=<?php echo $_GET['cp'] ?>" method="POST" name="comms-hide-show" id="comms-hide-show">
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget red">
+			<div class="widget-title">
+				<h4><i class="icon-reorder"></i>Комментарии</h4>
+				<span class="tools">
+					<a class="icon-chevron-down" href="javascript:void(0)"></a>
+					<a href="javascript:;" class="icon-remove"></a>
+				</span>
+				<?php	echo $this->paginationControl($this->comments,'Sliding','partials/pagination-comm.phtml'); ?>
 			</div>
+			<div class="widget-body">
+			<?foreach($this->comments as $comment):?>
+				<div class="accordion-group">
+					<div class="accordion-heading">
+						<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_<?php echo $comment['id'] ?>">
+							<?=$comment['user_login']?> | <i><?=date('d.m.y G:i',strtotime($comment['timestamp']))?></i>
+						</a>
+					</div>
+					<div id="collapse_<?php echo $comment['id'] ?>" class="accordion-body collapse in">
+						<div class="accordion-inner">
+							<label class="checkbox">
+								<input form="comms-hide-show" type="checkbox" name="sh_<?php echo $comment['id'] ?>" value="1" />
+								<?php if ( !$comment['hide'] ) : ?>
+									<?=$comment['text']?>
+								<?php else : ?>
+									<del><?=$comment['text']?></del>
+								<?php endif; ?>
+							</label>
+						</div>
+					</div>
+				</div>
 			<?endforeach?>
 			</div>
-			<div class="pages"><?=$this->paginationControl($this->comments,'Sliding','shared/pagination_comm.phtml')?></div>
-			<div class="button-block-holder">
-				<input type="submit" value="Скрыть отмеченные" class="button button-block" id="comms-hide" form="comms-hide-show" name="comms-show-hide" />
-				<input type="submit" value="Показать отмеченные" class="button button-block" id="comms-show" form="comms-hide-show" name="comms-show-hide" />
-			</div>
-		<?else:?>
-			<h4>Нет комментариев</h4>
-		<?endif?>
-		<form class="cab_form" method="post" action="<?=$this->url(array('action'=>'comm-add','n'=>$this->info['id']))?>">
-			<div class="ca_top"><table>
-				<tr>
-					<th>Введите ваше имя:</th>
-					<td><input name="name" value="<?=$this->comm_info['name']?>" /></td>
-					<?if($this->admin):?>
-					<th>Нельзя удалить:</th>
-					<td><input type="checkbox" name="admin_only" /></td>
-					<?endif?>
-				</tr>	
-			</table></div>
-			<div class="ca_bottom"><textarea name="text"><?=$this->comm_info['text']?></textarea></div>
-			<br />
-			<input id="captcha-id" type="hidden" name="id" value="<?=$this->captcha?>" />
-			<input id="add_comment_button" class="button" type="submit" value="Отправить" />
-		</form>
-	</div></div>
+		</div>
+	</div>
+	<input type="submit" class="btn btn-large btn-danger" value="Скрыть отмеченные"  id="comms-hide" name="comms-show-hide" />
+	<input type="submit" class="btn btn-large" value="Показать отмеченные" id="comms-show" name="comms-show-hide" />
 </div>
+</form>
+<?php endif ?>
+<form  class="form-horizontal" method="post" action="<?=$this->url(array('action'=>'comm-add','n'=>$this->info['id']))?>">
+<div class="row-fluid">
+	<div class="span12">
+		<div class="widget red">
+			<div class="widget-title">
+				<h4><i class="icon-reorder"></i>Добавить комментарий</h4>
+				<span class="tools">
+					<a class="icon-chevron-down" href="javascript:void(0)"></a>
+					<a href="javascript:;" class="icon-remove"></a>
+				</span>
+			</div>
+			<div class="widget-body">
+				<div class="control-group">
+					<label for="name" class="control-label" style="width: 270px">Введите ваше имя:</label>
+					<input type="text" name="name" value="<?=$this->comm_info['name']?>" id="name">
+				</div>
+				<!-- 
+				<div class="control-group" id="sauna-service">
+					<label class="checkbox">
+						<strong>Нельзя удалить:</strong>
+						<input type="checkbox" name="admin_only" />
+					</label>
+				</div>
+				-->
+				<div class="control-group">
+					<label for="about" class="">Текст сообщения</label>
+					<textarea name="text" class="span12" rows="9" cols="41"><?=$this->comm_info['text']?></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input id="add_comment_button" class="btn btn-large" type="submit" value="Отправить" />
+</div>
+</form>
+<script type="text/javascript">
+$(function () {
+	$("input[type=radio], input[type=checkbox]").uniform();
+});
+</script>
 <script type="text/javascript">
 	$(".create_answear").click(function (e){
 		e.preventDefault();
@@ -116,6 +124,7 @@
 			{text: text},
 			function (response) {
 				$("textarea[name=text]").val('');
+				$("input[name=name]").val('');
 			}
 		);
 	});

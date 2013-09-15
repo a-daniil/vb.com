@@ -1,14 +1,20 @@
-<div id="center">
-	<div id="cab_ankets">
-		<div id="cab_ankets_wrap">
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Анкета добавлена!
+		</h3>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="alert alert-block alert-success fade in">
+			<button data-dismiss="alert" class="close" type="button">×</button>
 			<p>Ваша анкета добавлена на сайт, и после проверки модератором появиться на сайте. Если проверочное фото пройдет проверку ей будет присвоен статус "фото проверено". Статус "Фото проверенно" истекает через три месяца, после чего нужно будет сделать новую проверочную фотографию и загрузить ее на сайт. Анкеты без проверки фотографий на сайте не показываются.</p>
 			<p>Размещение анкет на сайте бесплатное. Но новые анкеты быстро опускаются на внутренние страницы сайта и их сложно найти вашим клиентам. Чтобы увеличить количество просмотров и вывести анкету на первые страницы сайта рекомендуем включить приоритетный показ. Условия размещения анкет читайте в разделе биллинга - меню "Пополнить баланс".</p>
-			<div class="ancher_wrapper">
-				<input type="submit" class="submit" id="redirect" value="Продолжить">
-			</div>
 		</div>
 	</div>
 </div>
+<input type="submit" class="btn btn-large" id="redirect" value="Продолжить">
 <script type="text/javascript">
 	$('#redirect').click(function(e){
 		e.preventDefault();	
