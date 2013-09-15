@@ -1,13 +1,29 @@
-<?if($this->pageCount>1):?>
-<ul>
-	<?foreach($this->pagesInRange as $page):?>
-	<li>
-	<?if($this->current==$page):?><p><?=$page?></p><?else:?>
-	
-	
-	<a href="<?= "/cabinet" . $this->getRightUri( $_GET ) . "&p=" . $page ?>"><?=$page?></a>
-	<?endif?>
-	<?endforeach?>
-	</li>
-</ul>
-<?endif?>
+<div class="pagination">
+	<ul>
+	<?php if( isset( $this->previous ) ) : ?>
+		<li>
+			<a href="<?= "/cabinet" . $this->getRightUri( $_GET ) . "p=" . $this->previous ?>">«</a>
+		</li>
+	<?php else : ?>
+		<li>
+			<a href="javascript:void(0)">«</a>
+		</li>
+	<?php endif; ?>
+	<?php foreach($this->pagesInRange as $page) : ?>
+		<?php if( $page != $this->current) : ?>
+			<li><a href="<?= "/cabinet" . $this->getRightUri( $_GET ) . "p=" . $page ?>"><?php echo $page; ?></a></li>
+		<?php else : ?>
+			<li><a href="javascript:void(0)" style="background: #e8e8e8"><?= $page; ?></a></li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	<?php if( isset( $this->next ) ) : ?>
+		<li>
+			<a href="<?= "/cabinet" . $this->getRightUri( $_GET ) . "p=" . $this->next ?>">»</a>
+		</li>
+	<?php else : ?>
+		<li>
+			<a href="javascript:void(0)">»</a>
+		</li>
+	<?php endif; ?>
+	</ul>
+</div>

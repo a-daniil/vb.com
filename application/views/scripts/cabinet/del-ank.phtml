@@ -1,19 +1,17 @@
-<div id="center">
-	<?if(empty($this->errors)):?>
-	<div id="cab_ankets">
-		<form id="cab_ankets_wrap" class="cab_form" action="/cabinet/del-ank-conf/n/<?=$this->info['id']?>">
-			<div class="ca_top ca_bottom">
-				<p>Вы уверены, что хотите удалить анкету "<?=$this->info['name']?>" ?</p>
-				<p>Анкета будет удалена немедленно без возможности её восстановления. Так же будут удалены все фотографии связаные с анкетой без возможности их возврата.</p>
-			</div>			
-			<input class="button" type="submit" value="Удалить">
-		</form>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Удаление анкеты
+		</h3>
 	</div>
-	<?else:?>
-		<div class="message">
-		<?foreach($this->errors as $error):?>
-		<h2><?=$error?></h2>
-		<?endforeach?>
-		</div>
-	<?endif?>
 </div>
+<div class="alert alert-block alert-error fade in">
+	<button data-dismiss="alert" class="close" type="button">×</button>
+	<h4 class="alert-heading">Вы уверены, что хотите удалить анкету "<?=$this->info['name']?>" ?</h4>
+	<p>
+		Анкета будет удалена немедленно без возможности её восстановления. Так же будут удалены все фотографии связаные с анкетой без возможности их возврата
+	</p>
+</div>
+<form class="form-horizontal" action="/cabinet/del-ank-conf/n/<?=$this->info['id']?>">
+	<input class="btn btn-large btn-danger" type="submit" value="Удалить">
+</form>

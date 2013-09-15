@@ -2445,7 +2445,7 @@ class CabinetController extends Zend_Controller_Action {
 		include_once 'Meta.php';
 		$meta=new Meta;
 		$meta->set($data);
-		$this->_redirect('/cabinet/admin');
+		$this->_redirect('/cabinet/meta');
 		die;
 	}
 	
@@ -2462,7 +2462,7 @@ class CabinetController extends Zend_Controller_Action {
 		include_once 'Settings.php';
 		$settings=new Settings;		
 		$settings->set($data);
-		$this->_redirect('/cabinet/admin');
+		$this->_redirect('/cabinet/settings');
 		die;
 	}
 
@@ -3349,6 +3349,9 @@ class CabinetController extends Zend_Controller_Action {
     	$mSections=new Sections();
     	$this->view->items = $mSections->get_list($page, 'uslugi' );
     	$this->_helper->viewRenderer->setScriptAction('sections');
+
+    	//set page title
+    	$this->view->page_title = "Услуги";
     }
 
     public function metroSpbAction(){

@@ -1,13 +1,39 @@
-<div id="center"><div id="cab_ankets">
-	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array(action=>'settings-write'))?>">
-		<div class="ca_top ca_bottom">
-			<table>
-				<tr>
-					<th>Количество превью на странице:</th>
-					<td><input type="text" name="girls_per_page" <?if(isset($this->data['girls_per_page'])):?>value="<?=$this->data['girls_per_page']?>" <?endif?>/></td>
-				</tr>
-			</table>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Настройки сайта
+		</h3>
+	</div>
+</div>
+<div id="pager-wraper">
+	<form action="<?=$this->url(array(action=>'settings-write'))?>" class="form-horizontal" method="post">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box red">
+				<div class="widget-title">
+					<h4>
+						<i class="icon-reorder"></i>
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="control-group">
+								<label class="control-label">Количество превью на странице</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="girls_per_page" <?if(isset($this->data['girls_per_page'])):?>value="<?=$this->data['girls_per_page']?>"<?endif?>>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<input class="button" type="submit" value="Сохранить" />
+	</div>
+	<input type="submit" class="btn btn-large" name="submit" id="submit" value="Сохранить">
 	</form>
-</div></div>
+</div>

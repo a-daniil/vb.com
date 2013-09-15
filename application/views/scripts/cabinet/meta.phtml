@@ -1,113 +1,293 @@
-<div id="center"><div id="cab_ankets">
-	<form id="cab_ankets_wrap" class="cab_form" method="post" action="<?=$this->url(array('action'=>'meta-write'))?>">
-		<div class="ca_top">
-			<h3>Подставляемые переменные:</h3>
-			<table style="text-align:left;">
-				<tr>
-					<th>%NAME%</th>
-					<td>- Имя</td>
-				</tr>
-				<tr>
-					<th>%TYPE%</th>
-					<td>- Тип</td>
-				</tr>
-				<tr>
-					<th>%PERFORMER%</th>
-					<td>- Исполнитель</td>
-				</tr>
-				<tr>
-					<th>%CITY%</th>
-					<td>- Город</td>
-				</tr>
-				<tr>
-					<th>%METRO%</th>
-					<td>- Метро</td>
-				</tr>
-				<tr>
-					<th>%AGE%</th>
-					<td>- Возраст</td>
-				</tr>
-				<tr>
-					<th>%BREAST%</th>
-					<td>- Размер груди</td>
-				</tr>
-				<tr>
-					<th>%HEIGHT%</th>
-					<td>- Рост</td>
-				</tr>
-				<tr>
-					<th>%WEIGHT%</th>
-					<td>- Вес</td>
-				</tr>
-                                <tr>
-					<th>%PHONE%</th>
-					<td>- Телефон</td>
-				</tr>
-			</table>
-			<p>Случайно выбираемые данные: {данные 1,данные 2,данные N}</p>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Настройки мета тегов
+		</h3>
+	</div>
+</div>
+<form class="form-horizontal" id="cab_ankets_wrap" method="post" action="<?=$this->url(array('action'=>'meta-write'))?>">
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+					Cтартовая страница: Logo Alt
+					Стартовая страница: Title
+					Стартовая страница: Description
+					Стартовая страница: Keys
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<h3>Подставляемые переменные:</h3>
+						<table style="text-align:left;">
+							<tr>
+								<th>%NAME%</th>
+							<td>- Имя</td>
+							</tr>
+							<tr>
+								<th>%TYPE%</th>
+								<td>- Тип</td>
+							</tr>
+							<tr>
+								<th>%PERFORMER%</th>
+								<td>- Исполнитель</td>
+							</tr>
+							<tr>
+								<th>%CITY%</th>
+								<td>- Город</td>
+							</tr>
+							<tr>
+								<th>%METRO%</th>
+								<td>- Метро</td>
+							</tr>
+							<tr>
+								<th>%AGE%</th>
+								<td>- Возраст</td>
+							</tr>
+							<tr>
+								<th>%BREAST%</th>
+								<td>- Размер груди</td>
+							</tr>
+							<tr>
+								<th>%HEIGHT%</th>
+								<td>- Рост</td>
+							</tr>
+							<tr>
+								<th>%WEIGHT%</th>
+								<td>- Вес</td>
+							</tr>
+							<tr>
+								<th>%PHONE%</th>
+								<td>- Телефон</td>
+							</tr>
+						</table>
+						<p>Случайно выбираемые данные: {данные 1,данные 2,данные N}</p>
+						
+						<!-- start_logo_alt -->
+						<div class="control-group <?= $this->data['failed']['start_logo_alt']['class'] ?>">
+							<label class="control-label">Cтартовая страница: Logo Alt</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['start_logo_alt']['class'] ?>" name="start_logo_alt" rows="6"><?if(isset($this->data['start_logo_alt'])){ echo $this->data['start_logo_alt']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['start_logo_alt']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- start_title -->
+						<div class="control-group <?= $this->data['failed']['start_title']['class'] ?>">
+							<label class="control-label">Стартовая страница: Title</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['start_title']['class'] ?>" name="start_title" rows="6"><?if(isset($this->data['start_title'])){ echo $this->data['start_title']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['start_title']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- start_desc -->
+						<div class="control-group <?= $this->data['failed']['start_desc']['class'] ?>">
+							<label class="control-label">Стартовая страница: Description</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['start_desc']['class'] ?>" name="start_desc" rows="6"><?if(isset($this->data['start_desc'])){ echo $this->data['start_desc']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['start_desc']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- start_keys -->
+						<div class="control-group <?= $this->data['failed']['start_keys']['class'] ?>">
+							<label class="control-label">Стартовая страница: Keys:</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['start_keys']['class'] ?>" name="start_keys" rows="6"><?if(isset($this->data['start_keys'])){ echo $this->data['start_keys']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['start_keys']['message'] ?></span>
+							</div>
+						</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<h3>Стартовая страница: Logo Alt</h3>
-			<textarea name="start_logo_alt"><?if(isset($this->data['start_logo_alt'])):?><?=$this->data['start_logo_alt']?><?endif?></textarea>
-			<h3>Стартовая страница: Title</h3>
-			<textarea name="start_title"><?if(isset($this->data['start_title'])):?><?=$this->data['start_title']?><?endif?></textarea>
-			<h3>Стартовая страница: Description</h3>
-			<textarea name="start_desc"><?if(isset($this->data['start_desc'])):?><?=$this->data['start_desc']?><?endif?></textarea>
-			<h3>Стартовая страница: Keywords</h3>
-			<textarea name="start_keys"><?if(isset($this->data['start_keys'])):?><?=$this->data['start_keys']?><?endif?></textarea>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+					Стартовая страница: Кнопка выбора города - Питер
+					Стартовая страница: Кнопка выбора города - Москва
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+						
+						<!-- city_piter -->
+						<div class="control-group <?= $this->data['failed']['city_piter']['class'] ?>">
+							<label class="control-label">Стартовая страница: Кнопка выбора города - Питер</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['city_piter']['class'] ?>" name="city_piter" rows="6"><?if(isset($this->data['city_piter'])){ echo $this->data['city_piter']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['city_piter']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- city_moscow -->
+						<div class="control-group <?= $this->data['failed']['city_moscow']['class'] ?>">
+							<label class="control-label">Стартовая страница: Кнопка выбора города - Москва</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['city_moscow']['class'] ?>" name="city_moscow" rows="6"><?if(isset($this->data['city_moscow'])){ echo $this->data['city_moscow']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['city_moscow']['message'] ?></span>
+							</div>
+						</div>
+
+				</div>
+			</div>
 		</div>
-		<div>
-			<h3>Стартовая страница: Кнопка выбора города - Питер</h3>
-			<textarea name="city_piter"><?if(isset($this->data['city_piter'])):?><?=$this->data['city_piter']?><?endif?></textarea>
-			<h3>Стартовая страница: Кнопка выбора города - Москва</h3>
-			<textarea name="city_moscow"><?if(isset($this->data['city_moscow'])):?><?=$this->data['city_moscow']?><?endif?></textarea>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+					Анкета: Title
+					Анкета: Description
+					Анкета: Keywords
+					Анкета: Текстовая информация
+					Анкета: Alt для картинки в превью
+					Анкета: Title для кнопки "подробнее" в превью
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+
+						<!-- ank_title -->
+						<div class="control-group <?= $this->data['failed']['ank_title']['class'] ?>">
+							<label class="control-label">Анкета: Title</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['ank_title']['class'] ?>" name="ank_title" rows="6"><?if(isset($this->data['ank_title'])){ echo $this->data['ank_title']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['ank_title']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- ank_desc -->
+						<div class="control-group <?= $this->data['failed']['ank_desc']['class'] ?>">
+							<label class="control-label">Анкета: Description</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['ank_desc']['class'] ?>" name="ank_desc" rows="6"><?if(isset($this->data['ank_desc'])){ echo $this->data['ank_desc']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['ank_desc']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- ank_keys -->
+						<div class="control-group <?= $this->data['failed']['ank_keys']['class'] ?>">
+							<label class="control-label">Анкета: Keywords</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['ank_keys']['class'] ?>" name="ank_keys" rows="6"><?if(isset($this->data['ank_keys'])){ echo $this->data['ank_keys']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['ank_keys']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- ank_text -->
+						<div class="control-group <?= $this->data['failed']['ank_text']['class'] ?>">
+							<label class="control-label">Анкета: Текстовая информация</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['ank_text']['class'] ?>" name="ank_text" rows="6"><?if(isset($this->data['ank_text'])){ echo $this->data['ank_text']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['ank_text']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- ank_img_alt -->
+						<div class="control-group <?= $this->data['failed']['ank_img_alt']['class'] ?>">
+							<label class="control-label">Анкета: Alt для картинки в превью</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['ank_img_alt']['class'] ?>" name="ank_img_alt" rows="6"><?if(isset($this->data['ank_img_alt'])){ echo $this->data['ank_img_alt']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['ank_img_alt']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- ank_detail -->
+						<div class="control-group <?= $this->data['failed']['ank_detail']['class'] ?>">
+							<label class="control-label">Анкета: Title для кнопки "подробнее" в превью</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['ank_detail']['class'] ?>" name="ank_detail" rows="6"><?if(isset($this->data['ank_detail'])){ echo $this->data['ank_detail']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['ank_detail']['message'] ?></span>
+							</div>
+						</div>
+
+				</div>
+			</div>
 		</div>
-		<div>
-			<h3>Меню: Девушки</h3>
-			<textarea name="menu_girls"><?if(isset($this->data['menu_girls'])):?><?=$this->data['menu_girls']?><?endif?></textarea>
-			<h3>Меню: Салоны</h3>
-			<textarea name="menu_salons"><?if(isset($this->data['menu_salons'])):?><?=$this->data['menu_salons']?><?endif?></textarea>
-			<h3>Меню: Секс-Шопы</h3>
-			<textarea name="menu_shops"><?if(isset($this->data['menu_shops'])):?><?=$this->data['menu_shops']?><?endif?></textarea>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget box red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
+					Название раздела
+					Текст раздела
+					Левая колонка
+					Правая колонка
+					Подвал
+					</h4>
+					<span class="tools">
+						<a class="icon-chevron-down" href="javascript:void(0)"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+
+						<!-- title -->
+						<div class="control-group <?= $this->data['failed']['title']['class'] ?>">
+							<label class="control-label">Название раздела:</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['title']['class'] ?>" name="title" rows="6"><?if(isset($this->data['title'])){ echo $this->data['title']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['title']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- text -->
+						<div class="control-group <?= $this->data['failed']['text']['class'] ?>">
+							<label class="control-label">Текст раздела:</label>
+							<div class="controls">
+								<textarea class="span6 ckeditor<?= $this->data['failed']['text']['class'] ?>" name="text" rows="6"><?if(isset($this->data['text'])){ echo $this->data['text']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['text']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- column_left -->
+						<div class="control-group <?= $this->data['failed']['column_left']['class'] ?>">
+							<label class="control-label">Левая колонка:</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['column_left']['class'] ?>" name="column_left" rows="6"><?if(isset($this->data['column_left'])){ echo $this->data['column_left']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['column_left']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- column_right -->
+						<div class="control-group <?= $this->data['failed']['column_right']['class'] ?>">
+							<label class="control-label">Правая колонка:</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['column_right']['class'] ?>" name="column_right" rows="6"><?if(isset($this->data['column_right'])){ echo $this->data['column_right']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['column_right']['message'] ?></span>
+							</div>
+						</div>
+
+						<!-- footer -->
+						<div class="control-group <?= $this->data['failed']['footer']['class'] ?>">
+							<label class="control-label">Подвал:</label>
+							<div class="controls">
+								<textarea class="span6 <?= $this->data['failed']['footer']['class'] ?>" name="footer" rows="6"><?if(isset($this->data['footer'])){ echo $this->data['footer']; }?></textarea>
+								<span class="help-inline"><?= $this->data['failed']['footer']['message'] ?></span>
+							</div>
+						</div>
+
+				</div>
+			</div>
 		</div>
-		<div>
-			<h3>Анкета: Title</h3>
-			<textarea name="ank_title"><?if(isset($this->data['ank_title'])):?><?=$this->data['ank_title']?><?endif?></textarea>
-			<h3>Анкета: Description</h3>
-			<textarea name="ank_desc"><?if(isset($this->data['ank_desc'])):?><?=$this->data['ank_desc']?><?endif?></textarea>
-			<h3>Анкета: Keywords</h3>
-			<textarea name="ank_keys"><?if(isset($this->data['ank_keys'])):?><?=$this->data['ank_keys']?><?endif?></textarea>
-			<h3>Анкета: Текстовая информация</h3>
-			<textarea name="ank_text"><?if(isset($this->data['ank_text'])):?><?=$this->data['ank_text']?><?endif?></textarea>
-			<h3>Анкета: Alt для картинки в превью</h3>
-			<textarea name="ank_img_alt"><?if(isset($this->data['ank_img_alt'])):?><?=$this->data['ank_img_alt']?><?endif?></textarea>
-			<h3>Анкета: Title для кнопки "подробнее" в превью</h3>
-			<textarea name="ank_detail"><?if(isset($this->data['ank_detail'])):?><?=$this->data['ank_detail']?><?endif?></textarea>
-		</div>
-		<!-- 
-		<div>
-			<h3>Учреждение: Title</h3>
-			<textarea name="inst_title"><?if(isset($this->data['inst_title'])):?><?=$this->data['inst_title']?><?endif?></textarea>
-			<h3>Учреждение: Description</h3>
-			<textarea name="inst_desc"><?if(isset($this->data['inst_desc'])):?><?=$this->data['inst_desc']?><?endif?></textarea>
-			<h3>Учреждение: Keywords</h3>
-			<textarea name="inst_keys"><?if(isset($this->data['inst_keys'])):?><?=$this->data['inst_keys']?><?endif?></textarea>
-			<h3>Учреждение: Текстовая информация</h3>
-			<textarea name="inst_text"><?if(isset($this->data['inst_text'])):?><?=$this->data['inst_text']?><?endif?></textarea>
-		</div>
-		-->
-		<div class="ca_bottom">
-			<h3>Название раздела:</h3>
-            <input type="text" name="title"<?if(isset($this->data['title'])):?> value='<?=($this->data['title'])?>'<?endif?> />
-			<h3>Текст раздела:</h3>
-            <textarea name="text" id="editor" rows="6"><?if(isset($this->data['text'])):?><?=$this->data['text']?><?endif?></textarea>
-			<h3>Левая колонка:</h3>
-			<textarea name="column_left" rows="6"><?if(isset($this->data['column_left'])):?><?=$this->data['column_left']?><?endif?></textarea>
-			<h3>Правая колонка:</h3>
-			<textarea name="column_right" rows="6"><?if(isset($this->data['column_right'])):?><?=$this->data['column_right']?><?endif?></textarea>
-			<h3>Подвал:</h3>
-			<textarea name="footer" rows="6"><?if(isset($this->data['footer'])):?><?=$this->data['footer']?><?endif?></textarea>
-		</div>
-		<input class="button" type="submit" value="Сохранить" />
-	</form>
-</div></div>
+	</div>
+	<input type="submit" name="submit" id="submit" value="Сохранить" class="btn btn-large blue">
+</div>
+</form>	

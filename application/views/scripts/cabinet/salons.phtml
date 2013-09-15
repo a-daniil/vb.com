@@ -1,188 +1,200 @@
-<div id="center">
-	<?php if ( $this->salons->count() > 1 ) : ?>
-		<div class="pages"><?=$this->paginationControl($this->salons,'Sliding','pages_cab.phtml')?></div>
-	<?php endif ?>
-	<div id="cab_ankets">
-		<ul class="top_info">
-			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=all" ?>" <?php if ( $_GET['filter'] == 'all' ) : ?> class="underlined" <?php endif ?>>ВСЕГО САЛОНОВ: <?=$this->all ?></a></li>
-			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=active" ?>" <?php if ( $_GET['filter'] == 'active' ) : ?> class="underlined" <?php endif ?>>ИЗ НИХ АКТИВНЫХ (ПОКАЗЫВАЮТСЯ): <?=$this->active?></a></li>
-			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=paid" ?>" <?php if ( $_GET['filter'] == 'paid' ) : ?> class="underlined" <?php endif ?>>ПРИОРИТЕТНЫХ (ОПЛАЧИВАЕМЫХ): <?=$this->paid?></a></li>
-			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=free" ?>" <?php if ( $_GET['filter'] == 'free' ) : ?> class="underlined" <?php endif ?>>БЕСПЛАТНЫХ: <?=$this->active-$this->paid?></a></li>
-			<li><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=not_active" ?>" <?php if ( $_GET['filter'] == 'not_active' ) : ?> class="underlined" <?php endif ?>>СНЯТЫ С ПОКАЗА (ВЫКЛЮЧЕНЫ): <?=$this->all-$this->active?></a></li>			
-		</ul>
-		<ul class="top_info_login">
-			<li>Салоны <?php echo $this->getUserLoginById($this->user_id); ?></li>
-		</ul>
-		<?if( $this->user_id):?>
-			<hr />
-			<ul class="top_info_bottom">
-				<li>Ваш баланс: <strong><?=number_format($this->balance, 0, ',', ' ');?> р.</strong></li>
-				<li>Суточный расход: <strong><?=number_format($this->spend, 0, ',', ' ');?> р.</strong></li>
-				<?php if ( $this->forecast ) : ?>
-					<li>Дата отключения(прогноз): <strong><?php echo $this->forecast ?></strong></li>
-				<?php endif ?>
-			</ul>			
-		<?else:?>
-		<br />
-		<?endif?>
-		<div id="cab_ankets_wrap">
-			<?foreach($this->salons as $row):?>
-			<?php
-				if( !empty($row['photolist'])){
-					$photolist = unserialize($row['photolist']);
-					if( isset($photolist['preview'])){
-						$photo = $photolist[$photolist['preview']];
-					}
-					else{
-						$photo = array_shift($photolist);
-					}
-				}
-				else{
-					$photo = false;
-				}
-			?>
-			<a name="<?=$row['id']?>"></a>
-			<div class="cab_anketa">
-				<div class="cab_anketa_header">
-					<h2>
+<style>
+	.widget-wrap-photo {
+		display: inline-block;
+	}
+
+	.portlet-scroll-2 {
+		display: inline-block;
+		height: 280px;
+	}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Салоны <?php echo $this->getUserLoginById($this->user_id); ?>
+		</h3>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="navbar navbar-static" id="">
+			<div class="navbar-inner">
+				<div style="width: auto;" class="container">
+					<ul role="navigation" class="nav">
+						<li <?php if ( $_GET['filter'] == 'all' ) : ?> class="active" <?php endif ?>><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=all" ?>">ВСЕГО САЛОНОВ: <?=$this->all ?></a></li>
+						<li <?php if ( $_GET['filter'] == 'active' ) : ?> class="active" <?php endif ?>><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=active" ?>">ИЗ НИХ АКТИВНЫХ (ПОКАЗЫВАЮТСЯ): <?=$this->active?></a></li>
+						<li <?php if ( $_GET['filter'] == 'paid' ) : ?> class="active" <?php endif ?>><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=paid" ?>">ПРИОРИТЕТНЫХ (ОПЛАЧИВАЕМЫХ): <?=$this->paid?></a></li>
+						<li <?php if ( $_GET['filter'] == 'free' ) : ?> class="active" <?php endif ?>><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=free" ?>">БЕСПЛАТНЫХ: <?=$this->active-$this->paid?></a></li>
+						<li <?php if ( $_GET['filter'] == 'not_active' ) : ?> class="active" <?php endif ?>><a href="<?php echo $this->getRightUri( $_GET, true, true ) . "filter=not_active" ?>">СНЯТЫ С ПОКАЗА (ВЫКЛЮЧЕНЫ): <?=$this->all-$this->active?></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="page-wraper">
+	<?foreach($this->salons as $row):?>
+	<?php
+		if(!empty($row['photolist'])){
+			$photolist = unserialize($row['photolist']);
+			if(isset($photolist['preview'])){
+				$photo=$photolist[$photolist['preview']];
+			}
+			else{$photo=array_shift($photolist);}
+		}
+		else{$photo=false;}
+
+		if ( !empty($row['photo_check']) ) {
+			$photo_check = array_filter(unserialize($row['photolist']));
+			$photo_check = array_shift($photo_check);
+		} else {
+			$photo_check = false;
+		}
+	?>
+	<div class="row-fluid">	
+		<div class="span12">
+			<div class="widget box red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i>
 						<?=$row['name']?> (
 						<?=$this->cities[$row['city']]?>)
 						<?list($phone_p1,$phone_p2)=explode('-',$row['phone'])?>
 						+7(<?=$phone_p1?>)<?=$phone_p2?>
-					</h2>
-					<ul>
-						<li><a href="/cabinet/edit-salon-form/id/<?=$row['id']?>">Редактировать</a></li>
-						<li><a href="/cabinet/edit-photo-salon/n/<?=$row['id']?>">Фото</a></li>
-						<li><a href="/cabinet/edit-video-salon/n/<?=$row['id']?>">Видео</a></li>
-						<li><a href="/cabinet/add-ank-to-salon/n/<?=$row['id']?>">Анкеты</a></li>
-					</ul>
+					</h4>
+                    <span class="tools">
+                    	<a href="javascript:;" class="icon-chevron-down"></a>
+                        <a href="javascript:;" class="icon-remove"></a>
+                    </span>
 				</div>
-				<br />
-				<div class="cab_anketa_photo">
-					<?if ( $row['active'] == 0 ) : ?><div class="cab_anketa_photo_glass"></div><?php endif ?>
-					<a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
-						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top;" <?endif?>></div>
-					</a>
-					<br />
-				</div>
-				<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/salons-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
-				<div class="cab_anketa_panel ca_right">
-					<?if($row['active']==0):?><h2 title="Салон выключен">САЛОН ВЫКЛЮЧЕН</h2>
-					<?elseif($row['status']==10):?>
-						<h2 title="Не полные данные">НE ПОЛНЫЕ ДАННЫЕ</h2>
-						<?php if ( !$this->isHaveRequiredSalonPhotos( $row['id'], 3 ) ) : ?><h3>Фото не загружено – загрузите минимум 3 фотографии</h3><?php endif ?>
-					<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
-					    <?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
-					<?elseif($row['status']==11):?>
-						<h2 title="">ОТКЛОНЕНА</h2>
-						<h3>Не полная информация</h3>
-					<?elseif($row['status']==20):?>
-						<h2 title="На модерации">НА МОДЕРАЦИИ</h2>
-					<?elseif($row['status']==30):?><h2 title="Проверена">ПРОВЕРЕНА</h2>
-					<?elseif($row['status']==40):?><h2 title="Идет приоритетный показ">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
-					<?php endif ?>
-					<form action="/cabinet/salon-status-set/n/<?=$row['id'] .  $this->getRightUri( $_GET ) ?>" method="post">
-						<select name="s" onchange="if (this.value) { showComment(this.value, this) }">
-							<option value="0">Выберите</option>
-							<option value=11>Отклонить(неполные данные)</option>
-							<option value="30">Разрешить фото</option>
-							<option value="1">Заблокировать</option>
-							<option value="2">Заблокировать (черный список)</option>
-						</select>
-						<input type="submit" value="применить" id="submit_status">
-						<div id="comment" style="display: none;">
-							<label for="comm_texarea">
-								 	Комментарий (не обязательно):
-							</label>
-							<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>
+				<div class="widget-body">
+					<div class="row-fluid">
+						<p>
+							<a href="/cabinet/edit-salon-form/id/<?=$row['id']?>" class="btn">Редактировать</a>
+							<a href="/cabinet/edit-photo-salon/n/<?=$row['id']?>" class="btn">Фото</a>
+							<a href="/cabinet/edit-video-salon/n/<?=$row['id']?>" class="btn">Видео</a>
+							<a href="/cabinet/add-ank-to-salon/n/<?=$row['id']?>" class="btn">Анкеты</a>
+						</p>
+						<div class="span2">
+							<a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
+								<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
+							</a>
 						</div>
-					</form>
-					<br />
-					<div class="cab_ank_pan_sub">
-						<ul class="cab_ank_sub_menu">
-							<li><a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">Смотреть</a></li>	
-						</ul>
-					</div>	
-				</div>
-				<?php else : ?>
-				<div class="cab_anketa_panel ca_right">
-					<?if($row['active']==0):?><h2 title="Салон выключен">САЛОН ВЫКЛЮЧЕН</h2>
-					<?elseif($row['status']==10):?>					
-						<h2 title="Не полные данные">НE ПОЛНЫЕ ДАННЫЕ</h2>
-						<?php if ( !$this->isHaveRequiredSalonPhotos( $row['id'], 3 ) ) : ?><h3>Фото не загружено – загрузите минимум 3 фотографии</h3><?php endif ?>
-					<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
-					<?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
-					<?elseif($row['status']==11):?>
-						<h2 title="">ОТКЛОНЕНА</h2>
-						<h3>Не полная информация</h3>
-						<h4>Результат проверки читайте в моих сообщениях. После изменений отправте на модерацию повторно.</h4>
-						<ul class="cab_ank_sub_menu">
-							<li><a href="/cabinet/to-moderation-salon/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">На модерацию</a></li>
-						</ul>
-					<?elseif($row['status']==20):?>
-						<h2 title="На модерации">НА МОДЕРАЦИИ</h2>
-						<h3>Анкета ожидает модерации</h3>
-					<?elseif($row['status']==30):?>
-						<h2 title="Проверена">ПРОВЕРЕНА</h2>
-						<h3>Анкета салона проверена модератором, но не показывается на сайте. Необходимо включить <b>ПРИОРИТЕТНЫЙ</b> показ.</h3>
-					<?elseif($row['status']==40):?>
-						<h2 title="Идет приоритетный показ">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
-						<h4><?php echo $this->showPositionSalon($this->per_page) ?></h4>
-					<?php endif ?>
-					<div class="pull_down_cab_ank_panel">
-						<h3>Приоритетный показ:</h3>
-						<form action="/cabinet/priority-write-salon/n/<?=$row['id'] . $this->getRightUri( $_GET ) ?>" method="post">
-							<select name="pr">
-								<option value="0"<?if($row['priority']==0):?> selected<?endif?>>Выключен</option>
-								<option value="1"<?if($row['priority']==1):?> selected<?endif?>>Включен</option>
-							</select>
-							<input type="submit" value="применить">
-						</form>					
-						<div class="cab_ank_pan_sub">
+						<div class="span2">
+							<h2>Просмотры</h2>
+							<div>
+								<?php
+									$counters = new CountersAnkets();
+									$counter = $counters->get_ank($row['id']);
+								?>
+								<div>
+									<strong>За 24 часа:</strong>&nbsp;<span class="badge badge-important"><?= $counter['today'] ? $counter['today'] : 0 ?></span>
+								</div>
+								<div>
+									<strong>За неделю:</strong>&nbsp;<span class="badge badge-important"><?= $counter['week'] ? $counter['week'] : 0 ?></span>
+								</div>
+								<div>
+									<strong>За месяц:</strong>&nbsp;<span class="badge badge-important"><?= $counter['month'] ? $counter['month'] : 0 ?></span>
+								</div>
+								<div>
+									<strong>Всего:</strong>&nbsp;<span class="badge badge-important"><?= $counter['all'] ? $counter['all'] : 0 ?></span>
+								</div>
+							</div>
+							<h2>Даты</h2>
+							<div>
+								<strong>Добавлена: <?= rusdate(strtotime($row['timestamp'])); ?></strong>
+							</div>
+						</div>
+						<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/salons-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
+						<div class="span4">
+							<?if($row['active']==0):?><h2 title="Салон выключен">САЛОН ВЫКЛЮЧЕН</h2>
+							<?elseif($row['status']==10):?>
+							<h2 title="Не полные данные">НE ПОЛНЫЕ ДАННЫЕ</h2>
+							<?php if ( !$this->isHaveRequiredSalonPhotos( $row['id'], 3 ) ) : ?><h3>Фото не загружено – загрузите минимум 3 фотографии</h3><?php endif ?>
+							<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
+							<?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
+							<?elseif($row['status']==11):?>
+							<h2 title="">ОТКЛОНЕНА</h2>
+							<h3>Не полная информация</h3>
+							<?elseif($row['status']==20):?>
+							<h2 title="На модерации">НА МОДЕРАЦИИ</h2>
+							<?elseif($row['status']==30):?><h2 title="Проверена">ПРОВЕРЕНА</h2>
+							<?elseif($row['status']==40):?><h2 title="Идет приоритетный показ">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
+							<?php endif ?>
+							<form action="/cabinet/salon-status-set/n/<?=$row['id'] .  $this->getRightUri( $_GET ) ?>" method="post" class="form-horizontal">
+								<div class="control-group">
+									<select name="s" onchange="if (this.value) { showComment(this.value, this) }">
+										<option value="0">Выберите</option>
+										<option value=11>Отклонить(неполные данные)</option>
+										<option value="30">Разрешить фото</option>
+										<option value="1">Заблокировать</option>
+										<option value="2">Заблокировать (черный список)</option>
+									</select>
+									<input type="submit" value="применить" class="btn" id="submit_status">
+								</div>
+								<div id="comment" style="display: none;">
+									<label for="comm_texarea">
+										Комментарий (не обязательно):
+									</label>
+									<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>
+								</div>
+								<div class="control-group">
+									<a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank" class="btn">Смотреть</a>
+								</div>
+							</form>
+						</div>
+						<?php else : ?>
+						<div class="span4">
+							<?if($row['active']==0):?><h2 title="Салон выключен">САЛОН ВЫКЛЮЧЕН</h2>
+							<?elseif($row['status']==10):?>
+							<h2 title="Не полные данные">НE ПОЛНЫЕ ДАННЫЕ</h2>
+							<?php if ( !$this->isHaveRequiredSalonPhotos( $row['id'], 3 ) ) : ?><h3>Фото не загружено – загрузите минимум 3 фотографии</h3><?php endif ?>
+							<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
+							<?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
+							<?elseif($row['status']==11):?>
+							<h2 title="">ОТКЛОНЕНА</h2>
+							<h3>Не полная информация</h3>
+							<h4>Результат проверки читайте в моих сообщениях. После изменений отправте на модерацию повторно.</h4>
 							<ul class="cab_ank_sub_menu">
-								<?if($row['active']):?>
-									<li><a href="/cabinet/disable-salon/n/<?=$row['id']?>">Выключить</a></li>
-								<?else:?>
-									<li><a href="/cabinet/enable-salon/n/<?=$row['id']?>">Включить</a></li>
-								<?endif?>
-								<li><a href="/cabinet/del-salon/n/<?=$row['id']?>">Удалить</a></li>
+								<li><a href="/cabinet/to-moderation-salon/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">На модерацию</a></li>
 							</ul>
+							<?elseif($row['status']==20):?>
+							<h2 title="На модерации">НА МОДЕРАЦИИ</h2>
+							<h3>Анкета ожидает модерации</h3>
+							<?elseif($row['status']==30):?>
+							<h2 title="Проверена">ПРОВЕРЕНА</h2>
+							<h3>Анкета салона проверена модератором, но не показывается на сайте. Необходимо включить <b>ПРИОРИТЕТНЫЙ</b> показ.</h3>
+							<?elseif($row['status']==40):?>
+							<h2 title="Идет приоритетный показ">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
+							<h4><?php echo $this->showPositionSalon($this->per_page) ?></h4>
+							<?php endif ?>
+							<div class="pull_down_cab_ank_panel">
+								<form action="/cabinet/priority-write-salon/n/<?=$row['id'] . $this->getRightUri( $_GET ) ?>" method="post" class="form-horizontal">
+									<label class="control-label">Приоритетный показ:</label>
+									<div class="control-group">
+										<select name="pr">
+											<option value="0"<?if($row['priority']==0):?> selected<?endif?>>Выключен</option>
+											<option value="1"<?if($row['priority']==1):?> selected<?endif?>>Включен</option>
+										</select>
+										<input type="submit" value="применить" class="btn">
+									</div>
+								</form>
+								<div>
+									<?if($row['active']):?>
+										<a href="/cabinet/disable-salon/n/<?=$row['id']?>"  class="btn btn-large btn-danger">Выключить</a>
+									<?else:?>
+										<a href="/cabinet/enable-salon/n/<?=$row['id']?>" class="btn">Включить</a>
+									<?endif?>
+										<a href="/cabinet/del-salon/n/<?=$row['id']?>"  class="btn btn-large btn-danger">Удалить</a>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<?php endif ?>
-				<div class="cab_anketa_panel ca_left">
-					<div class="cab_ank_pan_sub">
-						<ul>
-							<li><strong>Добавлена:</strong><?=rusdate(strtotime($row['timestamp']))?></li>
-						</ul>
-					</div>
-					<div class="to_bottom">
-						<div class="cab_ank_pan_sub">
-							<?//<a class="cab_ank_button" href="/">Продлить</a>?>
-							<h3>Просмотры:</h3>
-						</div>
-						<div class="cab_ank_pan_sub">
-							<?php
-								$counters = new CountersAnkets();
-								$counter = $counters->get_ank($row['id']);
-							?>
-							<ul>
-								<li><strong>За 24 часа:</strong><?= $counter['today'] ? $counter['today'] : 0 ?></li>
-								<li><strong>За неделю:</strong><?= $counter['week'] ? $counter['week'] : 0 ?></li>
-								<li><strong>За месяц:</strong><?= $counter['month'] ? $counter['month'] : 0 ?></li>
-								<li><strong>Всего:</strong><?= $counter['all'] ? $counter['all'] : 0 ?></li>
-							</ul>
-						</div>
+						<?php endif ?>
 					</div>
 				</div>
 			</div>
-			<?endforeach?>
 		</div>
 	</div>
-	<?php if ( $this->salons->count() > 1 ) : ?>
-		<div class="pages"><?=$this->paginationControl($this->salons,'Sliding','pages_cab.phtml')?></div>
-	<?php endif ?>
+	<?endforeach?>
 </div>
 <script type="text/javascript">
 	function showComment( value, el ) {
