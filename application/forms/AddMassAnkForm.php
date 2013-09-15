@@ -696,7 +696,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 					'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array('Label', array('class' => 'control-label')),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span4', 'style' => 'margin-bottom: 5px;'))
 					)
 				));
