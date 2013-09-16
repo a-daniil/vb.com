@@ -1,19 +1,19 @@
-<tr>	
+<tr>
 	<td class="digits">
 		<?= $this->owner_id ?>
-	</td>		
+	</td>
 	<td class="center_content">
 		<?= $this->text; ?>
 	</td>
 	<td class="center_content">
 		<?= $this->timestamp; ?>
-	</td>		
+	</td>
 	<td class="center_content">
-		<a class="activating" href="/cabinet/confirm-comment/id/<?= $this->id; ?>/uid/<?php echo $this->getUserIdByOwnerId($this->owner_id) ?>">
-			<img alt="Активировать" title="Активировать" src="../img/activate.png" />
+		<a class="btn btn-success activating" href="/cabinet/confirm-comment/id/<?= $this->id; ?>/uid/<?php echo $this->getUserIdByOwnerId($this->owner_id) ?>">
+			<i class="icon-ok" title="Активировать" ></i>
 		</a>
-		<a class="" href="/cabinet/delete-comment/id/<?php echo $this->id; ?>/uid/<?php echo $this->getUserIdByOwnerId($this->owner_id) ?>">
-			<img alt="Удалить" title="Удалить" src="../img/banned.png" />
+		<a class="btn btn-danger blocking" href="/cabinet/delete-comment/id/<?php echo $this->id; ?>/uid/<?php echo $this->getUserIdByOwnerId($this->owner_id) ?>">
+			<i class="icon-ban-circle" title="Удалить" ></i>
 		</a>
 	</td>
 </tr>

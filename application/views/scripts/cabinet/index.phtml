@@ -36,6 +36,7 @@
 		</div>
 	</div>
 </div>
+<? if ( !preg_match('/\/cabinet\/ank-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
 <?php if($this->user_id) : ?>
 	<div class="pull-left">
 		<p>Ваш баланс: <strong><?=number_format($this->balance, 0, ',', ' ');?> р.</strong>&nbsp;Суточный расход: <strong><?=number_format($this->spend, 0, ',', ' ');?> р.</strong></p>
@@ -44,6 +45,7 @@
 		<?php endif ?>
 	</div>
 <?php endif; ?>
+<? endif ?>
 <?php if ( $this->ankets->count() > 1 ) : ?>
 	<div class="pull-right"><?=$this->paginationControl($this->ankets,'Sliding','pages_cab.phtml')?></div>
 <?php endif ?>
@@ -100,25 +102,35 @@
 									$counters = new CountersAnkets();
 									$counter = $counters->get_ank($row['id']);
 								?>
-								<div>
-									<strong>За 24 часа:</strong>&nbsp;<span class="badge badge-important"><?= $counter['today'] ? $counter['today'] : 0 ?></span>
-								</div>
-								<div>
-									<strong>За неделю:</strong>&nbsp;<span class="badge badge-important"><?= $counter['week'] ? $counter['week'] : 0 ?></span>
-								</div>
-								<div>
-									<strong>За месяц:</strong>&nbsp;<span class="badge badge-important"><?= $counter['month'] ? $counter['month'] : 0 ?></span>
-								</div>
-								<div>
-									<strong>Всего:</strong>&nbsp;<span class="badge badge-important"><?= $counter['all'] ? $counter['all'] : 0 ?></span>
-								</div>
+								<table>
+									<tr>
+										<td><strong>За 24 часа:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['today'] ? $counter['today'] : 0 ?></span><td>
+									</tr>
+									<tr>
+										<td><strong>За неделю:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['week'] ? $counter['week'] : 0 ?></span><td>
+									</tr>
+									<tr>
+										<td><strong>За месяц:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['month'] ? $counter['month'] : 0 ?></span><td>
+									</tr>
+									<tr>
+										<td><strong>Всего:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['all'] ? $counter['all'] : 0 ?></span><td>
+									</tr>
+								</table>
 							</div>
 							<h2>Даты</h2>
 							<div>
 								<strong>Добавлена: <?= rusdate(strtotime($row['timestamp'])); ?></strong>
+							</div>
+							<div>
 								<? if ( $row['photo_start'] != '0000-00-00 00:00:00' ) : ?>
 								<strong>Фото проверено: </strong><?= rusdate(strtotime($row['photo_start'])); ?>
 								<? endif; ?>
+							</div>
+							<div>
 								<? if ( $row['photo_finish'] != '0000-00-00 00:00:00' && $row['status'] > 20 ) : ?>
 								<strong>Проверка фото истекает: </strong><?= rusdate(strtotime($row['photo_finish'])) ?>
 								<? endif ?>
@@ -147,13 +159,13 @@
 										<option value="2">Заблокировать (черный список)</option>
 									</select>
 									<input type="submit" value="применить" class="btn" id="submit_status">
+									<div id="comment" style="display: none;">
+										<label for="comm_texarea">	
+											Комментарий (обязательно):
+										</label>
+										<textarea id="comm_textarea" name="comm" cols="25" rows="8" class="input-xxlarge" ></textarea>
+									</div>
 								</div>
-								<div id="comment" style="display: none;">
-									<label for="comm_texarea">	
-										Комментарий (обязательно):
-									</label>
-								<textarea id="comm_textarea" name="comm" cols="25" rows="8" ></textarea>
-								</div>	
 								<div class="control-group">
 									<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank" class="btn">Смотреть</a>
 								</div>
@@ -230,9 +242,7 @@
 
 	$("#submit_status").click(function(e){
 		s = $('select[name="s"]').val();
-		console.log(s);
 		val = $('#comm_textarea').val();
-		console.log(val);
 		if ( (!val || val.length == 0 || val == "Обязательно оставьте комментарий" ) && s != 30 ) {
 			e.preventDefault();
 			$('#comm_textarea').val('Обязательно оставьте комментарий');

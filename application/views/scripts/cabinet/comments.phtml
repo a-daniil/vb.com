@@ -1,11 +1,10 @@
-<div id="center">
-	<div id="cab_ankets">
-		<div id="cab_ankets_wrap">
-			<table class='form-table' cellspacing='0' id="sorter">
-				<?
-					echo $this->partialLoop('cabinet/comments-per-users-row.phtml', $this->paginator);
-				?>
-			</table>
-		</div>
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Модерация комментариев
+		</h3>
 	</div>
 </div>
+<?
+	echo $this->partialLoop('cabinet/comments-per-users-row.phtml', $this->paginator);
+?>

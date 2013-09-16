@@ -86,18 +86,24 @@
 									$counters = new CountersAnkets();
 									$counter = $counters->get_ank($row['id']);
 								?>
-								<div>
-									<strong>За 24 часа:</strong>&nbsp;<span class="badge badge-important"><?= $counter['today'] ? $counter['today'] : 0 ?></span>
-								</div>
-								<div>
-									<strong>За неделю:</strong>&nbsp;<span class="badge badge-important"><?= $counter['week'] ? $counter['week'] : 0 ?></span>
-								</div>
-								<div>
-									<strong>За месяц:</strong>&nbsp;<span class="badge badge-important"><?= $counter['month'] ? $counter['month'] : 0 ?></span>
-								</div>
-								<div>
-									<strong>Всего:</strong>&nbsp;<span class="badge badge-important"><?= $counter['all'] ? $counter['all'] : 0 ?></span>
-								</div>
+								<table>
+									<tr>
+										<td><strong>За 24 часа:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['today'] ? $counter['today'] : 0 ?></span><td>
+									</tr>
+									<tr>
+										<td><strong>За неделю:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['week'] ? $counter['week'] : 0 ?></span><td>
+									</tr>
+									<tr>
+										<td><strong>За месяц:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['month'] ? $counter['month'] : 0 ?></span><td>
+									</tr>
+									<tr>
+										<td><strong>Всего:</strong></td>
+										<td><span class="badge badge-important offset"><?= $counter['all'] ? $counter['all'] : 0 ?></span><td>
+									</tr>
+								</table>
 							</div>
 							<h2>Даты</h2>
 							<div>
@@ -130,12 +136,12 @@
 										<option value="2">Заблокировать (черный список)</option>
 									</select>
 									<input type="submit" value="применить" class="btn" id="submit_status">
-								</div>
-								<div id="comment" style="display: none;">
-									<label for="comm_texarea">
-										Комментарий (не обязательно):
-									</label>
-									<textarea id="comm_texarea" name="comm" cols="25" rows="8" ></textarea>
+									<div id="comment" style="display: none;">
+										<label for="comm_texarea">
+											Комментарий (не обязательно):
+										</label>
+										<textarea id="comm_texarea" name="comm" cols="25" rows="8" class="input-xxlarge"></textarea>
+									</div>
 								</div>
 								<div class="control-group">
 									<a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank" class="btn">Смотреть</a>
