@@ -22,11 +22,11 @@
 	</td>
 	<td class="center_content">
 		<a class="btn btn-info" href="/cabinet/change-user-pass/id/<?= $this->id; ?>">
-			<i class="icon-key"></i>
+			<i class="icon-key" title="Сменить пароль"></i>
 		</a>
 		<? if ( $this->status || is_null($this->status) ) :?>
 			<a class="btn btn-danger blocking" href="/cabinet/block-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>">
-				<i class="icon-ban-circle"></i>
+				<i class="icon-ban-circle" title="Заблокировать"></i>
 			</a>
 		<? else : ?>
 			<a class="btn btn-success activating" href="/cabinet/activate-user/id/<?= $this->id; ?>?filter=<?= $_GET['filter'] ?>">
@@ -34,10 +34,10 @@
 			</a>
 		<? endif; ?>
 		<a class="btn btn-inverse" href="/cabinet/change-user-type/id/<?= $this->id; ?>">
-			<i class="icon-user"></i>
+			<i class="icon-user" title="Сменить тип"></i>
 		</a>
 		<a class="btn btn-primary" href="/cabinet/connect<?php echo "?uid=" . $this->id . "&login=" . $this->user_login ?>">
-			<i class="icon-envelope"></i>
+			<i class="icon-envelope" title="Отправить сообщение"></i>
 		</a>
 	</td>
 </tr>

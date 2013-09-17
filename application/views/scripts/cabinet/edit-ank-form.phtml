@@ -86,7 +86,7 @@
 		$('#widget-body-add-here').append("</div>");
 
 		$("input[name='only_count']").val(parseInt($val)+1);
-	})
+	});
 </script>
 <script type="text/javascript">
 	$("input[name$='_add']").change(function(){
@@ -120,6 +120,10 @@
 			$("#sauna-service").addClass('hide-service');
 		}
 	});
+
+	$(function () {
+		$("input[type=radio], input[type=checkbox]").uniform();
+	});	
 
 	$(document).ready(function(){
 		var $val = $("select[name='place']").val();

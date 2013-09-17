@@ -93,7 +93,9 @@
 							<a href="/cabinet/comms-list/n/<?=$row['id']?>" class="btn">Комментарии</a>
 						</p	>
 						<div class="span2">
-							<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
+							<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
+								<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
+							</a>
 						</div>
 						<div class="span2">
 							<h2>Просмотры</h2>
