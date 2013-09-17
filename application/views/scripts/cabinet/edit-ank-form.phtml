@@ -38,7 +38,7 @@
 				</div>
 				<div class="widget-body">
 					<? foreach ($this->form as $element): ?>
-						<? if ( !preg_match('/service_group(.*)|only|submit/', $element->getName() ) ) :?>
+						<? if ( !preg_match('/service_group(.*)|only|submit|hidden_message/', $element->getName() ) ) :?>
 							<?= $element ?>
 						<? endif; ?>
 					<? endforeach; ?>
@@ -56,7 +56,7 @@
 				</div>
 				<div class="widget-body" id="widget-body-add-here">
 					<? foreach ($this->form as $element): ?>
-						<? if ( preg_match('/service_group(.*)|only/', $element->getName() ) ) :?>
+						<? if ( preg_match('/service_group(.*)|only|hidden_message/', $element->getName() ) ) :?>
 							<?= $element ?>
 						<? endif; ?>
 					<? endforeach; ?>
@@ -70,6 +70,11 @@
 	<?= $this->form->getElement('submit') ?>
 </div>
 </form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("input[name='name_eng']").parent().before('<div class="control-group"><p><label>Информация для иностранцев цены должны быть указаны в долларах США</label></p></div>');
+	});
+</script>
 <script type="text/javascript">
 	$("#add_only").click(function(e){
 		e.preventDefault();	

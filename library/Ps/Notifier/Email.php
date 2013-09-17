@@ -59,21 +59,21 @@ class Ps_Notifier_Email
 		
 		if ( empty($config) ) {
 			return false;	
-		}		
-		
+		}
+
 		switch ( $type ) {
 			case self::COMMENT :
 				if ( $config['comments'] ) {
 					return true;
 				}
 				break;
-				
+
 			case self::MODERATION :
 				if ( $config['moderation'] ) {
 					return true;
 				}
 				break;
-		
+
 			default :
 				throw new Notifier_Email_Unknown_Type_Exception('Please putt right type of notification');
 				break;

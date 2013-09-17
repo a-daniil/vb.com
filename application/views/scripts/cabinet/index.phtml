@@ -19,6 +19,7 @@
 		</h3>
 	</div>
 </div>
+<? if ( !preg_match('/\/cabinet\/ank-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
 <div class="row-fluid">
 	<div class="span12">
 		<div class="navbar navbar-static" id="">
@@ -36,7 +37,6 @@
 		</div>
 	</div>
 </div>
-<? if ( !preg_match('/\/cabinet\/ank-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
 <?php if($this->user_id) : ?>
 	<div class="pull-left">
 		<p>Ваш баланс: <strong><?=number_format($this->balance, 0, ',', ' ');?> р.</strong>&nbsp;Суточный расход: <strong><?=number_format($this->spend, 0, ',', ' ');?> р.</strong></p>

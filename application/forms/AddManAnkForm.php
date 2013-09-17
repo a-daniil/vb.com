@@ -672,6 +672,15 @@ class Form_AddManAnkForm extends Form_AddAnkForm
 			)
 		));
 
+		$this->addElement('hidden', 'hidden_message', array(
+				'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+				)
+		));
+
 		foreach ( $this->content->srv->toArray() as $part => $srv ) {
 			$legend = array_shift($srv);
 			$nn=-1;
@@ -792,7 +801,7 @@ class Form_AddManAnkForm extends Form_AddAnkForm
 		}
 	
 		if ( !$data['srv_main'] && !$data['srv_add'] && !$data['srv_strip'] && !$data['srv_mass'] && !$data['srv_bdsm'] ) {
-			$this->getElement('main_0')->addError('Хотя бы одна услуга должна быть указана');				
+			$this->getElement('hidden_message')->addError('Хотя бы одна услуга должна быть указана');
 			$isValid = false;
 		}
 	

@@ -132,7 +132,7 @@ class CabinetController extends Zend_Controller_Action {
 		$users = new Users();
 		$email = $users->get_email($this->user_id);
 		$login = $this->user_login;
-		
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frm->isValid( $_POST ) ) {
 				if ( $frm instanceof Form_EditPassForm ) {
@@ -146,7 +146,7 @@ class CabinetController extends Zend_Controller_Action {
 						$this->view->message = Form_EditPassForm::FAILED;
 						$this->view->color = Form_EditPassForm::FAILED_COLOR;
 					}
-					
+
 				} elseif ( $frm instanceof Form_EditMessForm ) {
 					$user_config = new Model_UsersConfig();
 					$result = $user_config->addUserMessagesConfig(
@@ -158,7 +158,7 @@ class CabinetController extends Zend_Controller_Action {
 						$frm->getValue('news'),
 						$this->user_id
 					);
-					
+
 					if ( $result ) {
 						$this->view->message = Form_EditMessForm::SUCCESS;
 						$this->view->color = Form_EditMessForm::SUCCESS_COLOR;
@@ -173,7 +173,7 @@ class CabinetController extends Zend_Controller_Action {
 			$data = $user_config->getUserMessagesConfig($this->user_id);
 			$frm->populate($data);	
 		}
-		
+
 		$this->view->login = $login;
 		$this->view->email = $email;
 		$this->view->form = $frm;
