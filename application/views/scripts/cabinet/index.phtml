@@ -104,7 +104,7 @@
 									$counters = new CountersAnkets();
 									$counter = $counters->get_ank($row['id']);
 								?>
-								<table>
+								<table width="100%">
 									<tr>
 										<td><strong>За 24 часа:</strong></td>
 										<td><span class="badge badge-important offset"><?= $counter['today'] ? $counter['today'] : 0 ?></span><td>
@@ -123,17 +123,27 @@
 									</tr>
 								</table>
 							</div>
+							<br/>
 							<div>
-								<strong>Добавлена: <?= rusdate(strtotime($row['timestamp'])); ?></strong>
+								<strong>Добавлена:</strong>
+								<p>
+									<?= rusdate(strtotime($row['timestamp'])); ?>
+								<p>
 							</div>
 							<div>
 								<? if ( $row['photo_start'] != '0000-00-00 00:00:00' ) : ?>
-								<strong>Фото проверено: </strong><?= rusdate(strtotime($row['photo_start'])); ?>
+								<strong>Фото проверено: </strong>
+								<p>
+									<?= rusdate(strtotime($row['photo_start'])); ?>
+								</p>
 								<? endif; ?>
 							</div>
 							<div>
 								<? if ( $row['photo_finish'] != '0000-00-00 00:00:00' && $row['status'] > 20 ) : ?>
-								<strong>Проверка фото истекает: </strong><?= rusdate(strtotime($row['photo_finish'])) ?>
+								<strong>Проверка фото истекает: </strong>
+								<p>
+									<?= rusdate(strtotime($row['photo_finish'])) ?>
+								</p>
 								<? endif ?>
 							</div>
 						</div>
