@@ -138,7 +138,7 @@
 							</div>
 						</div>
 						<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/ank-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
-						<div class="span6">
+						<div class="span7">
 							<?if($row['active']==0):?><h2 title="Анкета выключена">АНКЕТА ВЫКЛЮЧЕНА</h2>
 							<?elseif($row['status']==10):?><h2 title="Не загружены фото">Не ПОЛНЫЕ ДАННЫЕ</h2>	
 							<?elseif($row['status']==11):?><h2 title="Откланена модератором">ОТКЛОНЕНА МОДЕРАТОРОМ(ПРОВЕРОЧНОЕ ФОТО)</h2>
@@ -173,7 +173,7 @@
 							</form>
 						</div>
 						<? else :?>
-						<div class="span6">
+						<div class="span7">
 							<?if($row['active']==0):?><h2 title="Анкета выключена">АНКЕТА ВЫКЛЮЧЕНА</h2>
 							<?elseif($row['status']==10):?>
 							<h2 title="Не загружены фото">НЕ ПОЛНЫЕ ДАННЫЕ</h2>
