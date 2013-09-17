@@ -5,8 +5,33 @@
 		</h3>
 	</div>
 </div>
-<ul>
-<?php
-	echo $this->partialLoop('cabinet/ankets-per-users-row.phtml', $this->paginator); 
-?>
-</ul>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span3">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Пользователь</th>
+								<th>Анкеты</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+							echo $this->partialLoop('cabinet/ankets-per-users-row.phtml', $this->paginator); 
+						?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

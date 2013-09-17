@@ -7,6 +7,15 @@
 		display: inline-block;
 		height: 280px;
 	}
+
+	.photo_glass {
+		background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
+		bottom: 0;
+		top: 0;
+		left: 0;
+		right: 0;
+		position: absolute;
+	}
 </style>
 <div class="row-fluid">
 	<div class="span12">
@@ -70,7 +79,7 @@
 	?>
 	<div class="row-fluid">	
 		<div class="span12">
-			<div class="widget box red">
+			<div class="widget box <?if( $row['active'] == 0 || $row['status'] == 1 || $row['status'] == 2 ):?>black<?elseif($row['status']==40):?>orange<?else:?>red<?endif?>">
 				<div class="widget-title">
 					<h4><i class="icon-reorder"></i>
 						<?=$row['name']?> (
@@ -92,7 +101,8 @@
 							<a href="/cabinet/edit-video/n/<?=$row['id']?>" class="btn">Видео</a>
 							<a href="/cabinet/comms-list/n/<?=$row['id']?>" class="btn">Комментарии</a>
 						</p	>
-						<div class="span2" style="width: 200px; margin-left: 0px">
+						<div class="span2" style="width: 200px; margin-left: 0px; position: relative;">
+							<?if ( $row['active'] == 0 ) : ?><div class="photo_glass"></div><?php endif ?>
 							<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
 								<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
 							</a>
@@ -207,7 +217,7 @@
 							<h2 title="Анкета показывается на сайте">ИДЕТ ПОКАЗ</h2>
 							<h4><?= $this->showPosition($this->per_page, false, $row['performer'], $row['id']) ?></h4>
 							<?elseif($row['status']==40):?>
-							<h2 title="Анкета в приорететном показе на сайте">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
+							<h2 title="Анкета в приорететном показе на сайте" style="color: #F37B53">ИДЕТ ПРИОРИТЕТНЫЙ ПОКАЗ</h2>
 							<h4><?= $this->showPosition($this->per_page, true) ?></h4>
 							<? endif; ?>
 							<div class="pull_down_cab_ank_panel">

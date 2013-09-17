@@ -1,5 +1,4 @@
-<li>
-	<a href="/cabinet/ank-moderation?uid=<?= $this->user_id ?>">
-		<?= $this->user_login ?>&nbsp(<?= $this->count; ?>)
-	</a>
-</li>
+<tr>
+	<td><a href="/cabinet/ank-moderation?uid=<?= $this->user_id ?>"><?= $this->user_login ?></a></td>
+	<td><?= $this->count; ?></td>
+</tr>
