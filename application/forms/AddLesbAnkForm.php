@@ -22,7 +22,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -37,7 +37,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -55,7 +55,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -86,7 +86,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -117,7 +117,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -148,7 +148,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -165,7 +165,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -187,7 +187,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -198,7 +198,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -209,7 +209,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -241,7 +241,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array('Label', array('class' => 'control-label', )),
 					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -272,7 +272,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array('Label', array('class' => 'control-label', )),
 					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -303,7 +303,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array('Label', array('class' => 'control-label', )),
 					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -334,7 +334,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -351,7 +351,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array('Label', array('class' => 'control-label', )),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -373,7 +373,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array('Label', array('class' => 'control-label', )),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -384,7 +384,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array('Label', array('class' => 'control-label', )),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -395,7 +395,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array('Label', array('class' => 'control-label', )),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -432,7 +432,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -450,7 +450,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -470,7 +470,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -488,7 +488,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -506,7 +506,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -516,7 +516,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group hide-service', 'id' => 'sauna-service'))
 			)
 		));
@@ -545,7 +545,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array('Label', array('class' => 'control-label', )),
 					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -562,7 +562,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -579,7 +579,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -596,7 +596,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -623,7 +623,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -640,7 +640,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -657,7 +657,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -686,7 +686,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -708,7 +708,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -730,7 +730,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array('Label', array('class' => 'control-label', )),
 					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -747,7 +747,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -764,7 +764,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -781,7 +781,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -798,7 +798,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -825,7 +825,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -842,7 +842,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -859,7 +859,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
@@ -897,7 +897,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				'decorators' => array(
 						'ViewHelper',
 						'Errors',
-						array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+						array('Label', array('class' => 'control-label', )),
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
@@ -960,7 +960,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
@@ -984,7 +984,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 						'decorators' => array(
 								'ViewHelper',
 								'Errors',
-								array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+								array('Label', array('class' => 'control-label', )),
 								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 						)
 				));
@@ -994,7 +994,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 			$this->addElement('hidden', 'only_count', array('decorators' => array(
 					'ViewHelper',
 					'Errors',
-					array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
+					array('Label', array('class' => 'control-label', )),
 					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'hidden'))
 			)));
 		}
