@@ -62,10 +62,12 @@ class Model_SectionsTest extends Zend_Db_Table_Abstract {
 		$select->where("district = ?", $d);
 		$select->where("city = ?", $city );
 		$select->where("uri LIKE '%rajon%'");
-		
+
+		$row = $this->fetchRow($select);
+
 		if ( $row ) {
 			return $row['uri'];
 		}
-		return null;
+		return false;
 	}
 }
