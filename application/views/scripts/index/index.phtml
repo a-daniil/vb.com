@@ -12,6 +12,7 @@
                		<? endif; ?>
 				</h1>
 				<?php if ( !isset($this->search_by_phone) && !$this->search_by_phone) : ?>
+					<?php if ( count($this->ankets_new) > 0 ) : ?>
 					<h2>новые анкеты</h2>
 					<div class="new_ankets_block">
 						<ul class="new_ankets">
@@ -36,7 +37,9 @@
 									<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
 									<?= $row['name']?>,&nbsp;<?= $row['age'] ?>
 								</a>
-								<div class="new_ribbon"></div>
+								<?php if ( strtotime($row['photo_start']) > strtotime("-2 week") ) :?>
+									<div class="new_ribbon"></div>
+								<?php endif; ?>
 								<!-- 
 								<div class="tooltip">
 									<div class="tooltip_corner"></div>
@@ -51,6 +54,7 @@
 						</ul>
 						<a href="/ankety/novye" class="button all_list_btn">весь список</a>
 					</div>
+					<?php endif ?>
 					<?php if ( $this->top_100 ) : ?>
 						<div class="best_massage_preview_block">
 						<h2>Рейтинг лучших анкет</h2>
