@@ -16,6 +16,14 @@
 		right: 0;
 		position: absolute;
 	}
+	
+	h2 {
+		margin: 0px;
+	}
+	
+	.span2 {
+		margin-left: 5px !important;
+	}
 </style>
 <div class="row-fluid">
 	<div class="span12">
@@ -133,8 +141,7 @@
 									</tr>
 								</table>
 							</div>
-							<br/>
-							<div>
+							<div style="margin: 10px;">
 								<strong>Добавлена:</strong>
 								<p>
 									<?= rusdate(strtotime($row['timestamp'])); ?>
@@ -207,9 +214,7 @@
 							<h2 title="Отклонена модератором">ОТКЛОНЕНА</h2>
 							<h3>Не полная информация</h3>
 							<h4>Результат проверки читайте в моих сообщениях. После изменений отправте на модерацию повторно.</h4>
-							<ul class="cab_ank_sub_menu">
-								<li><a href="/cabinet/to-moderation/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">На модерацию</a></li>
-							</ul>
+							<a class="btn" href="/cabinet/to-moderation/n/<?=$row['id'] . $this->getRightUri( $_GET ); ?>">На модерацию</a>
 							<?elseif($row['status']==20):?><h2 title="Анкета на модерации">НА МОДЕРАЦИИ</h2>
 							<?elseif($row['status']==1):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
 							<?elseif($row['status']==2):?><h2 title="Анкета заблокированна">ЗАБЛОКИРОВАННА</h2>
