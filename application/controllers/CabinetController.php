@@ -2410,7 +2410,7 @@ class CabinetController extends Zend_Controller_Action {
 
 	public function metaWriteAction(){
 		$this->hasRights( array('user_tech', 'user_admin') );
-		
+
 		$input=array(
 			'start_logo_alt',
 			'start_title',
@@ -2445,10 +2445,10 @@ class CabinetController extends Zend_Controller_Action {
 		include_once 'Meta.php';
 		$meta=new Meta;
 		$meta->set($data);
-		$this->_redirect('/cabinet/meta');
+		$this->_redirect('/cabinet');
 		die;
 	}
-	
+
 	public function settingsWriteAction(){
 		if( !$this->user_admin && !$this->user_tech ){$this->_redirect('/cabinet');die;}
 		$input=array(
