@@ -66,23 +66,12 @@ class IndexController extends Zend_Controller_Action {
 		include_once 'Settings.php';
 		$settings=new Settings;
 		$this->settings=$settings->get();
+
+		unset($settings,$auth);
+
 		// Meta data
-		include_once 'Meta.php';
-		$meta=new Meta;
-		$this->view->meta=array();
-		$meta_data=$meta->get();
-		foreach($meta_data as $key=>$value){ // Parsing
-			$tmp1=explode('{',$value);
-			$string=array_shift($tmp1);
-			foreach($tmp1 as $tmp2){
-				$tmp3=explode('}',$tmp2);
-				$tmp4=explode(',',$tmp3[0]);
-				$string.=$tmp4[rand(0,count($tmp4)-1)];
-				$string.=$tmp3[1];
-			}
-			$this->view->meta[$key]=$string;
-		}
-		unset($meta,$meta_data,$settings,$auth);
+		$this->prepareMeta();
+
 		// Articles
 		$page=$this->_hasParam('ap')?intval($this->_getParam('ap')):1;
 		include_once 'Articles.php';
@@ -347,7 +336,7 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->ankets = $paginator;
 
 		/* get latest ankets */
-		$this->view->ankets_new = $ankets->fetchNewestAnkets($params);
+		$this->view->ankets_new = $ankets->fetchNewestAnkets($this->city);
 
 		/* get top score */
 		if ( !$route = Zend_Registry::get('route')  ) {
@@ -952,5 +941,31 @@ class IndexController extends Zend_Controller_Action {
 		}
 
 		$this->view->form = $frm;
+	}
+
+	protected function prepareMeta() {
+
+		include_once 'Meta.php';
+		$meta=new Meta;
+		$this->view->meta=array();
+		$meta_data=$meta->get();
+		foreach($meta_data as $key=>$value){ // Parsing
+			$tmp1=explode('{',$value);
+			$string=array_shift($tmp1);
+			foreach($tmp1 as $tmp2){
+				$tmp3=explode('}',$tmp2);
+				$tmp4=explode(',',$tmp3[0]);
+				$string.=$tmp4[rand(0,count($tmp4)-1)];
+				$string.=$tmp3[1];
+			}
+			$this->view->meta[$key]=$string;
+		}
+
+		if ( preg_match('/^\/ankety(.*)/', $_SERVER['REQUEST_URI']) ) {
+			$this->view->meta['start_title'] = 'Новые анкеты - Vbordele.com';
+			$this->view->meta['start_keys'] = "";
+			$this->view->meta['start_desc'] = "";
+		}
+
 	}
 }
