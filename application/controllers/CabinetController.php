@@ -1150,9 +1150,9 @@ class CabinetController extends Zend_Controller_Action {
 
 		include_once 'Salons.php';
 		$salon = new Salons();
-		$salon = $salon->get_salon($id);
+		$salon_info = $salon->get_salon($id);
 
-		$this->hasRights(array('user_admin', 'user_moder'), array($salon['user_id'], $this->user_id));
+		$this->hasRights(array('user_admin', 'user_moder'), array($salon_info['user_id'], $this->user_id));
 
 		$frmAddSalon = new Form_AddSalonForm( $this->content );
 		$frmAddSalon->setMethod("post");
@@ -1203,27 +1203,27 @@ class CabinetController extends Zend_Controller_Action {
 				}
 			}
 		} else {
-			$salon['phone']     = str_replace("-", '', $salon['phone']);
-			$salon['phone_add'] = str_replace("-", '', $salon['phone_add']);
+			$salon_info['phone']     = str_replace("-", '', $salon_info['phone']);
+			$salon_info['phone_add'] = str_replace("-", '', $salon_info['phone_add']);
 			
 			foreach( $this->content->srv_salon->toArray() as $srv=>$list ) {
 				foreach( $list as $key=>$null ){
-					$salon[$srv.'_'.$key] = $salon['srv_salon_'.$srv] & 1<<$key ? 1 : 0;
+					$salon_info[$srv.'_'.$key] = $salon_info['srv_salon_'.$srv] & 1<<$key ? 1 : 0;
 				}
 			}
 			
-			foreach( $salon as $key => $value ) {
+			foreach( $salon_info as $key => $value ) {
 				if (  $value === '0' ) {
-					unset( $salon[$key] );
+					unset( $salon_info[$key] );
 				}
 			}
 			
-			unset( $salon['srv_salon_intim'] );
-			unset( $salon['srv_salon_strip'] );
-			unset( $salon['srv_salon_bdsm'] );
-			unset( $salon['srv_salon_mass'] );
+			unset( $salon_info['srv_salon_intim'] );
+			unset( $salon_info['srv_salon_strip'] );
+			unset( $salon_info['srv_salon_bdsm'] );
+			unset( $salon_info['srv_salon_mass'] );
 			
-			$frmAddSalon->populate($salon);
+			$frmAddSalon->populate($salon_info);
 		}
 	
 		$this->view->id   = $id;		
