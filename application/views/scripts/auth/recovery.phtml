@@ -1,3 +1,8 @@
+<style>
+	.pull-text-left {
+		text-align: left;
+	}
+</style>
 <div class="fix_width">
 	<div id="main">
 		<div id="content">
@@ -12,17 +17,17 @@
 					<div class="ca_top ca_bottom">
 						<table>
 						<tr>
-							<th>Логин:</th>
+							<th class="pull-text-left">Логин:</th>
 							<td><input type="text" name="name"></td>
 							<td width="60%">Укажите логин пользователя под которым вы регистрировались на сайте.</td>
 						</tr>
 						<tr>
-							<th>Почтовый адрес:</th>
+							<th class="pull-text-left">Почтовый адрес:</th>
 							<td><input type="text" name="mail"></td>
 							<td><strong>Или</strong> Укажите адрес электронной почты указанный вами при регистрации.</td>
 						</tr>
 						<tr>
-							<th>Введите код защиты:</th>
+							<th class="pull-text-left">Введите код защиты:</th>
 							<td><input type="text" name="captcha"></td>
 							<td rowspan="2">
 								<img src="/captcha/<?=$this->captcha?>.png" id="captcha-image" />
