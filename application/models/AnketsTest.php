@@ -95,13 +95,18 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		return $adapter;
 	}
 
-	public function fetchNewestAnkets () {
+	public function fetchNewestAnkets ( $city = false ) {
 		$select = $this->select();
 
 		$select->where('active = 1');
 		$select->where('status >= 30');
+		
+		if ( $city ) {
+			$select->where('city = ?', $city);
+		}
 
 		$select->order('photo_start DESC');
+		$select->limit(6);
 
 		$row = $this->fetchAll($select);
 		if ( $row ) {
@@ -118,7 +123,7 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
-	
+
 	public function fetchAnketsPerUsersPaginationAdapter () {
 		$select = $this->select()->setIntegrityCheck(false);
 		$select->from($this->_name, array('COUNT(*) as count', 'users.user_login', 'ankets.user_id'));

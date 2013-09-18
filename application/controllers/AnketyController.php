@@ -26,7 +26,7 @@ class AnketyController extends IndexController {
 				$start_date = date( 'Y-m-d', time() - ( $current_month - $last_month));
 				break;
 			default :
-				$start_date = date( 'Y-m-d', time());
+				$start_date = date( 'Y-m-d', strtotime("-1 month"));
 		}
 
 		$ankets = new Model_AnketsTest();
