@@ -95,6 +95,21 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		return $adapter;
 	}
 
+	public function fetchNewestAnkets () {
+		$select = $this->select();
+
+		$select->where('active = 1');
+		$select->where('status >= 30');
+
+		$select->order('photo_start DESC');
+
+		$row = $this->fetchAll($select);
+		if ( $row ) {
+			return $row->toArray();
+		}
+		return array();
+	}
+
 	public function fetchPaginatorAdapter( $user_id )
 	{
 		$select = $this->select();

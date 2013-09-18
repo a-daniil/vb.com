@@ -51,14 +51,16 @@ class IndexController extends Zend_Controller_Action {
 		if ( $city == 2 ) {
 			$this->city = 2;
 			$this->view->city = 2;
+			$this->view->city_text = 'Санкт-Петербург';
 			$this->view->metro_list = $this->content->metro_spb->toArray();
 			$this->view->district_list = $this->content->district_spb->toArray();
 		} elseif ( $city == 1 ) {
 			$this->city = 1;
 			$this->view->city = 1;
+			$this->view->city_text = 'Москва';
 			$this->view->metro_list = $this->content->metro_msk->toArray();
 			$this->view->district_list = $this->content->district_msk->toArray();
-		}		
+		}
 
 		// Settings
 		include_once 'Settings.php';
@@ -93,9 +95,9 @@ class IndexController extends Zend_Controller_Action {
 
 		$this->view->sections = new Model_SectionsTest();
 
-        include_once 'MenuItems.php';
-        $mMenuItems = new MenuItems();
-        $this->view->menu_items = $mMenuItems->get_all_items();
+		include_once 'MenuItems.php';
+		$mMenuItems = new MenuItems();
+		$this->view->menu_items = $mMenuItems->get_all_items();
 	}
 
 	public function salonsAction(){
@@ -339,11 +341,13 @@ class IndexController extends Zend_Controller_Action {
 		$ankets = new Model_AnketsTest();
 
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);
-
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage($this->settings['girls_per_page']);
 		$paginator->setCurrentPageNumber($page);
 		$this->view->ankets = $paginator;
+
+		/* get latest ankets */
+		$this->view->ankets_new = $ankets->fetchNewestAnkets($params);
 
 		/* get top score */
 		if ( !$route = Zend_Registry::get('route')  ) {
