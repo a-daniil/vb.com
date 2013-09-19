@@ -302,14 +302,16 @@
 						</div>
 					</div>
 					<div class="salon_anket_sidebox_preview">
-						<img src="<?php echo $this->url_user_ph.'/'.$salon['user_id'].'/th_'.$photo?>" width="237" height="161" alt="description">
+						<a href="/salon/<?=$salon['name_eng']?>-<?=$salon['id']?>" class="more_link_side">
+							<img src="<?php echo $this->url_user_ph.'/'.$salon['user_id'].'/th_'.$photo?>" width="237" height="161" alt="description">
+						</a>
 						<!-- <div class="new_ribbon"></div> -->
 					</div>
 					<div class="salon_anket_sidebox_more_info">
 						<div class="salon_anket_sidebox_more_left">
 							<?php 
 								$this->row = $salon;
-								echo $this->render('_show-services-salon.phtml');
+								echo $this->render('anketa/_show-services-salon.phtml');
 							?>
 							<ul class="salon_anket_sidebox_more_left">
 								<li></li>

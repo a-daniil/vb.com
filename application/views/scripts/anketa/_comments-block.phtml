@@ -142,6 +142,8 @@
 						<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
 						<ul class="select_rating_ul hidden">
 							<?php foreach( $srv as $num=>$val ) : ?>
+							<?php if ( ($this->info['performer'] == 'Массажистка') && (!in_array( $place[0]['name']."_".$num, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) && !preg_match('/^mass$/', $place[0]['name'])) ) :?>
+							<?php else :?>
 							<li>
 								<span class="select_rate_label"><?php echo $val ?></span>
 								<div class="select_rating_star">
@@ -153,6 +155,7 @@
 									<input type="hidden" class="posted" name="<?php echo $val ?>">
 								</div>
 							</li>
+							<?php endif; ?>
 							<?php endforeach ?>
 						</ul>
 					</div>
@@ -163,6 +166,8 @@
 						<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
 						<ul class="select_rating_ul hidden">
 							<?php foreach( $srv as $num=>$val ) : ?>
+							<?php if ( ($this->info['performer'] == 'Массажистка') && (!in_array( $place[1]['name']."_".$num, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) && !preg_match('/^mass/', $place[1]['name'])) ) :?>
+							<?php else :?>
 							<li>
 								<span class="select_rate_label"><?php echo $val ?></span>
 								<div class="select_rating_star">
@@ -174,6 +179,7 @@
 									<input type="hidden" class="posted" name="<?php echo $val ?>">
 								</div>
 							</li>
+							<?php endif; ?>
 							<?php endforeach ?>
 						</ul>
 					</div>
@@ -184,7 +190,7 @@
 			<div class="select_rate_common_stage">
 				<h5 class="question_title question_title_fl">Общее впечатление<span class="required">*</span></h5 >
 				<a href="#" class="good_score_icon select_rate_common_stage_left_ico"></a>
-				<a href="#" class="bad_score_icon select_rate_common_stage_left_ico"></a>
+				<a href="#" class="bad_score_icon select_rate_common_stage_left_ico" id="bad_score_icon"></a>
 				<input type="hidden" name="score">
 				<div class="question_tip_icon on_your_wish" id="question_score">
 					<div class="question_tip_block">
@@ -352,7 +358,9 @@ $("#review_form").submit(function(event) {
   console.log(comment);
   console.log(apartment);
   console.log(service);
+  */
   console.log(score);
+  /*
   console.log(owner_id);
   console.log(user_id);
   console.log(url); 
@@ -402,14 +410,14 @@ $( '#review_form a, #review_form input[name="photo_original"], select[name="phot
 	ratio = ratio / (3 + count);
 	if ( ratio <= 3) {
 		$('.good_score_icon').hide();
-		$('.bad_score_icon').show();
+		$('#bad_score_icon').show();
 		if ( parseInt($('input[name="score"]').val()) == 1 ) {
 			$('input[name="score"]').val(0);
 		}
 		$('#score_question_tip_block_cont > span').html("Суммарная оценка отрицательна, укажите Не советую или на Ваше усмотрение, или измените оценки");
 	} else {
 		$('.good_score_icon').show();
-		$('.bad_score_icon').hide();
+		$('#bad_score_icon').hide();
 		if ( parseInt($('input[name="score"]').val()) == -1 ) {
 			$('input[name="score"]').val(0);
 		}

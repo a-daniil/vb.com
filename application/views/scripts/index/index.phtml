@@ -2,6 +2,7 @@
 	<div id="main">
 		<div id="content">
 			<div class="main_title_block">
+				<?php if ( !isset($this->search_by_phone) && !$this->search_by_phone) : ?>
 				<h1>
 					<? if(isset($this->info['title'])):?>
                    		<?=$this->textToView($this->info['title'])?>
@@ -11,7 +12,8 @@
                     	Проститутки Санкт-Петербурга, индивидуалки
                		<? endif; ?>
 				</h1>
-				<?php if ( !isset($this->search_by_phone) && !$this->search_by_phone) : ?>
+				<?php endif ?>
+				<?php if ( !isset($this->search_by_phone) && !$this->search_by_phone && !$this->sections->getId(substr($_SERVER['REQUEST_URI'], 1)) ) : ?>
 					<?php if ( count($this->ankets_new) > 0 ) : ?>
 					<h2>новые анкеты</h2>
 					<div class="new_ankets_block">
@@ -35,7 +37,6 @@
 							<li>
 								<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="new_ankets_girl_name">
 									<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
-									<?= $row['name']?>,&nbsp;<?= $row['age'] ?>
 								</a>
 								<?php if ( strtotime($row['photo_start']) > strtotime("-2 week") ) :?>
 									<div class="new_ribbon"></div>
@@ -82,11 +83,18 @@
 					<div class="pagination">
 						<?php echo $this->paginationControl($this->ankets,'Sliding','shared/pagination_pub.phtml') ?>
 					</div>
-					<ul class="categories_page">
-						<li><a href="#">Фото без ретуши</a></li>
-						<li><a href="#">Реальные индивидулаки</a></li>
-						<li><a href="#">Анкеты с видео</a></li>
-					</ul>
+					<?php if ( !isset($this->search_by_phone) && !$this->search_by_phone) : ?>
+						<ul class="categories_page">
+							<li><a href="#">Фото без ретуши</a></li>
+							<li><a href="#">Реальные индивидулаки</a></li>
+							<li><a href="#">Анкеты с видео</a></li>
+						</ul>
+					<?php else : ?>
+						<ul class="categories_page">
+							<li>Результат поиска по параметрам: </li>
+							<li>тел: <?php echo $this->filter['tel']?></li>
+						</ul>
+					<?php endif; ?>
 				</div>
 				<?php foreach($this->ankets as $row):
 						$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');

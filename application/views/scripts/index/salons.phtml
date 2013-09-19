@@ -35,7 +35,9 @@
 					}
 			?>
 			<div class="salon_card_holder">
-				<h2><?php echo $row['name'] ?></h2>
+				<h2>
+					<?php echo strlen($row['name']) < 50 ? $row['name'] : substr($row['name'],0,100) . "..." ?>
+				</h2>
 				<div class="salon_card">
 					<div class="salon_card_common_left">
 						<div class="salon_card_photo">
@@ -98,6 +100,6 @@
 				endforeach;
 			?>
 		</div>
-		<?= $this->render('index/_sidebar.phtml') ?>
+		<?= $this->render('index/_sidebar_salons.phtml') ?>
 	</div>
 </div>

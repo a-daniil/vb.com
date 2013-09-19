@@ -34,11 +34,23 @@
 							<li><?php echo $this->district_list[$this->info['district']] ?></li>
 						</ul>
 						<span class="grey_metro"><span class="grey_metro_icon"></span><? $metro = explode(";", $this->info['metro']);  echo $this->metro_list[$metro[0]]; ?></span>
-						<h5>Параметры:</h5>
+						<h5 style="display: inline-block">Адрес:</h5>&nbsp;<?=$this->info['address']?>
+						<ul class="girl_card_info_list black_list">
+							<li>Кол. девушек.............<?=$this->info['girl_number']?></li>
+							<li>Кол. комнат...............<?=$this->info['room_number']?></li>
+							<li>Время работы&nbsp;
+								<?php if ( $this->info['time_from'] != 0 && $this->info['time_to'] != 0 ): ?>
+                    				c: <?=$this->info['time_from']?> до: <?=$this->info['time_to']?>
+                    			<?php else: ?>
+                    				24 часа
+                    			<?php endif ?>
+							</li>
+						</ul>
 						<!-- <div class="without_ret2"></div> -->
 					</div>
 					<div class="single_girl_main_info_block_r">
 						<div class="salon_card_another_info">
+							<!--
 							<div class="salon_card_rating_block">
 								<div class="salon_card_rating">
 									<span class="common_salon_card_rating"><span class="white_star_icon"></span>8.5</span>
@@ -62,6 +74,7 @@
 							<span class="real_individual"><span class="real_individual_icon full"></span>Реальня индивидуалка</span>
 							<span class="photo_verified"><span class="photo_verified_icon"></span>Фото проверено</span>
 							<h5 class="common_programs">Любимые программы:</h5>
+							-->
 							<?php
 								$this->row = $this->info;
 								echo $this->render('_show-services-salon.phtml');
@@ -156,129 +169,7 @@
 				</div>
 			</div>
 		</div>
-		<aside id="sidebar">
-			<?php if( $this->info['videolist'] ) : ?>
-				<div class="sidebox pink">
-					<div class="sidebox_header">
-						<h3>Мое видео</h3>
-					</div>
-					<div class="sidebox_content no_padding">
-               			<?php $video=array_shift($this->info['videolist']); ?>
-                		<?php $swflink = 'file='.$video['fs'].'&image=/img/videoprev.jpg&author=vipsoski.com&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
-                  		<span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="248" height="189" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
-                		<script type="text/javascript" src="/js/swfobject.js"></script>
-                  		<script type="text/javascript">
-                    		var s1 = new SWFObject('/player.swf','player','230','189','9');
-                       		s1.addParam('allowfullscreen','true');
-                       		s1.addParam('allowscriptaccess','always');
-                      	    s1.addParam('flashvars','<?=$swflink;?>');
-                       		s1.write('video1');
-                   		</script>
-					</div>
-				</div>
-			<?php endif ?>
-			<div class="sidebox pink">
-				<div class="sidebox_header">
-					<h3>оценка пользователей</h3>
-				</div>
-			<div class="sidebox_content no_side_padding">
-				<span class="total_score">Общая оценка: <span class="good_score">хорошо <span class="good_score_icon"></span></span></span>
-					<ul class="reviews_sidebar_item">
-						<li>
-							<span class="reviewer_name">Миша</span>
-							<ul class="reviews_sidebar_item_info">
-								<li>Соответствие фото: <span class="black">настоящие</span></li>
-								<li>Реальна индивидуалка: <span class="black">салон</span></li>
-								<li>
-									Отношение к клиенту:
-									<div class="black">
-										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-										</ul>
-									</div>
-								</li>
-								<li>
-									Массаж эротический:
-									<div class="black">
-										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li></li>
-											<li class="bad"></li>
-										</ul>
-									</div>
-								</li>
-								<li>
-									Ролевые игры:
-									<div class="black">
-										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li class="bad"></li>
-											<li class="bad"></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-							<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
-						</li>
-						<li>
-							<span class="reviewer_name">Sanek</span>
-							<ul class="reviews_sidebar_item_info">
-								<li>Соответствие фото: <span class="black">чужие</span></li>
-								<li>Реальна индивидуалка: <span class="black">салон</span></li>
-								<li>
-									Отношение к клиенту:
-									<div class="black">
-										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-											</ul>
-									</div>
-								</li>
-								<li>
-									Массаж эротический:
-									<div class="black">
-										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li></li>
-											<li class="bad"></li>
-										</ul>
-									</div>
-								</li>
-								<li>
-									Ролевые игры:
-									<div class="black">
-										<ul class="rating_stars">
-											<li></li>
-											<li></li>
-											<li class="bad"></li>
-											<li class="bad"></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-							<span class="single_reviewer_total_score">Общая оценка: <span class="bad_score">не советую <span class="bad_score_icon"></span></span></span>
-						</li>
-					</ul>
-					<a href="#" class="more_reviews">Показать все отзывы</a>
-				</div>
-			</div>
-			<div class="sidebox pink">
-				<div class="sidebox_header">
-					<h3>ищи меня на карте</h3>
-				</div>
-				<div class="sidebox_content no_padding">
-					<img src="/img/pic30.jpg" width="248" height="189" alt="description">
-				</div>
-			</div>
-		</aside>
+		<?= $this->render('index/_sidebar.phtml') ?>
 	</div>
 </div>
 <script type="text/javascript"> 

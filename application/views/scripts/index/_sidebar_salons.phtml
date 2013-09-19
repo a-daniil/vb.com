@@ -138,30 +138,25 @@
 			<h3>Услуги</h3>
 		</div>
 		<div class="sidebox_content servises_girl_min_height">
-			<h5 class="category_header">Основные программы</h5>
+			<h5 class="category_header">Услуги интим</h5>
 			<ul class="red_dot_list">
 				<?php foreach($this->services as $part=>$srv) : ?>
 				<?php array_shift($srv); ?>
 				<?php foreach($srv as $num=>$val) : ?>
-				<?php if ($part == 'main' ) : ?>
-				<a	href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
-					<li><?php echo $val ?>
-				</li>
-				</a>
+				<?php if ($part == 'intim' ) : ?>
+				<li><?php echo $val ?>
 				<?php endif ?>
 				<?php endforeach ?>
 				<?php endforeach ?>
 			</ul>
-			<h5 class="category_header">Дополнительные программы</h5>
+			<h5 class="category_header">Услуги массажа</h5>
 			<ul class="red_dot_list">
 				<?php foreach($this->services as $part=>$srv) : ?>
 				<?php array_shift($srv); ?>
 				<?php foreach($srv as $num=>$val) : ?>
-				<?php if ($part == 'add' ) : ?>
+				<?php if ($part == 'mass' ) : ?>
 				<li>
-					<a	href="/<?php echo $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) ? $this->sections->getUriForServices('srv_' . $part . '&1<<' . $num) : '#';?>">
-						<?php echo $val ?>
-					</a>
+					<?php echo $val ?>
 				</li>
 				<?php endif ?>
 				<?php endforeach ?>
