@@ -481,16 +481,16 @@ class IndexController extends Zend_Controller_Action {
 
     public function menuitemsAction() {
     	$uri = substr($this->_getParam('uri'),0,256);
-    	
+
     	include_once 'MenuItem.php';
     	$mMenuItem=new MenuItems();
     	$this->view->info = $info = $mMenuItem->get_by_uri($uri); 
-    	
+
     	//add performer and type ot view
     	$this->view->r_performer = $info['performer'];
     	$this->view->r_type = $info['type'];
     	
-    	if( $info['type'] != 2){	
+    	if( $info['type'] != 2){
     		$this->_helper->viewRenderer->setScriptAction('index');
     		$this->indexAction();
     	} else {
@@ -498,7 +498,7 @@ class IndexController extends Zend_Controller_Action {
     		$this->salonsAction();
     	}
     }
-        
+
 	protected function check_text($text){
 		return preg_replace('/[^ёЁ\d\w\s\.\-а-я+,!?%]/ui','',$text);
 	}

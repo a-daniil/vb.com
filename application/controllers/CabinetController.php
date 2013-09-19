@@ -1225,12 +1225,12 @@ class CabinetController extends Zend_Controller_Action {
 			
 			$frmAddSalon->populate($salon_info);
 		}
-	
-		$this->view->id   = $id;		
+
+		$this->view->id   = $id;
 		$this->view->form = $frmAddSalon;
 		$this->view->content = $this->content;
 	}
-	
+
 	public function financeStatisticAction () {
 		$filter  = $this->getParam('filter') ? $this->getParam('filter') : false;
 		

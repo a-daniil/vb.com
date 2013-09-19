@@ -458,10 +458,10 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'price_n_ex', array(
 			'filter' => array('StringTrim'),
-			'validators' => array(				
+			'validators' => array(
 				array(
 					'Int', false, array('messages' => array(
 						Zend_Validate_Int::NOT_INT => self::NOT_INT
@@ -475,7 +475,7 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addDisplayGroup(array(
 				'price_1h_ex',
 				'price_2h_ex',
@@ -699,45 +699,50 @@ class Form_AddMassAnkForm extends Form_AddAnkForm
 			$nn=-1;
 			$elements = array();
 			while( $val = array_shift($srv) ) {
-				$elements[] = $part . '_' . ++$nn;
-				$service = $this->addElement('checkbox', $part. '_' . $nn, array(
-					'label'    => $val,
-					'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('class' => 'control-label')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span5', 'style' => 'margin-bottom: 5px;'))
-					)
-				));
-
-				$elements[] = $part . '_' . $nn . '_add';
-				$add = $this->addElement('checkbox', $part. '_' . $nn . '_add', array(
-					'label'    => 'Доп',
-					'decorators' => array(
-						'ViewHelper',
-						'Errors',
-						array('Label', array('class' => 'control-label add-label', 'style' => 'display: inline-block; width: 40px;')),
-						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span2',))
-					)
-				));
-
-				$elements[] = $part . '_' . $nn . '_add_input';
-				$add_input = $this->addElement('text', $part. '_' . $nn . '_add_input', array(
-					'disabled' => 'disabled',
-					'label'    => '',
+				$part_el = $part . '_' . ++$nn;
+				if ( in_array( $part_el, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) || preg_match('/^mass_(.*)$/', $part_el) ) {
+					$elements[] = $part_el;
+					$service = $this->addElement('checkbox', $part_el, array(
+						'label'    => $val,
 						'decorators' => array(
 							'ViewHelper',
 							'Errors',
-							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span4', 'style' => 'margin-bottom: 5px;'))
-					)
-				));
+							array('Label', array('class' => 'control-label')),
+							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span5', 'style' => 'margin-bottom: 5px;'))
+						)
+					));
+
+					$elements[] = $part_el . '_add';
+					$add = $this->addElement('checkbox', $part_el . '_add', array(
+						'label'    => 'Доп',
+						'decorators' => array(
+							'ViewHelper',
+							'Errors',
+							array('Label', array('class' => 'control-label add-label', 'style' => 'display: inline-block; width: 40px;')),
+							array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span2',))
+						)
+					));
+
+					$elements[] = $part_el . '_add_input';
+					$add_input = $this->addElement('text', $part_el . '_add_input', array(
+						'disabled' => 'disabled',
+						'label'    => '',
+							'decorators' => array(
+								'ViewHelper',
+								'Errors',
+								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span4', 'style' => 'margin-bottom: 5px;'))
+						)
+					));
+				}
 			}
 
-			$service_group = $this->addDisplayGroup(
-				$elements,
-				'service_group_' . $part,
-				array("legend" => $legend)
-			);
+			if ( count( $elements ) > 0 ) {
+				$service_group = $this->addDisplayGroup(
+					$elements,
+					'service_group_' . $part,
+					array("legend" => $legend)
+				);
+			}
 		}
 
 		$this->addElement('text', 'only', array(

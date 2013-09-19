@@ -9,10 +9,12 @@ class AnketaController extends IndexController {
 		if(!$this->_hasParam('name')){
 			throw new Ps_Anketa_Exception();
 		}
-		list( $name, $ank_id ) = explode("-", $this->_getParam('name') );
+		list( $name, $ank_id ) = explode("-", $this->_getParam('name'));
+
 		if(!$ank_id){
 			throw new Ps_Anketa_Exception();
 		}
+
 		$in_params=array('c','a','h','w','b','r','s');
 		$filters=array();
 		foreach($in_params as $param){
@@ -100,6 +102,7 @@ class AnketaController extends IndexController {
 				}
 			}
 		}
+
 		list($info['phone_p1'],$info['phone_p2'])=explode('-',$info['phone']);
 		
 		if( $info['type'] != 1){
