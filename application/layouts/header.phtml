@@ -26,8 +26,7 @@
 	<div class="middle_header_block">
 		<div class="fix_width">
 			<a href="/">
-				<div class="logo">
-				</div>
+				<div class="logo"></div>
 			</a>
 			<div class="header_filter_block">
 				<form name="redirectForm" method="post" action="">
@@ -61,7 +60,7 @@
 							<li>
 								<label for="area">Район:</label>
 								<select class="head_select" name="metro" name="d" onchange="if (this.selectedIndex) {submitForm('filters');}">
-									<?$i=0;foreach($this->district_list as $title):?>                       
+									<?$i=0;foreach($this->district_list as $title):?>
                         				<option value="<?=$i?>"<?if($i==$this->filter['d']):?> selected<?endif?>><?=$title?></option>
                      				<? $i++; endforeach?>
 								</select>
@@ -108,6 +107,7 @@
 		</div>
 	</div>
 </header>
-<script>
-
+<script type="text/javascript">
+	/* Кастомный селект */
+	$('.head_select').msDropdown();
 </script>

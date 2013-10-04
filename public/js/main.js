@@ -4,10 +4,6 @@ $(document).ready(function(){
 
 	$('table.even_odd tbody tr:even').css('background-color', '#f5f5f2');
 
-	/*Кастомный селект*/
-	$('.simple_select').customSelectBox();
-	$('.head_select').msDropdown();
-
 	$(".multiselect").multiselect({
 		header: false,
 		selectedList: 1
