@@ -17,34 +17,36 @@
 	</ul>
 <? endif ?>
 <?=$this->paginationControl($this->comments,'Sliding','shared/pagination_comm.phtml')?>
-<a href="#" class="add_comm">
-	<span class="add_review_icon"></span>Оставить комментарий
-</a>
-<?php if ( !$this->user_id ): ?>
-<div id="hide_register_block_comm">
-	<div class="popup_holder">
-		<div class="root_girl_title">
-			<form action="/auth" method="post" class="root_girl_form">
-				<div class="root_girl_form_text">Комментарии могут оставлять только зарегистрированные пользователи!</div>
-				<div class="root_girl_form_elem">
-					<input type="text" name="username" id="num_phone">
-					<input type="password" name="password" id="num_phone">
-					<input type="hidden" id="url" name="url" value="<?php echo $_SERVER['REQUEST_URI'] ?>">
-					<button class="button">Войти на сайт</button>
-					<a class="btn_reg" href="#">Регистрация</a>
-				</div>
-			</form>
+<?php if ( $this->flags != '2') : ?>
+	<a href="#" class="add_comm">
+		<span class="add_review_icon"></span>Оставить комментарий
+	</a>
+	<?php if ( !$this->user_id ): ?>
+	<div id="hide_register_block_comm">
+		<div class="popup_holder">
+			<div class="root_girl_title">
+				<form action="/auth" method="post" class="root_girl_form">
+					<div class="root_girl_form_text">Комментарии могут оставлять только зарегистрированные пользователи!</div>
+					<div class="root_girl_form_elem">
+						<input type="text" name="username" id="num_phone">
+						<input type="password" name="password" id="num_phone">
+						<input type="hidden" id="url" name="url" value="<?php echo $_SERVER['REQUEST_URI'] ?>">
+						<button class="button">Войти на сайт</button>
+						<a class="btn_reg" href="#">Регистрация</a>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
-<?php else: ?>
-<div class="comments_common_block hide">
-	<h5 class="question_title">Комментарий <span class="required">*</span></h5>
-	<textarea name="comment_text" cols="30" rows="10"></textarea>
-	<div class="clear">
-		<button class="send_comment button">Отправить</button>
+	<?php else: ?>
+	<div class="comments_common_block hide">
+		<h5 class="question_title">Комментарий <span class="required">*</span></h5>
+		<textarea name="comment_text" cols="30" rows="10"></textarea>
+		<div class="clear">
+			<button class="send_comment button">Отправить</button>
+		</div>
 	</div>
-</div>
+	<? endif ?>
 <? endif ?>
 <script type="text/javascript">
 $(".send_comment").click(function () {
