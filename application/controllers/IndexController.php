@@ -139,7 +139,7 @@ class IndexController extends Zend_Controller_Action {
 		include_once 'Salons.php';
 		$salons = new Salons();
 		$salons->set_items_per_page(($this->_hasParam('limit')) ? (int)$this->_getParam('limit') : $this->settings['girls_per_page']);
-		
+
 		// debug filters
 		if ($this->admin) print_r($params);
 
@@ -331,7 +331,7 @@ class IndexController extends Zend_Controller_Action {
 
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);
 		$paginator = new Zend_Paginator($adapter);
-		$paginator->setItemCountPerPage($this->settings['girls_per_page']);
+		$paginator->setItemCountPerPage(1);
 		$paginator->setCurrentPageNumber($page);
 		$this->view->ankets = $paginator;
 
@@ -348,9 +348,9 @@ class IndexController extends Zend_Controller_Action {
 			$this->view->top_100 = false;
 		}
 
-        // debug filters
-        if ($this->admin) print_r($params);
-        if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
+		// debug filters
+		if ($this->admin) print_r($params);
+		if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];
 		if (isset($this->view->info['keywords'])) $this->view->meta['start_keys']=$this->view->info['keywords'];
 		if (isset($this->view->info['descriptions'])) $this->view->meta['start_desc']=$this->view->info['descriptions'];
 	}
