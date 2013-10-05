@@ -2,11 +2,22 @@
 	<div class="pager_holder gray_pager_holder">
 		<div class="pagination">
 			<? if (isset($this->previous)) :?>
-				<a id="prev_comm" href="#" class="previouslink"></a>
+				<a id="prev_comm" href="#" class="previouslink link"></a>
 			<? endif ?>	
-				<a href="#"><?= $this->current ?></a>
+
+			<?
+				$i = ($this->current - 15 > 0 ) ? $this->current - 15 : 1;
+			?>
+			<? for($i; $i <= $this->current; $i++) : ?>
+				<? if ( $i == $this->current) : ?>
+					<a href="#" class="current link"><?=$this->current?></a>
+				<? else: ?>
+					<a href="<?=$this->url(array('p'=>$i),'default')?>" class="link"><?=$i?></a>
+				<? endif; ?>
+			<? endfor; ?>
+
 			<? if (isset($this->next)) :?>
-				<a id="next_comm" href="#" class="nextlink"></a>
+				<a id="next_comm" href="#" class="nextlink link"></a>
 			<? endif ?>	
 		</div>
 	</div>
@@ -21,3 +32,17 @@
 		$('#next_comm').attr('href', link_next);
 	</script>
 <?endif?>
+<form name="change_comment_page" action="<? $_SERVER['REQUEST_URI'] ?>" method="post">
+	<input type="hidden" name="cm">
+</form>
+<script type="text/javascript">
+	$(".link").click(function(e) {
+		e.preventDefault();
+
+		var $href = $(this).attr('href');
+		var $cm = $href.replace(/[^0-9]/g, '');
+
+		$("input[name=cm]").val($cm);
+		$("form[name=change_comment_page]").submit();
+	});
+</script>

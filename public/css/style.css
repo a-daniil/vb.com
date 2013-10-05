@@ -1510,7 +1510,7 @@ and (max-device-width : 480px) {
 	text-align: justify;
 	border-bottom: 1px solid #ededeb;
 	padding: 0 0 10px;
-	margin: 0 0 15px;
+	margin: 0 0 10px;
 	line-height: 17px;
 }
 .reviews li:last-child{
