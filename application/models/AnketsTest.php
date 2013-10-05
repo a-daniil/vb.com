@@ -99,7 +99,7 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		$select = $this->select();
 
 		$select->where('active = 1');
-		$select->where('status >= 30');
+		$select->where('status > 30');
 
 		if ( $city ) {
 			$select->where('city = ?', $city);
