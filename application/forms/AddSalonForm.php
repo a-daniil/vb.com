@@ -11,6 +11,7 @@ class Form_AddSalonForm extends Zend_Form
 	const NOT_RANGE = "Допустимый дипазон значений от %d до %d.";
 	const NOT_PHONE = "Неверный формат телефона.";
 	const NOT_ENG_LETTERS = "Только английские(латинские) символы";
+	const NAME_TO_LONG = "Имя салона не должно превышать 50 символов";
 
 	/* Типы салонов */
 	const INTIM = 1;
@@ -28,7 +29,7 @@ class Form_AddSalonForm extends Zend_Form
 		$this->content = $content;
 		$this->params = $params;
 		
-		if ( $params['city'] ) {		
+		if ( $params['city'] ) {
 			$this->cityParam = $params['city'];
 		} else {
 			$this->cityParam = 2;
@@ -46,7 +47,7 @@ class Form_AddSalonForm extends Zend_Form
 			default :
 				$this->metro_list = $this->content->metro_spb->toArray();
 				$this->district_list = $this->content->district_spb->toArray();
-		}			
+		}
 
 		parent::__construct();
 	}
@@ -77,7 +78,11 @@ class Form_AddSalonForm extends Zend_Form
 				array(
 					'NotEmpty', false, array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
-				)))
+				))),
+				array(
+					'StringLength', false, array('max' => 50, 'messages' => array(
+						Zend_Validate_StringLength::TOO_LONG => self::NAME_TO_LONG
+				))),
 			),
 			'required' => true,
 			'label' => 'Название:',
@@ -96,7 +101,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->cities->toArray(),						
+			'multiOptions' => $this->content->cities->toArray(),
 			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
@@ -106,7 +111,7 @@ class Form_AddSalonForm extends Zend_Form
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
-		$city->setValue($this->cityParam);		
+		$city->setValue($this->cityParam);
 		$this->addElement($city);
 	
 		$this->addElement('select', 'district', array(
@@ -116,7 +121,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->district_list,			
+			'multiOptions' => $this->district_list,
 			'required' => true,
 			'label'    => 'Район:',
 			'decorators' => array(
@@ -126,7 +131,7 @@ class Form_AddSalonForm extends Zend_Form
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('select', 'metro', array(
 			'validators' => array(
 			    array(
@@ -144,7 +149,7 @@ class Form_AddSalonForm extends Zend_Form
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'address', array(
 			'filter'     => array('StringTrim'),
 			'label' => 'Адрес:',
@@ -154,15 +159,15 @@ class Form_AddSalonForm extends Zend_Form
 				array('Label', array('class' => 'control-label', 'style' => 'width: 270px')),
 				array(array('row'=>'HtmlTag'), array('tag'=>'div', 'class' => 'control-group'))
 			)
-		));		
-		
+		));	
+
 		$this->addElement('text', 'phone', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
 				array(
 					'NotEmpty', array('breakChainOnFailure' => true), array('messages' => array(
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
-				))),			
+				))),
 				array(
 					'Regex', false, array('pattern' => '/^([+7-8]{1,2})?([(-\s]+)?(\d{3})([)-\s]+)?(\d{3})([-\s]+)?(\d{2})([-\s]+)?(\d{2})$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_PHONE
@@ -177,7 +182,7 @@ class Form_AddSalonForm extends Zend_Form
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$this->addElement('text', 'phone_add', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -198,7 +203,7 @@ class Form_AddSalonForm extends Zend_Form
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
-		
+
 		$this->addElement('text', 'price_1h_ap', array(
 				'filter' => array('StringTrim'),
 				'validators' => array(
@@ -215,7 +220,7 @@ class Form_AddSalonForm extends Zend_Form
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
-		
+
 		$this->addElement('text', 'price_2h_ap', array(
 				'filter' => array('StringTrim'),
 				'validators' => array(
@@ -232,7 +237,7 @@ class Form_AddSalonForm extends Zend_Form
 						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 				)
 		));
-		
+
 		$this->addElement('text', 'price_n_ap', array(
 				'filter' => array('StringTrim'),
 				'validators' => array(
