@@ -50,7 +50,7 @@
 	<form action="/remote/review/" id="review_form">
 		<fieldset>
 			<div class="question_title_box">
-				<h5 class="question_title question_title_fl">Фотографии оригинал?<span class="required">*</span></h5>
+				<h5 class="question_title question_title_fl" title="Обязательное поле к выбору">Фотографии оригинал?<span class="required">*</span></h5>
 				<div class="question_tip_icon on_your_wish" id="question_real_individual">
 					<div class="question_tip_block">
 						<div class="question_tip_block_corner"></div>
@@ -74,7 +74,7 @@
 				</div>
 			</div>
 			<div class="question_title_box">
-				<h5 class="question_title question_title_fl">Реальная индивидуалка?<span class="required">*</span></h5>
+				<h5 class="question_title question_title_fl" title="Обязательное поле к выбору">Реальная индивидуалка?<span class="required">*</span></h5>
 				<div class="question_tip_icon on_your_wish" id="question_real_individual">
 					<div class="question_tip_block">
 						<div class="question_tip_block_corner"></div>
@@ -89,7 +89,7 @@
 				<label class="comment_label"><input type="radio" name="real_individual" value="1">Да</label>
 				<label class="comment_label"><input type="radio" name="real_individual" value="-1">Нет, это салон</label>
 			</div>
-			<h5 class="question_title">Ваши оценки <span class="required">*</span></h5 >
+			<h5 class="question_title" title="Обязательное поле к выбору">Ваши оценки <span class="required">*</span></h5 >
 			<span class="grey_italic">Если девушка оказывала Вам какие-то услуги, Вы можете оценить их качество, выбрав значение ниже</span>
 			<div class="select_rating_girl_block">
 				<div class="select_rating_girl_block_l">
@@ -182,9 +182,9 @@
 			<?php endforeach; ?>
 			<?php endif; ?>
 			<div class="select_rate_common_stage">
-				<h5 class="question_title question_title_fl">Общее впечатление<span class="required">*</span></h5 >
-				<a href="#" class="good_score_icon select_rate_common_stage_left_ico"></a>
-				<a href="#" class="bad_score_icon select_rate_common_stage_left_ico" id="bad_score_icon"></a>
+				<h5 class="question_title question_title_fl" title="Обязательное поле к выбору">Общее впечатление<span class="required">*</span></h5 >
+				<a href="#" class="good_score_icon select_rate_common_stage_left_ico" title="Рекомендую"></a>
+				<a href="#" class="bad_score_icon select_rate_common_stage_left_ico" id="bad_score_icon" title="Не советую"></a>
 				<input type="hidden" name="score">
 				<div class="question_tip_icon on_your_wish" id="question_score">
 					<div class="question_tip_block">

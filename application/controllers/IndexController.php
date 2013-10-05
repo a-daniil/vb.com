@@ -331,7 +331,7 @@ class IndexController extends Zend_Controller_Action {
 
 		$adapter = $ankets->fetchAnketsList($params,$video, null, $mtr_id);
 		$paginator = new Zend_Paginator($adapter);
-		$paginator->setItemCountPerPage(1);
+		$paginator->setItemCountPerPage($this->settings['girls_per_page']);
 		$paginator->setCurrentPageNumber($page);
 		$this->view->ankets = $paginator;
 
