@@ -16,6 +16,21 @@ class Model_SalonsTest extends Zend_Db_Table_Abstract {
 		return array();
 	}
 
+	public function getViewedSalonsCount()
+	{
+		$select = $this->select();
+		$select->from($this->_name, 'COUNT(*) as count');
+		$select->where('status > 30');
+		$select->where('active = 1');
+		$select->where('priority = 1');
+
+		$row = $this->fetchRow($select);
+		if ( $row ) {
+			return $row['count'];
+		}
+		return array();
+	}
+
 	public function getPriority(  )
 	{
 		$select = $this->select();

@@ -170,6 +170,8 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		$select = $this->select();
 		$select->from($this->_name, array('COUNT(*) as count'));
 		$select->where('performer = ?', $per);
+		$select->where('active = 1');
+		$select->where('status >= 30');
 
 		$row = $this->fetchRow($select);
 		if ( $row ) {
