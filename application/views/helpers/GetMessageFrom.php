@@ -1,10 +1,10 @@
 <?
 
 class Zend_View_Helper_GetMessageFrom extends Zend_View_Helper_Abstract {
-	
+
 	const MY_MESSAGE = "Моё сообщение";
 	const ADMIN_MESSAGE = "Администрация";
-	
+
 	public function getMessageFrom ( $id )
 	{
 		$auth = Zend_Auth::getInstance()->getIdentity();
@@ -24,7 +24,6 @@ class Zend_View_Helper_GetMessageFrom extends Zend_View_Helper_Abstract {
 			return self::ADMIN_MESSAGE;
 		} else {
 			return $users->getLogin( $owner_id );
-		}		
+		}
 	}
-	
 }

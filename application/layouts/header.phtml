@@ -91,9 +91,13 @@
 
 						foreach ( $this->menu_items as $item ) {
             		    	if ( $id == substr( $item['uri'],0 ) ) {
-            					echo '<li class="active"><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>';
+            					echo '<li class="active"><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] .
+            						 '<span class="yellow_tooltip">'.$this->getAnketsPerMenuItem($item['performer']).'</span>'.
+            						 '</a></li>';
             		    	} else {
-            		       		echo '<li><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] . '</a></li>';
+            		       		echo '<li><a href="' . $SERVER['SERVER_NAME'] . "/" .$item['uri'] . '">' . $item['menu_title'] .
+              		       			 '<span class="yellow_tooltip">'.$this->getAnketsPerMenuItem($item['performer']).'</span>'.
+              		       			 '</a></li>';
             		    	}
                		 	}
                		 ?>

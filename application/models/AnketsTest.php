@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Model_AnketsTest extends Zend_Db_Table_Abstract {
 
@@ -16,38 +16,38 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 		}
 		return array();
 	}
-	
+
 	public function fetchClearAnketsList ( $param = null)
 	{
-		$select = $this->select();	
-			
+		$select = $this->select();
+
 		$select->where('active = 1');
 		$select->where('status >= 30');
-		
+
 		if ( $param ) {
 			$select->where($param);
 		}
-		
+
 		$select->order('
 			priority DESC,
 			case priority when 1 then RAND() end DESC,
 			case priority when 0 then timestamp end DESC
 		');
-		
+
 		$row = $this->fetchAll($select);
 		if ( $row ) {
 			return $row->toArray();
 		}
 		return array();
 	}
-	
+
 	public function fetchAnketsList ( array $params = null, $video = false, $metro = false, $mtr_id = false, $per = false)
-	{	
-		$select = $this->select();		
+	{
+		$select = $this->select();
 		
-		if ( $per ) {	
+		if ( $per ) {
 			$select->where('performer = ?', $per);
-		}	
+		}
 
 		$select->where('active = 1');
 		$select->where('status >= 30');
@@ -163,6 +163,19 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 			return $row->toArray();
 		}
 		return array();
+	}
+
+	public function getAnketsCountByPerformerId( $per )
+	{
+		$select = $this->select();
+		$select->from($this->_name, array('COUNT(*) as count'));
+		$select->where('performer = ?', $per);
+
+		$row = $this->fetchRow($select);
+		if ( $row ) {
+			return $row['count'];
+		}
+		return null;
 	}
 
 	public function getAnketsCountByPriority()

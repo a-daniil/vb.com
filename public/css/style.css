@@ -959,6 +959,11 @@ and (max-device-width : 480px) {
 	display: block;
 	margin: 0 0 14px;
 }
+.grey_city{
+	color: #767676;
+	display: block;
+	margin: 0 0 5px;
+}
 .girl_card_info_list, .salon_card_info_list{
 	color: #767676;
 	margin: 0 0 34px;

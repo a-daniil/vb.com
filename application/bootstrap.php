@@ -115,7 +115,7 @@ $mMenuItems = new MenuItems();
 foreach ( $items = $mMenuItems->get_all_items() as $item ) {
 	$router->addRoute($item['uri'],
 		new Zend_Controller_Router_Route($item['uri'],
-				array('module' => 'default', 'controller' => 'index', 'action' => 'menuItems', 'uri' => $item['uri'] )));
+			array('module' => 'default', 'controller' => 'index', 'action' => 'menuItems', 'uri' => $item['uri'] )));
 }
 
 $front->dispatch();
