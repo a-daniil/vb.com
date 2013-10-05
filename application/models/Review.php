@@ -211,4 +211,20 @@ class Model_Review extends Zend_Db_Table_Abstract {
 		$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
 		return $adapter;
 	}
+
+	public function checkDuplicateReview($ank_id, $user_id)
+	{
+		$select = $this->select();
+		$select->from($this->_name, 'COUNT(*) as count');
+		$select->where("user_id = ?", $user_id);
+		$select->where("owner_id = ?", $ank_id);
+		//$select->where("");
+		
+		$row = $this->fetchRow($select);
+		if ( $row['count'] ) {
+			return $row['count'];
+		}
+
+		return false;
+	}
 }

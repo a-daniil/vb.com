@@ -2,22 +2,22 @@
 	<div class="pager_holder gray_pager_holder">
 		<div class="pagination">
 			<? if (isset($this->previous)) :?>
-				<a id="prev_comm" href="#" class="previouslink"></a>
+				<a id="prev_review" href="#" class="previouslink"></a>
 			<? endif ?>	
 				<a href="#"><?= $this->current ?></a>
 			<? if (isset($this->next)) :?>
-				<a id="next_comm" href="#" class="nextlink"></a>
+				<a id="next_reivew" href="#" class="nextlink"></a>
 			<? endif ?>	
 		</div>
 	</div>
 	<script type="text/javascript">
 		<?
-			$url = preg_replace("/?cm=\d{1,3}|?cp=\d{1,3}/", "", $_SERVER['REQUEST_URI']) . "?cm=";
+			$url = preg_replace("/?cm=\d{1,3}|?cp=\d{1,3}/", "", $_SERVER['REQUEST_URI']) . "?cp=";
 		?>
 	
 		var link_prev = <? echo "'" . $url . $this->previous . "';" ?>
 		var link_next = <? echo "'" . $url . $this->next . "';" ?>
-		$('#prev_comm').attr('href', link_prev);
-		$('#next_comm').attr('href', link_next);
+		$('#prev_review').attr('href', link_prev);
+		$('#next_reivew').attr('href', link_next);
 	</script>
 <?endif?>

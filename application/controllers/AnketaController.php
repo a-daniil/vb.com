@@ -201,12 +201,12 @@ class AnketaController extends IndexController {
 		include_once 'CountersAnkets.php';
 		$counters=new CountersAnkets();
 		$counters->inc_ank($info['id']);
+
 		// Comments:
-		$commpage = $this->_hasParam('cp') ? intval($this->_getParam('cp')) : 1;
+		$commpage = $this->_hasParam('cm') ? intval($this->_getParam('cm')) : 1;
 		include_once 'Comments.php';
 		$comments = new Comments();
-		$this->view->comments = $comments->get_list($commpage,$ank_id, $info['priority']);	
-		$this->view->services = $services;	
+		$this->view->comments = $comments->get_list($commpage,$ank_id, $info['priority']);
 
 		// Reviews for latest two section in sidebar
 		$reviews = new Model_Review();
@@ -214,11 +214,13 @@ class AnketaController extends IndexController {
 		$this->view->latest2reviews = $latest2reviews;
 
 		// Reviews
-		$cp = $this->_getParam('cp');
+		$cp = $this->_getParam('cp') ? intval($this->_getParam('cp')) : 1;
 		$adapter = $reviews->fetchPaginatorAdapter($info['id']);
 		$paginator = new Zend_Paginator($adapter);
-		$paginator->setItemCountPerPage(2);
+		$paginator->setItemCountPerPage(5);
 		$paginator->setCurrentPageNumber($cp);
 		$this->view->reviews = $paginator;
+
+		$this->view->services = $services;
 	}
 }

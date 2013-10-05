@@ -1583,17 +1583,29 @@ and (max-device-width : 480px) {
 	font-weight: normal;
 }
 .comments_common_block{
+	padding: 20px 0 20px;
+}
+
+.review_common_block{
 	padding: 20px 0 0;
 }
+
+.reviews_common_block_success{
+	padding: 20px 0 0;
+}
+
 .hide {
 	display: none;
 }
-.add_review{
+.add_review, .add_comm {
 	color: #d84a2e;
 	display: block;
 	margin: 0 0 12px;
 }
-.add_review:hover{
+.add_comm {
+	
+}
+.add_review:hover, .add_comm:hover {
 	color: #d84a2e;
 }
 .grey_italic{
@@ -1754,6 +1766,11 @@ and (max-device-width : 480px) {
 	margin: 0 0 0 30px;
 }
 .send_review{
+	float: right;
+	margin: 12px 0 0;
+}
+
+.send_comment {
 	float: right;
 	margin: 12px 0 0;
 }
@@ -2257,7 +2274,7 @@ and (max-device-width : 480px) {
 }
 .copywright_ul li{margin: 0 0 26px;}
 
-#hide_register_block{display: none;}
+#hide_register_block, #hide_register_block_comm{display: none;}
 .popup_holder{
 	background-color: #EEE;
 	color: #3F3F3F;
@@ -2287,11 +2304,8 @@ and (max-device-width : 480px) {
 }
 
 .root_girl_form_elem input {
-	border-radius: 0;
-	height: 18px;
 	margin: 0 1px 0 0;
-	padding: 0;
-	width: 90px;
+	width: 120px;
 }
 .btn_reg{
 	display: block;

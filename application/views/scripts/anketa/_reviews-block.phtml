@@ -1,0 +1,441 @@
+<?php if ( $this->reviews->getTotalItemCount() ): ?>
+	<div class="ribbon_title_bg">
+		<div class="ribbon_title_overflow">
+			<h2 class="ribbon_title_fll">Отзывы</h2>
+			<span class="allreviews_in_title"><a href="#"><?php echo $this->reviews->getTotalItemCount() ?> отзыва(ов) </a>от работодателей за все время</span>
+		</div>
+	</div>
+	<div class="clear">
+		<div class="comes_count_block">
+			<span class="common_salon_card_rating">1987 <span class="smaller_rate">пойду</span></span>
+			<span>11 <span class="notcome">не пойду</span></span>
+		</div>
+	</div>
+	<ul class="reviews">
+	<?php foreach ( $this->reviews as $review) : ?>
+		<li>
+			<?php echo rusdate(strtotime($review['date']), 'j %MONTH% Y H:i') ?> | <?php echo $this->getUserLoginById($review['user_id']) ?><br/>
+			<?=$review['comment']?>
+		</li>
+	<?php endforeach; ?>
+	</ul>	
+<?php endif ?>
+<?=$this->paginationControl($this->reviews,'Sliding','shared/pagination_review.phtml')?>
+<?// if ( !$this->checkDuplicateReview( $this->info['id'], $this->user_id ) ) : ?>
+<a href="#" class="add_review">
+	<span class="add_review_icon"></span>Оставить отзыв
+</a>
+<?// endif; ?>
+<?php if ( !$this->user_id ): ?>
+<div id="hide_register_block">
+	<div class="popup_holder">
+		<div class="root_girl_title">
+			<form action="/auth" method="post" class="root_girl_form">
+				<div class="root_girl_form_text">Отзывы могут оставлять только зарегистрированные пользователи!</div>
+				<div class="root_girl_form_elem">
+					<input type="text" name="username" id="num_phone">
+					<input type="password" name="password" id="num_phone">
+					<input type="hidden" id="url" name="url" value="<?php echo $_SERVER['REQUEST_URI'] ?>">
+					<button class="button">Войти на сайт</button>
+					<a class="btn_reg" href="#">Регистрация</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
+<div class="reviews_common_block hide">
+	<p>Если вы лично побывали у этой девушки вы можете отсавить отзыв и оценить качество оказанных услуг. После этого анкета появится в списке проверенных в Вашем кабинете.</p>
+	<span class="grey_italic">Все поля отмеченые <span class="required">*</span> обязательны для заполнения.</span>
+	<form action="/remote/review/" id="review_form">
+		<fieldset>
+			<div class="question_title_box">
+				<h5 class="question_title question_title_fl">Фотографии оригинал?<span class="required">*</span></h5>
+				<div class="question_tip_icon on_your_wish" id="question_real_individual">
+					<div class="question_tip_block">
+						<div class="question_tip_block_corner"></div>
+						<div class="question_tip_block_cont">
+							<span>Вы можете указать, оригинальные фотографии  в анкете или чужие!</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="check_photo_original">
+				<div class="check_photo_original_l">
+					<label class="comment_label"><input type="radio" name="photo_original" value="4">Да, фото оригинальные</label>
+					<label class="comment_label"><input type="radio" name="photo_original" value="0">Нет, фото чужие</label>
+				</div>
+				<div class="check_photo_original_r">
+					<select name="photo_original_select">
+						<option value="0">Укажите соответсвие фото</option>
+						<option value="1">100% без ретуши</option>
+						<option value="-1">Eсть фотошоп, обработаны</option>
+					</select>
+				</div>
+			</div>
+			<div class="question_title_box">
+				<h5 class="question_title question_title_fl">Реальная индивидуалка?<span class="required">*</span></h5>
+				<div class="question_tip_icon on_your_wish" id="question_real_individual">
+					<div class="question_tip_block">
+						<div class="question_tip_block_corner"></div>
+						<div class="question_tip_block_cont">
+							<span>Индивидуалка - девушка, которая отдыхает с клиентами в свободное от основного занятия время. В качестве дополнительно заработка или основного. Индивидуалка принимает у себя дома, или находит для этого небольшую гостиницу. Если в гостях у девушки вы встретили её подружек или других клиентов, а вас встречает девушка администратор – то скорее всего это салон.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="check_real_individual">
+				<label class="comment_label"><input type="radio" name="real_individual" value="0">Не знаю</label>
+				<label class="comment_label"><input type="radio" name="real_individual" value="1">Да</label>
+				<label class="comment_label"><input type="radio" name="real_individual" value="-1">Нет, это салон</label>
+			</div>
+			<h5 class="question_title">Ваши оценки <span class="required">*</span></h5 >
+			<span class="grey_italic">Если девушка оказывала Вам какие-то услуги, Вы можете оценить их качество, выбрав значение ниже</span>
+			<div class="select_rating_girl_block">
+				<div class="select_rating_girl_block_l">
+					<ul class="select_rating_ul">
+						<li>
+							<span class="select_rate_label">Отношение к клиенту</span>
+							<div class="select_rating_star">
+								<ul class="rating_stars_dinamic">
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+								</ul>
+								<input type="hidden" name="service">
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="select_rating_girl_block_r">
+					<ul class="select_rating_ul">
+						<li>
+							<span class="select_rate_label">Апартаменты</span>
+							<div class="select_rating_star">
+								<ul class="rating_stars_dinamic">
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+									<li><a class="star" href="#"></a></li>
+								</ul>
+								<input type="hidden" name="apartment">
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<?php if ( is_array($this->place_services) && !empty($this->place_services) ) :
+				  foreach ( $this->place_services as $place ) : ?>
+				<div class="select_rating_girl_block">
+					<?php if ( !empty($place[0]) ) : ?>
+					<div class="select_rating_girl_block_l">
+						<?php $srv = $this->services[$place[0]['name']] ?>
+						<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
+						<ul class="select_rating_ul hidden">
+							<?php foreach( $srv as $num=>$val ) : ?>
+							<?php if ( ($this->info['performer'] == 'Массажистка') && (!in_array( $place[0]['name']."_".$num, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) && !preg_match('/^mass$/', $place[0]['name'])) ) :?>
+							<?php else :?>
+							<li>
+								<span class="select_rate_label"><?php echo $val ?></span>
+								<div class="select_rating_star">
+									<ul class="rating_stars_dinamic">
+										<?php for ( $y = 0; $y<5; $y++ ) : ?>
+											<li><a class="star" href="#" ></a></li>	
+										<?php endfor ?>
+									</ul>
+									<input type="hidden" class="posted" name="<?php echo $val ?>">
+								</div>
+							</li>
+							<?php endif; ?>
+							<?php endforeach ?>
+						</ul>
+					</div>
+					<?php endif ?>
+					<?php if ( !empty($place[1]) ) : ?>
+					<div class="select_rating_girl_block_r">
+						<?php $srv = $this->services[$place[1]['name']] ?>
+						<a class="hidden_service" href="#"><?php echo array_shift($srv) ?></a>
+						<ul class="select_rating_ul hidden">
+							<?php foreach( $srv as $num=>$val ) : ?>
+							<?php if ( ($this->info['performer'] == 'Массажистка') && (!in_array( $place[1]['name']."_".$num, array( 'add_8', 'add_9', 'strip_0', 'strip_1') ) && !preg_match('/^mass/', $place[1]['name'])) ) :?>
+							<?php else :?>
+							<li>
+								<span class="select_rate_label"><?php echo $val ?></span>
+								<div class="select_rating_star">
+									<ul class="rating_stars_dinamic">
+										<?php for ( $y = 0; $y<5; $y++ ) : ?>
+											<li><a class="star" href="#" ></a></li>	
+										<?php endfor ?>
+									</ul>
+									<input type="hidden" class="posted" name="<?php echo $val ?>">
+								</div>
+							</li>
+							<?php endif; ?>
+							<?php endforeach ?>
+						</ul>
+					</div>
+					<?php endif ?>
+				</div>
+			<?php endforeach; ?>
+			<?php endif; ?>
+			<div class="select_rate_common_stage">
+				<h5 class="question_title question_title_fl">Общее впечатление<span class="required">*</span></h5 >
+				<a href="#" class="good_score_icon select_rate_common_stage_left_ico"></a>
+				<a href="#" class="bad_score_icon select_rate_common_stage_left_ico" id="bad_score_icon"></a>
+				<input type="hidden" name="score">
+				<div class="question_tip_icon on_your_wish" id="question_score">
+					<div class="question_tip_block">
+						<div class="question_tip_block_corner"></div>
+						<div class="question_tip_block_cont" id="score_question_tip_block_cont">
+							<span>На ваше усмотрение</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h5 class="question_title">Отзыв <span class="required">*</span></h5>
+			<textarea name="comment" cols="30" rows="10"></textarea>
+			<div class="clear">
+				<button class="send_review button">Отправить</button>
+			</div>
+		</fieldset>
+	</form>	
+</div>
+<div class="reviews_common_block_success hide">
+	<p class="red_col">Ваш отзыв появиться на сайте после модерации!</p>
+	<p>Один и тот же пользователь не может оставлять больше одного отзыва одной анкете.
+	 Один пользователь - один отзыв.</p>
+</div>
+<?php if ($this->user_id) : ?>
+<script type="text/javascript">
+$(document).on("click", ".star", function(e){
+	e.preventDefault();
+
+	var el = $(this);
+	var input = el.closest("div").children("input");
+	var current_index = parseInt(el.parent().index()) + 1;
+
+	if ( current_index == parseInt(input.val()) ) {
+		input.val("");
+		el.removeClass("active");
+	} else {
+		el.closest("div").children("input").val(current_index);
+
+		el.parent().prevAll().children().addClass("active");
+		el.addClass("active");
+		el.parent().nextAll().children().removeClass("active");
+	}
+});
+
+$('.hidden_service').click(function(e){
+	e.preventDefault();
+	$(this).siblings("ul").toggleClass("hidden");
+});
+
+$('.good_score_icon').click(function(e){
+	e.preventDefault();
+	$('input[name="score"]').val(1);
+});
+
+$('.bad_score_icon').click(function(e){
+	e.preventDefault();
+	$('input[name="score"]').val(-1);
+});
+
+$('.question_tip_icon').click(function(){
+	$('input[name="score"]').val(0);
+});
+
+$('input[name="photo_original"]').click(function(){
+	if ( $(this).val() == 4 ) {
+		$('select[name="photo_original_select"]').removeAttr("disabled");
+	} else {
+		$('select[name="photo_original_select"]').attr("disabled", "disabled");
+	}
+});
+
+$("#review_form").submit(function(event) {
+  event.preventDefault();
+
+  var $form = $( this );
+
+  /* remove old valid messages */
+  $(".not_valid").each(function(){
+	$(this).remove();
+  })
+
+  /* validation */
+  var isBreak = false;
+  if ( !$form.find( 'input[name="service"]' ).val() ) {
+      service = $form.find( 'input[name="service"]' );
+      service.after('<p class="not_valid">Заполните</p>');
+      isBreak = true;
+  }
+
+  if ( !$form.find( 'input[name="apartment"]' ).val() ) {
+	  apartment = $form.find( 'input[name="apartment"]' );
+	  apartment.after('<p class="not_valid">Заполните</p>');
+      isBreak = true;
+  }
+
+  if ( !$form.find( 'textarea[name="comment"]' ).val() ) {
+	  comment = $form.find( 'textarea[name="comment"]' );
+	  comment.after('<p class="not_valid">Заполните</p>');
+      isBreak = true;
+  }
+
+  var services = [];
+  $(".posted").each(function(){
+      if ( $(this).val() ) {
+	      if ( services.length <= 3 ) {
+		      srv = [];
+		      name_of_service = $(this).attr("name");
+		      srv[name_of_service] = $(this).val();
+			  services.push(srv);
+		 }
+	  }
+  })
+
+  if ( services.length < 1 ) {
+      $(".hidden_service").after('<p class="not_valid">Необходимо оценить минимум одну услугу</p>');
+      isBreak = true;
+  }
+
+  if ( !$form.find( 'input[name="score"]' ).val() ) {
+	  $("#question_score").after('<p class="not_valid"> Выберите</p>');
+	  isBreak = true;
+  }
+
+  // validate readio real_individual
+  var real_individual_value = parseInt($form.find( 'input[name="real_individual"]:checked' ).val());
+  if ( isNaN(real_individual_value) ) {
+		$("#question_real_individual").after('<p class="not_valid"> Выберите</p>');
+		isBreak = true;
+  }
+
+  // validate photo original
+  var photo_original_value = parseInt($form.find( 'input[name="photo_original"]:checked' ).val());
+  if ( isNaN(photo_original_value) ) {
+		$("#question_photo_original").after('<p class="not_valid"> Выберите</p>');
+		isBreak = true;
+  }
+
+  if (isBreak) {
+      return;
+  }
+  /* end of *validate */
+
+  var photo_original        = parseInt($form.find( 'input[name="photo_original"]:checked' ).val()),
+      photo_original_select = parseInt($form.find( 'select[name="photo_original_select"]' ).val()),
+      real_individual       = parseInt($form.find( 'input[name="real_individual"]:checked' ).val()),
+      comment               = $form.find( 'textarea[name="comment"]' ).val(),
+  	  apartment             = parseInt($form.find( 'input[name="apartment"]' ).val()),
+  	  service               = parseInt($form.find( 'input[name="service"]' ).val()),
+	  score                 = parseInt($form.find( 'input[name="score"]' ).val()),
+	  owner_id = <?php echo $this->info['id'] ?>,
+	  user_id = <?php echo $this->user_id ?>,
+      url = $form.attr( 'action' );
+
+      var services = [];
+      $(".posted").each(function(){
+	      if ( $(this).val() ) {
+		      if ( services.length <= 3 ) {
+			      name_of_service = $(this).attr("name");
+				  services.push(name_of_service + '_' + $(this).val());
+			 }
+		  }
+      })
+
+  //debug
+  /*
+  console.dir(services);
+  console.log(photo_original);
+  console.log(photo_original_select);
+  console.log(real_individual);
+  console.log(comment);
+  console.log(apartment);
+  console.log(service);
+  */
+  console.log(score);
+  /*
+  console.log(owner_id);
+  console.log(user_id);
+  console.log(url); 
+  */ 
+ 
+  /* Send the data using post */
+  var posting = $.post( url, {
+	"owner_id" : owner_id,
+	"user_id"  : user_id,
+ 	"photo_original" : photo_original,
+	"photo_original_select" : photo_original_select,
+	"real_individual" : real_individual,
+	"comment" : comment,
+	"apartment" : apartment,
+	"service" : service,
+	"services[]" : services,
+	"score" : score
+  })
+  	.done(function(){ 
+  		$('div.reviews_common_block').toggleClass('hide');
+  		$('div.reviews_common_block_success').toggleClass('hide');
+  	});
+});
+
+$( '#review_form a, #review_form input[name="photo_original"], select[name="photo_original_select"] ' ).bind('click.myEvent checked.myEvent change.myEvent', function(e) {	
+	var form     = $('#review_form');
+	var ratio    = 0;
+	var count    = 0;
+
+	ratio += parseInt(form.find( 'input[name="photo_original"]:checked' ).val());
+	ratio += parseInt(form.find( 'select[name="photo_original_select"]' ).val());
+	if ( form.find( 'input[name="apartment"]' ).val() ) {
+		ratio += parseInt(form.find( 'input[name="apartment"]' ).val());
+	}
+	if ( form.find( 'input[name="apartment"]' ).val() ) {
+  		ratio += parseInt(form.find( 'input[name="service"]' ).val());
+	}
+
+	$(".posted").each(function(){
+		if ( $(this).val() ) {
+		    if ( count < 3 ) {
+			    count++;
+			    ratio += parseInt($(this).val());
+			}
+		}
+    })
+
+	ratio = ratio / (3 + count);
+	if ( ratio <= 3) {
+		$('.good_score_icon').hide();
+		$('#bad_score_icon').show();
+		if ( parseInt($('input[name="score"]').val()) == 1 ) {
+			$('input[name="score"]').val(0);
+		}
+		$('#score_question_tip_block_cont > span').html("Суммарная оценка отрицательна, укажите Не советую или на Ваше усмотрение, или измените оценки");
+	} else {
+		$('.good_score_icon').show();
+		$('#bad_score_icon').hide();
+		if ( parseInt($('input[name="score"]').val()) == -1 ) {
+			$('input[name="score"]').val(0);
+		}
+		$('#score_question_tip_block_cont > span').html("Суммарная оценка положительна, укажите На ваше усмотрение или Рекомендую, или измените оценки.");
+	}
+});
+</script>
+<?php endif ?>
+<script type="text/javascript">
+	$(".add_review").click(function(e){
+		e.preventDefault();
+
+		var $user_id = <?php if ( $this->user_id ) echo $this->user_id; else echo "null"; ?>;
+				
+		if ( $user_id ) {
+			$('div.reviews_common_block').toggleClass('hide');
+		} else {
+			$('#hide_register_block').fadeIn();
+		}
+	});
+</script>

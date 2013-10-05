@@ -1,7 +1,7 @@
 <?php
 class Comments extends Zend_Db_Table_Abstract{
  	const TABLE='comments';
- 	protected $per_page=2;
+ 	protected $per_page=5;
  	public function set_items_per_page($perpage){
  		$this->per_page=(int)$perpage;
  	}
@@ -17,7 +17,8 @@ class Comments extends Zend_Db_Table_Abstract{
 				   'ankets.id = comments.owner_id',
 				   'ankets.user_id as anket_user_id')
 			->where('comments.owner_id = ?',$id)
-			->where('comments.confirm = true');
+			->where('comments.confirm = true')
+			->order('comments.timestamp DESC');
 
 		if ( $priority ) {
 			$select->where('comments.hide = false OR comments.hide IS NULL');
