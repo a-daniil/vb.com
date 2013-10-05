@@ -100,10 +100,13 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 
 		$select->where('active = 1');
 		$select->where('status >= 30');
-		
+
 		if ( $city ) {
 			$select->where('city = ?', $city);
 		}
+
+		/* выбираем только девушек, подружек, массажисток, бдсм */
+		$select->where('performer IN (1,2,3,4)');
 
 		$select->order('photo_start DESC');
 		$select->limit(6);

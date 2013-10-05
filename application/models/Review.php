@@ -58,7 +58,7 @@ class Model_Review extends Zend_Db_Table_Abstract {
 
 		$sql = "SELECT r.owner_id, avg(r.ratio) as avg_ratio, a.photolist, a.user_id, a.name_eng, count(*) as count FROM
 					review as r JOIN ankets as a on r.owner_id = a.id
-					WHERE a.status = 40 AND a.priority = 1 " . $per_query . 
+					WHERE a.status = 40 AND a.priority = 1 AND a.performer IN (1,2,3,4) " . $per_query . 
 					"GROUP BY r.owner_id ORDER by avg_ratio DESC, count DESC LIMIT 100";
 
 		$statement = $this->getAdapter()->query($sql);
