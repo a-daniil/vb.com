@@ -213,6 +213,22 @@
 $(document).on("click", ".star", function(e){
 	e.preventDefault();
 
+	/* проверим сколько уже выбрано услуг */
+	var $count = 0;
+	$(".posted").each(function(){
+		if ( $(this).val() ) {
+			if ( $count < 3 ) {
+				$count++;
+			}
+		}
+	});
+
+	var $val = $(this).parent().parent().next().val();
+	if ( !$val && $count == 3 ) {
+		alert('Можно оценить максимум три услуги');
+		return;
+	}
+
 	var el = $(this);
 	var input = el.closest("div").children("input");
 	var current_index = parseInt(el.parent().index()) + 1;
