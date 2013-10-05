@@ -38,10 +38,7 @@
 								<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="new_ankets_girl_name">
 									<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
 								</a>
-								<?php if ( strtotime($row['photo_start']) > strtotime("-2 week") ) :?>
-									<div class="new_ribbon"></div>
-								<?php endif; ?>
-								<!-- 
+								<!-- <div class="new_ribbon"></div> -->
 								<div class="tooltip">
 									<div class="tooltip_corner"></div>
 									<div class="tooltip_content">
@@ -49,7 +46,6 @@
 										<span class="tooltip_girl_place">Россия, <?= $this->city_text ?></span>
 									</div>
 								</div>
-								-->
 							</li>
 							<?php endforeach ?>
 						</ul>

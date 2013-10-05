@@ -9,7 +9,9 @@
             	  		 и<?=" ".$this->info['name_2']?>
                		<?endif?>
 				</h1>
-				<span class="button pink_button float_pink_button">Новенькая</span>
+				<? if ( $this->info['priority'] && (date('Y-m-d', strtotime($this->info['timestamp'])) > date('Y-m-d', strtotime("- 2 week")) ) ) : ?>
+					<span class="button pink_button float_pink_button">Новенькая</span>
+				<? endif ?>
 				<?php
          			if ( $this->flags == '0' || $this->flags == '2' ) :
             			$postpone = new Model_Postpone();
