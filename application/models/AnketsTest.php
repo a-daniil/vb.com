@@ -107,8 +107,9 @@ class Model_AnketsTest extends Zend_Db_Table_Abstract {
 
 		/* выбираем только девушек, подружек, массажисток, бдсм */
 		$select->where('performer IN (1,2,3,4)');
-
+		$select->where('photo_start > DATE_SUB(CURDATE(), INTERVAL 5 DAY)');
 		$select->order('photo_start DESC');
+		$select->order('RAND()');
 		$select->limit(6);
 
 		$row = $this->fetchAll($select);
