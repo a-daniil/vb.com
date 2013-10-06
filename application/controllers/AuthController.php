@@ -71,7 +71,16 @@ class AuthController extends Zend_Controller_Action{
 		    	return;
 		    } else {
 		        $auth->getStorage()->write($data);
-		    
+ 
+		        // если отметили "запомнить"
+		        $time = 14*24*3600;
+		        if ( $this->_request->getPost('not_remember') ) {
+		        	$time = 3600;
+		        }
+
+		        $namespace = new Zend_Session_Namespace('Zend_Auth');
+		        $namespace->setExpirationSeconds($time);
+
 		   	    if ( $this->_hasParam('url') ) {
 		    		$this->_redirect( $this->_getParam('url') );
 		    	} else {
