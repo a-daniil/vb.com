@@ -65,9 +65,13 @@ class AnketaController extends IndexController {
 					unset($info['photolist'][$key]);continue;
 				}
 				$info['photolist'][$key]=array(
-						'th'=>$this->config->path->url_user_ph.'/'.$info['user_id'].'/th_'.$val,
-						'fs'=>$this->config->path->url_user_ph.'/'.$info['user_id'].'/'.$val
+					'th'=>$this->config->path->url_user_ph.'/'.$info['user_id'].'/th_'.$val,
+					'def'=>$this->config->path->url_user_ph.'/'.$info['user_id'].'/'.$val,
 				);
+				
+				if ( file_exists(PUBLIC_PATH.$this->config->path->url_user_ph.'/'.$info['user_id'].'/fl_'.$val) ) {
+					$info['photolist'][$key]['fl'] = $this->config->path->url_user_ph.'/'.$info['user_id'].'/fl_'.$val;
+				}
 			}
 		}
 		if(empty($info['videolist'])){

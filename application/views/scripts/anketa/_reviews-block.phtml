@@ -23,7 +23,7 @@
 <?=$this->paginationControl($this->reviews,'Sliding','shared/pagination_review.phtml')?>
 <?// if ( !$this->checkDuplicateReview( $this->info['id'], $this->user_id ) ) : ?>
 <a href="#" class="add_review">
-	<span class="add_review_icon"></span>Оставить отзыв
+	<span class="add_review_icon"></span>Оценить услуги, если посещали
 </a>
 <?// endif; ?>
 <?php if ( !$this->user_id ): ?>
@@ -51,7 +51,7 @@
 		<fieldset>
 			<div class="question_title_box">
 				<h5 class="question_title question_title_fl" title="Обязательное поле к выбору">Фотографии оригинал?<span class="required">*</span></h5>
-				<div class="question_tip_icon on_your_wish" id="question_real_individual">
+				<div class="question_tip_icon on_your_wish" id="question_real_individual" style="margin: 0px 0px 10px 5px;">
 					<div class="question_tip_block">
 						<div class="question_tip_block_corner"></div>
 						<div class="question_tip_block_cont">
@@ -75,7 +75,7 @@
 			</div>
 			<div class="question_title_box">
 				<h5 class="question_title question_title_fl" title="Обязательное поле к выбору">Реальная индивидуалка?<span class="required">*</span></h5>
-				<div class="question_tip_icon on_your_wish" id="question_real_individual">
+				<div class="question_tip_icon on_your_wish" id="question_real_individual" style="margin: 0px 0px 10px 5px;">
 					<div class="question_tip_block">
 						<div class="question_tip_block_corner"></div>
 						<div class="question_tip_block_cont">

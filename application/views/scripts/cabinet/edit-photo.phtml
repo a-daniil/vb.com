@@ -113,6 +113,13 @@
 									</div>
 								</div>
 							</div>
+							<div class="control-group">
+								<label class="control-label" style="width: 180px;">Использовать для превью:</label>
+								<input type="radio" name="preview" class="cab_form_radio" <?if(isset($this->preview) && $key==$this->preview):?>checked="checked" <?endif?>value="<?=$key?>" /></p>		
+							</div>
+							<div class="control-group">
+								<a href="/cabinet/crop-photo/n/<?=$this->info['id']?>/f/<?=$key?>" class="cab_anketa_photo_link icon" id="icon">Сделать иконку</a>
+							</div>
 						</div>
 						<?php endif; ?>
 					<?php endforeach; ?>

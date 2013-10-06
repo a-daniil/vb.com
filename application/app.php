@@ -49,3 +49,8 @@ function checkIfArrayHasValues ( $arr ) {
 
 	return false;
 }
+
+function getPublicPath() {
+	chdir(APP_PATH);
+	return realpath("../public");
+}

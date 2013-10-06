@@ -1,0 +1,64 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Создание иконки: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)
+		</h3>
+	</div>
+</div>
+<form class="form-horizontal" action="/cabinet/crop-photo-write/n/<?=$this->info['id']?>" method="post">
+<p>
+	<input type="submit" class="btn btn-large" value="Данные анкеты" name="to_ank_edit" />
+	<input type="submit" class="btn btn-large" value="Фото" name="to_photo" />
+	<input type="submit" class="btn btn-large" value="Фото для проверки" name="to_check_photo" />
+	<input type="submit" class="btn btn-large" value="Видео" name="to_video" />
+	<input type="submit" class="btn btn-large" value="Комментарии" name="to_comments" />
+</p>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="crop_photo">
+						<img src=<?=$this->photos_path?> id="crop"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input class="btn btn-large" type="submit" id="save" value="Сохранить"/>
+<input type="hidden" name="x1">
+<input type="hidden" name="x2">
+<input type="hidden" name="y1">
+<input type="hidden" name="y2">
+<input type="hidden" name="ph" value=<?=$this->ph?>>
+<input type="hidden" name="id" value=<?=$this->id?>>
+</form>
+<script type="text/javascript">
+jQuery(function($) {
+	$('#crop').Jcrop({
+		onSelect: setCoords,
+		onChange: setCoords,
+		bgColor: 'black',
+		bgOpacity:   .4,
+		setSelect:   [ 0, 0, <?=$this->tw?>, <?=$this->th?> ],
+		minSize: [<?=$this->tw?>, <?=$this->th?>],
+		aspectRatio: <?=$this->tw?> / <?=$this->th?>
+	});
+});
+
+function setCoords(c)
+{
+	$("input[name='x1']").val(c.x);
+	$("input[name='x2']").val(c.x2);
+	$("input[name='y1']").val(c.y);
+	$("input[name='y2']").val(c.y2);
+};
+</script>

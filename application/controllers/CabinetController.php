@@ -1461,7 +1461,14 @@ class CabinetController extends Zend_Controller_Action {
 		if( $err_nm<count($_FILES) ){
 			$this->hasRights(array('user_admin', 'user_moder'), array($info['user_id'], $this->user_id));
 			$dir=$this->config->path->user_photos.'/'.$info['user_id'];
-			if(!is_dir($dir)){mkdir($dir);}
+			if(!is_dir($dir)){
+				$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
+			}
 			if(empty($info['photolist'])){$photos=array_fill(0,$this->config->limit->max_photos,false);}
 			else{$photos=unserialize($info['photolist']);}
 			include_once 'SimpleImage.php';
@@ -1482,16 +1489,47 @@ class CabinetController extends Zend_Controller_Action {
 				//	$this->_redirect($redirect);
 				//	die();
 				//}
+
+				//full copy
+				$simage->load($path_tmp);
+				//if($simage->getWidth()>$this->config->limit->max_photo_width){
+				//	$simage->resizeToWidth($this->config->limit->max_photo_width);
+				//}
+				$simage->save($dir.'/fl_'.$hash.'.'.$ext);
+				
+				
 				$simage->load($path_tmp);
 				if($simage->getWidth()>$this->config->limit->max_photo_width){
 					$simage->resizeToWidth($this->config->limit->max_photo_width);
 				}
 				$simage->save($path);
+
 				$conf_aspect=$this->config->thumbnale_width/$this->config->thumbnale_height;
 				$aspect=$simage->getWidth()/$simage->getHeight();
 				if($aspect>$conf_aspect){$simage->resizeToHeight($this->config->thumbnale_height);}
 				else{$simage->resizeToWidth($this->config->thumbnale_width);}
 				$simage->save($dir.'/th_'.$hash.'.'.$ext);
+
+				/* для новые анкеты */
+				$conf_aspect=$this->config->newest_width/$this->config->newest_height;
+				$aspect=$simage->getWidth()/$simage->getHeight();
+				if($aspect>$conf_aspect){
+					$simage->resizeToHeight($this->config->newest_width);
+				}
+				else{$simage->resizeToWidth($this->config->newest_height);
+				}
+				$simage->save($dir.'/tn_'.$hash.'.'.$ext);
+
+				/* для рейтинга */
+				$conf_aspect=$this->config->review_width/$this->config->review_height;
+				$aspect=$simage->getWidth()/$simage->getHeight();
+				if($aspect>$conf_aspect){
+					$simage->resizeToHeight($this->config->review_width);
+				}
+				else{$simage->resizeToWidth($this->config->review_height);
+				}
+				$simage->save($dir.'/tr_'.$hash.'.'.$ext);
+
 				unlink($path_tmp);
 				if(isset($photos[$cnt]) && $photos[$cnt] && $photos[$cnt]!=$hash.'.'.$ext){
 					unlink($dir.'/'.$photos[$cnt]);
@@ -1565,7 +1603,12 @@ class CabinetController extends Zend_Controller_Action {
 	    	 $this->hasRights(array('user_admin', 'user_moder'), array($info['user_id'], $this->user_id));
 	    	 $dir = $this->config->path->user_photos . '/' . $info['user_id'];
 	    	 if ( !is_dir($dir)) {
-	    	 	mkdir($dir);
+	    	 	$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
 	    	 }
 
 	    	 if (empty($info['photolist'])) {
@@ -1685,7 +1728,7 @@ class CabinetController extends Zend_Controller_Action {
 		$real_number = 0;
 		foreach ( $photos as $key => $value ) {
 			if ( $value ) {
-				$new_photos[$real_number++] = $value;				
+				$new_photos[$real_number++] = $value;
 			}
 		}
 		
@@ -1704,7 +1747,93 @@ class CabinetController extends Zend_Controller_Action {
 		$this->_redirect('/cabinet/edit-photo/n/'.$id);
 		die;
 	}
-	
+
+	public function cropPhotoAction() {
+		if(!$this->_hasParam('n') || !$this->_hasParam('f')){
+			$this->error('request_error');return;
+		}
+		$id=intval(substr($this->_getParam('n'),0,32));
+		$ph=intval(substr($this->_getParam('f'),0,32));
+		include_once 'Ankets.php';
+		$ankets=new Ankets();
+		$info=$ankets->get_anket($id);
+		if($info['user_id']!=$this->user_id && !$this->user_admin){
+			$this->error('no_rights_ank');return;
+		}
+		$dir=$this->config->path->user_photos.'/'.$info['user_id'];
+		if(empty($info['photolist'])){
+			$this->_redirect('/cabinet/edit-photo/n/'.$id);die;
+		}
+		else{$photos=unserialize($info['photolist']);
+		}
+		if(!isset($photos[$ph]) || !$photos[$ph]){
+			$this->error('request_error');return;
+		}
+
+		$this->view->info = $info;
+		$this->view->photos_path.='/'.$info['user_id'].'/'.$photos[$ph];
+		$this->view->ph = $ph;
+		$this->view->id = $id;
+		$this->view->tw = $this->config->thumbnale_width;
+		$this->view->th = $this->config->thumbnale_height;
+	}
+
+	public function cropPhotoWriteAction() {
+		$id = $this->getParam('id');
+		$ph = $this->getParam('ph');
+
+		include_once 'Ankets.php';
+		$ankets=new Ankets();
+		$info=$ankets->get_anket($id);
+		if($info['user_id']!=$this->user_id && !$this->user_admin){
+			$this->error('no_rights_ank');return;
+		}
+
+		if(empty($info['photolist'])){
+			$this->_redirect('/cabinet/edit-photo/n/'.$id);die;
+		}
+		else{$photos=unserialize($info['photolist']);
+		}
+		if(!isset($photos[$ph]) || !$photos[$ph]){
+			$this->error('request_error');return;
+		}
+
+		$dir=$this->config->path->user_photos.'/'.$info['user_id'];
+		include_once 'iCrop.php';
+		$iCrop = new iCrop();
+		$iCrop->load($dir.'/'.$photos[$ph]);
+		$iCrop->crop($this->config->thumbnale_width, $this->config->thumbnale_height);
+		$iCrop->save($dir.'/th_'.$photos[$ph]);
+
+		/* Назначаем иконку в превью */
+		$photos=unserialize($info['photolist']);
+		
+		if($ph>=0 && $ph<=$this->config->limit->max_photos){
+			$photos['preview']=$ph;
+		}
+
+		$new_info = array('photolist' => serialize($photos));
+		$ankets->upd_anket($id,$new_info);
+
+		$redirect='/cabinet/edit-photo/n/'.$id;
+		if ($this->_hasParam('to_photo')) {
+			$redirect='/cabinet/edit-photo/n/'.$id;
+		}
+		elseif($this->_hasParam('to_comments')){
+			$redirect='/cabinet/comms-list/n/'.$id;
+		}
+		elseif($this->_hasParam('to_ank_edit')){
+			$redirect='/cabinet/edit-ank-form/id/'.$id;
+		}
+		elseif($this->_hasParam('to_check_photo')){
+			$redirect='/cabinet/check-photo/n/'.$id;
+		}
+		elseif($this->_hasParam('to_video')){
+			$redirect='/cabinet/edit-video/n/'.$id;
+		}
+		$this->_redirect($redirect);
+	}
+
 	public function delPhotoSalonAction(){
 		if(!$this->_hasParam('n') || !$this->_hasParam('f')){$this->error('request_error');return;}
 		$id=intval(substr($this->_getParam('n'),0,32));
@@ -1777,7 +1906,12 @@ class CabinetController extends Zend_Controller_Action {
 
 			$dir=$this->config->path->user_photos.'/'.$info['user_id'];
 			if(!is_dir($dir)){
-				mkdir($dir);
+				$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
 			}
 			$photos_check = unserialize($info['photo_check']);
 
@@ -1875,7 +2009,12 @@ class CabinetController extends Zend_Controller_Action {
 			}
 			$dir=$this->config->path->user_photos.'/'.$info['user_id'];
 			if(!is_dir($dir)){
-				mkdir($dir);
+				$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
 			}
 			include_once 'SimpleImage.php';
 			$path_tmp=$dir.'/'.$file['name'];
@@ -1986,7 +2125,14 @@ class CabinetController extends Zend_Controller_Action {
 		if($err_nm<count($_FILES) || $this->_hasParam('preview')){
 			if($info['user_id']!=$this->user_id && !$this->user_admin){$this->error('no_rights_ank');return;}
 			$dir=$this->config->path->user_videos.'/'.$info['user_id'];
-			if(!is_dir($dir)){mkdir($dir);}
+			if(!is_dir($dir)){
+				$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
+			}
 			if(empty($info['videolist'])){$items=array_fill(0,(int)$this->config->limit->max_videos,false);}
 			else{$items=unserialize($info['videolist']);}
 			include_once 'SimpleImage.php';
@@ -2072,7 +2218,12 @@ class CabinetController extends Zend_Controller_Action {
 			}
 			$dir=$this->config->path->user_videos.'/'.$info['user_id'];
 			if(!is_dir($dir)){
-				mkdir($dir);
+				$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
 			}
 			if(empty($info['videolist'])){
 				$items=array_fill(0,(int)$this->config->limit->max_videos,false);
@@ -3128,7 +3279,14 @@ class CabinetController extends Zend_Controller_Action {
 		if($err_nm<count($_FILES) || $this->_hasParam('preview')){
 			if( !$this->user_admin && !$this->user_tech ){$this->error('no_rights_ank');return;}
 			$dir=$this->config->path->banners;//.'/'.$info['user_id'];
-			if(!is_dir($dir)){mkdir($dir);}//$this->config->limit->max_photos
+			if(!is_dir($dir)){
+				$old = umask(0); 
+				if(! @mkdir($dir, 0777, $recursive = true)){
+					$mkdirErrorArray = error_get_last();
+					throw new Exception('cant create directory ' .$mkdirErrorArray['message'], 1);
+				}
+				umask($old);
+			}//$this->config->limit->max_photos
 			//if(empty($info['items_list'])){$photos=array_fill(0,count($_FILES),false);}
 			//else{$photos=unserialize($info['items_list']);}
 			include_once 'SimpleImage.php';

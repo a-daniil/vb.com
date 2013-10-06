@@ -33,10 +33,10 @@
 				<? if($this->info['photolist']):?>
 					<ul class="anket_preview_girl">
 					<?php foreach($this->info['photolist'] as $thumb):?>
-                	<? if ( $thumb['fs'] ) : ?>	
+                	<? if ( $thumb['def'] ) : ?>
                     	<li>
-                    		<a href="/watermark.php?image=.<?=$thumb['fs']?>" onclick="return hs.expand(this, { align: 'center' })">
-                    			<img src="/watermark.php?image=.<?=$thumb['fs']?>" width="233" height="352" alt="description">
+                    		<a href="/watermark.php?image=.<?=$thumb['fl']?$thumb['fl']:$thumb['def']?>" onclick="return hs.expand(this, { align: 'center' })">
+                    			<img src="/watermark.php?image=.<?=$thumb['def']?>" width="233" height="352" alt="description">
                     		</a>
                     	</li>
                 	<? endif ?>

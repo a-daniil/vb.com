@@ -20,12 +20,6 @@
 						<ul class="new_ankets">
 							<?php foreach($this->ankets_new as $row): $i++;
 								if ($i > 6) {break;}
-								$meta_tags=array('name', 'type', 'performer', 'city', 'metro', 'age', 'breast', 'height', 'weight');
-								$meta_replace=array();
-								foreach($meta_tags as $key){$meta_replace[$key]=$row[$key];}
-								foreach($meta_tags as $key=>$value){$meta_tags[$key]='%'.strtoupper($value).'%';}
-								$meta_img=str_replace($meta_tags,$meta_replace,$this->meta['ank_img_alt']);
-								$meta_detail=str_replace($meta_tags,$meta_replace,$this->meta['ank_detail']);
 								if(!empty($row['photolist'])){
 									$photolist=unserialize($row['photolist']);
 								if(isset($photolist['preview'])){$photo=$photolist[$photolist['preview']];}
@@ -35,9 +29,7 @@
 								}
 							?>
 							<li>
-								<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="new_ankets_girl_name">
-									<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="110" height="110" />
-								</a>
+								<div class="wrap_photo_new" style="background:url('<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/tn_' . $photo ?>') no-repeat scroll center top transparent;"></div>
 								<!-- <div class="new_ribbon"></div> -->
 								<div class="tooltip">
 									<div class="tooltip_corner"></div>
@@ -66,9 +58,7 @@
 									$photo=false;
 								}
 							?>
-							<li <?php if ( $j > 24 ) echo "class='hidden'"?>>
-								<a href="/anketa/<?=$top['name_eng']?>-<?=$top['owner_id']?>" target="_blank"><img src="<?php echo $this->url_user_ph. '/' . $top['user_id'] . '/th_' . $photo ?>" width="55" height="55" alt="descritpion"></a>
-							</li>
+							<div class="wrap_photo_review <?php if ( $j > 24 ) echo "hidden" ?>" style="background:url('<?php echo $this->url_user_ph. '/' . $top['user_id'] . '/tr_' . $photo ?>') no-repeat scroll center top transparent;"></div>
 							<?php endforeach ?>
 						</ul>
 						<a href="#" class="button all_rate_btn">весь рейтинг</a>

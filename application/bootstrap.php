@@ -3,6 +3,7 @@ error_reporting(1);
 ini_set('display_errors',true);
 
 define('APP_PATH',realpath(dirname(__FILE__)));
+define('PUBLIC_PATH', getPublicPath());
 
 date_default_timezone_set('Europe/Moscow');
 set_include_path(implode(PATH_SEPARATOR,array(get_include_path(),APP_PATH.'/models')));

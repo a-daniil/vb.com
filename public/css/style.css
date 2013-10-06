@@ -2331,3 +2331,15 @@ and (max-device-width : 480px) {
 	position: relative;
 	cursor:pointer;
 }
+
+.wrap_photo_new {
+	width: 110px;
+	height: 110px;
+	display: inline-block;
+}
+
+.wrap_photo_review {
+	width: 55px;
+	height: 55px;
+	display: inline-block;
+}
