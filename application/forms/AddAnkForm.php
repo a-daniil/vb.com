@@ -25,12 +25,12 @@ class Form_AddAnkForm extends Zend_Form
 		$this->content = $content;
 		$this->params = $params;
 		
-		if ( $params['city'] ) {		
+		if ( $params['city'] ) {
 			$this->city = $params['city'];
 		} else {
 			$this->city = 2;
 		}
-		
+
 		switch ( $params['city'] ) {
 			case 2 :
 				$this->metro_list = $this->content->metro_spb->toArray();

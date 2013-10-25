@@ -172,7 +172,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 
 		list($breast_min,$breast_max)=explode('|',$this->content->breast);
 		$this->addElement('select', 'breast', array(
-			'validators' => array(				
+			'validators' => array(
 				array(
 					'GreaterThan', false, array($breast_min, 'messages' => array(
 						Zend_Validate_GreaterThan::NOT_GREATER => sprintf( self::NOT_RANGE, $breast_min, $breast_max)
@@ -181,7 +181,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 					'LessThan', false, array($breast_max, 'messages' => array(
 						Zend_Validate_LessThan::NOT_LESS => sprintf( self::NOT_RANGE, $breast_min, $breast_max)
 				)))
-			),	
+			),
 			'multiOptions' => $this->content->breast_form->toArray(),
 			'label'    => 'Размер груди:',
 			'decorators' => array(
@@ -436,7 +436,7 @@ class Form_AddLesbAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));
-		
+
 		$city = $this->createElement('select', 'city', array(
 			'validators' => array(
 				array(

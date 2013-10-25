@@ -250,7 +250,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 			)
 		));
 
-		$city = $this->createElement('select', 'city', array(
+		$city = $this->addElement('select', 'city', array(
 			'validators' => array(
 				array(
 					'GreaterThan', false, array(0, 'messages' => array(
@@ -258,6 +258,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				)))
 			),
 			'multiOptions' => $this->content->cities->toArray(),
+			'value' => $this->city,
 			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
@@ -266,9 +267,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				array('Label', array('class' => 'control-label', )),
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
-		));	
-		$city->setValue($this->city);
-		$this->addElement($city);
+		));
 
 		$this->addElement('select', 'district', array(
 			'validators' => array(
