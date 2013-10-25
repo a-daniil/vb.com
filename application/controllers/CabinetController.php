@@ -101,10 +101,13 @@ class CabinetController extends Zend_Controller_Action {
 		}
 		$this->view->user_id = $user_id;
 
-		if ( $this->admin_flags->all_anks ) {
-			$this->view->ankets = $ankets->get_ankets_list_cab($page, false, false, $performer, $filter);
-		} elseif ( $this->admin_flags->all_anks ) {
-			$this->view->ankets = $ankets->get_ankets_list_cab($page, false, true, $performer, $filter);
+		if ( $this->admin_flags->all_anks && ($this->user_admin || $this->user_tech)) {
+			if ($this->_getParam('uid')) {
+				$user_id = $this->_getParam('uid');
+			} else {
+				$user_id = false;
+			}
+			$this->view->ankets = $ankets->get_ankets_list_cab($page, $user_id, false, $performer, $filter);
 		} else {
 			$this->view->ankets = $ankets->get_ankets_list_cab($page, $user_id, false, $performer, $filter);
 		}
@@ -114,6 +117,13 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->paid   = $ankets->count_paid_ankets($user_id);
 		include_once 'CountersAnkets.php';
 		$this->view->per_page = $this->settings['girls_per_page'];
+
+		/* get users */
+		if ($this->user_admin) {
+			require_once 'Users.php';
+			$users = new Users();
+			$this->view->users = $users->getUsers();
+		}
 	}
 
 	function profileAction () {

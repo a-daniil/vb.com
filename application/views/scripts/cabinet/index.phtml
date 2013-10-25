@@ -63,6 +63,24 @@
 	</div>
 <?php endif; ?>
 <? endif ?>
+<?if ($this->admin && $this->all_anks && !empty($this->users)):?>
+		<div  class="controls" style="text-align: right;">
+			<script type="text/javascript">
+				function redirect(sel) {
+					var $uri = "<?=$this->getRightUri( $_GET, true, true )?>";
+					$uri = $uri.replace(/(&?uid=\d{1,3}&?)/, '');
+					$uri = $uri + "uid=" + $("select[name='uid']").val();
+					window.location.href= $uri;
+				}
+			</script>
+			<select name="uid" onchange="redirect(this)" class="input-large m-wrap">
+				<option value="0">Выбрать пользователя</option>
+				<?foreach($this->users as $u):?>
+					<option value=<?=$u['id']?> <?if($_REQUEST['uid']==$u['id']):?>selected<?endif?>><?=$u['user_login']?></option>
+				<?endforeach?>
+			</select>
+	</div>
+<?endif?>
 <?php if ( $this->ankets->count() > 1 ) : ?>
 	<div class="pull-right"><?=$this->paginationControl($this->ankets,'Sliding','pages_cab.phtml')?></div>
 <?php endif ?>
@@ -183,6 +201,7 @@
 										<option value="12">Отклонить(неполные данные)</option>
 										<option value="11">Отклонить фото</option>
 										<option value="30">Разрешить фото</option>
+										<option value="31">Фото без ретуши</option>
 										<option value="1">Заблокировать</option>
 										<option value="2">Заблокировать (черный список)</option>
 									</select>
@@ -258,8 +277,10 @@
 	<?endforeach?>
 </div>
 <script type="text/javascript">
-	function showComment( value, el ) {
-		if ( value == 30 || value == 0) {
+	function showComment( value,el ) {
+		var $without_comments = [ 0, 30, 31 ];
+
+		if ( $without_comments.indexOf(parseInt(value)) != -1) {
 			$(el).siblings('div').css('display', 'none');
 		} else {
 			$(el).siblings('div').css('display', 'block');
@@ -267,9 +288,18 @@
 	}
 
 	$("#submit_status").click(function(e){
+		var $s = $('select[name="s"]').val();
+		var $val = $('#comm_textarea').val();
+
+		
+	});
+
+	$("#submit_status").click(function(e){
+		$without_comments = [30, 31];
 		s = $('select[name="s"]').val();
 		val = $('#comm_textarea').val();
-		if ( (!val || val.length == 0 || val == "Обязательно оставьте комментарий" ) && s != 30 ) {
+
+		if ( (!val || val.length == 0 || val == "Обязательно оставьте комментарий" ) && $without_comments.indexOf(parseInt(value)) == -1 ) {
 			e.preventDefault();
 			$('#comm_textarea').val('Обязательно оставьте комментарий');
 		}

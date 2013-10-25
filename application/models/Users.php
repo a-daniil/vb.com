@@ -2,6 +2,18 @@
 class Users extends Zend_Db_Table_Abstract{
  	const TABLE='users';
  	protected $per_page=50;
+ 	public function getUsers($type = 2) {
+ 		$select=$this->getAdapter()
+ 		->select()
+ 		->from(self::TABLE,array('id','user_login'));
+ 		$select->where('flags = ?', $type);
+ 		$select->order('user_login');
+ 		$res = $this->getAdapter()->fetchAll($select);
+ 		if(!$res){
+ 			return false;
+ 		}
+ 		return $res;
+ 	}
 	public function user_check_by_email( $mail ){
 		$select=$this->getAdapter()
 		->select()
