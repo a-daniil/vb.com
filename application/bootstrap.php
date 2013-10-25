@@ -1,6 +1,7 @@
 <?php
 error_reporting(1);
 ini_set('display_errors',true);
+mb_internal_encoding("UTF-8");
 
 define('APP_PATH',realpath(dirname(__FILE__)));
 define('PUBLIC_PATH', getPublicPath());
