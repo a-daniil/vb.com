@@ -2073,11 +2073,12 @@ and (max-device-width : 480px) {
 	text-transform: uppercase;
 }
 .salon_anket_sidebox_place{
-	float: right;
-	width: 100px;
 	color: #767676;
 	font-size: 12px;
 	line-height: 17px;
+}
+.salon_anket_sidebox_price {
+	text-align: right;
 }
 .salon_anket_sidebox_preview{
 	position: relative;
@@ -2099,7 +2100,6 @@ and (max-device-width : 480px) {
 	display: block;
 	font-size: 12px;
 	line-height: 14px;
-	margin: -21px 0 0 15px;
 	text-decoration: underline;
 }
 .more_reviews, .more_reviews_all{

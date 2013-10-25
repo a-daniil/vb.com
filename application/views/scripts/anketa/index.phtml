@@ -295,12 +295,14 @@
 				<div class="sidebox_content">
 					<div class="salon_anket_sidebox">
 						<div class="salon_anket_sidebox_name">
-							<h4><?if(strlen($salon['name'])>30){echo substr($salon['name'],0,30)."...";}?></h4>
+							<h4><?if(mb_strlen($salon['name'])>30){echo mb_substr($salon['name'],0,30)."...";}?></h4>
 							<!-- <span><?php echo $salon['about'] ?></span> -->
 						</div>
 						<div class="salon_anket_sidebox_place">
 							<span><span class="grey_metro_icon"></span><?php $metro = explode(";", $salon['metro']); echo $this->metro_list[$metro[0]]; ?></span>
 							<span>г. Москва</span>
+						</div>
+						<div class="salon_anket_sidebox_prace">
 							<span class="girl_card_price"><?php echo $salon['price_1h_ap']?><span>руб/час</span></span>
 						</div>
 					</div>
