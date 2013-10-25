@@ -295,7 +295,7 @@
 				<div class="sidebox_content">
 					<div class="salon_anket_sidebox">
 						<div class="salon_anket_sidebox_name">
-							<h4><?php echo $salon['name'] ?></h4>
+							<h4><?if(strlen($salon['name'])>30){echo substr($salon['name'],0,30)."...";}?></h4>
 							<!-- <span><?php echo $salon['about'] ?></span> -->
 						</div>
 						<div class="salon_anket_sidebox_place">

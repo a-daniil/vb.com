@@ -2062,15 +2062,13 @@ and (max-device-width : 480px) {
 	overflow: hidden;
 }
 .salon_anket_sidebox_name{
-	float: left;
-	width: 110px;
 	font-size: 12px;
 	line-height: 12px;
 }
 .salon_anket_sidebox_name h4{
 	margin: 0 0 2px;
 	color: #c14102;
-	font-size: 18px;
+	font-size: 10px;
 	line-height: 20px;
 	text-transform: uppercase;
 }
