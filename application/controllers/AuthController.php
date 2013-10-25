@@ -77,7 +77,6 @@ class AuthController extends Zend_Controller_Action{
 		        if ( $this->_request->getPost('not_remember') ) {
 		        	$time = 3600;
 		        }
-
 		        $namespace = new Zend_Session_Namespace('Zend_Auth');
 		        $namespace->setExpirationSeconds($time);
 
@@ -319,10 +318,7 @@ class AuthController extends Zend_Controller_Action{
 		$message='<html><head></head><body>'.nl2br($message).'</body></html>';
 		$header="Content-type: text/html; charset=utf-8 \r\n";
 		if($from){$header.="From: ".$from." \r\n";}
-		$result = mail($to,$subj,$message,$header);
-		if ( !$result ) {
-			throw new SendConfirmEmail_Exception();
-		}
+		mail($to,$subj,$message,$header);
 	}
 	protected function captcha_add(){
 		$captcha=new Zend_Captcha_Image();
