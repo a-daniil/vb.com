@@ -501,7 +501,7 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
 
         // transformed image
         $img2     = imagecreatetruecolor($w, $h);
-        $bg_color = imagecolorallocate($img2, 255, 255, 255);
+        $bg_color = imagecolorallocate($img2, 251, 237, 226);
         imagefilledrectangle($img2, 0, 0, $w-1, $h-1, $bg_color);
         // apply wave transforms
         $freq1 = $this->_randomFreq();
