@@ -97,20 +97,20 @@
 					<tbody>
 						<tr>
 							<td><span class="one_hour_icon"></span>1 час</td>
-							<td><?if ( $this->info['price_1h_ap'] ):?><?php echo number_format($this->info['price_1h_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
-							<td><?if ( $this->info['price_1h_ap'] ):?><?php echo number_format($this->info['price_2h_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
+							<td><?if ( $this->info['price_1h_ap'] > 0):?><?php echo number_format($this->info['price_1h_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
+							<td><?if ( $this->info['price_1h_ap'] > 0):?><?php echo number_format($this->info['price_2h_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><span class="two_hour_icon"></span>2 часа</td>
-							<td><?if ( $this->info['price_1h_ex'] ):?><?php echo number_format($this->info['price_1h_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
-							<td><?if ( $this->info['price_2h_ex'] ):?><?php echo number_format($this->info['price_2h_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
+							<td><?if ( $this->info['price_1h_ex'] > 0):?><?php echo number_format($this->info['price_1h_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
+							<td><?if ( $this->info['price_2h_ex'] > 0):?><?php echo number_format($this->info['price_2h_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><span class="all_night_icon"></span>Ночь</td>
-							<td><?if ( $this->info['price_n_ap'] ):?><?php echo number_format($this->info['price_n_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
-							<td><?if ( $this->info['price_n_ex'] ):?><?php echo number_format($this->info['price_n_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
+							<td><?if ( $this->info['price_n_ap'] > 0):?><?php echo number_format($this->info['price_n_ap'], 0, ',', '.') . " руб.";?><?endif?></td>
+							<td><?if ( $this->info['price_n_ex'] > 0):?><?php echo number_format($this->info['price_n_ex'], 0, ',', '.') . " руб.";?><?endif?></td>
 							<td></td>
 						</tr>
 					</tbody>
