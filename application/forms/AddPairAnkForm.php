@@ -947,6 +947,8 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			);
 		}
 
+		$elements = array();
+		$elements[] = 'only';
 		$this->addElement('text', 'only', array(
 			'filter' => array('StringTrim'),
 			'validators' => array(
@@ -959,35 +961,41 @@ class Form_AddPairAnkForm extends Form_AddAnkForm
 			'decorators' => array(
 				'ViewHelper',
 				'Errors',
-				array('Label', array('class' => 'control-label', )),
-				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
+				array('Label', array('class' => 'control-label')),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span10', 'style' => 'margin-bottom: 5px;'))
 			)
-		));
+		));	
 
 		if ( !empty($this->params['only_add']) ) {
 			$only_add = unserialize($this->params['only_add']);
-
 			foreach ($only_add as $k => $v) {
+				$elements[] = $k;
 				$this->addElement('text', $k, array(
-						'filter' => array('StringTrim'),
-						'label'    => 'Только у меня',
-						'decorators' => array(
-								'ViewHelper',
-								'Errors',
-								array('Label', array('class' => 'control-label', )),
-								array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
-						)
+					'filter' => array('StringTrim'),
+					'label'    => 'Только у меня',
+					'decorators' => array(
+						'ViewHelper',
+						'Errors',
+						array('Label', array('class' => 'control-label')),
+						array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'span10', 'style' => 'margin-bottom: 5px;'))
+					)
 				));
 			}
 
 			//create only count hidden
 			$this->addElement('hidden', 'only_count', array('decorators' => array(
-					'ViewHelper',
-					'Errors',
-					array('Label', array('class' => 'control-label', )),
-					array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'hidden'))
+				'ViewHelper',
+				'Errors',
+				array('Label', array('class' => 'control-label', )),
+				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'hidden'))
 			)));
 		}
+
+		$only_group = $this->addDisplayGroup(
+			$elements,
+			'only_group',
+			array("legend" => 'Эксклюзивные услуги')
+		);
 
 		$this->addElement( 'submit', 'submit', array(
 			'class' => 'btn btn-large blue',

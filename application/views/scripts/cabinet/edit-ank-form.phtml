@@ -54,15 +54,16 @@
 				</div>
 				<div class="widget-body" id="widget-body-add-here">
 					<? foreach ($this->form as $element): ?>
-						<? if ( preg_match('/service_group(.*)|hidden_message/', $element->getName() ) ) :?>
+						<? if ( preg_match('/service_group(.*)|hidden_message|only_group/', $element->getName() ) ) :?>
 							<?= $element ?>
 						<? endif; ?>
 					<? endforeach; ?>
 					<br />
-					<?php echo $this->form->getElement('only'); ?>
 					<div class="control-group">
 						<button id="add_only" class="btn"><i class="icon-plus"></i></button>
+						<input type="hidden" name="only_count" value="1">
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -80,12 +81,9 @@
 		e.preventDefault();	
 
 		var $val = $("input[name='only_count']").val();
+		console.log($val);
 
-		$('#widget-body-add-here').append("<div class='control-group'>");
-		$('#widget-body-add-here').append("<label for='only' class='control-label optional' style='width: 190px'>Только у меня</label>");
-		$('#widget-body-add-here').append("<input type='text' name='only_" + $val + "' value='' filter='StringTrim'>");
-		$('#widget-body-add-here').append("</div>");
-
+		$('#fieldset-only_group').append("<div class='span10' style='margin-bottom: 5px;'><label for='only' class='control-label optional'>Только у меня</label><input type='text' name='only_" + $val + "' value='' filter='StringTrim'></div>");
 		$("input[name='only_count']").val(parseInt($val)+1);
 	});
 </script>
