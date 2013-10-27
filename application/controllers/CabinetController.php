@@ -1488,7 +1488,7 @@ class CabinetController extends Zend_Controller_Action {
 				$cnt++;
 				if($file['error'] || $file['size']>$this->config->limit->max_photo_size){
 					continue;
-				}	
+				}
 				$path_tmp=$dir.'/'.$file['name'];
 				move_uploaded_file($file['tmp_name'],$path_tmp);
 				$hash=md5_file($path_tmp);
@@ -1507,8 +1507,7 @@ class CabinetController extends Zend_Controller_Action {
 				//	$simage->resizeToWidth($this->config->limit->max_photo_width);
 				//}
 				$simage->save($dir.'/fl_'.$hash.'.'.$ext);
-				
-				
+
 				$simage->load($path_tmp);
 				if($simage->getWidth()>$this->config->limit->max_photo_width){
 					$simage->resizeToWidth($this->config->limit->max_photo_width);
@@ -1565,11 +1564,12 @@ class CabinetController extends Zend_Controller_Action {
 						)
 					)
 			);	
-			
+
 			$ankets->upd_anket($id,$new_info);
 		}
 
 		if ( $this->_hasParam('preview') ) {
+			$info=$ankets->get_anket($id);
 			$this->hasRights(array('user_admin', 'user_moder'), array($info['user_id'], $this->user_id));
 
 			$photos=unserialize($info['photolist']);
