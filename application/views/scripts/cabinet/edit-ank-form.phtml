@@ -92,8 +92,7 @@
 <script type="text/javascript">
 	$("input[name$='_add']").change(function(){
 		var $el_id = $(this).attr('id') + "_input";
-		console.log($el_id);
-		
+
 		if ( $('#' + $el_id).attr('disabled') ) {
 			$('#' + $el_id).removeAttr('disabled');
 		} else {
@@ -105,6 +104,9 @@
 		$("input[name$='_add_input']").each(function(){
 			if ( $(this).val() ) {
 				$(this).removeAttr('disabled');
+				$checkbox_id = $(this).attr('id').replace(/_input/,'');
+
+				$('#'+$checkbox_id).attr('checked', 'checked');
 			}
 		});
 	});

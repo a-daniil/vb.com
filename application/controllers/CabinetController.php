@@ -906,7 +906,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->view->content = $this->content; 
 	}
 
-	function editAnkFormAction () {	
+	function editAnkFormAction () {
 		$id = $this->getParam('id');
 		$city = Zend_Registry::get('city');
 
@@ -917,7 +917,7 @@ class CabinetController extends Zend_Controller_Action {
 		$this->hasRights(array('user_admin', 'user_moder'), array($anketa['user_id'], $this->user_id));
 
 		$performer = $ankets->get_ank_performer($id);
-	    $salons = $this->getUsersSalons();
+		$salons = $this->getUsersSalons();
 		switch ( $performer ) {
 			case self::GIRL :
 				$frmAddAnket = new Form_AddGirlAnkForm(self::GIRL, $this->content, array('types' => $salons, 'only_add' => $anketa['only_add'], 'city' => $city));
@@ -1000,7 +1000,8 @@ class CabinetController extends Zend_Controller_Action {
 						if ( $frmAddAnket->getValue( $srv.'_'.$key ) ) {
 							$serv+=1<<$key;
 
-							if ( $val_add_input = $frmAddAnket->getValue( $srv . '_' . $key . '_add_input' ) ) {
+							if ( ($val_add_input = $frmAddAnket->getValue( $srv . '_' . $key . '_add_input' ))
+								&& $frmAddAnket->getValue($srv.'_'.$key.'_add') ) {
 								$data['srv_add_text'][$srv . '_' . $key . '_add_input'] = $val_add_input;
 							}
 						}
