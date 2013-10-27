@@ -20,10 +20,6 @@
 	h2 {
 		margin: 0px;
 	}
-	
-	.span2 {
-		margin-left: 5px !important;
-	}
 </style>
 <div class="row-fluid">
 	<div class="span12">
@@ -133,7 +129,7 @@
 								<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
 							</a>
 						</div>
-						<div class="span2">
+						<div class="span2" style="width: 200px; margin-left: 10px; position: relative;">
 							<h2>Просмотры</h2>
 							<div>
 								<?php
@@ -159,7 +155,7 @@
 									</tr>
 								</table>
 							</div>
-							<div style="margin: 10px;">
+							<div>
 								<strong>Добавлена:</strong>
 								<p>
 									<?= rusdate(strtotime($row['timestamp'])); ?>
@@ -183,7 +179,7 @@
 							</div>
 						</div>
 						<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/ank-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
-						<div class="span7">
+						<div class="span4">
 							<?if($row['active']==0):?><h2 title="Анкета выключена">АНКЕТА ВЫКЛЮЧЕНА</h2>
 							<?elseif($row['status']==10):?><h2 title="Не загружены фото">Не ПОЛНЫЕ ДАННЫЕ</h2>	
 							<?elseif($row['status']==11):?><h2 title="Откланена модератором">ОТКЛОНЕНА МОДЕРАТОРОМ(ПРОВЕРОЧНОЕ ФОТО)</h2>
@@ -219,7 +215,7 @@
 							</form>
 						</div>
 						<? else :?>
-						<div class="span7">
+						<div class="span4">
 							<?if($row['active']==0):?><h2 title="Анкета выключена">АНКЕТА ВЫКЛЮЧЕНА</h2>
 							<?elseif($row['status']==10):?>
 							<h2 title="Не загружены фото">НЕ ПОЛНЫЕ ДАННЫЕ</h2>

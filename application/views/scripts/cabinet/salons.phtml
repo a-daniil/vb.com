@@ -7,6 +7,10 @@
 		display: inline-block;
 		height: 280px;
 	}
+
+	h2 {
+		margin: 0px;
+	}
 </style>
 <div class="row-fluid">
 	<div class="span12">
@@ -74,19 +78,19 @@
 							<a href="/cabinet/edit-video-salon/n/<?=$row['id']?>" class="btn">Видео</a>
 							<a href="/cabinet/add-ank-to-salon/n/<?=$row['id']?>" class="btn">Анкеты</a>
 						</p>
-						<div class="span2">
+						<div class="span2" style="width: 200px; margin-left: 0px; position: relative;">
 							<a href="/salon/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
 								<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
 							</a>
 						</div>
-						<div class="span2">
+						<div class="span2" style="width: 200px; margin-left: 10px; position: relative;">
 							<h2>Просмотры</h2>
 							<div>
 								<?php
 									$counters = new CountersAnkets();
 									$counter = $counters->get_ank($row['id']);
 								?>
-								<table>
+								<table width="100%">
 									<tr>
 										<td><strong>За 24 часа:</strong></td>
 										<td><span class="badge badge-important offset"><?= $counter['today'] ? $counter['today'] : 0 ?></span><td>
@@ -111,7 +115,7 @@
 							</div>
 						</div>
 						<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/salons-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
-						<div class="span4">
+						<div class="span7">
 							<?if($row['active']==0):?><h2 title="Салон выключен">САЛОН ВЫКЛЮЧЕН</h2>
 							<?elseif($row['status']==10):?>
 							<h2 title="Не полные данные">НE ПОЛНЫЕ ДАННЫЕ</h2>
