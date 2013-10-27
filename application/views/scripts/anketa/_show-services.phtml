@@ -22,6 +22,12 @@
 		<h5>Только у меня:</h5>
 		<ul class="red_dot_list">
 			<li><?=$this->info['only']?></li>
+			<?$onlys=unserialize($this->info['only_add']);?>
+			<?if(!empty($onlys)):?>
+				<?foreach($onlys as $k => $v):?>
+					<li><?=$v?></li>
+				<?endforeach?>
+			<?endif?>
 		</ul>
 	</div>
 <?endif?>
