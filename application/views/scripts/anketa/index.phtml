@@ -135,7 +135,7 @@
 							<td><span class="two_hour_icon"></span>2 часа</td>
 							<td><?if ( $this->info['price_2h_ap'] ):?><?=number_format($this->info['price_2h_ap'], 0, ',', '.') . " руб";?><?endif?></td>
 							<td><?if ( $this->info['price_2h_ex'] ):?><?=number_format($this->info['price_2h_ex'], 0, ',', '.') . " руб";?><?endif?></td>
-							<td>-</td>
+							<td><?if ( $this->info['price_an'] ):?><?=number_format($this->info['price_an'], 0, ',', '.'). " руб"?><?endif?></td>
 						</tr>
 						<tr>
 							<td><span class="all_night_icon"></span>Ночь</td>
