@@ -110,8 +110,8 @@
 								</table>
 							</div>
 							<h2>Даты</h2>
-							<div>
-								<strong>Добавлена: <?= rusdate(strtotime($row['timestamp'])); ?></strong>
+							<div style="margin-top: 10px;">
+								<strong>Добавлена: </strong><?= rusdate(strtotime($row['timestamp'])); ?>
 							</div>
 						</div>
 						<? if ( ($this->user_moder || $this->admin) && preg_match('/\/cabinet\/salons-moderation(.*)/', $_SERVER['REQUEST_URI']) ) : ?>
