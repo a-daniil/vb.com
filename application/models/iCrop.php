@@ -21,9 +21,9 @@ class iCrop {
 		$this->_type = $img_info[2];
 		if( $this->_type == IMAGETYPE_JPEG ) {
 			$this->_src = imagecreatefromjpeg($filename);
-		} elseif( $this->$_type == IMAGETYPE_GIF ) {
+		} elseif( $this->_type == IMAGETYPE_GIF ) {
 			$this->_src = imagecreatefromgif($filename);
-		} elseif( $this->$_type == IMAGETYPE_PNG ) {
+		} elseif( $this->_type == IMAGETYPE_PNG ) {
 			$this->_src = imagecreatefrompng($filename);
 		}
 	}
