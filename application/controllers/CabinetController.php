@@ -1590,6 +1590,7 @@ class CabinetController extends Zend_Controller_Action {
 		elseif($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
 		elseif($this->_hasParam('to_check_photo')){$redirect='/cabinet/check-photo/n/'.$id;}
 		elseif($this->_hasParam('to_video')){$redirect='/cabinet/edit-video/n/'.$id;}
+		elseif($this->_hasParam('to_intim_map')){$redirect='/cabinet/intim-map/n/'.$id;}
 		$this->_redirect($redirect);
 		die;
 	}
@@ -2002,6 +2003,7 @@ class CabinetController extends Zend_Controller_Action {
 		elseif($this->_hasParam('to_photo')){$redirect='/cabinet/edit-photo/n/'.$id;}
 		elseif($this->_hasParam('to_ank_edit')){$redirect ='/cabinet/edit-ank-form/id/'.$id;}
 		elseIf($this->_hasParam('to_video')){$redirect = '/cabinet/edit-video/n/'.$id;}
+		elseif($this->_hasParam('to_intim_map')){$redirect = '/cabinet/intim-map/n/'.$id;}
 		$this->_redirect($redirect);
 		die;
 	}
@@ -2191,11 +2193,61 @@ class CabinetController extends Zend_Controller_Action {
 			$ankets->upd_anket($id,$new_info);
 		}
 		$redirect='/cabinet?performer=' . $info['performer'];
-		if($this->_hasParam('next')){$redirect='/cabinet/finish/n/'.$id;}
+		if($this->_hasParam('next')){$redirect='/cabinet/intim-map/n/'.$id;}
 		elseif($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
 		elseif($this->_hasParam('to_comments')){$redirect='/cabinet/comms-list/n/'.$id;}
 		elseif($this->_hasParam('to_check_photo')){$redirect='/cabinet/check-photo/n/'.$id;}
 		elseif($this->_hasParam('to_photo')){$redirect='/cabinet/edit-photo/n/'.$id;}
+		elseif($this->_hasParam('to_intim_map')){$redirect='/cabinet/intim-map/n/'.$id;}
+		$this->_redirect($redirect);
+		die;
+	}
+
+	public function intimMapAction() {
+		$id = $this->getParam('n');
+
+		include_once 'Ankets.php';
+		$ankets = new Ankets();
+		$info=$ankets->get_anket($id);
+		$this->view->info = $info;
+	}
+
+	public function addIntimMapAction() {
+		if(!$this->_hasParam('n')){
+			$this->error('request_error');return;
+		}
+		$id=intval(substr($this->_getParam('n'),0,32));
+
+		include_once 'Ankets.php';
+		$ankets=new Ankets();
+		$info = $ankets->get_anket($id);
+
+		$lng=$this->_getParam('setLng');
+		$lan=$this->_getParam('setLan');
+		$coords = serialize(array('lng' => $lng, 'lan' => $lan));
+		if (!empty($coords)) {
+			$ankets->upd_anket($id, array('coords' => $coords));
+		}
+
+		$redirect='/cabinet?performer=' . $info['performer'];
+		if($this->_hasParam('next')){
+			$redirect='/cabinet/finish/n/'.$id;
+		}
+		elseif($this->_hasParam('to_ank_edit')){
+			$redirect='/cabinet/edit-ank-form/id/'.$id;
+		}
+		elseif($this->_hasParam('to_comments')){
+			$redirect='/cabinet/comms-list/n/'.$id;
+		}
+		elseif($this->_hasParam('to_check_photo')){
+			$redirect='/cabinet/check-photo/n/'.$id;
+		}
+		elseif($this->_hasParam('to_photo')){
+			$redirect='/cabinet/edit-photo/n/'.$id;
+		}
+		elseif($this->_hasParam('to_video')){
+			$redirect='/cabinet/edit-video/n/'.$id;
+		}
 		$this->_redirect($redirect);
 		die;
 	}

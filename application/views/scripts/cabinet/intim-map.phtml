@@ -1,0 +1,121 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="page-title">
+			Отметить расположение на карте: <?=$this->info['name']?> (<?=$this->cities[$this->info['city']]?>)
+		</h3>
+	</div>
+</div>
+<form class="form-horizontal" action="/cabinet/add-intim-map/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+<p>
+	<input type="submit" class="btn btn-large" value="Данные анкеты" name="to_ank_edit" />
+	<input type="submit" class="btn btn-large" value="Фото" name="to_photo" />
+	<?if($this->info['status']):?><input type="submit" class="btn btn-large" value="Фото для проверки" name="to_check_photo" /><?endif?>
+	<input type="submit" class="btn btn-large" value="Комментарии" name="to_comments" />
+	<input type="submit" class="btn btn-large" value="Видео" name="to_video" />
+</p>
+<div id="page-wraper">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<div class="alert alert-block alert-info fade in">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						<p>Ваша анкета будет отмечена на интим-карте, что позволит вашим клиентам быстро и без труда найти вас в нужном районе или месте! Интим –карта очень удобный инструмент поиска анкет девушек и салонов - не пренебрегайте им.</p>
+						<p>Чтобы отметить ваше местоположение, используя карту ниже. Вы можете передвигать карту до нужного района, уменьшая и увеличивая масштаб. После этого один раз кликните по карте в районе вашего местоположения, так чтоб на этом месте появился красный маркер. Нажмите "Сохранить местоположение".</p>
+						<p>Второй вариант найти свое положение на карте - воспользоваться нижей формой, в которой введите последовательно город, улицу и можно дом. Нажмите "Найти на карте". Если все введено правильно, маркер вашего положения установится автоматически.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget red">
+				<div class="widget-title">
+					<h4><i class="icon-reorder"></i></h4>
+					<span class="tools">
+						<a href="javascript:;" class="icon-chevron-down"></a>
+						<a href="javascript:;" class="icon-remove"></a>
+					</span>
+				</div>
+				<div class="widget-body">
+					<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+					<script type="text/javascript">
+						var myMap, myPlacemark = null;
+
+						function saveCoordinates(coords){
+							document.getElementById("setLng").value = coords[1];
+							document.getElementById("setLat").value = coords[0];
+						}
+
+						function createPlacemark(coords){
+							myPlacemark = new ymaps.Placemark(coords, {iconContent: "Я тут!"}, {draggable: true, preset: "twirl#redStretchyIcon"});
+							myMap.geoObjects.add(myPlacemark);
+							myPlacemark.events.add("dragend", function(e){ saveCoordinates(myPlacemark.geometry.getCoordinates()); });
+						}
+
+						function init() {
+							document.getElementById("map").innerHTML = "";
+							myMap = new ymaps.Map('map', {
+								center: [59.938, 30.313],
+								//center: [55.76, 37.64],
+								zoom: 10,
+								behaviors: ['default', 'scrollZoom']
+							},
+							{
+								minZoom: 9
+							});
+
+							//myMap.setBounds([[59.838, 30.213], [59.938, 30.313]]);
+
+							var mySearchControl = new ymaps.control.SearchControl({
+								noPlacemark: true,
+								resultsPerPage: 5
+							});
+
+							myMap.controls
+								.add(mySearchControl, { right: 10, top: 10 })
+								.add('mapTools', { left: 35, top: 10 })
+								.add('zoomControl');
+
+							var controlPlacemark = function(e){
+								var coords = e.get("coordPosition");
+								saveCoordinates(coords);
+								if (myPlacemark==null) createPlacemark(coords);
+								else myPlacemark.geometry.setCoordinates(coords);
+							}
+							myMap.events.add("click", controlPlacemark);
+
+							// если есть координаты то создать Placemark
+							var coords = [];
+							coords[1] = document.getElementById("setLng").value;
+							coords[0] = document.getElementById("setLat").value;
+							if (coords[0] && coords[1]) {
+								createPlacemark(coords);
+							}
+						}
+					
+						ymaps.ready(init);
+					</script>
+					<div id="map" style="width:100%; height:500px"></div>
+					<? $coords = unserialize($this->info['coords']); ?>
+					<input type="hidden" id="setLng" name="setLng" value="<?=$coords['lng']?>">
+					<input type="hidden" id="setLat" name="setLan" value="<?=$coords['lan']?>">
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php if ( $_GET['new'] ) : ?>
+		<input class="btn btn-large" type="submit" value="Готово" name="next"/>
+	<?php else : ?>			
+		<input class="btn btn-large" type="submit" value="Сохранить"/>
+	<?php endif ?>
+</div>
+</form>

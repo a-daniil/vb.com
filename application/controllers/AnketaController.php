@@ -147,6 +147,7 @@ class AnketaController extends IndexController {
 			);
 		}
 
+		$this->view->performer = $info['performer'];
 		$info['performer']=$this->view->performer_out[$info['performer']];
 
 		$info['city']=$this->view->cities[$info['city']];

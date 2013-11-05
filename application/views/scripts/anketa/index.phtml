@@ -274,7 +274,70 @@
 					<h3>ищи меня на карте</h3>
 				</div>
 				<div class="sidebox_content no_padding">
-					<img src="/img/pic30.jpg" width="248" height="189" alt="description">
+					<!-- <img src="/img/pic30.jpg" width="248" height="189" alt="description"> -->
+					<script type="text/javascript">
+						var myMap, myPlacemark = null;
+						var performer = <?=$this->performer?>;
+						var name = "<?=$this->info['name']?>";
+
+						function createPlacemark(coords){
+							//var indi = new ymaps.Style("default#redPoint");
+							preset = "";
+							switch (performer) {
+								case 1 : preset = "twirl#redStretchyIcon"; break;
+								case 2 : preset = "twirl#brownStretchyIcon"; break;
+								case 3 : preset = "twirl#yellowStretchyIcon"; break;
+								case 4 : preset = "twirl#orangeStretchyIcon"; break;
+								case 5 : preset = "twirl#pinkStretchyIcon"; break;
+								case 6 : preset = "twirl#nightStretchyIcon"; break;
+								case 7 : preset = "twirl#blackStretchyIcon"; break;
+							}
+
+							myPlacemark = new ymaps.Placemark(coords, {iconContent: "<?=$this->info['name']?>"}, {draggable: true, preset: preset});
+							myMap.geoObjects.add(myPlacemark);
+							myPlacemark.events.add("dragend", function(e){ saveCoordinates(myPlacemark.geometry.getCoordinates()); });
+						}
+
+						function init() {
+							document.getElementById("map").innerHTML = "";
+
+							var coords = [];
+							coords[1] = document.getElementById("lng").value;
+							coords[0] = document.getElementById("lan").value;
+							if (true) {
+								myMap = new ymaps.Map('map', {
+									center: [coords[0], coords[1]],
+									//center: [55.76, 37.64],
+									zoom: 10,
+									behaviors: ['default', 'scrollZoom']
+								},
+								{
+									minZoom: 9
+								});
+
+								//myMap.setBounds([[59.838, 30.213], [59.938, 30.313]]);
+								myMap.controls
+									.add('smallZoomControl');
+								createPlacemark(coords);
+							} else {
+								myMap = new ymaps.Map('map', {
+									center: [59.938, 30.313],
+									//center: [55.76, 37.64],
+									zoom: 10,
+									behaviors: ['default', 'scrollZoom']
+								},
+								{
+									minZoom: 9
+								});
+							}
+						}
+
+						ymaps.ready(init);
+					</script>
+					<div id="map" style="width:230px; height:189px"></div>
+					<? $coords=unserialize($this->info['coords']); ?>
+					<input type="hidden" name="lng" id="lng" value="<?=$coords['lng']?>" />
+					<input type="hidden" name="lat" id="lan" value="<?=$coords['lan']?>" />
 				</div>
 			</div>
 			<?php
