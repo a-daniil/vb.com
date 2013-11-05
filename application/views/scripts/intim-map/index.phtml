@@ -1,0 +1,26 @@
+<div class="fix_width">
+	<div id="main">
+		<div class="main_title_block">
+			<h1>Интим карта</h1>
+		</div>
+		<div>
+			<script type="text/javascript">
+				function init() {
+					document.getElementById("map").innerHTML = "";
+					myMap = new ymaps.Map('map', {
+						center: [59.938, 30.313],
+						//center: [55.76, 37.64],
+						zoom: 10,
+						behaviors: ['default', 'scrollZoom']
+					},
+					{
+						minZoom: 9
+					});
+				}
+
+				ymaps.ready(init);
+			</script>
+			<div id="map" style="width:100%; height:500px"></div>
+		</div>
+	</div>
+</div>
