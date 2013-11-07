@@ -5,7 +5,7 @@ class Ankets extends Zend_Db_Table_Abstract{
  	public function set_items_per_page($perpage){
  		$this->per_page=(int)$perpage;
  	}
- 	
+ 
  	public function get_history_ankets( $ids ) {
  		$rows = array('id', 'user_id', 'name_eng', 'age', 'name', 'photolist');
 
@@ -13,14 +13,14 @@ class Ankets extends Zend_Db_Table_Abstract{
  			->select()
  			->from(self::TABLE, $rows)
  			->where(' id IN ('.join(", ", $ids ). ') ');
- 		
+ 
  		$paginator=new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setPageRange(15);
 		$paginator->setCurrentPageNumber($page);
-		$paginator->setItemCountPerPage(1000);		
+		$paginator->setItemCountPerPage(1000);
 		return $paginator;
  	}
- 	 	
+
 	public function get_ankets_list($page=1,array $params=null, $video=false, $metro=false, $mtr_id=false, $per = false) {
 		$rows=array('id','user_id','name','name_eng','age','type','city','metro','phone','height','weight',
 			'performer','breast','place','price_1h_ap','price_2h_ap','price_n_ap',
@@ -49,7 +49,7 @@ class Ankets extends Zend_Db_Table_Abstract{
 			->where('active = 1')
             ->where('status >= 30')
 			//->order('priority DESC')
-            ->order('priority DESC')            
+            ->order('priority DESC')
 			->order('RAND()');
         }
 		if(is_array($params)){
@@ -63,12 +63,12 @@ class Ankets extends Zend_Db_Table_Abstract{
 		}
 		
 		if( $mtr_id ) {	
-			$select->where("metro = ?", $mtr_id);	
+			$select->where("metro = ?", $mtr_id);
 			
 			$statsMetro = new Model_StatsMetro();
-			$statsMetro->incMetro( $mtr_id );		
+			$statsMetro->incMetro( $mtr_id );
 		}
-		
+
 		if ($params[2] === 'status>=50') {
 			include_once 'CountersAnkets.php';
 			$counters=new CountersAnkets();
@@ -83,15 +83,15 @@ class Ankets extends Zend_Db_Table_Abstract{
 		$paginator=new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setPageRange(15);
 		$paginator->setCurrentPageNumber($page);
-		$paginator->setItemCountPerPage($this->per_page);		
+		$paginator->setItemCountPerPage($this->per_page);
 		return $paginator;
 	}
-	
+
 	public function get_ankets_with_search( $page=1,array $params=null, $video=false, $metro=false, $mtr_id=false, $per = false ){		
 		$rows=array('id','user_id','name','name_eng','age','type','city','metro','phone','height','weight',
 			'performer','breast','place','price_1h_ap','price_2h_ap','price_n_ap',
-            'price_2h_ex','timestamp','photolist','videolist', 'status');		
-		
+            'price_2h_ex','timestamp','photolist','videolist', 'status');
+
 		if ( $per ){
 			$select=$this->getAdapter()
 			->select()
@@ -119,18 +119,18 @@ class Ankets extends Zend_Db_Table_Abstract{
 		
 		if( $metro ){
 			include_once 'CountersAnkets.php';
-			$counters=new CountersAnkets();			
+			$counters=new CountersAnkets();	
 			$counters->inc_metro($mtr_id);
 			$select->where("metro like '%".$metro."'");
 		}
-		
+
 		if( $video ){
 			include_once 'CountersAnkets.php';
 			$counters=new CountersAnkets();
 			$counters->inc_common(1);
 			$select->where('videolist <> ""');
 		}
-				
+
 		$paginator=new Zend_Paginator(new Zend_Paginator_Adapter_DbSelect($select));
 		$paginator->setPageRange(15);
 		$paginator->setCurrentPageNumber($page);
@@ -145,7 +145,21 @@ class Ankets extends Zend_Db_Table_Abstract{
 		return $paginator;
 		
 	}
-	
+
+	public function get_coords_per_ankets() {
+		$rows = array('coords','id','performer', 'user_id', 'photolist', 'name');
+		$select = $this->getAdapter()->select()->from(self::TABLE, $rows);
+		$select->where('status >= 30');
+		$select->where('active = 1');
+		#$select->where('priority > 0');
+		$return=$this->getAdapter()->query($select)->fetchAll();
+		if ($return) {
+			return $return;
+		} else {
+			return array();
+		}
+	}
+
 	public function get_ankets_by_salon_id($salon_id){
 		$select=$this->getAdapter()->select()->from(self::TABLE);
 		$select->where('type = ?', $salon_id);

@@ -1,10 +1,12 @@
-<div class="fix_width">
-	<div id="main">
+
 		<div class="main_title_block">
 			<h1>Интим карта</h1>
 		</div>
 		<div>
 			<script type="text/javascript">
+				var myMap = null;
+				var coords = <?=$this->coords?>;
+
 				function init() {
 					document.getElementById("map").innerHTML = "";
 					myMap = new ymaps.Map('map', {
@@ -14,13 +16,74 @@
 						behaviors: ['default', 'scrollZoom']
 					},
 					{
-						minZoom: 9
+						minZoom: 9,
+						maxZoom: 18
 					});
+					myMap.controls
+						.add('zoomControl', { left: 10, top: 10 })
+						.add('mapTools', { left: 35, top: 10 });
+
+					if (coords != null) {
+						clusterer = new ymaps.Clusterer({
+							preset: 'twirl#whiteClusterIcons',
+							groupByCoordinates: false,
+							clusterDisableClickZoom: true
+						});
+
+						getPointData = function (index) {
+							return {
+								balloonContentBody: '<span style="margin-bottom: 3px; display: block;">'+coords[index][6]+' ('+coords[index][7]+')</span><div style="background:url(\'/user_photos/'+coords[index][4]+'/tn_'+coords[index][5] + '\') no-repeat scroll center top transparent; width: 110px; height: 110px;"></div>',
+								clusterCaption: '<strong>' + coords[index][6] + '</strong>'
+							};
+						}
+
+						getPointOptions = function (index) {
+							switch (coords[index][1]) {
+								case 1: preset = 'twirl#redStretchyIcon'; break;
+								case 2: preset = 'twirl#brownStretchyIcon';	break;
+								case 3: preset = 'twirl#yellowStretchyIcon'; break;
+								case 4: preset = 'twirl#orangeStretchyIcon'; break;
+								case 5: preset = 'twirl#pinkStretchyIcon'; break;
+								case 6: preset = 'twirl#nightStretchyIcon'; break;
+								case 7: preset = 'twirl#blackStretchyIcon'; break;
+								default: preset = 'twirl#violetIcon';
+							}
+
+							return {
+								preset: preset
+							};
+						}
+
+						geoObjects = [];
+						for(var i = 0, len = coords.length; i < len; i++) {
+							geoObjects[i] = new ymaps.Placemark([coords[i][2], coords[i][3]], getPointData(i), getPointOptions(i));
+						}
+
+						clusterer.options.set({
+							gridSize: 50,
+							clusterDisableClickZoom: true
+						});
+
+						clusterer.add(geoObjects);
+
+						clusterer.events.once('objectsaddtomap', function () {
+							myMap.setBounds(clusterer.getBounds());
+						});
+
+						clusterer.events
+							.add(['mouseenter', 'mouseleave'], function (e) {
+								var target = e.get('target'), 
+								eType = e.get('type'), 
+								zIndex = Number(eType === 'mouseenter') * 1000;
+
+								target.options.set('zIndex', zIndex);
+							});
+
+						myMap.geoObjects.add(clusterer);
+					}
 				}
 
 				ymaps.ready(init);
 			</script>
-			<div id="map" style="width:100%; height:500px"></div>
+			<div id="map" style="width:100%; height:600px"></div>
 		</div>
-	</div>
-</div>
