@@ -95,14 +95,15 @@ class SalonController extends IndexController {
 		if( $info['kalyan'] ){
 			$this->view->options['Кальян'] = true;
 		}
-		
+
 		list($info['phone_p1'],$info['phone_p2'])=explode('-',$info['phone']);
 		list($info['phone_p3'],$info['phone_p4'])=explode('-',$info['pnone_add']);
-		
+
+		$this->view->type = $info['type']; #set type for yandex map
 		$info['type']=$this->view->types_of_salon[$info['type']];
 		$info['city']=$this->view->cities[$info['city']];
 		$this->view->info=$info;
-		
+
 		include_once 'CountersAnkets.php';
 		$counters=new CountersAnkets();
 		$counters->inc_salon($info['id']);

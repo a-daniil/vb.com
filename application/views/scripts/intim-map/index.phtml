@@ -6,6 +6,7 @@
 			<script type="text/javascript">
 				var myMap = null;
 				var coords = <?=$this->coords?>;
+				var salons_coords = <?=$this->salons_coords?>;
 
 				function init() {
 					document.getElementById("map").innerHTML = "";
@@ -23,7 +24,7 @@
 						.add('zoomControl', { left: 10, top: 10 })
 						.add('mapTools', { left: 35, top: 10 });
 
-					if (coords != null) {
+					if (coords != null) { //start of display ankets coords
 						clusterer = new ymaps.Clusterer({
 							preset: 'twirl#whiteClusterIcons',
 							groupByCoordinates: false,
@@ -57,6 +58,58 @@
 						geoObjects = [];
 						for(var i = 0, len = coords.length; i < len; i++) {
 							geoObjects[i] = new ymaps.Placemark([coords[i][2], coords[i][3]], getPointData(i), getPointOptions(i));
+						}
+
+						clusterer.options.set({
+							gridSize: 50,
+							clusterDisableClickZoom: true
+						});
+
+						clusterer.add(geoObjects);
+
+						clusterer.events.once('objectsaddtomap', function () {
+							myMap.setBounds(clusterer.getBounds());
+						});
+
+						clusterer.events
+							.add(['mouseenter', 'mouseleave'], function (e) {
+								var target = e.get('target'), 
+								eType = e.get('type'), 
+								zIndex = Number(eType === 'mouseenter') * 1000;
+
+								target.options.set('zIndex', zIndex);
+							});
+
+						myMap.geoObjects.add(clusterer);
+					}
+
+					if (salons_coords != null) { //start of display salons coords
+						clusterer = new ymaps.Clusterer({
+							preset: 'twirl#invertedVioletClusterIcons',
+							groupByCoordinates: false,
+							clusterDisableClickZoom: true
+						});
+
+						getPointData = function (index) {
+							return {
+								balloonContentBody: '<span style="margin-bottom: 3px; display: block;">'+salons_coords[index][6]+' ('+salons_coords[index][7]+')</span><div style="background:url(\'/user_photos/'+salons_coords[index][4]+'/tn_'+salons_coords[index][5] + '\') no-repeat scroll center top transparent; width: 110px; height: 110px;"></div>',
+								clusterCaption: '<strong>' + salons_coords[index][6] + '</strong>'
+							};
+						}
+
+						getPointOptions = function (index) {
+							switch (salons_coords[index][1]) {
+								default: preset = 'twirl#houseIcon';
+							}
+
+							return {
+								preset: preset
+							};
+						}
+
+						geoObjects = [];
+						for(var i = 0, len = salons_coords.length; i < len; i++) {
+							geoObjects[i] = new ymaps.Placemark([salons_coords[i][2], salons_coords[i][3]], getPointData(i), getPointOptions(i));
 						}
 
 						clusterer.options.set({

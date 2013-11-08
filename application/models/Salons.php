@@ -12,17 +12,17 @@ class Salons extends Zend_Db_Table_Abstract{
 		$this->getAdapter()->insert(self::TABLE,$info);
 		return $this->getAdapter()->lastInsertId(self::TABLE,'id');
 	}
-	
+
 	public function getSalonsCount()
 	{
 		$select = $this->getAdapter()
 			->select()
-			->from(self::TABLE, 'COUNT(*) as count');			
+			->from(self::TABLE, 'COUNT(*) as count');
 		$return = $this->getAdapter()->query($select)->fetch();
 		if( !$return ){ return array();}
 		return $return->toArray();
 	}
-	
+
 	public function get_salon_list($page=1,array $params=null, $metro=false, $per = false, $type = false){
 		$rows=array(
 			'id',
@@ -34,14 +34,14 @@ class Salons extends Zend_Db_Table_Abstract{
 			'metro',
 			'phone',
 			'address',
-			'district',			
+			'district',	
 			'price_1h_ap','price_2h_ap','price_n_ap',
 			'price_1h_ex','price_2h_ex','price_n_ex',
 			'photolist',
 			'videolist', 
 			'status',
 			'girl_number');
-	
+
 		$select=$this->getAdapter()
 			->select()
 			->from(self::TABLE)
@@ -72,6 +72,20 @@ class Salons extends Zend_Db_Table_Abstract{
 		$paginator->setCurrentPageNumber($page);
 		$paginator->setItemCountPerPage($this->per_page);
 		return $paginator;
+	}
+
+	public function get_coords_per_salons() {
+		$rows = array('coords','id','type', 'user_id', 'photolist', 'name');
+		$select = $this->getAdapter()->select()->from(self::TABLE, $rows);
+		$select->where('status >= 30');
+		$select->where('active = 1');
+		$select->where('priority > 0');
+		$return=$this->getAdapter()->query($select)->fetchAll();
+		if ($return) {
+			return $return;
+		} else {
+			return array();
+		}
 	}
 
 	public function get_salon($id, $active = false, $status = false, $priority = false){
@@ -108,21 +122,21 @@ class Salons extends Zend_Db_Table_Abstract{
 		if(!$return){return false;}
 		return $return;
 	}
-	
+
 	public function upd_salon($id, $info){
 		$this->getAdapter()->update(self::TABLE, $info, 'id = '.$id );
 		return true;
 	}
-	
+
 	public function get_user_consumption($id){
 		$select = $this->getAdapter()
 			->select()
 			->from(self::TABLE,'SUM(priority) as sum')
 			->where('user_id > ?', $id);			
-		$return = $this->getAdapter()->query($select)->fetch();		
+		$return = $this->getAdapter()->query($select)->fetch();	
 		return $return['sum'];
 	}
-	
+
 	public function get_salons_list_cab($page=1,$user_id=false,$moder=false, $filter = false){
 		$rows=array('id','user_id','name','city','timestamp','end_timestamp','active','photolist','phone',
 				'priority','status');
@@ -146,21 +160,21 @@ class Salons extends Zend_Db_Table_Abstract{
 		$paginator->setItemCountPerPage($this->per_page);
 		return $paginator;
 	}
-	
+
 	public function count_all_ankets($user_id = false ) {
 		$select = $this->getAdapter()
 			->select()
-			->from(self::TABLE, 'COUNT(*) as count');			
+			->from(self::TABLE, 'COUNT(*) as count');
 		if ( $user_id ) {
-			$select->where('user_id = ?', $user_id); 
+			$select->where('user_id = ?', $user_id);
 		}
 		$return = $this->getAdapter()->query($select)->fetch();
 		if ( !$return ) {
 			return false;
 		}
-		return $return['count'];				
-	}	
-	
+		return $return['count'];
+	}
+
 	public function count_active_salons($user_id=false){
 		$select=$this->getAdapter()
 		->select()

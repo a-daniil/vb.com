@@ -169,7 +169,183 @@
 				</div>
 			</div>
 		</div>
-		<?= $this->render('index/_sidebar.phtml') ?>
+		<aside id="sidebar">
+			<div class="sidebox pink">
+				<?php if( $this->info['videolist'] ) : ?>
+					<div class="sidebox_header">
+						<h3>Мое видео</h3>
+					</div>
+					<div class="sidebox_content no_padding">
+                  		<?php $video=array_shift($this->info['videolist']); ?>
+                  		<?php $swflink = 'file='.$video['fs'].'&image=/img/videoprev.jpg&author=vipsoski.com&description=Видео - на видео проститутка '.$this->info['name'].', тел: '.$this->info['phone']?>
+                  		<span id="video1" class="br_img01"><embed type="application/x-shockwave-flash" src="/player.swf" width="248" height="189" style="undefined" id="player" name="player" quality="high" allowfullscreen="true" allowscriptaccess="always" flashvars="<?=$swflink;?>"></span>
+                  		<script type="text/javascript" src="/js/swfobject.js"></script>
+                  		<script type="text/javascript">
+                      		var s1 = new SWFObject('/player.swf','player','230','189','9');
+                        	s1.addParam('allowfullscreen','true');
+                        	s1.addParam('allowscriptaccess','always');
+                        	s1.addParam('flashvars','<?=$swflink;?>');
+                       		s1.write('video1');
+                   	 	</script>
+					</div>
+				<?php endif ?>
+			</div>
+			<?php if ( count($this->latest2reviews) > 0 ) : ?>
+			<div class = "sidebox pink">
+				<div class="sidebox_header">
+					<h3>оценки клиентов</h3>
+				</div>
+				<div class="sidebox_content no_side_padding">
+					<?php if ( $this->info['score'] === "1" ) : ?>
+						<span class="total_score"><span class="good_score"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
+					<?php endif ?>
+					<?php if ( $this->info['score'] === "-1" ) : ?>
+						<span class="total_score"><span class="good_score"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
+					<?php endif ?>
+					<ul class="reviews_sidebar_item">
+						<?php foreach ( $this->latest2reviews as $review ) : ?>
+						<li>
+							<span class="reviewer_name"><?php echo $this->getUserLoginById($review['user_id']) ?></span>
+							<ul class="reviews_sidebar_item_info">
+								<li>Фото оригинал: 
+									<span class="black">
+									<?php if ( $review['photo_original'] ) : ?>
+											Да
+										<?php if ( $review['photo_original_select'] == 1 ) :?>
+											, 100% без ретуши
+										<?php else : ?>
+											, есть фотошоп
+										<?php endif ?>
+									<?php else : ?>
+										Нет, чужие фото
+									<?php endif ?>
+									</span>
+								</li>
+								<li>Реальна индивидуалка:
+									<span class="black">
+										<?php if ($review['real_individual'] == 1) : ?>
+											Да
+										<?php elseif ($review['real_individual'] == -1) : ?>
+											Салон
+										<?php elseif ($review['real_individual'] == 0) : ?>
+											Не знаю
+										<?php endif ?>
+									</span>
+								</li>
+								<li>
+									Отношение к клиенту:
+									<div class="black">
+										<ul class="rating_stars">
+											<?php echo str_repeat("<li></li>", $review['service']) ?>
+											<?php echo str_repeat("<li class=\"bad\"></li>", 5 - $review['service']) ?>
+										</ul>
+									</div>
+								</li>
+								<li>
+									Апартаменты:
+									<div class="black">
+										<ul class="rating_stars">
+											<?php echo str_repeat("<li></li>", $review['apartment']) ?>
+											<?php echo str_repeat("<li class=\"bad\"></li>", 5 - $review['apartment']) ?>
+											
+										</ul>
+									</div>
+								</li>
+								<?php $services = unserialize($review['services']) ?>
+								<?php foreach ( $services as $srv ) : ?>
+								<?php list($name, $score) = explode("_", $srv)?>
+								<li>
+									<?php echo $name; ?>
+									<div class="black">
+										<ul class="rating_stars">
+											<?php echo str_repeat("<li></li>", $score ) ?>
+											<?php echo str_repeat("<li class=\"bad\"></li>", 5 - $score ) ?>
+										</ul>
+									</div>
+								</li>
+								<?php endforeach ?>
+							</ul>
+							<?php if ( $review['score'] == "1" ) : ?>
+								<span class="single_reviewer_total_score">Общая оценка: <span class="good_score">рекомендую <span class="good_score_icon"></span></span></span>
+							<?php elseif ( $review['score'] === "-1" ) : ?>
+								<span class="single_reviewer_total_score">Общая оценка: <span class="bad_score">не рекомендую <span class="bad_score_icon"></span></span></span>
+							<?php endif; ?>
+						</li>
+						<?php endforeach ?>	
+					</ul>
+					<a href="#" class="more_reviews">Показать все отзывы</a>
+				</div>
+			</div>
+			<?php endif ?>
+			<div class="sidebox pink">
+				<div class="sidebox_header">
+					<h3>ищи меня на карте</h3>
+				</div>
+				<div class="sidebox_content no_padding">
+					<!-- <img src="/img/pic30.jpg" width="248" height="189" alt="description"> -->
+					<script type="text/javascript">
+						var myMap, myPlacemark = null;
+						var performer = <?=$this->type?>;
+						var name = "<?=$this->info['name']?>";
+
+						function createPlacemark(coords){
+							//var indi = new ymaps.Style("default#redPoint");
+							preset = "";
+							switch (performer) {
+								case 1 : preset = "twirl#redStretchyIcon"; break;
+								case 2 : preset = "twirl#brownStretchyIcon"; break;
+								case 3 : preset = "twirl#yellowStretchyIcon"; break;
+								default : preset = "twirl#redStretchyIcon"; break;
+							}
+
+							myPlacemark = new ymaps.Placemark(coords, {iconContent: "<?=$this->info['name']?>"}, {draggable: true, preset: preset});
+							myMap.geoObjects.add(myPlacemark);
+							myPlacemark.events.add("dragend", function(e){ saveCoordinates(myPlacemark.geometry.getCoordinates()); });
+						}
+
+						function init() {
+							document.getElementById("map").innerHTML = "";
+
+							var coords = [];
+							coords[1] = document.getElementById("lng").value;
+							coords[0] = document.getElementById("lan").value;
+							if (true) {
+								myMap = new ymaps.Map('map', {
+									center: [coords[0], coords[1]],
+									//center: [55.76, 37.64],
+									zoom: 10,
+									behaviors: ['default', 'scrollZoom']
+								},
+								{
+									minZoom: 9
+								});
+
+								//myMap.setBounds([[59.838, 30.213], [59.938, 30.313]]);
+								myMap.controls
+									.add('smallZoomControl');
+								createPlacemark(coords);
+							} else {
+								myMap = new ymaps.Map('map', {
+									center: [59.938, 30.313],
+									//center: [55.76, 37.64],
+									zoom: 10,
+									behaviors: ['default', 'scrollZoom']
+								},
+								{
+									minZoom: 9
+								});
+							}
+						}
+
+						ymaps.ready(init);
+					</script>
+					<div id="map" style="width:230px; height:189px"></div>
+					<? $coords=unserialize($this->info['coords']); ?>
+					<input type="hidden" name="lng" id="lng" value="<?=$coords['lng']?>" />
+					<input type="hidden" name="lat" id="lan" value="<?=$coords['lan']?>" />
+				</div>
+			</div>
+		</aside>
 	</div>
 </div>
 <script type="text/javascript"> 

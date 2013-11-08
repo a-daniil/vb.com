@@ -1685,10 +1685,10 @@ class CabinetController extends Zend_Controller_Action {
 	    	 );	
 	    	 $salons->upd_salon($id,$new_info);
 
-	    	 if ( $new_info['status'] == 20 && $info['status'] != 20) {
-	    	 	$notifier = new Ps_Notifier_EmailNewSalon();
-	    	 	$notifier->send($info);
-	    	 }
+	    	 //if ( $new_info['status'] == 20 && $info['status'] != 20) {
+	    	 //	$notifier = new Ps_Notifier_EmailNewSalon();
+	    	 //	$notifier->send($info);
+	    	 //}
 	    }
 
 	    if ( $this->_hasParam('preview') ) {
@@ -2323,13 +2323,57 @@ class CabinetController extends Zend_Controller_Action {
 		}
 		$redirect='/cabinet';
 		if($this->_hasParam('next')){
-			$redirect='/cabinet/finish-salon/n/'.$id;
+			$redirect='/cabinet/intim-map-salon/n/'.$id;
 		} elseif ($this->_hasParam('to_salon_edit')){
 			$redirect.='/edit-salon-form/id/'.$id;
 		} elseif ( $this->_hasParam('to_photo') ) {	
 			$redirect.='/edit-photo-salon/n/'.$id;
 		} elseif ( $this->_hasParam('to_ankets') ) {
 			$redirect.='/add-ank-to-salon/n/'.$id;
+		} elseif( $this->_hasParam('to_video') ){
+			$redirect='/cabinet/edit-video/n/'.$id;
+		}
+		$this->_redirect($redirect);
+		die;
+	}
+
+	public function intimMapSalonAction() {
+		$id = $this->getParam('n');
+
+		include_once 'Salons.php';
+		$salons = new Salons();
+		$info=$salons->get_salon($id);
+		$this->view->info = $info;
+	}
+
+	public function addIntimMapSalonAction() {
+		if(!$this->_hasParam('n')){
+			$this->error('request_error');return;
+		}
+		$id=intval(substr($this->_getParam('n'),0,32));
+
+		include_once 'Salons.php';
+		$salons=new Salons();
+		$info = $salons->get_salon($id);
+
+		$lng=$this->_getParam('setLng');
+		$lan=$this->_getParam('setLan');
+		$coords = serialize(array('lng' => $lng, 'lan' => $lan));
+		if (!empty($coords)) {
+			$salons->upd_salon($id, array('coords' => $coords));
+		}
+
+		$redirect='/cabinet/salons';
+		if($this->_hasParam('next')){
+			$redirect='/cabinet/finish-salon/n/'.$id;
+		}	elseif ($this->_hasParam('to_salon_edit')){
+			$redirect.='/edit-salon-form/id/'.$id;
+		} elseif ( $this->_hasParam('to_photo') ) {	
+			$redirect.='/edit-photo-salon/n/'.$id;
+		} elseif ( $this->_hasParam('to_ankets') ) {
+			$redirect.='/add-ank-to-salon/n/'.$id;
+		} elseif($this->_hasParam('to_video')){
+			$redirect='/cabinet/edit-video-salon/n/'.$id;
 		}
 		$this->_redirect($redirect);
 		die;
