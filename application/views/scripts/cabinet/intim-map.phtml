@@ -49,6 +49,7 @@
 					<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 					<script type="text/javascript">
 						var myMap, myPlacemark = null;
+						var city = <?$this->city?>;
 
 						function saveCoordinates(coords){
 							document.getElementById("setLng").value = coords[1];
@@ -63,17 +64,19 @@
 
 						function init() {
 							document.getElementById("map").innerHTML = "";
+							switch (city) { //set center appropriatally city
+								case 2: center = [59.938, 30.313]; break;
+								case 1: center = [55.76, 37.64]; break;
+								default: center = [59.938, 30.313];
+							}
 							myMap = new ymaps.Map('map', {
-								center: [59.938, 30.313],
-								//center: [55.76, 37.64],
+								center: center,
 								zoom: 10,
 								behaviors: ['default', 'scrollZoom']
 							},
 							{
 								minZoom: 9
 							});
-
-							//myMap.setBounds([[59.838, 30.213], [59.938, 30.313]]);
 
 							var mySearchControl = new ymaps.control.SearchControl({
 								noPlacemark: true,
@@ -101,7 +104,7 @@
 								createPlacemark(coords);
 							}
 						}
-					
+
 						ymaps.ready(init);
 					</script>
 					<div id="map" style="width:100%; height:500px"></div>

@@ -8,7 +8,8 @@ class IntimMapController extends IndexController {
 		//start of gathering ankets coords
 		include_once 'Ankets.php';
 		$ankets = new Ankets();
-		$coords = $ankets->get_coords_per_ankets();
+		$coords = $ankets->get_coords_per_ankets($this->city);
+		$this->view->coords = "null";
 
 		if ( !empty($coords) ) {
 			$res = array();
@@ -29,15 +30,14 @@ class IntimMapController extends IndexController {
 
 			if ( !empty($res) ) {
 				$this->view->coords = "[[".implode("],[", $res)."]]";
-			} else {
-				$this->view->coords = null;
 			}
 		}
 
 		//start of gathering  salosn coords
 		include_once 'Salons.php';
 		$salons = new Salons();
-		$salons_coords = $salons->get_coords_per_salons();
+		$salons_coords = $salons->get_coords_per_salons($this->city);
+		$this->view->salons_coords = "null";
 
 		if ( !empty($salons_coords) ) {
 			$res = array();
@@ -61,8 +61,6 @@ class IntimMapController extends IndexController {
 		
 			if ( !empty($res) ) {
 				$this->view->salons_coords = "[[".implode("],[", $res)."]]";
-			} else {
-				$this->view->salons_coords = null;
 			}
 		}
 	}

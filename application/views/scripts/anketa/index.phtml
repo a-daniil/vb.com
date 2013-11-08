@@ -300,14 +300,12 @@
 
 						function init() {
 							document.getElementById("map").innerHTML = "";
-
 							var coords = [];
 							coords[1] = document.getElementById("lng").value;
 							coords[0] = document.getElementById("lan").value;
 							if (true) {
 								myMap = new ymaps.Map('map', {
 									center: [coords[0], coords[1]],
-									//center: [55.76, 37.64],
 									zoom: 10,
 									behaviors: ['default', 'scrollZoom']
 								},

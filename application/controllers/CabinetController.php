@@ -57,6 +57,10 @@ class CabinetController extends Zend_Controller_Action {
             '1'  => 'Yes'
         );
 
+		$city = Zend_Registry::get('city');
+		$this->city = $city;
+		$this->view->city = $city;
+
         include_once 'Settings.php';
         $settings=new Settings;
         $this->settings=$settings->get();

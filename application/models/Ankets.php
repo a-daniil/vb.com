@@ -146,11 +146,12 @@ class Ankets extends Zend_Db_Table_Abstract{
 		
 	}
 
-	public function get_coords_per_ankets() {
+	public function get_coords_per_ankets($city = 1) {
 		$rows = array('coords','id','performer', 'user_id', 'photolist', 'name');
 		$select = $this->getAdapter()->select()->from(self::TABLE, $rows);
 		$select->where('status >= 30');
 		$select->where('active = 1');
+		$select->where('city = ?',$city);
 		#$select->where('priority > 0');
 		$return=$this->getAdapter()->query($select)->fetchAll();
 		if ($return) {

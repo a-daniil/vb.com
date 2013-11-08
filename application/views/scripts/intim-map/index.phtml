@@ -7,12 +7,18 @@
 				var myMap = null;
 				var coords = <?=$this->coords?>;
 				var salons_coords = <?=$this->salons_coords?>;
+				var city = <?=$this->city?>;
 
 				function init() {
+					switch (city) { //set center appropiatally city
+						case 2: center = [59.938, 30.313]; break;
+						case 1: center = [55.76, 37.64]; break;
+						default: center = [59.938, 30.313];
+					}
+
 					document.getElementById("map").innerHTML = "";
 					myMap = new ymaps.Map('map', {
-						center: [59.938, 30.313],
-						//center: [55.76, 37.64],
+						center: center,
 						zoom: 10,
 						behaviors: ['default', 'scrollZoom']
 					},
@@ -67,10 +73,6 @@
 
 						clusterer.add(geoObjects);
 
-						clusterer.events.once('objectsaddtomap', function () {
-							myMap.setBounds(clusterer.getBounds());
-						});
-
 						clusterer.events
 							.add(['mouseenter', 'mouseleave'], function (e) {
 								var target = e.get('target'), 
@@ -118,10 +120,6 @@
 						});
 
 						clusterer.add(geoObjects);
-
-						clusterer.events.once('objectsaddtomap', function () {
-							myMap.setBounds(clusterer.getBounds());
-						});
 
 						clusterer.events
 							.add(['mouseenter', 'mouseleave'], function (e) {
