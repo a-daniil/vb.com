@@ -5,7 +5,7 @@
 		</h3>
 	</div>
 </div>
-<form class="form-horizontal" action="/cabinet/add-intim-map/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
+<form class="form-horizontal" action="/cabinet/add-intim-map-salon/n/<?=$this->info['id']?>" method="post" enctype="multipart/form-data">
 <p>
 	<input type="submit" class="btn btn-large" value="Данные анкеты" name="to_ank_edit" />
 	<input type="submit" class="btn btn-large" value="Фото" name="to_photo" />
@@ -57,7 +57,7 @@
 						}
 
 						function createPlacemark(coords){
-							myPlacemark = new ymaps.Placemark(coords, {iconContent: "Я тут!"}, {draggable: true, preset: "twirl#redStretchyIcon"});
+							myPlacemark = new ymaps.Placemark(coords, {iconContent: "Салон тут!"}, {draggable: true, preset: "twirl#violetStretchyIcon"});
 							myMap.geoObjects.add(myPlacemark);
 							myPlacemark.events.add("dragend", function(e){ saveCoordinates(myPlacemark.geometry.getCoordinates()); });
 						}
@@ -104,7 +104,7 @@
 								createPlacemark(coords);
 							}
 						}
-
+					
 						ymaps.ready(init);
 					</script>
 					<div id="map" style="width:100%; height:500px"></div>
