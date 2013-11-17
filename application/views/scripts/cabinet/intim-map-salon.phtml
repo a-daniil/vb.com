@@ -49,7 +49,7 @@
 					<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 					<script type="text/javascript">
 						var myMap, myPlacemark = null;
-						var city = <?=$this->city?>;
+						var city = <?= $this->info['city'] ? $this->info['city'] : $this->city ?>;
 
 						function saveCoordinates(coords){
 							document.getElementById("setLng").value = coords[1];
