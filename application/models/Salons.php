@@ -75,7 +75,7 @@ class Salons extends Zend_Db_Table_Abstract{
 	}
 
 	public function get_coords_per_salons($city) {
-		$rows = array('coords','id','type', 'user_id', 'photolist', 'name');
+		$rows = array('coords','id','type', 'user_id', 'photolist', 'name', 'name_eng');
 		$select = $this->getAdapter()->select()->from(self::TABLE, $rows);
 		$select->where('status >= 30');
 		$select->where('active = 1');

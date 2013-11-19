@@ -24,7 +24,7 @@ class IntimMapController extends IndexController {
 						$photo=false;
 					}
 					$per_out = $this->view->performer_out[$coord['performer']];
-					$res[] = $coord['id'].",".$coord['performer'].",".$temp_coords['lan'].",".$temp_coords['lng'].",".$coord['user_id'].",'".$photo."','".$coord['name']."', '".$per_out."'";
+					$res[] = $coord['id'].",".$coord['performer'].",".$temp_coords['lan'].",".$temp_coords['lng'].",".$coord['user_id'].",'".$photo."','".$coord['name']."', '".$per_out."', '".urlencode($coord['name_eng'])."'";
 				}
 			}
 
@@ -55,7 +55,7 @@ class IntimMapController extends IndexController {
 						$photo=false;
 					}
 					$type_out = $this->view->types_of_salon[$coord['type']];
-					$res[] = $coord['id'].",".$coord['type'].",".$temp_coords['lan'].",".$temp_coords['lng'].",".$coord['user_id'].",'".$photo."','".$coord['name']."', '".$type_out."'";
+					$res[] = $coord['id'].",".$coord['type'].",".$temp_coords['lan'].",".$temp_coords['lng'].",".$coord['user_id'].",'".$photo."','".$coord['name']."', '".$type_out."', '".urlencode($coord['name_eng'])."'";
 				}
 			}
 		

@@ -39,7 +39,7 @@
 
 						getPointData = function (index) {
 							return {
-								balloonContentBody: '<span style="margin-bottom: 3px; display: block;">'+coords[index][6]+' ('+coords[index][7]+')</span><div style="background:url(\'/user_photos/'+coords[index][4]+'/tn_'+coords[index][5] + '\') no-repeat scroll center top transparent; width: 110px; height: 110px;"></div>',
+								balloonContentBody: '<a href="/anketa/'+coords[index][8]+'-'+coords[index][0]+'" target="_blank"><span style="margin-bottom: 3px; display: block;">'+coords[index][6]+' ('+coords[index][7]+')</span><div style="background:url(\'/user_photos/'+coords[index][4]+'/tn_'+coords[index][5] + '\') no-repeat scroll center top transparent; width: 110px; height: 110px;"></div></a>',
 								clusterCaption: '<strong>' + coords[index][6] + '</strong>'
 							};
 						}
@@ -94,7 +94,7 @@
 
 						getPointData = function (index) {
 							return {
-								balloonContentBody: '<span style="margin-bottom: 3px; display: block;">'+salons_coords[index][6]+' ('+salons_coords[index][7]+')</span><div style="background:url(\'/user_photos/'+salons_coords[index][4]+'/th_'+salons_coords[index][5] + '\') no-repeat scroll center top transparent; width: 110px; height: 110px;"></div>',
+								balloonContentBody: '<a href="/salon/'+salons_coords[index][7]+'-'+salons_coords[index][0]+'" target="_blank"><span style="margin-bottom: 3px; display: block;">'+salons_coords[index][6]+' ('+salons_coords[index][7]+')</span><div style="background:url(\'/user_photos/'+salons_coords[index][4]+'/th_'+salons_coords[index][5] + '\') no-repeat scroll center top transparent; width: 110px; height: 110px;"></div>',
 								clusterCaption: '<strong>' + salons_coords[index][6] + '</strong>'
 							};
 						}
