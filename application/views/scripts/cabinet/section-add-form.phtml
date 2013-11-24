@@ -167,11 +167,11 @@
 							var metro = [];
 							metro['m1'] = new Array("<?= implode('","', $this->metro_list['m1']) ?>");
 							metro['m2'] = new Array("<?= implode('","', $this->metro_list['m2']) ?>");
-							createList(metro, 'jsmetro', 'm', 'metro');
+							createList(metro, 'metro', 'm', 'metro');
 							var district = [];
 							district['d1'] = new Array("<?= implode('","', $this->district_list['d1']) ?>");
 							district['d2'] = new Array("<?= implode('","', $this->district_list['d2']) ?>");
-							createList(district, 'jsdistrict', 'd', 'district')
+							createList(district, 'district', 'd', 'district')
 						}
 					</script>
 					<div class="control-group <?= $this->info['failed']['city']['class'] ?>">
@@ -212,7 +212,7 @@
 					</div>
 
 					<!-- metro -->
-				   <?php 
+					<?php 
 						switch ($this->info['city']) {
 							case 2 :
 								$array_index = "m2";

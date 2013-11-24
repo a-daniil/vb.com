@@ -100,6 +100,31 @@ function createList( list, id, q, name ) {
 	select.appendChild(input);
 }
 
+function createList2( list, id, q, name ) {
+	var select=getId(id);
+	var value=getId('city').value;
+	select.innerHTML='';
+	switch(value){
+		case '1': var ln= q + '1'; break;
+		case '2': var ln= q + '2'; break;
+		default:
+			input=document.createElement('input');
+			input.setAttribute('name','metro');
+			select.appendChild(input);
+			return;
+	}
+	//input=document.createElement('select');
+	//input.setAttribute('name', name);
+	var len=list[ln].length;
+	for(var i=0;i<len;i++){
+		var opt=document.createElement('option');
+		opt.value = i + 1;
+		opt.innerHTML=list[ln][i];
+		select.appendChild(opt);
+	}
+	//select.appendChild(input);
+}
+
 function createList2Form( list, id, q ) {
 	var value=getId('city').value;
 	switch(value){

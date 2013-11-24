@@ -82,7 +82,6 @@
 		e.preventDefault();	
 
 		var $val = $("input[name='only_count']").val();
-		console.log($val);
 
 		$('#fieldset-only_group').append("<div class='span10' style='margin-bottom: 5px;'><label for='only' class='control-label optional'>Только у меня</label><input type='text' name='only_" + $val + "' value='' filter='StringTrim'></div>");
 		$("input[name='only_count']").val(parseInt($val)+1);
@@ -133,5 +132,22 @@
 		if ( $val == 2 || $val == 3 ) {
 			$("#sauna-service").removeClass('hide-service');
 		}
+	});
+</script>
+<script type="text/javascript">
+	function createLists() {
+		var metro = [];
+		metro['m1'] = new Array("<?= implode('","', $this->metro_list['m1']) ?>");
+		metro['m2'] = new Array("<?= implode('","', $this->metro_list['m2']) ?>");
+		selectedm = 
+		createList2(metro, 'metro', 'm', 'metro');
+		var district = [];
+		district['d1'] = new Array("<?= implode('","', $this->district_list['d1']) ?>");
+		district['d2'] = new Array("<?= implode('","', $this->district_list['d2']) ?>");
+		createList2(district, 'district', 'd', 'district')
+	}
+
+	$('#city').change(function () {
+		createLists();
 	});
 </script>

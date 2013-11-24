@@ -763,7 +763,23 @@ class CabinetController extends Zend_Controller_Action {
 	function addAnkFormAction () {
 		$performer = $this->getParam('performer');
 		$salons = $this->getUsersSalons();
-		$city = Zend_Registry::get('city');
+
+		if ( $anketa['city'] ) {
+			$city = $anketa['city'];
+		} else {
+			$city = Zend_Registry::get('city');
+		}
+
+		//prepare districts and metros
+		$this->view->metro_list = array(
+				'm1' => $this->content->metro_msk->toArray(),
+				'm2' => $this->content->metro_spb->toArray()
+		);
+		
+		$this->view->district_list = array(
+				'd1' => $this->content->district_msk->toArray(),
+				'd2' => $this->content->district_spb->toArray()
+		);
 
 		switch ( $performer ) {
 			case self::GIRL :
@@ -912,11 +928,27 @@ class CabinetController extends Zend_Controller_Action {
 
 	function editAnkFormAction () {
 		$id = $this->getParam('id');
-		$city = Zend_Registry::get('city');
 
 		include_once 'Ankets.php';
 		$ankets=new Ankets();
 		$anketa = $ankets->get_anket($id);
+
+		if ( $anketa['city'] ) {
+			$city = $anketa['city'];
+		} else {
+			$city = Zend_Registry::get('city');
+		}
+
+		//prepare districts and metros
+		$this->view->metro_list = array(
+			'm1' => $this->content->metro_msk->toArray(),
+			'm2' => $this->content->metro_spb->toArray()
+		);
+
+		$this->view->district_list = array(
+			'd1' => $this->content->district_msk->toArray(),
+			'd2' => $this->content->district_spb->toArray()
+		);
 
 		$this->hasRights(array('user_admin', 'user_moder'), array($anketa['user_id'], $this->user_id));
 
@@ -1082,6 +1114,7 @@ class CabinetController extends Zend_Controller_Action {
 		}
 
 		$this->view->id   = $id;
+		$this->view->info = $anketa;
 		$this->view->form = $frmAddAnket;
 		$this->view->type_label = $type_label;
 		$this->view->content = $this->content;
