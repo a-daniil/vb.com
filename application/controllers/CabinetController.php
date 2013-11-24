@@ -762,13 +762,8 @@ class CabinetController extends Zend_Controller_Action {
 
 	function addAnkFormAction () {
 		$performer = $this->getParam('performer');
-		$salons = $this->getUsersSalons();
-
-		if ( $anketa['city'] ) {
-			$city = $anketa['city'];
-		} else {
-			$city = Zend_Registry::get('city');
-		}
+		$salons = $this->getUsersSalons();	
+		$city = Zend_Registry::get('city');
 
 		//prepare districts and metros
 		$this->view->metro_list = array(
@@ -938,17 +933,6 @@ class CabinetController extends Zend_Controller_Action {
 		} else {
 			$city = Zend_Registry::get('city');
 		}
-
-		//prepare districts and metros
-		$this->view->metro_list = array(
-			'm1' => $this->content->metro_msk->toArray(),
-			'm2' => $this->content->metro_spb->toArray()
-		);
-
-		$this->view->district_list = array(
-			'd1' => $this->content->district_msk->toArray(),
-			'd2' => $this->content->district_spb->toArray()
-		);
 
 		$this->hasRights(array('user_admin', 'user_moder'), array($anketa['user_id'], $this->user_id));
 
@@ -1124,7 +1108,7 @@ class CabinetController extends Zend_Controller_Action {
 		$city = Zend_Registry::get('city');
 		$frmAddSalon = new Form_AddSalonForm( $this->content, array('new' => true, 'city' => $city) );
 		$frmAddSalon->setMethod("post");
-		
+
 		if ( $this->getRequest()->isPost() ) {
 			if ( $frmAddSalon->isValid( $_POST ) ) {
 				$data['user_id']       = $this->user_id;
@@ -1136,8 +1120,8 @@ class CabinetController extends Zend_Controller_Action {
 				/* required params*/
 				$data['type']        = $frmAddSalon->getValue('type');
 				$data['name']        = $frmAddSalon->getValue('name');
-				$data['city']        = '2';//$frmAddSalon->getValue('city');
-				$data['district']    = $frmAddSalon->getValue('district');
+				$data['city']        = $frmAddSalon->getValue('city');
+				$data['district']    = $frmAddSalon->getValue('district');$
 				$data['metro']       = $frmAddSalon->getValue('metro');				
 				$data['phone']       = $this->preparePhone( $frmAddSalon->getValue('phone') );
 				$data['girl_number'] = $frmAddSalon->getValue('girl_number');
@@ -1203,7 +1187,13 @@ class CabinetController extends Zend_Controller_Action {
 
 		$this->hasRights(array('user_admin', 'user_moder'), array($salon_info['user_id'], $this->user_id));
 
-		$frmAddSalon = new Form_AddSalonForm( $this->content );
+		if ( $salon_info['city'] ) {
+			$city = $salon_info['city'];
+		} else {
+			$city = Zend_Registry::get('city');
+		}
+
+		$frmAddSalon = new Form_AddSalonForm( $this->content, array('city' => $city ));
 		$frmAddSalon->setMethod("post");
 
 		if ( $this->getRequest()->isPost() ) {
@@ -1211,7 +1201,7 @@ class CabinetController extends Zend_Controller_Action {
 				/* required params*/
 				$data['type']        = $frmAddSalon->getValue('type');
 				$data['name']        = $frmAddSalon->getValue('name');
-				$data['city']        = '2';//$frmAddSalon->getValue('city');
+				$data['city']        = $frmAddSalon->getValue('city');
 				$data['district']    = $frmAddSalon->getValue('district');
 				$data['metro']       = $frmAddSalon->getValue('metro');
 				$data['phone']       = $this->preparePhone( $frmAddSalon->getValue('phone') );

@@ -289,8 +289,8 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 
 		$this->addElement('select', 'metro', array(
 			'validators' => array(
-			    array(
-				    'GreaterThan', false, array(0, 'messages' => array(
+				array(
+					'GreaterThan', false, array(0, 'messages' => array(
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
