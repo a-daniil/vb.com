@@ -91,7 +91,7 @@
 							<span><?=nl2br($row['about'])?></span>
 						</div>
 					</div>
-					<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>	
+					<a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>	
 				</div>
           		<? endforeach;?>
          		 <? endif; ?>

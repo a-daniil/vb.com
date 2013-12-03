@@ -153,8 +153,8 @@
 						else{$photo=false;}
 					?>
 					<li>
-						<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>"><img src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="110px" height="110px" /></a>
-						<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" class="new_ankets_girl_name"><?php echo ucfirst($row['name']) . ", " . $row['age']?></a>
+						<a target="_blank" href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>"><img src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="110px" height="110px" /></a>
+						<a target="_blank" href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" class="new_ankets_girl_name"><?php echo ucfirst($row['name']) . ", " . $row['age']?></a>
 						<div class="tooltip">
 							<div class="tooltip_corner"></div>
 							<div class="tooltip_content">
@@ -165,7 +165,7 @@
 					</li>
 					<?php endforeach ?>
 					</ul>
-					<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" class="button all_list_btn">весь список</a>
+					<a target="_blank" href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" class="button all_list_btn">весь список</a>
 				</div>
 			</div>
 		</div>

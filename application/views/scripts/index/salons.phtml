@@ -91,7 +91,7 @@
 							echo $this->render('_show-services-salon-dop.phtml')
 						?>
 						<div class="salon_card_text_desc_holder">
-							<a target="_blank" href="/salon/<?=$row['name_eng']?>-<?=$row['id']?>" class="button show _salon_btn">Посмотреть салон</a>
+							<a target="_blank" href="/salon/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" class="button show _salon_btn">Посмотреть салон</a>
 						</div>
 					</div>
 				</div>

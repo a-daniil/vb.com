@@ -76,7 +76,7 @@
 			<div class="girl_card">
 				<div class="main_info_photo_holder">
 					<div class="girl_card_photo">
-						<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">
+						<a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank">
 							<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="185" height="280" alt="description">
 						</a>
 						<!-- <div class="without_retouch"></div> -->
@@ -131,7 +131,7 @@
 					<?php if ($row['score']) : ?>
 						<span class="good_score in_preview"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span></span>
 					<?php endif ?>
-					<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>
+					<a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>
 			</div>
 			<?php endforeach ?>	
 		</div>

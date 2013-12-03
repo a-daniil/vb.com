@@ -29,14 +29,14 @@
 								}
 							?>
 							<li>
-								<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">
+								<a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank">
 									<div class="wrap_photo_new" style="background:url('<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/tn_' . $photo ?>') no-repeat scroll center top transparent;"></div>
 								</a>
 								<!-- <div class="new_ribbon"></div> -->
 								<div class="tooltip">
 									<div class="tooltip_corner"></div>
 									<div class="tooltip_content">
-										<span class="tooltip_girl_name"><a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank"><?=$row['name']?></a>, <?= $row['age'] ?></span>
+										<span class="tooltip_girl_name"><a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank"><?=$row['name']?></a>, <?= $row['age'] ?></span>
 										<span class="tooltip_girl_place">Россия, <?= $this->city_text ?></span>
 									</div>
 								</div>
@@ -102,7 +102,7 @@
 				<div class="girl_card">
 					<div class="main_info_photo_holder">
 						<div class="girl_card_photo">
-							<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">
+							<a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank">
 								<img src="<?php echo $this->url_user_ph. '/' . $row['user_id'] . '/th_' . $photo ?>" width="185" height="280" alt="description">
 							</a>
 							<!-- <div class="without_retouch"></div> -->
@@ -160,7 +160,7 @@
 						<?php if ($row['score']) : ?>
 							<span class="good_score good_score_in_preview"><span class="good_score_icon"></span>&nbsp;Рекомендуют</span>
 						<?php endif ?>
-						<a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>
+						<a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank" class="button show_anket_btn">Посмотреть анкету</a>
 				</div>
 				<?php endforeach ?>
 				<div class="pager_holder gray_pager_holder">

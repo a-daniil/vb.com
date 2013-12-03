@@ -19,15 +19,14 @@
                 }
             ?>
                 <li>
-            	    <a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank">
+            	    <a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank">
                         <img  src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="95" height="134">
-                    </a>                		
+                    </a>
                	    <div>
-                        <a href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>" target="_blank"><?=$row['name']?>, <?=$row['age']?> лет</a>
-                    </div>                			
-                </li>                		
+                        <a href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank"><?=$row['name']?>, <?=$row['age']?> лет</a>
+                    </div>
+                </li>
             <?endforeach;?>
        	</ul>
     	</div>
-         
-<?endif;?>     
+<?endif;?>

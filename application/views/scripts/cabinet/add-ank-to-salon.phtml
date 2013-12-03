@@ -41,7 +41,7 @@
 				</div>				   
 				<br />
 				<div class="cab_anketa_photo" style="max-width: 100%">
-					<a target="_blank" href="/anketa/<?=$row['name_eng']?>-<?=$row['id']?>">  
+					<a target="_blank" href="/anketa/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>">  
 						<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top;"<?endif?>></div>
 					</a>
 					<br />
