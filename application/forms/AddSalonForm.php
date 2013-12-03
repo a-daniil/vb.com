@@ -431,7 +431,7 @@ class Form_AddSalonForm extends Zend_Form
 						Zend_Validate_NotEmpty::IS_EMPTY => self::NOT_EMPTY
 				))),
 				array(
-					'Regex', false, array('pattern' => '/^[^а-яА-Я]+$/', 'messages' => array(
+					'Regex', false, array('pattern' => '/^[A-Za-z ]+$/', 'messages' => array(
 						Zend_Validate_Regex::NOT_MATCH => self::NOT_ENG_LETTERS
 				)))
 			),
