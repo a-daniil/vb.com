@@ -277,6 +277,8 @@
 				</div>
 			</div>
 			<?php endif ?>
+			<? $coords=unserialize($this->info['coords']); ?>
+			<? if ( !empty($coords) && $coords['lng'] && $coords['lan'] ) : ?>
 			<div class="sidebox pink">
 				<div class="sidebox_header">
 					<h3>ищи меня на карте</h3>
@@ -344,6 +346,7 @@
 					<input type="hidden" name="lat" id="lan" value="<?=$coords['lan']?>" />
 				</div>
 			</div>
+			<? endif ?>
 		</aside>
 	</div>
 </div>

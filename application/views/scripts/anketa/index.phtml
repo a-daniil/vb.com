@@ -269,6 +269,8 @@
 				</div>
 			</div>
 			<?php endif ?>
+			<? $coords=unserialize($this->info['coords']); ?>
+			<? if ( !empty($coords) && $coords['lng'] && $coords['lan'] ) : ?>
 			<div class="sidebox pink">
 				<div class="sidebox_header">
 					<h3>ищи меня на карте</h3>
@@ -333,11 +335,11 @@
 						ymaps.ready(init);
 					</script>
 					<div id="map" style="width:230px; height:189px"></div>
-					<? $coords=unserialize($this->info['coords']); ?>
 					<input type="hidden" name="lng" id="lng" value="<?=$coords['lng']?>" />
 					<input type="hidden" name="lat" id="lan" value="<?=$coords['lan']?>" />
 				</div>
 			</div>
+			<? endif ?>
 			<?php
         		$salon = $this->salon;
             	if(!empty($salon['photolist'])){
