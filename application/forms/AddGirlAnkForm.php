@@ -225,7 +225,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'exotics'
 		),
 				'info',
-				array("legend" => "Параметры девушки:")
+				array("legend" => "Параметры:")
 		);
 
 		$this->addElement('text', 'phone', array(
