@@ -52,7 +52,7 @@
 					<div class="single_girl_main_info_block_l">
 						<span class="big_red_phone"></span>
 						<ul class="single_girl_from">
-							<li><span class="red_col">Санкт-Петербург,</span></li>
+							<li><span class="red_col"><? echo $this->info['city'] ?></span></li>
 							<li><a href="<?php if ( $uri = $this->sections->getUriForDistrict($this->info['district'], $this->city ) ){echo "/".$uri;}else{echo "javascript:void()";}?>"><?php echo $this->district_list[$this->info['district']] ?></a></li>
 						</ul>
 						<h5>Место встречи:</h5>

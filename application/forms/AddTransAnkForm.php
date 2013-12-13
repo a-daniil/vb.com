@@ -812,6 +812,15 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 			array("legend" => 'Эксклюзивные услуги')
 		);
 
+		$this->addElement( 'submit', 'submit', array(
+			'class' => 'btn btn-large blue',
+			'label' => $this->getSubmitLabel(),
+			'decorators' => array(
+					'ViewHelper',
+					array('HtmlTag',array('tag'=>'div', 'class' => 'control-group')),
+			)
+		));
+
 		$this->setDisplayGroupDecorators(array(
 				'FormElements',
 				'Fieldset',
