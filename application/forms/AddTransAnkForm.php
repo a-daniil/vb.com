@@ -247,7 +247,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				'exotics'
 		),
 				'info',
-				array("legend" => "Параметры девушки.")
+				array("legend" => "Параметры:")
 		);	
 		
 		
@@ -280,7 +280,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->content->cities->toArray(),						
+			'multiOptions' => $this->content->cities->toArray(),
 			'required' => true,	
 			'label'    => 'Город:',
 			'decorators' => array(
@@ -290,7 +290,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				array(array('row'=>'HtmlTag'),array('tag'=>'div', 'class' => 'control-group'))
 			)
 		));	
-		$city->setValue($this->city);		
+		$city->setValue($this->city);
 		$this->addElement($city);
 	
 		$this->addElement('select', 'district', array(
@@ -300,7 +300,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 						Zend_Validate_GreaterThan::NOT_GREATER => self::NOT_SPECIFIED
 				)))
 			),
-			'multiOptions' => $this->district_list,			
+			'multiOptions' => $this->district_list,	
 			'required' => true,
 			'label'    => 'Район:',
 			'decorators' => array(
@@ -366,7 +366,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 				'sauna'
 		),
 				'contact-info',
-				array("legend" => "Контактные данные.")
+				array("legend" => "Контактные данные:")
 		);
 		
 		$this->addElement('text', 'price_an', array(
@@ -809,7 +809,7 @@ class Form_AddTransAnkForm extends Form_AddAnkForm
 		$only_group = $this->addDisplayGroup(
 			$elements,
 			'only_group',
-			array("legend" => 'Эксклюзивные услуги')
+			array("legend" => 'Эксклюзивные услуги:')
 		);
 
 		$this->addElement( 'submit', 'submit', array(

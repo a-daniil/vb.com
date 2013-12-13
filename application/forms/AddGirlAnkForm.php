@@ -225,7 +225,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'exotics'
 		),
 				'info',
-				array("legend" => "Параметры девушки")
+				array("legend" => "Параметры девушки:")
 		);
 
 		$this->addElement('text', 'phone', array(
@@ -342,7 +342,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 				'sauna'
 		),
 				'contact-info',
-				array("legend" => "Контактные данные.")
+				array("legend" => "Контактные данные:")
 		);
 
 		$this->addElement('text', 'price_an', array(
@@ -785,7 +785,7 @@ class Form_AddGirlAnkForm extends Form_AddAnkForm
 		$only_group = $this->addDisplayGroup(
 			$elements,
 			'only_group',
-			array("legend" => 'Эксклюзивные услуги')
+			array("legend" => 'Эксклюзивные услуги:')
 		);
 
 		$this->addElement( 'submit', 'submit', array(
