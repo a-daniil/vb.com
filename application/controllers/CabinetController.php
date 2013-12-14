@@ -2220,7 +2220,7 @@ class CabinetController extends Zend_Controller_Action {
 			$ankets->upd_anket($id,$new_info);
 		}
 		$redirect='/cabinet?performer=' . $info['performer'];
-		if($this->_hasParam('next')){$redirect='/cabinet/intim-map/n/'.$id;}
+		if($this->_hasParam('next')){$redirect='/cabinet/intim-map/n/'.$id.'?new=1';}
 		elseif($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
 		elseif($this->_hasParam('to_comments')){$redirect='/cabinet/comms-list/n/'.$id;}
 		elseif($this->_hasParam('to_check_photo')){$redirect='/cabinet/check-photo/n/'.$id;}
@@ -2350,7 +2350,7 @@ class CabinetController extends Zend_Controller_Action {
 		}
 		$redirect='/cabinet';
 		if($this->_hasParam('next')){
-			$redirect='/cabinet/intim-map-salon/n/'.$id;
+			$redirect='/cabinet/intim-map-salon/n/'.$id.'?new=1';
 		} elseif ($this->_hasParam('to_salon_edit')){
 			$redirect.='/edit-salon-form/id/'.$id;
 		} elseif ( $this->_hasParam('to_photo') ) {	
