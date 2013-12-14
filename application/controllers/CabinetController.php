@@ -824,7 +824,7 @@ class CabinetController extends Zend_Controller_Action {
 				$data['name_eng']  = $frmAddAnket->getValue('name_eng');
 				$data['type']      = $frmAddAnket->getValue('type');
 				$data['performer'] = $performer;//$frmAddAnket->getValue('performer');
-				$data['city']      = '2';//$frmAddAnket->getValue('city');
+				$data['city']      = $frmAddAnket->getValue('city');
 				$data['district']  = $frmAddAnket->getValue('district');
 				$data['metro']     = $frmAddAnket->getValue('metro');
 				$data['place']     = $frmAddAnket->getValue('place');
@@ -1116,7 +1116,7 @@ class CabinetController extends Zend_Controller_Action {
 				$data['priority']      = 0;
 				$data['status']        = Ps_Statuses_ControlStatuses::getStatus(0, 'addSalon');
 				$data['end_timestamp'] = date('Y-m-d H:i:s',time()+$this->config->ank_autodisable);
-		
+
 				/* required params*/
 				$data['type']        = $frmAddSalon->getValue('type');
 				$data['name']        = $frmAddSalon->getValue('name');
@@ -1133,19 +1133,19 @@ class CabinetController extends Zend_Controller_Action {
 				if ( $frmAddSalon->getValue('phone_add') ) {
 					$data['phone_add'] = $this->preparePhone( $frmAddSalon->getValue('phone_add') );
 				}
-		
+
 				/* other params */
 				$other_params = array('address', 'price_1h_ap', 'price_2h_ap', 'price_n_ap',
 					'price_1h_ex', 'price_2h_ex', 'price_n_ex', 'price_i_1h_ap', 'price_i_2h_ap',
 					'price_i_n_ap', 'price_i_1h_ex', 'price_i_2h_ex', 'price_i_n_ex', 'about', 'about_i', 'only',
 					'sauna', 'bilyrd', 'devushki', 'bar', 'karaoke', 'kalyan');
-		
+
 				foreach ( $other_params as $op ) {
 					if ( $frmAddSalon->getValue( $op ) != null) {
 						$data[ $op ] = $frmAddSalon->getValue( $op );
 					}
 				}
-		
+
 				foreach ( $this->content->srv_salon->toArray() as $srv=>$list ) {
 					$serv=0;
 					foreach ( $list as $key=>$null ) {

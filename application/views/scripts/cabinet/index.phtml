@@ -126,7 +126,7 @@
 						</p	>
 						<div class="span2" style="width: 200px; margin-left: 0px; position: relative;">
 							<?if ( $row['active'] == 0 ) : ?><div class="photo_glass"></div><?php endif ?>
-							<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank">
+							<a href="/anketa/<?php echo $row['name_eng'] ?>-<?php echo  $row['id'] ?>" target="_blank">
 								<div<?if($photo):?> style="background:url('<?=$this->photos_path.'/'.$row['user_id'].'/th_'.$photo?>') no-repeat top; width: 185px; height: 280px;" <?endif?>></div>
 							</a>
 						</div>
@@ -205,7 +205,7 @@
 									</div>
 								</div>
 								<div class="control-group">
-									<a href="/anketa/<?php echo $row['name'] ?>-<?php echo  $row['id'] ?>" target="_blank" class="btn">Смотреть</a>
+									<a href="/anketa/<?php echo $row['name_eng'] ?>-<?php echo  $row['id'] ?>" target="_blank" class="btn">Смотреть</a>
 								</div>
 							</form>
 						</div>
