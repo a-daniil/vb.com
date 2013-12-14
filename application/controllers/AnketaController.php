@@ -9,6 +9,7 @@ class AnketaController extends IndexController {
 		if(!$this->_hasParam('name')){
 			throw new Ps_Anketa_Exception();
 		}
+
 		$ank_id = array_pop(explode("-", $this->_getParam('name')));
 
 		if(!$ank_id){
