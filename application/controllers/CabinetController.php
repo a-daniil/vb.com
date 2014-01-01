@@ -2219,7 +2219,7 @@ class CabinetController extends Zend_Controller_Action {
 			elseif($info['status']==0 && $status){$new_info['status']=20;}
 			$ankets->upd_anket($id,$new_info);
 		}
-		$redirect='/cabinet?performer=' . $info['performer'];
+ 		$redirect='/cabinet?performer=' . $info['performer'];
 		if($this->_hasParam('next')){$redirect='/cabinet/intim-map/n/'.$id.'?new=1';}
 		elseif($this->_hasParam('to_ank_edit')){$redirect='/cabinet/edit-ank-form/id/'.$id;}
 		elseif($this->_hasParam('to_comments')){$redirect='/cabinet/comms-list/n/'.$id;}
