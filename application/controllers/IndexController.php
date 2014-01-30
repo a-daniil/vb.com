@@ -106,6 +106,8 @@ class IndexController extends Zend_Controller_Action {
 
 		$filters = array();
 		$params = array();
+		$params['city'] = "city = " . $this->city;
+		
 		$page = $this->_hasParam( 'p' ) ? intval( $this->_getParam( 'p' )) : 1;
 
 		if($this->_getParam('m')){
@@ -144,7 +146,7 @@ class IndexController extends Zend_Controller_Action {
 		if ($this->admin) print_r($params);
 
 		$salons = new Model_SalonsTest();
-		$adapter = $salons->fetchSalonsList($page,$params,$metro, $type);
+		$adapter = $salons->fetchSalonsList($page, $params, $metro, $type);
 
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage($this->settings['girls_per_page']);
@@ -348,6 +350,8 @@ class IndexController extends Zend_Controller_Action {
 			$this->view->top_100 = false;
 		}
 
+		
+		
 		// debug filters
 		if ($this->admin) print_r($params);
 		if (isset($this->view->info['title_meta'])) $this->view->meta['start_title']=$this->view->info['title_meta'];

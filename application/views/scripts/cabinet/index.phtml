@@ -267,6 +267,9 @@
 	</div>
 	<?endforeach?>
 </div>
+<?php if ( $this->ankets->count() > 1 ) : ?>
+	<div class="pull-right"><?=$this->paginationControl($this->ankets,'Sliding','pages_cab.phtml')?></div>
+<?php endif ?>
 <script type="text/javascript">
 	function showComment( value,el ) {
 		var $without_comments = [ 0, 30, 31 ];

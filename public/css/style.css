@@ -596,7 +596,7 @@ and (max-device-width : 480px) {
 	padding: 0 3px 1px;
 	color: #8f0d02;
 	border: 1px solid #f0cd47;
-	display: inline-block;
+	display: none;
 	border-radius: 5px;
 	font-size: 10px;
 	line-height: 13px;
@@ -624,7 +624,7 @@ and (max-device-width : 480px) {
 }
 .side_narrow_common_holder{
 	float: left;
-	width: 748px;
+	width: 684px;
 }
 .side_narrow_common_holder:after{
 	display:block;
@@ -1209,7 +1209,7 @@ and (max-device-width : 480px) {
 	bottom: 0;
 }
 .main_title_block{
-	width: 720px;
+	width: 656px;
 }
 .main_title_block:after{
 	display:block;
@@ -1385,8 +1385,8 @@ and (max-device-width : 480px) {
 /* Контент-блок по середине (3 колонки) */
 #narrow_content{
 	float: left;
-	padding: 4px 28px 0;
-	width: 457px;
+	padding: 4px 2px 0;
+	width: 420px;
 }
 .ribbon_title_bg{
 	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAdCAIAAAACSlp6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIFdpbmRvd3MiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjA2Q0YyMTlGNzc1MTFFMkE5RDQ4NUM5NUNGRDk4NTAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjA2Q0YyMUFGNzc1MTFFMkE5RDQ4NUM5NUNGRDk4NTAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGMDZDRjIxN0Y3NzUxMUUyQTlENDg1Qzk1Q0ZEOTg1MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGMDZDRjIxOEY3NzUxMUUyQTlENDg1Qzk1Q0ZEOTg1MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ph1u7RsAAADNSURBVHjaRI/JDoQgEEShRRNNXIn6///k2bsal3jw4MZUT+tMJ6Z4VRSCbts2iqIwDLdtoziOnXPruiqlKAgCwL7vDMuyQJIkgUXHcQB832cQT3IST3Ka5xmSpunTgRhj7vumLMsA0zRprcnzvH8HHiTPc952nicAOUNRFJBxHLmDD53rurgDD4IcTOJJTtZadIZhIIx4YE76vgeXZckd9w6fBg8ryelnc6frOqyqquLrIAU8p9V1DUGO35imadR3cC+Dl6h3tDxO5iPAAL7Br35hqENeAAAAAElFTkSuQmCC);
@@ -1778,7 +1778,7 @@ and (max-device-width : 480px) {
 /* Правая колонка */
 #sidebar{
 	float: right;
-	width: 230px;
+	width: 280px;
 }
 .promo_site_block{
 	color: #140300;

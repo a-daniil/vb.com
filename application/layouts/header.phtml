@@ -116,3 +116,14 @@
 	/* Кастомный селект */
 	$('.head_select').msDropdown();
 </script>
+<script type="text/javascript">
+$(function() {
+	$(this).closest("li").children("a")
+	.hover(function(){ 
+		//alert("www");
+		$('.yellow_tooltip').show();
+  	},function(){
+    $('.yellow_tooltip').hide();
+  });
+});
+</script>

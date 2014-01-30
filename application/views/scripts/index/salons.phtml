@@ -41,7 +41,9 @@
 				<div class="salon_card">
 					<div class="salon_card_common_left">
 						<div class="salon_card_photo">
-							<img src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="332" height="226">
+							<a href="/salon/<?=urlencode($row['name_eng'])?>-<?=$row['id']?>" target="_blank">
+								<img src="<?=$this->url_user_ph.'/'.$row['user_id'].'/th_'.$photo?>" width="332" height="226" alt="description">
+							</a>
 						</div>
 						<div class="salon_card_main_info">
 							<h4 class="salon_card_title"><?php echo $this->types_of_salon[$row['type']] ?></h4>
