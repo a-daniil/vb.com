@@ -596,7 +596,7 @@ and (max-device-width : 480px) {
         padding: 0 3px 1px;
         color: #8f0d02;
         border: 1px solid #f0cd47;
-        display: inline-block;
+        display: none;
         border-radius: 5px;
         font-size: 10px;
         line-height: 13px;

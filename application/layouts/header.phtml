@@ -85,7 +85,7 @@
 	<div class="bottom_header_block">
 		<div class="fix_width">
 			<nav id="nav">
-				<ul>
+				<ul class="toggable_list">
 					<?php
 						$arrays = array("public", "metro", "/", 'index');
 						$id = str_replace($arrays, "", $_SERVER['REQUEST_URI']);
@@ -117,13 +117,11 @@
 	$('.head_select').msDropdown();
 </script>
 <script type="text/javascript">
-$(function() {
-	$(this).closest("li").children("a")
-	.hover(function(){ 
-		//alert("www");
-		$('.yellow_tooltip').show();
-  	},function(){
-    $('.yellow_tooltip').hide();
-  });
+$(document).ready(function() {
+	$('ul.toggable_list li').hover(function(){
+		$(this).children('a').children('span').show();
+	},	function() {
+		$(this).children('a').children('span').hide();
+	});	
 });
 </script>
