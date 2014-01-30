@@ -629,7 +629,7 @@ and (max-device-width : 480px) {
 }
 .side_narrow_common_holder__page__custom{
 	    float: left;
-        width: 690px;
+        width: 694px;
 }
 .side_narrow_common_holder:after{
         display:block;
@@ -1410,7 +1410,7 @@ and (max-device-width : 480px) {
 
 #narrow_content__page__custom{
         float: left;
-        padding: 4px 0px 0px 12px;
+        padding: 4px 0px 0px 18px;
         width: 440px;
 }
 
