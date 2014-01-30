@@ -1,7 +1,7 @@
 <div class="fix_width">
 	<div id="main">
-		<div class="side_narrow_common_holder">
-			<div class="main_title_block">
+		<div class="side_narrow_common_holder__page__custom">
+			<div class="main_title_block__page__custom">
 				<h1 class="float_main_title">
 					<?=$this->info['performer']?>
                 	<?=$this->info['name']?>
@@ -44,7 +44,7 @@
                		</ul>
                	<?php endif; ?>
 			</aside>
-			<div id="narrow_content">
+			<div id="narrow_content__page__custom">
 				<div class="ribbon_title_bg">
 					<h2>основная информация</h2>
 				</div>
@@ -161,7 +161,7 @@
 				?>
 			</div>
 		</div>
-		<aside id="sidebar">
+		<aside id="sidebar__page__custom">
 			<div class="sidebox pink">
 				<?php if( $this->info['videolist'] ) : ?>
 					<div class="sidebox_header">
@@ -334,7 +334,7 @@
 
 						ymaps.ready(init);
 					</script>
-					<div id="map" style="width:280px; height:189px"></div>
+					<div id="map" style="width:270px; height:189px"></div>
 					<input type="hidden" name="lng" id="lng" value="<?=$coords['lng']?>" />
 					<input type="hidden" name="lat" id="lan" value="<?=$coords['lan']?>" />
 				</div>
