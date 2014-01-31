@@ -25,6 +25,9 @@ class AnketaController extends IndexController {
 			else{$filters[$param]=false;
 			}
 		}
+		
+		
+		
 		$this->view->filter=$filters;
 		if($this->_hasParam('l')) {
 			$this->view->srv_short_list=false;
@@ -38,6 +41,14 @@ class AnketaController extends IndexController {
 			throw new Ps_Anketa_Exception();
 		}
 
+		if ($this->city!=$info['city']) {
+			if ($info['city']==1) {
+				$this->_redirect('http://vb.arcada-team.ru/anketa/' . $info['name_eng'] . '-' . $info['id']);
+			} else {
+				$this->_redirect('http://spbvb.arcada-team.ru/anketa/' . $info['name_eng'] . '-' . $info['id']);
+			}
+		}
+		
 		$age_conf=$this->content->age_post->toArray();
 		switch($info['age'][1]){
 			case 0: $age_post=$age_conf[0];break;
