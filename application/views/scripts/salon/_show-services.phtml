@@ -1,3 +1,4 @@
+<!-- Выводим услуги -->
 <?foreach($this->services as $part=>$srv):?>
 	<?if(isset($this->part_active[$part])): $i++?>
 		<?php if ( $i % 2 == 0 ) : ?><div class="additional_skils_right"><?php else : ?><div class="additional_skils_left"><?php endif ?>
@@ -10,9 +11,11 @@
       	</div>
     <?endif?>
     <?php if ( $i % 2 == 0 ) : ?>
-      		<div style="clear: both;"></div>
-      	<?php endif ?>
+     	<div style="clear: both;"></div>
+    <?php endif ?>
 <?endforeach?>
+
+<!-- Выводим только у меня -->
 <?if( $this->info['only']) : $i++?>
 	<?php if ( $i % 2 == 0 ) : ?><div class="additional_skils_right"><?php else : ?><div class="additional_skils_left"><?php endif ?>
 		<h5>Только у нас:</h5>
@@ -20,7 +23,12 @@
 			<li><?=$this->info['only']?></li>
 		</ul>
 	</div>
+	<?php if ( $i % 2 == 0 ) : ?>
+     	<div style="clear: both;"></div>
+    <?php endif ?>
 <?endif?>
+
+<!-- Выводим Доп. удобства -->
 <?php $i++; if ( $i % 2 == 0 ) : ?><div class="additional_skils_right"><?php else : ?><div class="additional_skils_left"><?php endif ?>
 	<h5>Доп. удобства:</h5>
 	<ul class="red_dot_list">
@@ -30,4 +38,7 @@
 			<?endif?>
 		<?endforeach?>
 	</ul>
+	<?php if ( $i % 2 == 0 ) : ?>
+     	<div style="clear: both;"></div>
+    <?php endif ?>
 </div>
